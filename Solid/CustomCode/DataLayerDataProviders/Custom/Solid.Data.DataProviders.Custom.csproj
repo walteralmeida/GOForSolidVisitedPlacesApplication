@@ -54,6 +54,10 @@
     <CodeAnalysisRuleSet>AllRules.ruleset</CodeAnalysisRuleSet>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="dotNetRDF, Version=2.4.0.0, Culture=neutral, PublicKeyToken=6055ffe4c97cc780, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\..\..\..\Program Files (x86)\GenerativeObjects\External References\dotNetRDF.dll</HintPath>
+    </Reference>
     <Reference Include="GenerativeObjects.Practices">
       <HintPath>C:\Program Files (x86)\GenerativeObjects\Runtime Libraries\GenerativeObjects.Practices.dll</HintPath>
     </Reference>
@@ -78,21 +82,24 @@
     <Reference Include="Microsoft.CSharp" />
     <Reference Include="System.Data" />
     <Reference Include="System.Xml" />
+    <Reference Include="VDS.Common">
+      <HintPath>..\..\..\..\..\..\Program Files (x86)\GenerativeObjects\External References\VDS.Common.dll</HintPath>
+    </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="CountryDataProvider.cs">
-      <GeneratedBy>Fenomen</GeneratedBy>
-    </Compile>
     <Compile Include="GORoleDataProvider.cs">
-      <GeneratedBy>Fenomen</GeneratedBy>
-    </Compile>
-    <Compile Include="LocationDataProvider.cs">
       <GeneratedBy>Fenomen</GeneratedBy>
     </Compile>
     <Compile Include="PlaceDataProvider.cs">
       <GeneratedBy>Fenomen</GeneratedBy>
     </Compile>
+    <Compile Include="LocationDataProvider.cs">
+      <GeneratedBy>Fenomen</GeneratedBy>
+    </Compile>
     <Compile Include="PlaceToLocationDataProvider.cs">
+      <GeneratedBy>Fenomen</GeneratedBy>
+    </Compile>
+    <Compile Include="CountryDataProvider.cs">
       <GeneratedBy>Fenomen</GeneratedBy>
     </Compile>
   </ItemGroup>
