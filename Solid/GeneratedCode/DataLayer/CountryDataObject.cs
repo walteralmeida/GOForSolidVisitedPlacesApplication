@@ -38,8 +38,18 @@ namespace Solid.Data.DataObjects
 		private ILogEngine _logEngine = ApplicationSettings.Container.Resolve<ILogEngine>();
 		public virtual Parameters CurrentTransactionParameters => ApplicationSettings.Container.Resolve<IDataProviderTransaction>().Parameters;
  
+		[JsonProperty ("Abstract")]
+		protected System.String _abstract;
+		[JsonProperty ("Flag")]
+		protected System.String _flag;
+		[JsonProperty ("LongName")]
+		protected System.String _longName;
 		[JsonProperty ("Name")]
 		protected System.String _name;
+		[JsonProperty ("PopulationDensity")]
+		protected Nullable<System.Decimal> _populationDensity;
+		[JsonProperty ("PopulationTotal")]
+		protected Nullable<System.Int64> _populationTotal;
 		[JsonProperty ("URI")]
 		protected System.String _uRI;
 	
@@ -72,7 +82,12 @@ namespace Solid.Data.DataObjects
 		/// </summary>
 		public CountryDataObject(CountryDataObject template, bool deepCopy)
 		{
+			this.SetAbstractValue(template.Abstract, false, false);
+			this.SetFlagValue(template.Flag, false, false);
+			this.SetLongNameValue(template.LongName, false, false);
 			this.SetNameValue(template.Name, false, false);
+			this.SetPopulationDensityValue(template.PopulationDensity, false, false);
+			this.SetPopulationTotalValue(template.PopulationTotal, false, false);
 			this.SetURIValue(template.URI, false, false);
  
  
@@ -111,7 +126,12 @@ namespace Solid.Data.DataObjects
 				throw new PulpException("Wrong type of object");
 
 			this.SetIsNewValue(sourceObject.IsNew, false, false);						
+			this.SetAbstractValue(countrySource.Abstract, false, false);
+			this.SetFlagValue(countrySource.Flag, false, false);
+			this.SetLongNameValue(countrySource.LongName, false, false);
 			this.SetNameValue(countrySource.Name, false, false);
+			this.SetPopulationDensityValue(countrySource.PopulationDensity, false, false);
+			this.SetPopulationTotalValue(countrySource.PopulationTotal, false, false);
 			this.SetURIValue(countrySource.URI, false, false);
 
 
@@ -396,6 +416,90 @@ namespace Solid.Data.DataObjects
 	
 			
 			
+		public virtual void SetAbstractValue(System.String valueToSet)
+		{
+			SetAbstractValue(valueToSet, true, true);
+		}
+
+		public virtual void SetAbstractValue(System.String valueToSet, bool notifyChanges, bool dirtyHandlerOn)
+		{
+			if (_abstract != valueToSet)
+			{
+				_abstract = valueToSet;
+
+				OnPropertyChanged("Abstract", notifyChanges, dirtyHandlerOn);
+			}
+		}
+		
+		/// <summary> The Abstract property of the Country DataObject</summary>
+        public virtual System.String Abstract 
+		{
+			get	{ return String.IsNullOrEmpty(_abstract) ? null : _abstract; }
+			
+			
+			set
+			{
+				SetAbstractValue(value);
+			}
+		}		
+			
+			
+		public virtual void SetFlagValue(System.String valueToSet)
+		{
+			SetFlagValue(valueToSet, true, true);
+		}
+
+		public virtual void SetFlagValue(System.String valueToSet, bool notifyChanges, bool dirtyHandlerOn)
+		{
+			if (_flag != valueToSet)
+			{
+				_flag = valueToSet;
+
+				OnPropertyChanged("Flag", notifyChanges, dirtyHandlerOn);
+			}
+		}
+		
+		/// <summary> The Flag property of the Country DataObject</summary>
+        public virtual System.String Flag 
+		{
+			get	{ return String.IsNullOrEmpty(_flag) ? null : _flag; }
+			
+			
+			set
+			{
+				SetFlagValue(value);
+			}
+		}		
+			
+			
+		public virtual void SetLongNameValue(System.String valueToSet)
+		{
+			SetLongNameValue(valueToSet, true, true);
+		}
+
+		public virtual void SetLongNameValue(System.String valueToSet, bool notifyChanges, bool dirtyHandlerOn)
+		{
+			if (_longName != valueToSet)
+			{
+				_longName = valueToSet;
+
+				OnPropertyChanged("LongName", notifyChanges, dirtyHandlerOn);
+			}
+		}
+		
+		/// <summary> The Long Name property of the Country DataObject</summary>
+        public virtual System.String LongName 
+		{
+			get	{ return String.IsNullOrEmpty(_longName) ? null : _longName; }
+			
+			
+			set
+			{
+				SetLongNameValue(value);
+			}
+		}		
+			
+			
 		public virtual void SetNameValue(System.String valueToSet)
 		{
 			SetNameValue(valueToSet, true, true);
@@ -420,6 +524,62 @@ namespace Solid.Data.DataObjects
 			set
 			{
 				SetNameValue(value);
+			}
+		}		
+			
+			
+		public virtual void SetPopulationDensityValue(Nullable<System.Decimal> valueToSet)
+		{
+			SetPopulationDensityValue(valueToSet, true, true);
+		}
+
+		public virtual void SetPopulationDensityValue(Nullable<System.Decimal> valueToSet, bool notifyChanges, bool dirtyHandlerOn)
+		{
+			if (_populationDensity != (valueToSet == null ? (decimal?) null : Math.Round((decimal)valueToSet, 10)))
+			{
+				_populationDensity = (valueToSet == null ? (decimal?) null : Math.Round((decimal)valueToSet, 10));
+
+				OnPropertyChanged("PopulationDensity", notifyChanges, dirtyHandlerOn);
+			}
+		}
+		
+		/// <summary> The Population Density property of the Country DataObject</summary>
+        public virtual Nullable<System.Decimal> PopulationDensity 
+		{
+			get	{ return _populationDensity;}
+			
+			
+			set
+			{
+				SetPopulationDensityValue(value);
+			}
+		}		
+			
+			
+		public virtual void SetPopulationTotalValue(Nullable<System.Int64> valueToSet)
+		{
+			SetPopulationTotalValue(valueToSet, true, true);
+		}
+
+		public virtual void SetPopulationTotalValue(Nullable<System.Int64> valueToSet, bool notifyChanges, bool dirtyHandlerOn)
+		{
+			if (_populationTotal != valueToSet)
+			{
+				_populationTotal = valueToSet;
+
+				OnPropertyChanged("PopulationTotal", notifyChanges, dirtyHandlerOn);
+			}
+		}
+		
+		/// <summary> The Population Total property of the Country DataObject</summary>
+        public virtual Nullable<System.Int64> PopulationTotal 
+		{
+			get	{ return _populationTotal;}
+			
+			
+			set
+			{
+				SetPopulationTotalValue(value);
 			}
 		}		
 			
@@ -513,8 +673,13 @@ namespace Solid.Data.DataObjects
 
 			var p = (CountryDataObject) obj;
 			var fieldsComparison = true;
+			fieldsComparison &= this.PopulationDensity == p.PopulationDensity;
+			fieldsComparison &= this.PopulationTotal == p.PopulationTotal;
 			fieldsComparison &= this.URI == p.URI;
+			fieldsComparison &= this.LongName == p.LongName;
 			fieldsComparison &= this.Name == p.Name;
+			fieldsComparison &= this.Abstract == p.Abstract;
+			fieldsComparison &= this.Flag == p.Flag;
 			return fieldsComparison;
 		}
 

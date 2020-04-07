@@ -96,67 +96,67 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Dispatchers\GORoleDataProviderDispatcher.cs">
-      <GeneratedBy>Fenomen</GeneratedBy>
-    </Compile>
-    <Compile Include="Dispatchers\GOGroupRoleDataProviderDispatcher.cs">
-      <GeneratedBy>Fenomen</GeneratedBy>
-    </Compile>
-    <Compile Include="Dispatchers\PlaceDataProviderDispatcher.cs">
-      <GeneratedBy>Fenomen</GeneratedBy>
-    </Compile>
-    <Compile Include="Dispatchers\LocationDataProviderDispatcher.cs">
-      <GeneratedBy>Fenomen</GeneratedBy>
-    </Compile>
-    <Compile Include="Dispatchers\PlaceToLocationDataProviderDispatcher.cs">
-      <GeneratedBy>Fenomen</GeneratedBy>
-    </Compile>
-    <Compile Include="Dispatchers\GOUserDataProviderDispatcher.cs">
-      <GeneratedBy>Fenomen</GeneratedBy>
-    </Compile>
-    <Compile Include="Dispatchers\GOGroupDataProviderDispatcher.cs">
-      <GeneratedBy>Fenomen</GeneratedBy>
-    </Compile>
-    <Compile Include="Dispatchers\GOUserRoleDataProviderDispatcher.cs">
-      <GeneratedBy>Fenomen</GeneratedBy>
-    </Compile>
-    <Compile Include="Dispatchers\CountryDataProviderDispatcher.cs">
-      <GeneratedBy>Fenomen</GeneratedBy>
-    </Compile>
-    <Compile Include="Dispatchers\GOUserGroupDataProviderDispatcher.cs">
-      <GeneratedBy>Fenomen</GeneratedBy>
-    </Compile>
-    <Compile Include="Dispatchers\GOLoginHistoryDataProviderDispatcher.cs">
-      <GeneratedBy>Fenomen</GeneratedBy>
-    </Compile>
-    <Compile Include="Database\PrefetchPathFactory.cs">
-      <GeneratedBy>Fenomen</GeneratedBy>
-    </Compile>
     <Compile Include="Database\DatabaseDataProvider.cs">
-      <GeneratedBy>Fenomen</GeneratedBy>
-    </Compile>
-    <Compile Include="Database\DatabaseTransactionProvider.cs">
       <GeneratedBy>Fenomen</GeneratedBy>
     </Compile>
     <Compile Include="Database\DatabaseDataProviderTransaction.cs">
       <GeneratedBy>Fenomen</GeneratedBy>
     </Compile>
-    <Compile Include="Database\GOGroupRoleDataProvider.cs">
-      <GeneratedBy>Fenomen</GeneratedBy>
-    </Compile>
-    <Compile Include="Database\GOUserDataProvider.cs">
+    <Compile Include="Database\DatabaseTransactionProvider.cs">
       <GeneratedBy>Fenomen</GeneratedBy>
     </Compile>
     <Compile Include="Database\GOGroupDataProvider.cs">
       <GeneratedBy>Fenomen</GeneratedBy>
     </Compile>
-    <Compile Include="Database\GOUserRoleDataProvider.cs">
+    <Compile Include="Database\GOGroupRoleDataProvider.cs">
+      <GeneratedBy>Fenomen</GeneratedBy>
+    </Compile>
+    <Compile Include="Database\GOLoginHistoryDataProvider.cs">
+      <GeneratedBy>Fenomen</GeneratedBy>
+    </Compile>
+    <Compile Include="Database\GOUserDataProvider.cs">
       <GeneratedBy>Fenomen</GeneratedBy>
     </Compile>
     <Compile Include="Database\GOUserGroupDataProvider.cs">
       <GeneratedBy>Fenomen</GeneratedBy>
     </Compile>
-    <Compile Include="Database\GOLoginHistoryDataProvider.cs">
+    <Compile Include="Database\GOUserRoleDataProvider.cs">
+      <GeneratedBy>Fenomen</GeneratedBy>
+    </Compile>
+    <Compile Include="Database\PrefetchPathFactory.cs">
+      <GeneratedBy>Fenomen</GeneratedBy>
+    </Compile>
+    <Compile Include="Dispatchers\CountryDataProviderDispatcher.cs">
+      <GeneratedBy>Fenomen</GeneratedBy>
+    </Compile>
+    <Compile Include="Dispatchers\GOGroupDataProviderDispatcher.cs">
+      <GeneratedBy>Fenomen</GeneratedBy>
+    </Compile>
+    <Compile Include="Dispatchers\GOGroupRoleDataProviderDispatcher.cs">
+      <GeneratedBy>Fenomen</GeneratedBy>
+    </Compile>
+    <Compile Include="Dispatchers\GOLoginHistoryDataProviderDispatcher.cs">
+      <GeneratedBy>Fenomen</GeneratedBy>
+    </Compile>
+    <Compile Include="Dispatchers\GORoleDataProviderDispatcher.cs">
+      <GeneratedBy>Fenomen</GeneratedBy>
+    </Compile>
+    <Compile Include="Dispatchers\GOUserDataProviderDispatcher.cs">
+      <GeneratedBy>Fenomen</GeneratedBy>
+    </Compile>
+    <Compile Include="Dispatchers\GOUserGroupDataProviderDispatcher.cs">
+      <GeneratedBy>Fenomen</GeneratedBy>
+    </Compile>
+    <Compile Include="Dispatchers\GOUserRoleDataProviderDispatcher.cs">
+      <GeneratedBy>Fenomen</GeneratedBy>
+    </Compile>
+    <Compile Include="Dispatchers\LocationDataProviderDispatcher.cs">
+      <GeneratedBy>Fenomen</GeneratedBy>
+    </Compile>
+    <Compile Include="Dispatchers\PlaceDataProviderDispatcher.cs">
+      <GeneratedBy>Fenomen</GeneratedBy>
+    </Compile>
+    <Compile Include="Dispatchers\PlaceToLocationDataProviderDispatcher.cs">
       <GeneratedBy>Fenomen</GeneratedBy>
     </Compile>
   </ItemGroup>

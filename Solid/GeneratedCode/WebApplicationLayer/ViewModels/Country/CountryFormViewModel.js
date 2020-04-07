@@ -207,6 +207,66 @@
 			return false;
         });
 
+		this.StatusData.IsLongNameVisible = ko.pureComputed( function () {
+			if (self.customViewModel !== undefined && self.customViewModel.IsLongNameVisible !== undefined) {
+				return self.customViewModel.IsLongNameVisible();
+			}
+			
+			return true;
+		});
+
+		this.StatusData.IsLongNameReadOnly = ko.pureComputed( function () {
+			if (self.customViewModel !== undefined && self.customViewModel.IsLongNameReadOnly !== undefined) {
+				return self.customViewModel.IsLongNameReadOnly();
+			}
+			return false;
+        });
+
+		this.StatusData.IsPopulationTotalVisible = ko.pureComputed( function () {
+			if (self.customViewModel !== undefined && self.customViewModel.IsPopulationTotalVisible !== undefined) {
+				return self.customViewModel.IsPopulationTotalVisible();
+			}
+			
+			return true;
+		});
+
+		this.StatusData.IsPopulationTotalReadOnly = ko.pureComputed( function () {
+			if (self.customViewModel !== undefined && self.customViewModel.IsPopulationTotalReadOnly !== undefined) {
+				return self.customViewModel.IsPopulationTotalReadOnly();
+			}
+			return false;
+        });
+
+		this.StatusData.IsPopulationDensityVisible = ko.pureComputed( function () {
+			if (self.customViewModel !== undefined && self.customViewModel.IsPopulationDensityVisible !== undefined) {
+				return self.customViewModel.IsPopulationDensityVisible();
+			}
+			
+			return true;
+		});
+
+		this.StatusData.IsPopulationDensityReadOnly = ko.pureComputed( function () {
+			if (self.customViewModel !== undefined && self.customViewModel.IsPopulationDensityReadOnly !== undefined) {
+				return self.customViewModel.IsPopulationDensityReadOnly();
+			}
+			return false;
+        });
+
+		this.StatusData.IsAbstractVisible = ko.pureComputed( function () {
+			if (self.customViewModel !== undefined && self.customViewModel.IsAbstractVisible !== undefined) {
+				return self.customViewModel.IsAbstractVisible();
+			}
+			
+			return true;
+		});
+
+		this.StatusData.IsAbstractReadOnly = ko.pureComputed( function () {
+			if (self.customViewModel !== undefined && self.customViewModel.IsAbstractReadOnly !== undefined) {
+				return self.customViewModel.IsAbstractReadOnly();
+			}
+			return false;
+        });
+
 		// Propagate Display Mode change to subgrids
         this.subscriptions.push(this.StatusData.DisplayMode.subscribe (function(newValue) {
 			self.LocationItemsGridViewModel.StatusData.DisplayMode(newValue);	

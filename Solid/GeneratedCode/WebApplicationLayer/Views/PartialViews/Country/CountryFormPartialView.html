@@ -72,6 +72,90 @@
                   </div>
                 </span>
               </div>
+              <div class="form-field view optionalField" data-bind="'visible':{DATABINDROOT}StatusData.DisplayMode() == 'view' &amp;&amp; {DATABINDROOT}StatusData.IsLongNameVisible()" data-test-id="cd92a6ad-1a90-4206-b1a5-11c6ed536211" data-entityfield="longname-view">
+                <span class="form-field-label-zone" data-bind="'visible':{DATABINDROOT}StatusData.DisplayMode() == 'view' &amp;&amp; {DATABINDROOT}StatusData.IsLongNameVisible(), 'css' : { errorText : !{DATABINDROOT}CountryObject().StatusData.isLongNameValid() }" data-test-id="label_cd92a6ad-1a90-4206-b1a5-11c6ed536211">
+                  <label class="form-field-label">Long Name</label>
+                </span>
+                <span class="form-field-control-container" data-bind="'css' : { errorControl : !{DATABINDROOT}CountryObject().StatusData.isLongNameValid() }">
+                  <div class="text-field">
+                    <span class="form-field-text" data-bind="text: {DATABINDROOT}CountryObject().Data.LongName, 'css' : { 'errorControl' : !{DATABINDROOT}CountryObject().StatusData.isLongNameValid() }" data-test-id="view_cd92a6ad-1a90-4206-b1a5-11c6ed536211" />
+                  </div>
+                </span>
+              </div>
+              <div class="form-field edit optionalField" data-bind="'visible':{DATABINDROOT}StatusData.DisplayMode() == 'edit' &amp;&amp; {DATABINDROOT}StatusData.IsLongNameVisible()" data-test-id="cd92a6ad-1a90-4206-b1a5-11c6ed536211" data-entityfield="longname-edit">
+                <span class="form-field-label-zone" data-bind="'visible':{DATABINDROOT}StatusData.DisplayMode() == 'edit' &amp;&amp; {DATABINDROOT}StatusData.IsLongNameVisible(), 'css' : { errorText : !{DATABINDROOT}CountryObject().StatusData.isLongNameValid() }" data-test-id="label_cd92a6ad-1a90-4206-b1a5-11c6ed536211">
+                  <label class="form-field-label">Long Name</label>
+                </span>
+                <span class="form-field-control-container" data-bind="'enable' : !{DATABINDROOT}StatusData.IsLongNameReadOnly(), 'css' : { errorControl : !{DATABINDROOT}CountryObject().StatusData.isLongNameValid() }">
+                  <div class="text-field">
+                    <input class="form-field-text" data-bind="value: {DATABINDROOT}CountryObject().Data.LongName, 'enable' : !{DATABINDROOT}StatusData.IsLongNameReadOnly(), 'css' : { 'errorControl' : !{DATABINDROOT}CountryObject().StatusData.isLongNameValid() }" type="text" data-test-id="edit_cd92a6ad-1a90-4206-b1a5-11c6ed536211" />
+                    <span class="errorDescription" data-bind="'visible' : !{DATABINDROOT}CountryObject().StatusData.isLongNameValid(), text : {DATABINDROOT}CountryObject().StatusData.longNameErrorMessage"></span>
+                  </div>
+                </span>
+              </div>
+              <div class="form-field view optionalField" data-bind="'visible':{DATABINDROOT}StatusData.DisplayMode() == 'view' &amp;&amp; {DATABINDROOT}StatusData.IsPopulationTotalVisible()" data-test-id="046c41ef-9333-494f-b680-e3f77ec22218" data-entityfield="populationtotal-view">
+                <span class="form-field-label-zone" data-bind="'visible':{DATABINDROOT}StatusData.DisplayMode() == 'view' &amp;&amp; {DATABINDROOT}StatusData.IsPopulationTotalVisible(), 'css' : { errorText : !{DATABINDROOT}CountryObject().StatusData.isPopulationTotalValid() }" data-test-id="label_046c41ef-9333-494f-b680-e3f77ec22218">
+                  <label class="form-field-label">Population Total</label>
+                </span>
+                <span class="form-field-control-container" data-bind="'css' : { errorControl : !{DATABINDROOT}CountryObject().StatusData.isPopulationTotalValid() }">
+                  <div class="text-field">
+                    <span class="form-field-text" data-bind="text: {DATABINDROOT}CountryObject().Data.PopulationTotal, 'css' : { 'errorControl' : !{DATABINDROOT}CountryObject().StatusData.isPopulationTotalValid() }" data-test-id="view_046c41ef-9333-494f-b680-e3f77ec22218" />
+                  </div>
+                </span>
+              </div>
+              <div class="form-field edit optionalField" data-bind="'visible':{DATABINDROOT}StatusData.DisplayMode() == 'edit' &amp;&amp; {DATABINDROOT}StatusData.IsPopulationTotalVisible()" data-test-id="046c41ef-9333-494f-b680-e3f77ec22218" data-entityfield="populationtotal-edit">
+                <span class="form-field-label-zone" data-bind="'visible':{DATABINDROOT}StatusData.DisplayMode() == 'edit' &amp;&amp; {DATABINDROOT}StatusData.IsPopulationTotalVisible(), 'css' : { errorText : !{DATABINDROOT}CountryObject().StatusData.isPopulationTotalValid() }" data-test-id="label_046c41ef-9333-494f-b680-e3f77ec22218">
+                  <label class="form-field-label">Population Total</label>
+                </span>
+                <span class="form-field-control-container" data-bind="'enable' : !{DATABINDROOT}StatusData.IsPopulationTotalReadOnly(), 'css' : { errorControl : !{DATABINDROOT}CountryObject().StatusData.isPopulationTotalValid() }">
+                  <div class="text-field">
+                    <input class="form-field-text" data-bind="value: {DATABINDROOT}CountryObject().Data.PopulationTotal, 'enable' : !{DATABINDROOT}StatusData.IsPopulationTotalReadOnly(), 'css' : { 'errorControl' : !{DATABINDROOT}CountryObject().StatusData.isPopulationTotalValid() }" type="text" data-test-id="edit_046c41ef-9333-494f-b680-e3f77ec22218" />
+                    <span class="errorDescription" data-bind="'visible' : !{DATABINDROOT}CountryObject().StatusData.isPopulationTotalValid(), text : {DATABINDROOT}CountryObject().StatusData.populationTotalErrorMessage"></span>
+                  </div>
+                </span>
+              </div>
+              <div class="form-field view optionalField" data-bind="'visible':{DATABINDROOT}StatusData.DisplayMode() == 'view' &amp;&amp; {DATABINDROOT}StatusData.IsPopulationDensityVisible()" data-test-id="81570b13-3de6-4014-ac35-482b337fb941" data-entityfield="populationdensity-view">
+                <span class="form-field-label-zone" data-bind="'visible':{DATABINDROOT}StatusData.DisplayMode() == 'view' &amp;&amp; {DATABINDROOT}StatusData.IsPopulationDensityVisible(), 'css' : { errorText : !{DATABINDROOT}CountryObject().StatusData.isPopulationDensityValid() }" data-test-id="label_81570b13-3de6-4014-ac35-482b337fb941">
+                  <label class="form-field-label">Population Density</label>
+                </span>
+                <span class="form-field-control-container" data-bind="'css' : { errorControl : !{DATABINDROOT}CountryObject().StatusData.isPopulationDensityValid() }">
+                  <div class="text-field">
+                    <span class="form-field-text" data-bind="text: {DATABINDROOT}CountryObject().Data.PopulationDensity, 'css' : { 'errorControl' : !{DATABINDROOT}CountryObject().StatusData.isPopulationDensityValid() }" data-test-id="view_81570b13-3de6-4014-ac35-482b337fb941" />
+                  </div>
+                </span>
+              </div>
+              <div class="form-field edit optionalField" data-bind="'visible':{DATABINDROOT}StatusData.DisplayMode() == 'edit' &amp;&amp; {DATABINDROOT}StatusData.IsPopulationDensityVisible()" data-test-id="81570b13-3de6-4014-ac35-482b337fb941" data-entityfield="populationdensity-edit">
+                <span class="form-field-label-zone" data-bind="'visible':{DATABINDROOT}StatusData.DisplayMode() == 'edit' &amp;&amp; {DATABINDROOT}StatusData.IsPopulationDensityVisible(), 'css' : { errorText : !{DATABINDROOT}CountryObject().StatusData.isPopulationDensityValid() }" data-test-id="label_81570b13-3de6-4014-ac35-482b337fb941">
+                  <label class="form-field-label">Population Density</label>
+                </span>
+                <span class="form-field-control-container" data-bind="'enable' : !{DATABINDROOT}StatusData.IsPopulationDensityReadOnly(), 'css' : { errorControl : !{DATABINDROOT}CountryObject().StatusData.isPopulationDensityValid() }">
+                  <div class="text-field">
+                    <input class="form-field-text" data-bind="value: {DATABINDROOT}CountryObject().Data.PopulationDensity, 'enable' : !{DATABINDROOT}StatusData.IsPopulationDensityReadOnly(), 'css' : { 'errorControl' : !{DATABINDROOT}CountryObject().StatusData.isPopulationDensityValid() }" type="text" data-test-id="edit_81570b13-3de6-4014-ac35-482b337fb941" />
+                    <span class="errorDescription" data-bind="'visible' : !{DATABINDROOT}CountryObject().StatusData.isPopulationDensityValid(), text : {DATABINDROOT}CountryObject().StatusData.populationDensityErrorMessage"></span>
+                  </div>
+                </span>
+              </div>
+              <div class="form-field view optionalField" data-bind="'visible':{DATABINDROOT}StatusData.DisplayMode() == 'view' &amp;&amp; {DATABINDROOT}StatusData.IsAbstractVisible()" data-test-id="dc9ce439-43f8-4c6d-b4b0-9a5029073edd" data-entityfield="abstract-view">
+                <span class="form-field-label-zone" data-bind="'visible':{DATABINDROOT}StatusData.DisplayMode() == 'view' &amp;&amp; {DATABINDROOT}StatusData.IsAbstractVisible(), 'css' : { errorText : !{DATABINDROOT}CountryObject().StatusData.isAbstractValid() }" data-test-id="label_dc9ce439-43f8-4c6d-b4b0-9a5029073edd">
+                  <label class="form-field-label">Abstract</label>
+                </span>
+                <span class="form-field-control-container" data-bind="'css' : { errorControl : !{DATABINDROOT}CountryObject().StatusData.isAbstractValid() }">
+                  <div class="text-field multiline">
+                    <textarea class="form-field-text multiline" rows="10" disabled="disabled" data-bind="text: {DATABINDROOT}CountryObject().Data.Abstract, 'css' : { 'errorControl' : !{DATABINDROOT}CountryObject().StatusData.isAbstractValid() }" data-test-id="view_dc9ce439-43f8-4c6d-b4b0-9a5029073edd"></textarea>
+                  </div>
+                </span>
+              </div>
+              <div class="form-field edit optionalField" data-bind="'visible':{DATABINDROOT}StatusData.DisplayMode() == 'edit' &amp;&amp; {DATABINDROOT}StatusData.IsAbstractVisible()" data-test-id="dc9ce439-43f8-4c6d-b4b0-9a5029073edd" data-entityfield="abstract-edit">
+                <span class="form-field-label-zone" data-bind="'visible':{DATABINDROOT}StatusData.DisplayMode() == 'edit' &amp;&amp; {DATABINDROOT}StatusData.IsAbstractVisible(), 'css' : { errorText : !{DATABINDROOT}CountryObject().StatusData.isAbstractValid() }" data-test-id="label_dc9ce439-43f8-4c6d-b4b0-9a5029073edd">
+                  <label class="form-field-label">Abstract</label>
+                </span>
+                <span class="form-field-control-container" data-bind="'enable' : !{DATABINDROOT}StatusData.IsAbstractReadOnly(), 'css' : { errorControl : !{DATABINDROOT}CountryObject().StatusData.isAbstractValid() }">
+                  <div class="text-field multiline">
+                    <textarea rows="10" class="form-field-text multiline" data-bind="value: {DATABINDROOT}CountryObject().Data.Abstract, 'enable' : !{DATABINDROOT}StatusData.IsAbstractReadOnly(), 'css' : { 'errorControl' : !{DATABINDROOT}CountryObject().StatusData.isAbstractValid() }" data-test-id="edit_dc9ce439-43f8-4c6d-b4b0-9a5029073edd" />
+                    <span class="errorDescription" data-bind="'visible' : !{DATABINDROOT}CountryObject().StatusData.isAbstractValid(), text : {DATABINDROOT}CountryObject().StatusData.abstractErrorMessage"></span>
+                  </div>
+                </span>
+              </div>
             </div>
           </div>
         </div>

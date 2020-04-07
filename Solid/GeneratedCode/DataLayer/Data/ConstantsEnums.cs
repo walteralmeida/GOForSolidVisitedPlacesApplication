@@ -10,10 +10,20 @@ namespace Solid.Data
 	/// <summary>Index enum to fast-access EntityFields in the IEntityFields collection for the entity: Country.</summary>
 	public enum CountryFieldIndex
 	{
+		///<summary>PopulationDensity. </summary>
+		PopulationDensity,
+		///<summary>PopulationTotal. </summary>
+		PopulationTotal,
 		///<summary>URI. </summary>
 		URI,
+		///<summary>LongName. </summary>
+		LongName,
 		///<summary>Name. </summary>
 		Name,
+		///<summary>Abstract. </summary>
+		Abstract,
+		///<summary>Flag. </summary>
+		Flag,
 		/// <summary></summary>
 		AmountOfFields
 	}

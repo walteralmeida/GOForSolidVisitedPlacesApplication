@@ -141,4 +141,5 @@
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <PropertyGroup>
   </PropertyGroup>
+  <ItemGroup />
 </Project>

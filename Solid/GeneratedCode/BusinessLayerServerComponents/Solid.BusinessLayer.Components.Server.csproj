@@ -88,22 +88,10 @@
     <Reference Include="System.Drawing" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="NamespaceDefinition.cs">
-      <GeneratedBy>Fenomen</GeneratedBy>
-    </Compile>
-    <Compile Include="IGOReportsHelper.cs">
-      <GeneratedBy>Fenomen</GeneratedBy>
-    </Compile>
-    <Compile Include="IGOFileUploader.cs">
-      <GeneratedBy>Fenomen</GeneratedBy>
-    </Compile>
-    <Compile Include="IGOSecurityProvider.cs">
+    <Compile Include="GOFileUploader.cs">
       <GeneratedBy>Fenomen</GeneratedBy>
     </Compile>
     <Compile Include="GOReportsHelper.cs">
-      <GeneratedBy>Fenomen</GeneratedBy>
-    </Compile>
-    <Compile Include="GOFileUploader.cs">
       <GeneratedBy>Fenomen</GeneratedBy>
     </Compile>
     <Compile Include="GOSecurityProvider.cs">
@@ -112,7 +100,19 @@
     <Compile Include="GOTaskRunner.cs">
       <GeneratedBy>Fenomen</GeneratedBy>
     </Compile>
+    <Compile Include="IGOFileUploader.cs">
+      <GeneratedBy>Fenomen</GeneratedBy>
+    </Compile>
+    <Compile Include="IGOReportsHelper.cs">
+      <GeneratedBy>Fenomen</GeneratedBy>
+    </Compile>
+    <Compile Include="IGOSecurityProvider.cs">
+      <GeneratedBy>Fenomen</GeneratedBy>
+    </Compile>
     <Compile Include="IGOSecurityProvider.custom.cs">
+      <GeneratedBy>Fenomen</GeneratedBy>
+    </Compile>
+    <Compile Include="NamespaceDefinition.cs">
       <GeneratedBy>Fenomen</GeneratedBy>
     </Compile>
   </ItemGroup>

@@ -68,40 +68,40 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="NamespaceDefinition.cs">
-      <GeneratedBy>Fenomen</GeneratedBy>
-    </Compile>
-    <Compile Include="GORoleCustomFieldsProvider.cs">
-      <GeneratedBy>Fenomen</GeneratedBy>
-    </Compile>
-    <Compile Include="GOGroupRoleCustomFieldsProvider.cs">
-      <GeneratedBy>Fenomen</GeneratedBy>
-    </Compile>
-    <Compile Include="PlaceCustomFieldsProvider.cs">
-      <GeneratedBy>Fenomen</GeneratedBy>
-    </Compile>
-    <Compile Include="LocationCustomFieldsProvider.cs">
-      <GeneratedBy>Fenomen</GeneratedBy>
-    </Compile>
-    <Compile Include="PlaceToLocationCustomFieldsProvider.cs">
-      <GeneratedBy>Fenomen</GeneratedBy>
-    </Compile>
-    <Compile Include="GOUserCustomFieldsProvider.cs">
+    <Compile Include="CountryCustomFieldsProvider.cs">
       <GeneratedBy>Fenomen</GeneratedBy>
     </Compile>
     <Compile Include="GOGroupCustomFieldsProvider.cs">
       <GeneratedBy>Fenomen</GeneratedBy>
     </Compile>
-    <Compile Include="GOUserRoleCustomFieldsProvider.cs">
+    <Compile Include="GOGroupRoleCustomFieldsProvider.cs">
       <GeneratedBy>Fenomen</GeneratedBy>
     </Compile>
-    <Compile Include="CountryCustomFieldsProvider.cs">
+    <Compile Include="GOLoginHistoryCustomFieldsProvider.cs">
+      <GeneratedBy>Fenomen</GeneratedBy>
+    </Compile>
+    <Compile Include="GORoleCustomFieldsProvider.cs">
+      <GeneratedBy>Fenomen</GeneratedBy>
+    </Compile>
+    <Compile Include="GOUserCustomFieldsProvider.cs">
       <GeneratedBy>Fenomen</GeneratedBy>
     </Compile>
     <Compile Include="GOUserGroupCustomFieldsProvider.cs">
       <GeneratedBy>Fenomen</GeneratedBy>
     </Compile>
-    <Compile Include="GOLoginHistoryCustomFieldsProvider.cs">
+    <Compile Include="GOUserRoleCustomFieldsProvider.cs">
+      <GeneratedBy>Fenomen</GeneratedBy>
+    </Compile>
+    <Compile Include="LocationCustomFieldsProvider.cs">
+      <GeneratedBy>Fenomen</GeneratedBy>
+    </Compile>
+    <Compile Include="NamespaceDefinition.cs">
+      <GeneratedBy>Fenomen</GeneratedBy>
+    </Compile>
+    <Compile Include="PlaceCustomFieldsProvider.cs">
+      <GeneratedBy>Fenomen</GeneratedBy>
+    </Compile>
+    <Compile Include="PlaceToLocationCustomFieldsProvider.cs">
       <GeneratedBy>Fenomen</GeneratedBy>
     </Compile>
   </ItemGroup>

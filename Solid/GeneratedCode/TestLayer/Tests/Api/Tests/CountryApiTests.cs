@@ -69,7 +69,12 @@ namespace Solid.Tests.Api.Tests
 				currentEntity.URI = testData["URI"].ToString().Trim() != null ? testData["URI"].ToString().Trim().ToString() : null;
 				include = testData["Include"].ToString().Trim();
 			}
+			currentEntity.Abstract = testData["Abstract"]?.ToString().Trim() != null ? testData["Abstract"]?.ToString().Trim().ToString() : null;
+			currentEntity.Flag = testData["Flag"]?.ToString().Trim() != null ? testData["Flag"]?.ToString().Trim().ToString() : null;
+			currentEntity.LongName = testData["Long Name"]?.ToString().Trim() != null ? testData["Long Name"]?.ToString().Trim().ToString() : null;
 			currentEntity.Name = testData["Name"]?.ToString().Trim() != null ? testData["Name"]?.ToString().Trim().ToString() : null;
+			currentEntity.PopulationDensity = testData["Population Density"]?.ToString().Trim() == null ? (decimal?)null : Convert.ToDecimal(testData["Population Density"]?.ToString().Trim().Replace(".",","));
+			currentEntity.PopulationTotal = Convert.ToInt64(testData["Population Total"]?.ToString().Trim());
 			var expected_result = ConvertToStatusCode(testData["Result"]);
 			
 			#endregion

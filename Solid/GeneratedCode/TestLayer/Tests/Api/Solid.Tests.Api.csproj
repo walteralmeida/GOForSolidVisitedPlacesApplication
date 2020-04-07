@@ -127,45 +127,45 @@
     <Reference Include="Microsoft.VisualStudio.QualityTools.UnitTestFramework" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Tests\GORoleApiTests.cs">
+    <Content Include="App.config">
       <GeneratedBy>Fenomen</GeneratedBy>
-    </Compile>
-    <Compile Include="Tests\GOGroupRoleApiTests.cs">
+    </Content>
+    <Content Include="packages.config">
       <GeneratedBy>Fenomen</GeneratedBy>
-    </Compile>
-    <Compile Include="Tests\PlaceApiTests.cs">
-      <GeneratedBy>Fenomen</GeneratedBy>
-    </Compile>
-    <Compile Include="Tests\LocationApiTests.cs">
-      <GeneratedBy>Fenomen</GeneratedBy>
-    </Compile>
-    <Compile Include="Tests\PlaceToLocationApiTests.cs">
-      <GeneratedBy>Fenomen</GeneratedBy>
-    </Compile>
-    <Compile Include="Tests\GOUserApiTests.cs">
+    </Content>
+    <Compile Include="Tests\CountryApiTests.cs">
       <GeneratedBy>Fenomen</GeneratedBy>
     </Compile>
     <Compile Include="Tests\GOGroupApiTests.cs">
       <GeneratedBy>Fenomen</GeneratedBy>
     </Compile>
-    <Compile Include="Tests\GOUserRoleApiTests.cs">
-      <GeneratedBy>Fenomen</GeneratedBy>
-    </Compile>
-    <Compile Include="Tests\CountryApiTests.cs">
-      <GeneratedBy>Fenomen</GeneratedBy>
-    </Compile>
-    <Compile Include="Tests\GOUserGroupApiTests.cs">
+    <Compile Include="Tests\GOGroupRoleApiTests.cs">
       <GeneratedBy>Fenomen</GeneratedBy>
     </Compile>
     <Compile Include="Tests\GOLoginHistoryApiTests.cs">
       <GeneratedBy>Fenomen</GeneratedBy>
     </Compile>
-    <Content Include="packages.config">
+    <Compile Include="Tests\GORoleApiTests.cs">
       <GeneratedBy>Fenomen</GeneratedBy>
-    </Content>
-    <Content Include="App.config">
+    </Compile>
+    <Compile Include="Tests\GOUserApiTests.cs">
       <GeneratedBy>Fenomen</GeneratedBy>
-    </Content>
+    </Compile>
+    <Compile Include="Tests\GOUserGroupApiTests.cs">
+      <GeneratedBy>Fenomen</GeneratedBy>
+    </Compile>
+    <Compile Include="Tests\GOUserRoleApiTests.cs">
+      <GeneratedBy>Fenomen</GeneratedBy>
+    </Compile>
+    <Compile Include="Tests\LocationApiTests.cs">
+      <GeneratedBy>Fenomen</GeneratedBy>
+    </Compile>
+    <Compile Include="Tests\PlaceApiTests.cs">
+      <GeneratedBy>Fenomen</GeneratedBy>
+    </Compile>
+    <Compile Include="Tests\PlaceToLocationApiTests.cs">
+      <GeneratedBy>Fenomen</GeneratedBy>
+    </Compile>
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\..\..\DataLayer\Solid.Data.csproj">

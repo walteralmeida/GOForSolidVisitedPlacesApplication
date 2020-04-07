@@ -74,22 +74,22 @@
     <Compile Include="ComponentExtensionEventArgs.cs">
       <GeneratedBy>Fenomen</GeneratedBy>
     </Compile>
-    <Compile Include="IGOReportsHelperExtension.cs">
-      <GeneratedBy>Fenomen</GeneratedBy>
-    </Compile>
-    <Compile Include="IGOFileUploaderExtension.cs">
-      <GeneratedBy>Fenomen</GeneratedBy>
-    </Compile>
-    <Compile Include="IGOSecurityProviderExtension.cs">
+    <Compile Include="GOFileUploaderSurrogate.cs">
       <GeneratedBy>Fenomen</GeneratedBy>
     </Compile>
     <Compile Include="GOReportsHelperSurrogate.cs">
       <GeneratedBy>Fenomen</GeneratedBy>
     </Compile>
-    <Compile Include="GOFileUploaderSurrogate.cs">
+    <Compile Include="GOSecurityProviderSurrogate.cs">
       <GeneratedBy>Fenomen</GeneratedBy>
     </Compile>
-    <Compile Include="GOSecurityProviderSurrogate.cs">
+    <Compile Include="IGOFileUploaderExtension.cs">
+      <GeneratedBy>Fenomen</GeneratedBy>
+    </Compile>
+    <Compile Include="IGOReportsHelperExtension.cs">
+      <GeneratedBy>Fenomen</GeneratedBy>
+    </Compile>
+    <Compile Include="IGOSecurityProviderExtension.cs">
       <GeneratedBy>Fenomen</GeneratedBy>
     </Compile>
   </ItemGroup>

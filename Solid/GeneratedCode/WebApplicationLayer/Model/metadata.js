@@ -389,9 +389,34 @@
 			defaultResourceName: "country",
 			dataProperties: [
 				{
+					name: "Abstract", 
+					dataType: "String",
+					isNullable: true 
+				},
+				{
+					name: "Flag", 
+					dataType: "String",
+					isNullable: true 
+				},
+				{
+					name: "LongName", 
+					dataType: "String",
+					isNullable: true 
+				},
+				{
 					name: "Name", 
 					dataType: "String",
 					isNullable: false 
+				},
+				{
+					name: "PopulationDensity", 
+					dataType: "Decimal",
+					isNullable: true 
+				},
+				{
+					name: "PopulationTotal", 
+					dataType: "Int64",
+					isNullable: true 
 				},
 				{
 					name: "URI", 

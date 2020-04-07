@@ -21,6 +21,30 @@
     /***********************************/    
 
 
+	Solid.Web.Model.DataObjects.Validation.CountryValidator.validateAbstract = function (dataobject) {
+		// Max Length
+		if(dataobject.Data.Abstract() != null && dataobject.Data.Abstract().length > 2000)
+		{
+			dataobject.StatusData.isAbstractValid(false);
+			dataobject.StatusData.abstractErrorMessage(Solid.Web.Messages.validationRuleMaxLengthMessage.replace(/%FIELDNAME%/g, "Abstract").replace(/%LENGTH%/g, "2000"));
+		}
+		else {
+			dataobject.StatusData.isAbstractValid(true);
+		}
+	};
+
+	Solid.Web.Model.DataObjects.Validation.CountryValidator.validateFlag = function (dataobject) {
+		// Max Length
+		if(dataobject.Data.Flag() != null && dataobject.Data.Flag().length > 200)
+		{
+			dataobject.StatusData.isFlagValid(false);
+			dataobject.StatusData.flagErrorMessage(Solid.Web.Messages.validationRuleMaxLengthMessage.replace(/%FIELDNAME%/g, "Flag").replace(/%LENGTH%/g, "200"));
+		}
+		else {
+			dataobject.StatusData.isFlagValid(true);
+		}
+	};
+
 	Solid.Web.Model.DataObjects.Validation.CountryValidator.validateLocationItems = function (dataobject) {
       if(dataobject.Data.LocationItems() == undefined || dataobject.Data.LocationItems() == null || dataobject.Data.LocationItems() === "")
 		{
@@ -29,6 +53,18 @@
 		}
 		else {
 			dataobject.StatusData.isLocationItemsValid(true);
+		}
+	};
+
+	Solid.Web.Model.DataObjects.Validation.CountryValidator.validateLongName = function (dataobject) {
+		// Max Length
+		if(dataobject.Data.LongName() != null && dataobject.Data.LongName().length > 200)
+		{
+			dataobject.StatusData.isLongNameValid(false);
+			dataobject.StatusData.longNameErrorMessage(Solid.Web.Messages.validationRuleMaxLengthMessage.replace(/%FIELDNAME%/g, "Long Name").replace(/%LENGTH%/g, "200"));
+		}
+		else {
+			dataobject.StatusData.isLongNameValid(true);
 		}
 	};
 
@@ -64,6 +100,12 @@
 		else {
 			dataobject.StatusData.isPlaceItemsValid(true);
 		}
+	};
+
+	Solid.Web.Model.DataObjects.Validation.CountryValidator.validatePopulationDensity = function (dataobject) {
+	};
+
+	Solid.Web.Model.DataObjects.Validation.CountryValidator.validatePopulationTotal = function (dataobject) {
 	};
 
 	Solid.Web.Model.DataObjects.Validation.CountryValidator.validateURI = function (dataobject) {
@@ -112,25 +154,63 @@
 		if(!doContinue)
 			return;
 
+		Solid.Web.Model.DataObjects.Validation.CountryValidator.validateAbstract (dataobject);
+		Solid.Web.Model.DataObjects.Validation.CountryValidator.validateFlag (dataobject);
 		Solid.Web.Model.DataObjects.Validation.CountryValidator.validateLocationItems (dataobject);
+		Solid.Web.Model.DataObjects.Validation.CountryValidator.validateLongName (dataobject);
 		Solid.Web.Model.DataObjects.Validation.CountryValidator.validateName (dataobject);
 		Solid.Web.Model.DataObjects.Validation.CountryValidator.validatePlaceItems (dataobject);
+		Solid.Web.Model.DataObjects.Validation.CountryValidator.validatePopulationDensity (dataobject);
+		Solid.Web.Model.DataObjects.Validation.CountryValidator.validatePopulationTotal (dataobject);
 		Solid.Web.Model.DataObjects.Validation.CountryValidator.validateURI (dataobject);
 		doContinue = true;
 		if(Solid.Web.Model.DataObjects.Validation.CountryValidator.CustomValidator && Solid.Web.Model.DataObjects.Validation.CountryValidator.CustomValidator.CustomValidation !== undefined){
 			Solid.Web.Model.DataObjects.Validation.CountryValidator.CustomValidator.CustomValidation(dataobject);
 		}
 
+		if(dataobject.Data.PopulationDensity() && dataobject.Data.PopulationDensity() != "" ? (parseFloat(dataobject.Data.PopulationDensity()) != dataobject.Data.PopulationDensity() || isNaN(parseFloat(dataobject.Data.PopulationDensity()))) : false)
+		{
+			dataobject.StatusData.isCountryEntityValid(false);
+			errorMessage += "\r\n" + "Value must be a number for the field Population Density";
+			isValid = false;
+		} else {
+			dataobject.StatusData.isCountryEntityValid(!!isValid);
+		}
+		if(dataobject.Data.PopulationTotal() && dataobject.Data.PopulationTotal() != "" ? ((parseInt(dataobject.Data.PopulationTotal()) != dataobject.Data.PopulationTotal() || isNaN(parseInt(dataobject.Data.PopulationTotal()))) || dataobject.Data.PopulationTotal() > 9223372036854775807 || dataobject.Data.PopulationTotal() < -9223372036854775807) : false)
+		{
+			dataobject.StatusData.isCountryEntityValid(false);
+			errorMessage += "\r\n" + "Value must be a number for the field Population Total";
+			isValid = false;
+		} else {
+			dataobject.StatusData.isCountryEntityValid(!!isValid);
+		}
 
+		if(errorMessage)
+			dataobject.StatusData.countryEntityErrorMessage(errorMessage);
 		dataobject.StatusData.errorSummary.removeAll();
+	    if (dataobject.StatusData.isAbstractValid() === false) {
+			dataobject.StatusData.errorSummary.push(dataobject.StatusData.abstractErrorMessage());
+		}
+	    if (dataobject.StatusData.isFlagValid() === false) {
+			dataobject.StatusData.errorSummary.push(dataobject.StatusData.flagErrorMessage());
+		}
 	    if (dataobject.StatusData.isLocationItemsValid() === false) {
 			dataobject.StatusData.errorSummary.push(dataobject.StatusData.locationItemsErrorMessage());
+		}
+	    if (dataobject.StatusData.isLongNameValid() === false) {
+			dataobject.StatusData.errorSummary.push(dataobject.StatusData.longNameErrorMessage());
 		}
 	    if (dataobject.StatusData.isNameValid() === false) {
 			dataobject.StatusData.errorSummary.push(dataobject.StatusData.nameErrorMessage());
 		}
 	    if (dataobject.StatusData.isPlaceItemsValid() === false) {
 			dataobject.StatusData.errorSummary.push(dataobject.StatusData.placeItemsErrorMessage());
+		}
+	    if (dataobject.StatusData.isPopulationDensityValid() === false) {
+			dataobject.StatusData.errorSummary.push(dataobject.StatusData.populationDensityErrorMessage());
+		}
+	    if (dataobject.StatusData.isPopulationTotalValid() === false) {
+			dataobject.StatusData.errorSummary.push(dataobject.StatusData.populationTotalErrorMessage());
 		}
 	    if (dataobject.StatusData.isURIValid() === false) {
 			dataobject.StatusData.errorSummary.push(dataobject.StatusData.uRIErrorMessage());
@@ -147,8 +227,18 @@
 
 	Solid.Web.Model.DataObjects.Validation.CountryValidator.resetValidation = function(dataobject) {
 
+		dataobject.StatusData.isAbstractValid(true);
+		dataobject.StatusData.abstractErrorMessage(null);
+		dataobject.StatusData.isFlagValid(true);
+		dataobject.StatusData.flagErrorMessage(null);
+		dataobject.StatusData.isLongNameValid(true);
+		dataobject.StatusData.longNameErrorMessage(null);
 		dataobject.StatusData.isNameValid(true);
 		dataobject.StatusData.nameErrorMessage(null);
+		dataobject.StatusData.isPopulationDensityValid(true);
+		dataobject.StatusData.populationDensityErrorMessage(null);
+		dataobject.StatusData.isPopulationTotalValid(true);
+		dataobject.StatusData.populationTotalErrorMessage(null);
 		dataobject.StatusData.isURIValid(true);
 		dataobject.StatusData.uRIErrorMessage(null);
 		

@@ -80,19 +80,19 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="GORoleDataProvider.cs">
+    <Compile Include="CountryDataProvider.cs">
       <GeneratedBy>Fenomen</GeneratedBy>
     </Compile>
-    <Compile Include="PlaceDataProvider.cs">
+    <Compile Include="GORoleDataProvider.cs">
       <GeneratedBy>Fenomen</GeneratedBy>
     </Compile>
     <Compile Include="LocationDataProvider.cs">
       <GeneratedBy>Fenomen</GeneratedBy>
     </Compile>
-    <Compile Include="PlaceToLocationDataProvider.cs">
+    <Compile Include="PlaceDataProvider.cs">
       <GeneratedBy>Fenomen</GeneratedBy>
     </Compile>
-    <Compile Include="CountryDataProvider.cs">
+    <Compile Include="PlaceToLocationDataProvider.cs">
       <GeneratedBy>Fenomen</GeneratedBy>
     </Compile>
   </ItemGroup>

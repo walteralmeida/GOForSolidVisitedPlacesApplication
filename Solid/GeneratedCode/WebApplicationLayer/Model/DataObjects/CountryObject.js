@@ -32,7 +32,12 @@
  			PlaceItems: function () { return self.getPlaceItems(); },
  		
 			// Other fields
+			Abstract: ko.observable(null),
+			Flag: ko.observable(null),
+			LongName: ko.observable(null),
 			Name: ko.observable(null),
+			PopulationDensity: ko.observable().extend({decimal: {scale: 10, precision: 2}}),
+			PopulationTotal: ko.observable(),
 			// State attributes
 			InternalObjectId: ko.observable(null),
 
@@ -54,12 +59,22 @@
 
 		// Validation control
 		this.StatusData = {
+			isAbstractValid: ko.observable(true),
+			abstractErrorMessage: ko.observable(null), 
+			isFlagValid: ko.observable(true),
+			flagErrorMessage: ko.observable(null), 
 			isLocationItemsValid: ko.observable(true),
 			locationItemsErrorMessage: ko.observable(null), 
+			isLongNameValid: ko.observable(true),
+			longNameErrorMessage: ko.observable(null), 
 			isNameValid: ko.observable(true),
 			nameErrorMessage: ko.observable(null), 
 			isPlaceItemsValid: ko.observable(true),
 			placeItemsErrorMessage: ko.observable(null), 
+			isPopulationDensityValid: ko.observable(true),
+			populationDensityErrorMessage: ko.observable(null), 
+			isPopulationTotalValid: ko.observable(true),
+			populationTotalErrorMessage: ko.observable(null), 
 			isURIValid: ko.observable(true),
 			uRIErrorMessage: ko.observable(null), 
 			
@@ -264,7 +279,12 @@
 		// Copy all fields
 		clone.Data.URI_OldValue(this.Data.URI_OldValue());
 		clone.Data.URI(this.Data.URI());
+		clone.Data.Abstract(this.Data.Abstract());
+		clone.Data.Flag(this.Data.Flag());
+		clone.Data.LongName(this.Data.LongName());
 		clone.Data.Name(this.Data.Name());
+		clone.Data.PopulationDensity(this.Data.PopulationDensity());
+		clone.Data.PopulationTotal(this.Data.PopulationTotal());
 		clone.contextIds = this.contextIds;
 
 		clone.Data.IsDirty(this.Data.IsDirty());
@@ -291,7 +311,12 @@
 			// Copy all fields
 			this.Data.URI_OldValue(sourceObject.Data.URI_OldValue());
 			this.Data.URI(sourceObject.Data.URI());
-					this.Data.Name(sourceObject.Data.Name());
+					this.Data.Abstract(sourceObject.Data.Abstract());
+			this.Data.Flag(sourceObject.Data.Flag());
+			this.Data.LongName(sourceObject.Data.LongName());
+			this.Data.Name(sourceObject.Data.Name());
+			this.Data.PopulationDensity(sourceObject.Data.PopulationDensity());
+			this.Data.PopulationTotal(sourceObject.Data.PopulationTotal());
 			this.contextIds = sourceObject.contextIds;
 
 			this.Data.IsDirty(sourceObject.Data.IsDirty());
@@ -327,7 +352,12 @@
 		// Subscriptions
 		this.subscriptions.push(this.Data.IsDirty.subscribe(isDirtySubscriptionHandler, this));
 		this.subscriptions.push(this.Data.IsMarkedForDeletion.subscribe(isMarkedForDeletionSubscriptionHandler, this));
+		this.subscriptions.push(this.Data.Abstract.subscribe(AbstractPropertySubscriptionHandler, this));
+		this.subscriptions.push(this.Data.Flag.subscribe(FlagPropertySubscriptionHandler, this));
+		this.subscriptions.push(this.Data.LongName.subscribe(LongNamePropertySubscriptionHandler, this));
 		this.subscriptions.push(this.Data.Name.subscribe(NamePropertySubscriptionHandler, this));
+		this.subscriptions.push(this.Data.PopulationDensity.subscribe(PopulationDensityPropertySubscriptionHandler, this));
+		this.subscriptions.push(this.Data.PopulationTotal.subscribe(PopulationTotalPropertySubscriptionHandler, this));
 		this.subscriptions.push(this.Data.URI.subscribe(URIPropertySubscriptionHandler, this));
 
  
@@ -367,7 +397,7 @@
 	
 	function statusDataValidationComputed() {
 		var isValid = true;
-		isValid = isValid && this.StatusData.isNameValid() && this.StatusData.isURIValid() && this.StatusData.isCountryEntityValid();
+		isValid = isValid && this.StatusData.isAbstractValid() && this.StatusData.isFlagValid() && this.StatusData.isLongNameValid() && this.StatusData.isNameValid() && this.StatusData.isPopulationDensityValid() && this.StatusData.isPopulationTotalValid() && this.StatusData.isURIValid() && this.StatusData.isCountryEntityValid();
 		return isValid;
 	}
 
@@ -384,6 +414,42 @@
 	}
 			
 
+	function AbstractPropertySubscriptionHandler(newValue) {
+		
+		if (this.DirtyHandlerOn) {			
+            this.Data.IsDirty(true);
+		}
+ 
+		if (this.notifyChangesOn) {		
+			this.updateDependentCustomValues();
+			this.onPropertyChanged("Abstract");
+		}
+    }
+
+	function FlagPropertySubscriptionHandler(newValue) {
+		
+		if (this.DirtyHandlerOn) {			
+            this.Data.IsDirty(true);
+		}
+ 
+		if (this.notifyChangesOn) {		
+			this.updateDependentCustomValues();
+			this.onPropertyChanged("Flag");
+		}
+    }
+
+	function LongNamePropertySubscriptionHandler(newValue) {
+		
+		if (this.DirtyHandlerOn) {			
+            this.Data.IsDirty(true);
+		}
+ 
+		if (this.notifyChangesOn) {		
+			this.updateDependentCustomValues();
+			this.onPropertyChanged("LongName");
+		}
+    }
+
 	function NamePropertySubscriptionHandler(newValue) {
 		
 		if (this.DirtyHandlerOn) {			
@@ -393,6 +459,30 @@
 		if (this.notifyChangesOn) {		
 			this.updateDependentCustomValues();
 			this.onPropertyChanged("Name");
+		}
+    }
+
+	function PopulationDensityPropertySubscriptionHandler(newValue) {
+		
+		if (this.DirtyHandlerOn) {			
+            this.Data.IsDirty(true);
+		}
+ 
+		if (this.notifyChangesOn) {		
+			this.updateDependentCustomValues();
+			this.onPropertyChanged("PopulationDensity");
+		}
+    }
+
+	function PopulationTotalPropertySubscriptionHandler(newValue) {
+		
+		if (this.DirtyHandlerOn) {			
+            this.Data.IsDirty(true);
+		}
+ 
+		if (this.notifyChangesOn) {		
+			this.updateDependentCustomValues();
+			this.onPropertyChanged("PopulationTotal");
 		}
     }
 

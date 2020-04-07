@@ -64,10 +64,10 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="GOReportsHelperSecurityExtension.cs">
+    <Compile Include="GOFileUploaderSecurityExtension.cs">
       <GeneratedBy>Fenomen</GeneratedBy>
     </Compile>
-    <Compile Include="GOFileUploaderSecurityExtension.cs">
+    <Compile Include="GOReportsHelperSecurityExtension.cs">
       <GeneratedBy>Fenomen</GeneratedBy>
     </Compile>
     <Compile Include="GOSecurityProviderSecurityExtension.cs">

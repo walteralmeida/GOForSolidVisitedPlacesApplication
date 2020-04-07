@@ -64,10 +64,10 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Content Include="Namespaces.js">
+    <Content Include="Application\Application.js">
       <GeneratedBy>Fenomen</GeneratedBy>
     </Content>
-    <Content Include="Application\Application.js">
+    <Content Include="Application\ApplicationController.js">
       <GeneratedBy>Fenomen</GeneratedBy>
     </Content>
     <Content Include="Application\ApplicationMessages.js">
@@ -76,190 +76,16 @@
     <Content Include="Application\ApplicationSourceHandler.js">
       <GeneratedBy>Fenomen</GeneratedBy>
     </Content>
-    <Content Include="Application\ApplicationController.js">
-      <GeneratedBy>Fenomen</GeneratedBy>
-    </Content>
     <Content Include="Application\ApplicationViewModel.js">
-      <GeneratedBy>Fenomen</GeneratedBy>
-    </Content>
-    <Compile Include="dummy.cs">
-      <GeneratedBy>Fenomen</GeneratedBy>
-    </Compile>
-    <Content Include="Model\metadata.js">
-      <GeneratedBy>Fenomen</GeneratedBy>
-    </Content>
-    <Content Include="Model\DataObjects\GORoleObject.js">
-      <GeneratedBy>Fenomen</GeneratedBy>
-    </Content>
-    <Content Include="Model\DataObjects\GOGroupRoleObject.js">
-      <GeneratedBy>Fenomen</GeneratedBy>
-    </Content>
-    <Content Include="Model\DataObjects\PlaceObject.js">
-      <GeneratedBy>Fenomen</GeneratedBy>
-    </Content>
-    <Content Include="Model\DataObjects\LocationObject.js">
-      <GeneratedBy>Fenomen</GeneratedBy>
-    </Content>
-    <Content Include="Model\DataObjects\PlaceToLocationObject.js">
-      <GeneratedBy>Fenomen</GeneratedBy>
-    </Content>
-    <Content Include="Model\DataObjects\GOUserObject.js">
-      <GeneratedBy>Fenomen</GeneratedBy>
-    </Content>
-    <Content Include="Model\DataObjects\GOGroupObject.js">
-      <GeneratedBy>Fenomen</GeneratedBy>
-    </Content>
-    <Content Include="Model\DataObjects\GOUserRoleObject.js">
-      <GeneratedBy>Fenomen</GeneratedBy>
-    </Content>
-    <Content Include="Model\DataObjects\CountryObject.js">
-      <GeneratedBy>Fenomen</GeneratedBy>
-    </Content>
-    <Content Include="Model\DataObjects\GOUserGroupObject.js">
-      <GeneratedBy>Fenomen</GeneratedBy>
-    </Content>
-    <Content Include="Model\DataObjects\GOLoginHistoryObject.js">
-      <GeneratedBy>Fenomen</GeneratedBy>
-    </Content>
-    <Content Include="Model\DataObjectValidators\GORoleObjectValidator.js">
-      <GeneratedBy>Fenomen</GeneratedBy>
-    </Content>
-    <Content Include="Model\DataObjectValidators\GOGroupRoleObjectValidator.js">
-      <GeneratedBy>Fenomen</GeneratedBy>
-    </Content>
-    <Content Include="Model\DataObjectValidators\PlaceObjectValidator.js">
-      <GeneratedBy>Fenomen</GeneratedBy>
-    </Content>
-    <Content Include="Model\DataObjectValidators\LocationObjectValidator.js">
-      <GeneratedBy>Fenomen</GeneratedBy>
-    </Content>
-    <Content Include="Model\DataObjectValidators\PlaceToLocationObjectValidator.js">
-      <GeneratedBy>Fenomen</GeneratedBy>
-    </Content>
-    <Content Include="Model\DataObjectValidators\GOUserObjectValidator.js">
-      <GeneratedBy>Fenomen</GeneratedBy>
-    </Content>
-    <Content Include="Model\DataObjectValidators\GOGroupObjectValidator.js">
-      <GeneratedBy>Fenomen</GeneratedBy>
-    </Content>
-    <Content Include="Model\DataObjectValidators\GOUserRoleObjectValidator.js">
-      <GeneratedBy>Fenomen</GeneratedBy>
-    </Content>
-    <Content Include="Model\DataObjectValidators\CountryObjectValidator.js">
-      <GeneratedBy>Fenomen</GeneratedBy>
-    </Content>
-    <Content Include="Model\DataObjectValidators\GOUserGroupObjectValidator.js">
-      <GeneratedBy>Fenomen</GeneratedBy>
-    </Content>
-    <Content Include="Model\DataObjectValidators\GOLoginHistoryObjectValidator.js">
-      <GeneratedBy>Fenomen</GeneratedBy>
-    </Content>
-    <Content Include="Model\DataObjects\GOSpecialGroupsEnum.js">
-      <GeneratedBy>Fenomen</GeneratedBy>
-    </Content>
-    <Content Include="Model\DataStores\DataMapper.js">
-      <GeneratedBy>Fenomen</GeneratedBy>
-    </Content>
-    <Content Include="Model\DataStores\DataStore.js">
-      <GeneratedBy>Fenomen</GeneratedBy>
-    </Content>
-    <Content Include="Model\Components\GOReportsHelperProxy.js">
-      <GeneratedBy>Fenomen</GeneratedBy>
-    </Content>
-    <Content Include="Model\Components\GOFileUploaderProxy.js">
-      <GeneratedBy>Fenomen</GeneratedBy>
-    </Content>
-    <Content Include="Model\Components\GOSecurityProviderProxy.js">
-      <GeneratedBy>Fenomen</GeneratedBy>
-    </Content>
-    <Content Include="Model\DataSets\ObjectsDataSet.js">
-      <GeneratedBy>Fenomen</GeneratedBy>
-    </Content>
-    <Content Include="Model\DataSets\GORoleDataSet.js">
-      <GeneratedBy>Fenomen</GeneratedBy>
-    </Content>
-    <Content Include="Model\DataSets\GOGroupRoleDataSet.js">
-      <GeneratedBy>Fenomen</GeneratedBy>
-    </Content>
-    <Content Include="Model\DataSets\PlaceDataSet.js">
-      <GeneratedBy>Fenomen</GeneratedBy>
-    </Content>
-    <Content Include="Model\DataSets\LocationDataSet.js">
-      <GeneratedBy>Fenomen</GeneratedBy>
-    </Content>
-    <Content Include="Model\DataSets\PlaceToLocationDataSet.js">
-      <GeneratedBy>Fenomen</GeneratedBy>
-    </Content>
-    <Content Include="Model\DataSets\GOUserDataSet.js">
-      <GeneratedBy>Fenomen</GeneratedBy>
-    </Content>
-    <Content Include="Model\DataSets\GOGroupDataSet.js">
-      <GeneratedBy>Fenomen</GeneratedBy>
-    </Content>
-    <Content Include="Model\DataSets\GOUserRoleDataSet.js">
-      <GeneratedBy>Fenomen</GeneratedBy>
-    </Content>
-    <Content Include="Model\DataSets\CountryDataSet.js">
-      <GeneratedBy>Fenomen</GeneratedBy>
-    </Content>
-    <Content Include="Model\DataSets\GOUserGroupDataSet.js">
-      <GeneratedBy>Fenomen</GeneratedBy>
-    </Content>
-    <Content Include="Model\DataSets\GOLoginHistoryDataSet.js">
-      <GeneratedBy>Fenomen</GeneratedBy>
-    </Content>
-    <Content Include="ViewModels\Location\LocationFormViewModel.js">
-      <GeneratedBy>Fenomen</GeneratedBy>
-    </Content>
-    <Content Include="ViewModels\Country\CountryFormViewModel.js">
-      <GeneratedBy>Fenomen</GeneratedBy>
-    </Content>
-    <Content Include="ViewModels\Place\PlaceFormViewModel.js">
-      <GeneratedBy>Fenomen</GeneratedBy>
-    </Content>
-    <Content Include="ViewModels\PlaceToLocation\PlaceToLocationFormViewModel.js">
-      <GeneratedBy>Fenomen</GeneratedBy>
-    </Content>
-    <Content Include="ViewModels\Common\DialogPopupViewModel.js">
-      <GeneratedBy>Fenomen</GeneratedBy>
-    </Content>
-    <Content Include="ViewModels\PlaceToLocation\PlaceToLocationGridViewModel.js">
-      <GeneratedBy>Fenomen</GeneratedBy>
-    </Content>
-    <Content Include="ViewModels\Location\LocationGridViewModel.js">
-      <GeneratedBy>Fenomen</GeneratedBy>
-    </Content>
-    <Content Include="ViewModels\Place\PlaceGridViewModel.js">
-      <GeneratedBy>Fenomen</GeneratedBy>
-    </Content>
-    <Content Include="ViewModels\Country\CountryGridViewModel.js">
-      <GeneratedBy>Fenomen</GeneratedBy>
-    </Content>
-    <Content Include="ViewModels\Country\Filters\CountryFilterViewModel.js">
-      <GeneratedBy>Fenomen</GeneratedBy>
-    </Content>
-    <Content Include="ViewModels\Location\Filters\LocationFilterViewModel.js">
-      <GeneratedBy>Fenomen</GeneratedBy>
-    </Content>
-    <Content Include="ViewModels\Place\Filters\PlaceFilterViewModel.js">
-      <GeneratedBy>Fenomen</GeneratedBy>
-    </Content>
-    <Content Include="ViewModels\PlaceToLocation\Filters\PlaceToLocationFilterViewModel.js">
-      <GeneratedBy>Fenomen</GeneratedBy>
-    </Content>
-    <Content Include="Controllers\CountryPageController.js">
       <GeneratedBy>Fenomen</GeneratedBy>
     </Content>
     <Content Include="Controllers\CountryItemsPageController.js">
       <GeneratedBy>Fenomen</GeneratedBy>
     </Content>
-    <Content Include="Controllers\PlacePageController.js">
+    <Content Include="Controllers\CountryPageController.js">
       <GeneratedBy>Fenomen</GeneratedBy>
     </Content>
-    <Content Include="Controllers\PlaceToLocationPageController.js">
-      <GeneratedBy>Fenomen</GeneratedBy>
-    </Content>
-    <Content Include="Controllers\PlaceToLocationItemsPageController.js">
+    <Content Include="Controllers\LocationItemsPageController.js">
       <GeneratedBy>Fenomen</GeneratedBy>
     </Content>
     <Content Include="Controllers\LocationPageController.js">
@@ -268,529 +94,18 @@
     <Content Include="Controllers\PlaceItemsPageController.js">
       <GeneratedBy>Fenomen</GeneratedBy>
     </Content>
-    <Content Include="Controllers\LocationItemsPageController.js">
+    <Content Include="Controllers\PlacePageController.js">
       <GeneratedBy>Fenomen</GeneratedBy>
     </Content>
-    <Content Include="Views\CountryPageView.html">
+    <Content Include="Controllers\PlaceToLocationItemsPageController.js">
       <GeneratedBy>Fenomen</GeneratedBy>
     </Content>
-    <Content Include="Views\CountryItemsPageView.html">
+    <Content Include="Controllers\PlaceToLocationPageController.js">
       <GeneratedBy>Fenomen</GeneratedBy>
     </Content>
-    <Content Include="Views\PlacePageView.html">
-      <GeneratedBy>Fenomen</GeneratedBy>
-    </Content>
-    <Content Include="Views\PlaceToLocationPageView.html">
-      <GeneratedBy>Fenomen</GeneratedBy>
-    </Content>
-    <Content Include="Views\PlaceToLocationItemsPageView.html">
-      <GeneratedBy>Fenomen</GeneratedBy>
-    </Content>
-    <Content Include="Views\LocationPageView.html">
-      <GeneratedBy>Fenomen</GeneratedBy>
-    </Content>
-    <Content Include="Views\PlaceItemsPageView.html">
-      <GeneratedBy>Fenomen</GeneratedBy>
-    </Content>
-    <Content Include="Views\LocationItemsPageView.html">
-      <GeneratedBy>Fenomen</GeneratedBy>
-    </Content>
-    <Content Include="Views\Application.aspx">
-      <GeneratedBy>Fenomen</GeneratedBy>
-    </Content>
-    <Compile Include="Views\Application.aspx.cs">
-      <GeneratedBy>Fenomen</GeneratedBy>
-      <DependentUpon>Application.aspx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
-    </Compile>
-    <Compile Include="Views\Application.aspx.designer.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>Application.aspx.resx</DependentUpon>
+    <Compile Include="dummy.cs">
       <GeneratedBy>Fenomen</GeneratedBy>
     </Compile>
-    <Content Include="Views\Applicatione71bc82d-442d-41a6-831e-eae563c45cb6Layout.html">
-      <GeneratedBy>Fenomen</GeneratedBy>
-    </Content>
-    <Content Include="Views\Application30599230-22bb-4108-a6c2-ec314d5f1b04Layout.html">
-      <GeneratedBy>Fenomen</GeneratedBy>
-    </Content>
-    <Content Include="Views\ViewLoader.js">
-      <GeneratedBy>Fenomen</GeneratedBy>
-    </Content>
-    <Content Include="Views\PartialViews\Location\LocationFormPartialView.html">
-      <GeneratedBy>Fenomen</GeneratedBy>
-    </Content>
-    <Content Include="Views\PartialViews\Country\CountryFormPartialView.html">
-      <GeneratedBy>Fenomen</GeneratedBy>
-    </Content>
-    <Content Include="Views\PartialViews\Place\PlaceFormPartialView.html">
-      <GeneratedBy>Fenomen</GeneratedBy>
-    </Content>
-    <Content Include="Views\PartialViews\PlaceToLocation\PlaceToLocationFormPartialView.html">
-      <GeneratedBy>Fenomen</GeneratedBy>
-    </Content>
-    <Content Include="Views\PartialViews\Location\LocationFormControlPartialView.html">
-      <GeneratedBy>Fenomen</GeneratedBy>
-    </Content>
-    <Content Include="Views\PartialViews\Country\CountryFormControlPartialView.html">
-      <GeneratedBy>Fenomen</GeneratedBy>
-    </Content>
-    <Content Include="Views\PartialViews\Place\PlaceFormControlPartialView.html">
-      <GeneratedBy>Fenomen</GeneratedBy>
-    </Content>
-    <Content Include="Views\PartialViews\PlaceToLocation\PlaceToLocationFormControlPartialView.html">
-      <GeneratedBy>Fenomen</GeneratedBy>
-    </Content>
-    <Content Include="Views\PartialViews\PlaceToLocation\PlaceToLocationGridPartialView.html">
-      <GeneratedBy>Fenomen</GeneratedBy>
-    </Content>
-    <Content Include="Views\PartialViews\Location\LocationGridPartialView.html">
-      <GeneratedBy>Fenomen</GeneratedBy>
-    </Content>
-    <Content Include="Views\PartialViews\Place\PlaceGridPartialView.html">
-      <GeneratedBy>Fenomen</GeneratedBy>
-    </Content>
-    <Content Include="Views\PartialViews\Country\CountryGridPartialView.html">
-      <GeneratedBy>Fenomen</GeneratedBy>
-    </Content>
-    <Content Include="Views\PartialViews\Country\Filters\CountryFilterPartialView.html">
-      <GeneratedBy>Fenomen</GeneratedBy>
-    </Content>
-    <Content Include="Views\PartialViews\Location\Filters\LocationFilterPartialView.html">
-      <GeneratedBy>Fenomen</GeneratedBy>
-    </Content>
-    <Content Include="Views\PartialViews\Place\Filters\PlaceFilterPartialView.html">
-      <GeneratedBy>Fenomen</GeneratedBy>
-    </Content>
-    <Content Include="Views\PartialViews\PlaceToLocation\Filters\PlaceToLocationFilterPartialView.html">
-      <GeneratedBy>Fenomen</GeneratedBy>
-    </Content>
-    <Content Include="Views\PartialViews\Common\AlertPopupPartialView.html">
-      <GeneratedBy>Fenomen</GeneratedBy>
-    </Content>
-    <Content Include="Views\PartialViews\Common\PromptPopupPartialView.html">
-      <GeneratedBy>Fenomen</GeneratedBy>
-    </Content>
-    <Content Include="ViewModels\Common\NoticeBoxViewModel.js">
-      <GeneratedBy>Fenomen</GeneratedBy>
-    </Content>
-    <Content Include="Views\PartialViews\Common\ConfirmPopupPartialView.html">
-      <GeneratedBy>Fenomen</GeneratedBy>
-    </Content>
-    <Content Include="Membership\Login.html">
-      <GeneratedBy>Fenomen</GeneratedBy>
-    </Content>
-    <Content Include="Membership\Register.html">
-      <GeneratedBy>Fenomen</GeneratedBy>
-    </Content>
-    <Content Include="Membership\LostPassword.html">
-      <GeneratedBy>Fenomen</GeneratedBy>
-    </Content>
-    <Content Include="Membership\ChangePassword.html">
-      <GeneratedBy>Fenomen</GeneratedBy>
-    </Content>
-    <Content Include="Membership\ResetPassword.html">
-      <GeneratedBy>Fenomen</GeneratedBy>
-    </Content>
-    <Content Include="Membership\ValidateRegistration.html">
-      <GeneratedBy>Fenomen</GeneratedBy>
-    </Content>
-    <Content Include="Membership\HoldingPage.html">
-      <GeneratedBy>Fenomen</GeneratedBy>
-    </Content>
-    <Content Include="Membership\LoginPageViewModel.js">
-      <GeneratedBy>Fenomen</GeneratedBy>
-    </Content>
-    <Content Include="Membership\RegisterPageViewModel.js">
-      <GeneratedBy>Fenomen</GeneratedBy>
-    </Content>
-    <Content Include="Membership\LostPasswordPageViewModel.js">
-      <GeneratedBy>Fenomen</GeneratedBy>
-    </Content>
-    <Content Include="Membership\ChangePasswordPageViewModel.js">
-      <GeneratedBy>Fenomen</GeneratedBy>
-    </Content>
-    <Content Include="Membership\ResetPasswordPageViewModel.js">
-      <GeneratedBy>Fenomen</GeneratedBy>
-    </Content>
-    <Content Include="Membership\ValidateRegistrationPageViewModel.js">
-      <GeneratedBy>Fenomen</GeneratedBy>
-    </Content>
-    <Content Include="Membership\HoldingPageViewModel.js">
-      <GeneratedBy>Fenomen</GeneratedBy>
-    </Content>
-    <Content Include="Membership\ChangePassword.aspx">
-      <GeneratedBy>Fenomen</GeneratedBy>
-    </Content>
-    <Content Include="Membership\ChangePasswordSuccess.aspx">
-      <GeneratedBy>Fenomen</GeneratedBy>
-    </Content>
-    <Compile Include="Membership\ChangePasswordSuccess.aspx.designer.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>ChangePasswordSuccess.aspx.resx</DependentUpon>
-      <GeneratedBy>Fenomen</GeneratedBy>
-    </Compile>
-    <Compile Include="Membership\ChangePasswordSuccess.aspx.cs">
-      <GeneratedBy>Fenomen</GeneratedBy>
-      <DependentUpon>ChangePasswordSuccess.aspx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
-    </Compile>
-    <None Include="Styles\BreadCrumb.css">
-      <GeneratedBy>Fenomen</GeneratedBy>
-    </None>
-    <None Include="Styles\sidr.css">
-      <GeneratedBy>Fenomen</GeneratedBy>
-    </None>
-    <None Include="Styles\Reports.css">
-      <GeneratedBy>Fenomen</GeneratedBy>
-    </None>
-    <None Include="Styles\ui-elements.css">
-      <GeneratedBy>Fenomen</GeneratedBy>
-    </None>
-    <None Include="Styles\layout.css">
-      <GeneratedBy>Fenomen</GeneratedBy>
-    </None>
-    <None Include="Styles\LoginPage.css">
-      <GeneratedBy>Fenomen</GeneratedBy>
-    </None>
-    <None Include="Styles\Grid-Widget.css">
-      <GeneratedBy>Fenomen</GeneratedBy>
-    </None>
-    <None Include="Styles\documentation.css">
-      <GeneratedBy>Fenomen</GeneratedBy>
-    </None>
-    <None Include="Styles\JqueryMenu.css">
-      <GeneratedBy>Fenomen</GeneratedBy>
-    </None>
-    <None Include="Styles\MobileLayout.css">
-      <GeneratedBy>Fenomen</GeneratedBy>
-    </None>
-    <Content Include="Scripts\sidr.min.js">
-      <GeneratedBy>Fenomen</GeneratedBy>
-    </Content>
-    <Resource Include="Styles\Images\arrow_left.png">
-      <GeneratedBy>Fenomen</GeneratedBy>
-    </Resource>
-    <Resource Include="Styles\Images\arrow_right.png">
-      <GeneratedBy>Fenomen</GeneratedBy>
-    </Resource>
-    <Resource Include="Styles\Images\arrow-n.png">
-      <GeneratedBy>Fenomen</GeneratedBy>
-    </Resource>
-    <Resource Include="Styles\Images\arrow-s.png">
-      <GeneratedBy>Fenomen</GeneratedBy>
-    </Resource>
-    <Resource Include="Styles\Images\arrow-n-s.png">
-      <GeneratedBy>Fenomen</GeneratedBy>
-    </Resource>
-    <Resource Include="Styles\Images\delete.png">
-      <GeneratedBy>Fenomen</GeneratedBy>
-    </Resource>
-    <Resource Include="Styles\Images\edit.png">
-      <GeneratedBy>Fenomen</GeneratedBy>
-    </Resource>
-    <Resource Include="Styles\Images\plus.png">
-      <GeneratedBy>Fenomen</GeneratedBy>
-    </Resource>
-    <Resource Include="Styles\Images\magnifying14x14.png">
-      <GeneratedBy>Fenomen</GeneratedBy>
-    </Resource>
-    <Resource Include="Styles\Images\ui-bg_diagonals-thick_20_666666_40x40.png">
-      <GeneratedBy>Fenomen</GeneratedBy>
-    </Resource>
-    <Resource Include="Styles\Images\ui-bg_flat_0_aaaaaa_40x100.png">
-      <GeneratedBy>Fenomen</GeneratedBy>
-    </Resource>
-    <Resource Include="Styles\Images\ui-bg_flat_55_fbec88_40x100.png">
-      <GeneratedBy>Fenomen</GeneratedBy>
-    </Resource>
-    <Resource Include="Styles\Images\ui-bg_glass_75_d0e5f5_1x400.png">
-      <GeneratedBy>Fenomen</GeneratedBy>
-    </Resource>
-    <Resource Include="Styles\Images\ui-bg_glass_85_dfeffc_1x400.png">
-      <GeneratedBy>Fenomen</GeneratedBy>
-    </Resource>
-    <Resource Include="Styles\Images\ui-bg_glass_95_fef1ec_1x400.png">
-      <GeneratedBy>Fenomen</GeneratedBy>
-    </Resource>
-    <Resource Include="Styles\Images\ui-bg_gloss-wave_55_5c9ccc_500x100.png">
-      <GeneratedBy>Fenomen</GeneratedBy>
-    </Resource>
-    <Resource Include="Styles\Images\ui-bg_inset-hard_100_f5f8f9_1x100.png">
-      <GeneratedBy>Fenomen</GeneratedBy>
-    </Resource>
-    <Resource Include="Styles\Images\ui-bg_inset-hard_100_fcfdfd_1x100.png">
-      <GeneratedBy>Fenomen</GeneratedBy>
-    </Resource>
-    <Resource Include="Styles\Images\ui-icons_217bc0_256x240.png">
-      <GeneratedBy>Fenomen</GeneratedBy>
-    </Resource>
-    <Resource Include="Styles\Images\ui-icons_2e83ff_256x240.png">
-      <GeneratedBy>Fenomen</GeneratedBy>
-    </Resource>
-    <Resource Include="Styles\Images\ui-icons_469bdd_256x240.png">
-      <GeneratedBy>Fenomen</GeneratedBy>
-    </Resource>
-    <Resource Include="Styles\Images\ui-icons_6da8d5_256x240.png">
-      <GeneratedBy>Fenomen</GeneratedBy>
-    </Resource>
-    <Resource Include="Styles\Images\ui-icons_cd0a0a_256x240.png">
-      <GeneratedBy>Fenomen</GeneratedBy>
-    </Resource>
-    <Resource Include="Styles\Images\ui-icons_d8e7f3_256x240.png">
-      <GeneratedBy>Fenomen</GeneratedBy>
-    </Resource>
-    <Resource Include="Styles\Images\ui-icons_f9bd01_256x240.png">
-      <GeneratedBy>Fenomen</GeneratedBy>
-    </Resource>
-    <Resource Include="Styles\Images\GO.png">
-      <GeneratedBy>Fenomen</GeneratedBy>
-    </Resource>
-    <Resource Include="Styles\Images\GI.png">
-      <GeneratedBy>Fenomen</GeneratedBy>
-    </Resource>
-    <Resource Include="Styles\Images\RdC.png">
-      <GeneratedBy>Fenomen</GeneratedBy>
-    </Resource>
-    <Resource Include="Styles\Images\data-icon.png">
-      <GeneratedBy>Fenomen</GeneratedBy>
-    </Resource>
-    <Resource Include="Styles\Images\document-icon.png">
-      <GeneratedBy>Fenomen</GeneratedBy>
-    </Resource>
-    <Resource Include="Styles\Images\ajax-loader.gif">
-      <GeneratedBy>Fenomen</GeneratedBy>
-    </Resource>
-    <Resource Include="Styles\Images\ajax-loader-line.gif">
-      <GeneratedBy>Fenomen</GeneratedBy>
-    </Resource>
-    <Resource Include="Styles\Images\ajax-loader-small.gif">
-      <GeneratedBy>Fenomen</GeneratedBy>
-    </Resource>
-    <Resource Include="Styles\Images\overlay-loader.gif">
-      <GeneratedBy>Fenomen</GeneratedBy>
-    </Resource>
-    <Resource Include="Styles\Images\ajax-loader.png">
-      <GeneratedBy>Fenomen</GeneratedBy>
-    </Resource>
-    <Resource Include="Styles\Images\icons-18-black.png">
-      <GeneratedBy>Fenomen</GeneratedBy>
-    </Resource>
-    <Resource Include="Styles\Images\icons-18-white.png">
-      <GeneratedBy>Fenomen</GeneratedBy>
-    </Resource>
-    <Resource Include="Styles\Images\icons-36-black.png">
-      <GeneratedBy>Fenomen</GeneratedBy>
-    </Resource>
-    <Resource Include="Styles\Images\icons-36-white.png">
-      <GeneratedBy>Fenomen</GeneratedBy>
-    </Resource>
-    <Resource Include="Styles\Images\treeview-default-line.gif">
-      <GeneratedBy>Fenomen</GeneratedBy>
-    </Resource>
-    <Resource Include="Styles\Images\treeview-default.gif">
-      <GeneratedBy>Fenomen</GeneratedBy>
-    </Resource>
-    <Resource Include="Styles\Images\fond-bloc.jpg">
-      <GeneratedBy>Fenomen</GeneratedBy>
-    </Resource>
-    <Resource Include="Styles\Images\info.png">
-      <GeneratedBy>Fenomen</GeneratedBy>
-    </Resource>
-    <Resource Include="Styles\Images\Bandeau1.jpg">
-      <GeneratedBy>Fenomen</GeneratedBy>
-    </Resource>
-    <Resource Include="Styles\Images\bloc-bas-droite.gif">
-      <GeneratedBy>Fenomen</GeneratedBy>
-    </Resource>
-    <Resource Include="Styles\Images\blue-arrow.png">
-      <GeneratedBy>Fenomen</GeneratedBy>
-    </Resource>
-    <Resource Include="Styles\Images\bt1-off.png">
-      <GeneratedBy>Fenomen</GeneratedBy>
-    </Resource>
-    <Resource Include="Styles\Images\bt2-off.png">
-      <GeneratedBy>Fenomen</GeneratedBy>
-    </Resource>
-    <Resource Include="Styles\Images\bt3-off.png">
-      <GeneratedBy>Fenomen</GeneratedBy>
-    </Resource>
-    <Resource Include="Styles\Images\bt4-off.png">
-      <GeneratedBy>Fenomen</GeneratedBy>
-    </Resource>
-    <Resource Include="Styles\Images\bt5-off.png">
-      <GeneratedBy>Fenomen</GeneratedBy>
-    </Resource>
-    <Resource Include="Styles\Images\bt1-on.png">
-      <GeneratedBy>Fenomen</GeneratedBy>
-    </Resource>
-    <Resource Include="Styles\Images\bt2-on.png">
-      <GeneratedBy>Fenomen</GeneratedBy>
-    </Resource>
-    <Resource Include="Styles\Images\bt3-on.png">
-      <GeneratedBy>Fenomen</GeneratedBy>
-    </Resource>
-    <Resource Include="Styles\Images\bt4-on.png">
-      <GeneratedBy>Fenomen</GeneratedBy>
-    </Resource>
-    <Resource Include="Styles\Images\bt5-on.png">
-      <GeneratedBy>Fenomen</GeneratedBy>
-    </Resource>
-    <Resource Include="Styles\Images\fd-titre.jpg">
-      <GeneratedBy>Fenomen</GeneratedBy>
-    </Resource>
-    <Resource Include="Styles\Images\Fleche-bas.gif">
-      <GeneratedBy>Fenomen</GeneratedBy>
-    </Resource>
-    <Resource Include="Styles\Images\fond-menu.gif">
-      <GeneratedBy>Fenomen</GeneratedBy>
-    </Resource>
-    <Resource Include="Styles\Images\logo.png">
-      <GeneratedBy>Fenomen</GeneratedBy>
-    </Resource>
-    <Resource Include="Styles\Images\close.png">
-      <GeneratedBy>Fenomen</GeneratedBy>
-    </Resource>
-    <Resource Include="Styles\Images\mCSB_buttons.png">
-      <GeneratedBy>Fenomen</GeneratedBy>
-    </Resource>
-    <None Include="Styles\jquery.mobile-1.1.0.min.css">
-      <GeneratedBy>Fenomen</GeneratedBy>
-    </None>
-    <None Include="Styles\jquery.jgrowl.css">
-      <GeneratedBy>Fenomen</GeneratedBy>
-    </None>
-    <None Include="Styles\cropper.min.css">
-      <GeneratedBy>Fenomen</GeneratedBy>
-    </None>
-    <None Include="Styles\jquery.mCustomScrollbar.css">
-      <GeneratedBy>Fenomen</GeneratedBy>
-    </None>
-    <Content Include="Widgets\paginator.js">
-      <GeneratedBy>Fenomen</GeneratedBy>
-    </Content>
-    <Content Include="Widgets\datagrid.js">
-      <GeneratedBy>Fenomen</GeneratedBy>
-    </Content>
-    <Content Include="Scripts\jquery.fileupload.js">
-      <GeneratedBy>Fenomen</GeneratedBy>
-    </Content>
-    <Content Include="Scripts\cropper.min.js">
-      <GeneratedBy>Fenomen</GeneratedBy>
-    </Content>
-    <Content Include="Scripts\jquery.iframe-transport.js">
-      <GeneratedBy>Fenomen</GeneratedBy>
-    </Content>
-    <Content Include="Scripts\ckeditor\build-config.js">
-      <GeneratedBy>Fenomen</GeneratedBy>
-    </Content>
-    <Content Include="Scripts\ckeditor\ckeditor.js">
-      <GeneratedBy>Fenomen</GeneratedBy>
-    </Content>
-    <Content Include="Scripts\ckeditor\config.js">
-      <GeneratedBy>Fenomen</GeneratedBy>
-    </Content>
-    <None Include="Scripts\ckeditor\contents.css">
-      <GeneratedBy>Fenomen</GeneratedBy>
-    </None>
-    <Content Include="Scripts\ckeditor\styles.js">
-      <GeneratedBy>Fenomen</GeneratedBy>
-    </Content>
-    <Content Include="Scripts\ckeditor\lang\en.js">
-      <GeneratedBy>Fenomen</GeneratedBy>
-    </Content>
-    <Content Include="Scripts\ckeditor\lang\fr.js">
-      <GeneratedBy>Fenomen</GeneratedBy>
-    </Content>
-    <Resource Include="Scripts\ckeditor\plugins\icons.png">
-      <GeneratedBy>Fenomen</GeneratedBy>
-    </Resource>
-    <Content Include="Scripts\ckeditor\plugins\about\dialogs\about.js">
-      <GeneratedBy>Fenomen</GeneratedBy>
-    </Content>
-    <Resource Include="Scripts\ckeditor\plugins\about\dialogs\logo_ckeditor.png">
-      <GeneratedBy>Fenomen</GeneratedBy>
-    </Resource>
-    <Content Include="Scripts\ckeditor\plugins\clipboard\dialogs\paste.js">
-      <GeneratedBy>Fenomen</GeneratedBy>
-    </Content>
-    <Content Include="Scripts\ckeditor\plugins\dialog\dialogDefinition.js">
-      <GeneratedBy>Fenomen</GeneratedBy>
-    </Content>
-    <Resource Include="Scripts\ckeditor\plugins\fakeobjects\images\spacer.gif">
-      <GeneratedBy>Fenomen</GeneratedBy>
-    </Resource>
-    <Content Include="Scripts\ckeditor\plugins\image\dialogs\image.js">
-      <GeneratedBy>Fenomen</GeneratedBy>
-    </Content>
-    <Resource Include="Scripts\ckeditor\plugins\image\images\noimage.png">
-      <GeneratedBy>Fenomen</GeneratedBy>
-    </Resource>
-    <Content Include="Scripts\ckeditor\plugins\link\dialogs\anchor.js">
-      <GeneratedBy>Fenomen</GeneratedBy>
-    </Content>
-    <Content Include="Scripts\ckeditor\plugins\link\dialogs\link.js">
-      <GeneratedBy>Fenomen</GeneratedBy>
-    </Content>
-    <Resource Include="Scripts\ckeditor\plugins\link\images\anchor.png">
-      <GeneratedBy>Fenomen</GeneratedBy>
-    </Resource>
-    <Content Include="Scripts\ckeditor\plugins\table\dialogs\table.js">
-      <GeneratedBy>Fenomen</GeneratedBy>
-    </Content>
-    <Content Include="Scripts\ckeditor\plugins\tabletools\dialogs\tableCell.js">
-      <GeneratedBy>Fenomen</GeneratedBy>
-    </Content>
-    <None Include="Scripts\ckeditor\skins\moono\dialog.css">
-      <GeneratedBy>Fenomen</GeneratedBy>
-    </None>
-    <None Include="Scripts\ckeditor\skins\moono\dialog_ie.css">
-      <GeneratedBy>Fenomen</GeneratedBy>
-    </None>
-    <None Include="Scripts\ckeditor\skins\moono\dialog_ie7.css">
-      <GeneratedBy>Fenomen</GeneratedBy>
-    </None>
-    <None Include="Scripts\ckeditor\skins\moono\dialog_ie8.css">
-      <GeneratedBy>Fenomen</GeneratedBy>
-    </None>
-    <None Include="Scripts\ckeditor\skins\moono\dialog_iequirks.css">
-      <GeneratedBy>Fenomen</GeneratedBy>
-    </None>
-    <None Include="Scripts\ckeditor\skins\moono\dialog_opera.css">
-      <GeneratedBy>Fenomen</GeneratedBy>
-    </None>
-    <None Include="Scripts\ckeditor\skins\moono\editor.css">
-      <GeneratedBy>Fenomen</GeneratedBy>
-    </None>
-    <None Include="Scripts\ckeditor\skins\moono\editor_gecko.css">
-      <GeneratedBy>Fenomen</GeneratedBy>
-    </None>
-    <None Include="Scripts\ckeditor\skins\moono\editor_ie.css">
-      <GeneratedBy>Fenomen</GeneratedBy>
-    </None>
-    <None Include="Scripts\ckeditor\skins\moono\editor_ie7.css">
-      <GeneratedBy>Fenomen</GeneratedBy>
-    </None>
-    <None Include="Scripts\ckeditor\skins\moono\editor_ie8.css">
-      <GeneratedBy>Fenomen</GeneratedBy>
-    </None>
-    <None Include="Scripts\ckeditor\skins\moono\editor_iequirks.css">
-      <GeneratedBy>Fenomen</GeneratedBy>
-    </None>
-    <Resource Include="Scripts\ckeditor\skins\moono\icons.png">
-      <GeneratedBy>Fenomen</GeneratedBy>
-    </Resource>
-    <Resource Include="Scripts\ckeditor\skins\moono\images\arrow.png">
-      <GeneratedBy>Fenomen</GeneratedBy>
-    </Resource>
-    <Resource Include="Scripts\ckeditor\skins\moono\images\close.png">
-      <GeneratedBy>Fenomen</GeneratedBy>
-    </Resource>
-    <Resource Include="Scripts\ckeditor\skins\moono\images\mini.png">
-      <GeneratedBy>Fenomen</GeneratedBy>
-    </Resource>
     <None Include="Membership/Resources\English\ApproveUser\default\Content">
       <GeneratedBy>Fenomen</GeneratedBy>
     </None>
@@ -947,90 +262,635 @@
     <None Include="Membership/Resources\French\UserApproved\default\Subject">
       <GeneratedBy>Fenomen</GeneratedBy>
     </None>
-    <Content Include="Scripts\jquery.mCustomScrollbar.js">
+    <Content Include="Membership\ChangePassword.aspx">
       <GeneratedBy>Fenomen</GeneratedBy>
     </Content>
-    <Content Include="Scripts\jquery.cycle.all.js">
+    <Content Include="Membership\ChangePassword.html">
       <GeneratedBy>Fenomen</GeneratedBy>
     </Content>
-    <Content Include="Scripts\jquery.mousewheel.min.js">
+    <Content Include="Membership\ChangePasswordPageViewModel.js">
       <GeneratedBy>Fenomen</GeneratedBy>
     </Content>
-    <Content Include="Widgets\treeview.js">
+    <Content Include="Membership\ChangePasswordSuccess.aspx">
       <GeneratedBy>Fenomen</GeneratedBy>
     </Content>
-    <Content Include="Scripts\jquery.hoverIntent.js">
+    <Compile Include="Membership\ChangePasswordSuccess.aspx.cs">
+      <GeneratedBy>Fenomen</GeneratedBy>
+      <DependentUpon>ChangePasswordSuccess.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Membership\ChangePasswordSuccess.aspx.designer.cs">
+      <GeneratedBy>Fenomen</GeneratedBy>
+      <AutoGen>true</AutoGen>
+      <DesignTime>true</DesignTime>
+      <DependentUpon>ChangePasswordSuccess.aspx.resx</DependentUpon>
+    </Compile>
+    <Content Include="Membership\HoldingPage.html">
       <GeneratedBy>Fenomen</GeneratedBy>
     </Content>
-    <Content Include="Scripts\jquery.metadata.js">
+    <Content Include="Membership\HoldingPageViewModel.js">
       <GeneratedBy>Fenomen</GeneratedBy>
     </Content>
-    <Content Include="Scripts\mersenne-twister.js">
+    <Content Include="Membership\Login.html">
+      <GeneratedBy>Fenomen</GeneratedBy>
+    </Content>
+    <Content Include="Membership\LoginPageViewModel.js">
+      <GeneratedBy>Fenomen</GeneratedBy>
+    </Content>
+    <Content Include="Membership\LostPassword.html">
+      <GeneratedBy>Fenomen</GeneratedBy>
+    </Content>
+    <Content Include="Membership\LostPasswordPageViewModel.js">
+      <GeneratedBy>Fenomen</GeneratedBy>
+    </Content>
+    <Content Include="Membership\Register.html">
+      <GeneratedBy>Fenomen</GeneratedBy>
+    </Content>
+    <Content Include="Membership\RegisterPageViewModel.js">
+      <GeneratedBy>Fenomen</GeneratedBy>
+    </Content>
+    <Content Include="Membership\ResetPassword.html">
+      <GeneratedBy>Fenomen</GeneratedBy>
+    </Content>
+    <Content Include="Membership\ResetPasswordPageViewModel.js">
+      <GeneratedBy>Fenomen</GeneratedBy>
+    </Content>
+    <Content Include="Membership\ValidateRegistration.html">
+      <GeneratedBy>Fenomen</GeneratedBy>
+    </Content>
+    <Content Include="Membership\ValidateRegistrationPageViewModel.js">
+      <GeneratedBy>Fenomen</GeneratedBy>
+    </Content>
+    <Content Include="Model\Components\GOFileUploaderProxy.js">
+      <GeneratedBy>Fenomen</GeneratedBy>
+    </Content>
+    <Content Include="Model\Components\GOReportsHelperProxy.js">
+      <GeneratedBy>Fenomen</GeneratedBy>
+    </Content>
+    <Content Include="Model\Components\GOSecurityProviderProxy.js">
+      <GeneratedBy>Fenomen</GeneratedBy>
+    </Content>
+    <Content Include="Model\DataObjects\CountryObject.js">
+      <GeneratedBy>Fenomen</GeneratedBy>
+    </Content>
+    <Content Include="Model\DataObjects\GOGroupObject.js">
+      <GeneratedBy>Fenomen</GeneratedBy>
+    </Content>
+    <Content Include="Model\DataObjects\GOGroupRoleObject.js">
+      <GeneratedBy>Fenomen</GeneratedBy>
+    </Content>
+    <Content Include="Model\DataObjects\GOLoginHistoryObject.js">
+      <GeneratedBy>Fenomen</GeneratedBy>
+    </Content>
+    <Content Include="Model\DataObjects\GORoleObject.js">
+      <GeneratedBy>Fenomen</GeneratedBy>
+    </Content>
+    <Content Include="Model\DataObjects\GOSpecialGroupsEnum.js">
+      <GeneratedBy>Fenomen</GeneratedBy>
+    </Content>
+    <Content Include="Model\DataObjects\GOUserGroupObject.js">
+      <GeneratedBy>Fenomen</GeneratedBy>
+    </Content>
+    <Content Include="Model\DataObjects\GOUserObject.js">
+      <GeneratedBy>Fenomen</GeneratedBy>
+    </Content>
+    <Content Include="Model\DataObjects\GOUserRoleObject.js">
+      <GeneratedBy>Fenomen</GeneratedBy>
+    </Content>
+    <Content Include="Model\DataObjects\LocationObject.js">
+      <GeneratedBy>Fenomen</GeneratedBy>
+    </Content>
+    <Content Include="Model\DataObjects\PlaceObject.js">
+      <GeneratedBy>Fenomen</GeneratedBy>
+    </Content>
+    <Content Include="Model\DataObjects\PlaceToLocationObject.js">
+      <GeneratedBy>Fenomen</GeneratedBy>
+    </Content>
+    <Content Include="Model\DataObjectValidators\CountryObjectValidator.js">
+      <GeneratedBy>Fenomen</GeneratedBy>
+    </Content>
+    <Content Include="Model\DataObjectValidators\GOGroupObjectValidator.js">
+      <GeneratedBy>Fenomen</GeneratedBy>
+    </Content>
+    <Content Include="Model\DataObjectValidators\GOGroupRoleObjectValidator.js">
+      <GeneratedBy>Fenomen</GeneratedBy>
+    </Content>
+    <Content Include="Model\DataObjectValidators\GOLoginHistoryObjectValidator.js">
+      <GeneratedBy>Fenomen</GeneratedBy>
+    </Content>
+    <Content Include="Model\DataObjectValidators\GORoleObjectValidator.js">
+      <GeneratedBy>Fenomen</GeneratedBy>
+    </Content>
+    <Content Include="Model\DataObjectValidators\GOUserGroupObjectValidator.js">
+      <GeneratedBy>Fenomen</GeneratedBy>
+    </Content>
+    <Content Include="Model\DataObjectValidators\GOUserObjectValidator.js">
+      <GeneratedBy>Fenomen</GeneratedBy>
+    </Content>
+    <Content Include="Model\DataObjectValidators\GOUserRoleObjectValidator.js">
+      <GeneratedBy>Fenomen</GeneratedBy>
+    </Content>
+    <Content Include="Model\DataObjectValidators\LocationObjectValidator.js">
+      <GeneratedBy>Fenomen</GeneratedBy>
+    </Content>
+    <Content Include="Model\DataObjectValidators\PlaceObjectValidator.js">
+      <GeneratedBy>Fenomen</GeneratedBy>
+    </Content>
+    <Content Include="Model\DataObjectValidators\PlaceToLocationObjectValidator.js">
+      <GeneratedBy>Fenomen</GeneratedBy>
+    </Content>
+    <Content Include="Model\DataSets\CountryDataSet.js">
+      <GeneratedBy>Fenomen</GeneratedBy>
+    </Content>
+    <Content Include="Model\DataSets\GOGroupDataSet.js">
+      <GeneratedBy>Fenomen</GeneratedBy>
+    </Content>
+    <Content Include="Model\DataSets\GOGroupRoleDataSet.js">
+      <GeneratedBy>Fenomen</GeneratedBy>
+    </Content>
+    <Content Include="Model\DataSets\GOLoginHistoryDataSet.js">
+      <GeneratedBy>Fenomen</GeneratedBy>
+    </Content>
+    <Content Include="Model\DataSets\GORoleDataSet.js">
+      <GeneratedBy>Fenomen</GeneratedBy>
+    </Content>
+    <Content Include="Model\DataSets\GOUserDataSet.js">
+      <GeneratedBy>Fenomen</GeneratedBy>
+    </Content>
+    <Content Include="Model\DataSets\GOUserGroupDataSet.js">
+      <GeneratedBy>Fenomen</GeneratedBy>
+    </Content>
+    <Content Include="Model\DataSets\GOUserRoleDataSet.js">
+      <GeneratedBy>Fenomen</GeneratedBy>
+    </Content>
+    <Content Include="Model\DataSets\LocationDataSet.js">
+      <GeneratedBy>Fenomen</GeneratedBy>
+    </Content>
+    <Content Include="Model\DataSets\ObjectsDataSet.js">
+      <GeneratedBy>Fenomen</GeneratedBy>
+    </Content>
+    <Content Include="Model\DataSets\PlaceDataSet.js">
+      <GeneratedBy>Fenomen</GeneratedBy>
+    </Content>
+    <Content Include="Model\DataSets\PlaceToLocationDataSet.js">
+      <GeneratedBy>Fenomen</GeneratedBy>
+    </Content>
+    <Content Include="Model\DataStores\DataMapper.js">
+      <GeneratedBy>Fenomen</GeneratedBy>
+    </Content>
+    <Content Include="Model\DataStores\DataStore.js">
+      <GeneratedBy>Fenomen</GeneratedBy>
+    </Content>
+    <Content Include="Model\metadata.js">
+      <GeneratedBy>Fenomen</GeneratedBy>
+    </Content>
+    <Content Include="Namespaces.js">
       <GeneratedBy>Fenomen</GeneratedBy>
     </Content>
     <Content Include="Scripts\base64.js">
       <GeneratedBy>Fenomen</GeneratedBy>
     </Content>
-    <Content Include="Scripts\generativeobjects.js">
+    <Content Include="Scripts\ChartJS.min.js">
       <GeneratedBy>Fenomen</GeneratedBy>
     </Content>
-    <Content Include="Scripts\jquery-1.12.1.min.js">
+    <Content Include="Scripts\ckeditor\build-config.js">
       <GeneratedBy>Fenomen</GeneratedBy>
     </Content>
-    <Content Include="Scripts\jquery.cookie.js">
+    <Content Include="Scripts\ckeditor\ckeditor.js">
       <GeneratedBy>Fenomen</GeneratedBy>
     </Content>
-    <Content Include="Scripts\jquery.jgrowl.js">
+    <Content Include="Scripts\ckeditor\config.js">
       <GeneratedBy>Fenomen</GeneratedBy>
     </Content>
-    <Content Include="Scripts\sammy-min.js">
+    <None Include="Scripts\ckeditor\contents.css">
+      <GeneratedBy>Fenomen</GeneratedBy>
+    </None>
+    <Content Include="Scripts\ckeditor\lang\en.js">
       <GeneratedBy>Fenomen</GeneratedBy>
     </Content>
-    <Content Include="Scripts\sammy-full.js">
+    <Content Include="Scripts\ckeditor\lang\fr.js">
+      <GeneratedBy>Fenomen</GeneratedBy>
+    </Content>
+    <Content Include="Scripts\ckeditor\plugins\about\dialogs\about.js">
+      <GeneratedBy>Fenomen</GeneratedBy>
+    </Content>
+    <Resource Include="Scripts\ckeditor\plugins\about\dialogs\logo_ckeditor.png">
+      <GeneratedBy>Fenomen</GeneratedBy>
+    </Resource>
+    <Content Include="Scripts\ckeditor\plugins\clipboard\dialogs\paste.js">
+      <GeneratedBy>Fenomen</GeneratedBy>
+    </Content>
+    <Content Include="Scripts\ckeditor\plugins\dialog\dialogDefinition.js">
+      <GeneratedBy>Fenomen</GeneratedBy>
+    </Content>
+    <Resource Include="Scripts\ckeditor\plugins\fakeobjects\images\spacer.gif">
+      <GeneratedBy>Fenomen</GeneratedBy>
+    </Resource>
+    <Resource Include="Scripts\ckeditor\plugins\icons.png">
+      <GeneratedBy>Fenomen</GeneratedBy>
+    </Resource>
+    <Content Include="Scripts\ckeditor\plugins\image\dialogs\image.js">
+      <GeneratedBy>Fenomen</GeneratedBy>
+    </Content>
+    <Resource Include="Scripts\ckeditor\plugins\image\images\noimage.png">
+      <GeneratedBy>Fenomen</GeneratedBy>
+    </Resource>
+    <Content Include="Scripts\ckeditor\plugins\link\dialogs\anchor.js">
+      <GeneratedBy>Fenomen</GeneratedBy>
+    </Content>
+    <Content Include="Scripts\ckeditor\plugins\link\dialogs\link.js">
+      <GeneratedBy>Fenomen</GeneratedBy>
+    </Content>
+    <Resource Include="Scripts\ckeditor\plugins\link\images\anchor.png">
+      <GeneratedBy>Fenomen</GeneratedBy>
+    </Resource>
+    <Content Include="Scripts\ckeditor\plugins\table\dialogs\table.js">
+      <GeneratedBy>Fenomen</GeneratedBy>
+    </Content>
+    <Content Include="Scripts\ckeditor\plugins\tabletools\dialogs\tableCell.js">
+      <GeneratedBy>Fenomen</GeneratedBy>
+    </Content>
+    <None Include="Scripts\ckeditor\skins\moono\dialog.css">
+      <GeneratedBy>Fenomen</GeneratedBy>
+    </None>
+    <None Include="Scripts\ckeditor\skins\moono\dialog_ie.css">
+      <GeneratedBy>Fenomen</GeneratedBy>
+    </None>
+    <None Include="Scripts\ckeditor\skins\moono\dialog_ie7.css">
+      <GeneratedBy>Fenomen</GeneratedBy>
+    </None>
+    <None Include="Scripts\ckeditor\skins\moono\dialog_ie8.css">
+      <GeneratedBy>Fenomen</GeneratedBy>
+    </None>
+    <None Include="Scripts\ckeditor\skins\moono\dialog_iequirks.css">
+      <GeneratedBy>Fenomen</GeneratedBy>
+    </None>
+    <None Include="Scripts\ckeditor\skins\moono\dialog_opera.css">
+      <GeneratedBy>Fenomen</GeneratedBy>
+    </None>
+    <None Include="Scripts\ckeditor\skins\moono\editor.css">
+      <GeneratedBy>Fenomen</GeneratedBy>
+    </None>
+    <None Include="Scripts\ckeditor\skins\moono\editor_gecko.css">
+      <GeneratedBy>Fenomen</GeneratedBy>
+    </None>
+    <None Include="Scripts\ckeditor\skins\moono\editor_ie.css">
+      <GeneratedBy>Fenomen</GeneratedBy>
+    </None>
+    <None Include="Scripts\ckeditor\skins\moono\editor_ie7.css">
+      <GeneratedBy>Fenomen</GeneratedBy>
+    </None>
+    <None Include="Scripts\ckeditor\skins\moono\editor_ie8.css">
+      <GeneratedBy>Fenomen</GeneratedBy>
+    </None>
+    <None Include="Scripts\ckeditor\skins\moono\editor_iequirks.css">
+      <GeneratedBy>Fenomen</GeneratedBy>
+    </None>
+    <Resource Include="Scripts\ckeditor\skins\moono\icons.png">
+      <GeneratedBy>Fenomen</GeneratedBy>
+    </Resource>
+    <Resource Include="Scripts\ckeditor\skins\moono\images\arrow.png">
+      <GeneratedBy>Fenomen</GeneratedBy>
+    </Resource>
+    <Resource Include="Scripts\ckeditor\skins\moono\images\close.png">
+      <GeneratedBy>Fenomen</GeneratedBy>
+    </Resource>
+    <Resource Include="Scripts\ckeditor\skins\moono\images\mini.png">
+      <GeneratedBy>Fenomen</GeneratedBy>
+    </Resource>
+    <Content Include="Scripts\ckeditor\styles.js">
+      <GeneratedBy>Fenomen</GeneratedBy>
+    </Content>
+    <Content Include="Scripts\cropper.min.js">
       <GeneratedBy>Fenomen</GeneratedBy>
     </Content>
     <Content Include="Scripts\domhelper.js">
       <GeneratedBy>Fenomen</GeneratedBy>
     </Content>
-    <Content Include="Scripts\jquery.mobile.init.js">
-      <GeneratedBy>Fenomen</GeneratedBy>
-    </Content>
-    <Content Include="Scripts\underscore.1.3.3.js">
-      <GeneratedBy>Fenomen</GeneratedBy>
-    </Content>
-    <Content Include="Scripts\overthrow.0.1.0.js">
-      <GeneratedBy>Fenomen</GeneratedBy>
-    </Content>
-    <Content Include="Scripts\jquery-ui-1.10.2.custom.min.js">
-      <GeneratedBy>Fenomen</GeneratedBy>
-    </Content>
-    <Content Include="Scripts\jquery.alerts.js">
-      <GeneratedBy>Fenomen</GeneratedBy>
-    </Content>
-    <Content Include="Scripts\jquery.tmpl.js">
-      <GeneratedBy>Fenomen</GeneratedBy>
-    </Content>
-    <Content Include="Scripts\jquery.custom.GO.js">
-      <GeneratedBy>Fenomen</GeneratedBy>
-    </Content>
-    <Content Include="Scripts\json2.min.js">
-      <GeneratedBy>Fenomen</GeneratedBy>
-    </Content>
-    <Content Include="Scripts\knockout-3.4.js">
+    <Content Include="Scripts\generativeobjects.js">
       <GeneratedBy>Fenomen</GeneratedBy>
     </Content>
     <Content Include="Scripts\iframeResizer.min.js">
       <GeneratedBy>Fenomen</GeneratedBy>
     </Content>
-    <Content Include="Scripts\ChartJS.min.js">
+    <Content Include="Scripts\jquery.alerts.js">
       <GeneratedBy>Fenomen</GeneratedBy>
     </Content>
-    <Content Include="Scripts\knockoutbindings.js">
+    <Content Include="Scripts\jquery.cookie.js">
+      <GeneratedBy>Fenomen</GeneratedBy>
+    </Content>
+    <Content Include="Scripts\jquery.custom.GO.js">
+      <GeneratedBy>Fenomen</GeneratedBy>
+    </Content>
+    <Content Include="Scripts\jquery.cycle.all.js">
+      <GeneratedBy>Fenomen</GeneratedBy>
+    </Content>
+    <Content Include="Scripts\jquery.fileupload.js">
+      <GeneratedBy>Fenomen</GeneratedBy>
+    </Content>
+    <Content Include="Scripts\jquery.hoverIntent.js">
+      <GeneratedBy>Fenomen</GeneratedBy>
+    </Content>
+    <Content Include="Scripts\jquery.iframe-transport.js">
+      <GeneratedBy>Fenomen</GeneratedBy>
+    </Content>
+    <Content Include="Scripts\jquery.jgrowl.js">
+      <GeneratedBy>Fenomen</GeneratedBy>
+    </Content>
+    <Content Include="Scripts\jquery.mCustomScrollbar.js">
+      <GeneratedBy>Fenomen</GeneratedBy>
+    </Content>
+    <Content Include="Scripts\jquery.metadata.js">
+      <GeneratedBy>Fenomen</GeneratedBy>
+    </Content>
+    <Content Include="Scripts\jquery.mobile.init.js">
+      <GeneratedBy>Fenomen</GeneratedBy>
+    </Content>
+    <Content Include="Scripts\jquery.mousewheel.min.js">
+      <GeneratedBy>Fenomen</GeneratedBy>
+    </Content>
+    <Content Include="Scripts\jquery.tmpl.js">
+      <GeneratedBy>Fenomen</GeneratedBy>
+    </Content>
+    <Content Include="Scripts\jquery-1.12.1.min.js">
+      <GeneratedBy>Fenomen</GeneratedBy>
+    </Content>
+    <Content Include="Scripts\jquery-ui-1.10.2.custom.min.js">
+      <GeneratedBy>Fenomen</GeneratedBy>
+    </Content>
+    <Content Include="Scripts\json2.min.js">
       <GeneratedBy>Fenomen</GeneratedBy>
     </Content>
     <Content Include="Scripts\knockout.postbox.js">
       <GeneratedBy>Fenomen</GeneratedBy>
     </Content>
+    <Content Include="Scripts\knockout-3.4.js">
+      <GeneratedBy>Fenomen</GeneratedBy>
+    </Content>
+    <Content Include="Scripts\knockoutbindings.js">
+      <GeneratedBy>Fenomen</GeneratedBy>
+    </Content>
+    <Content Include="Scripts\mersenne-twister.js">
+      <GeneratedBy>Fenomen</GeneratedBy>
+    </Content>
+    <Content Include="Scripts\overthrow.0.1.0.js">
+      <GeneratedBy>Fenomen</GeneratedBy>
+    </Content>
+    <Content Include="Scripts\sammy-full.js">
+      <GeneratedBy>Fenomen</GeneratedBy>
+    </Content>
+    <Content Include="Scripts\sammy-min.js">
+      <GeneratedBy>Fenomen</GeneratedBy>
+    </Content>
+    <Content Include="Scripts\sidr.min.js">
+      <GeneratedBy>Fenomen</GeneratedBy>
+    </Content>
+    <Content Include="Scripts\underscore.1.3.3.js">
+      <GeneratedBy>Fenomen</GeneratedBy>
+    </Content>
+    <None Include="Styles\BreadCrumb.css">
+      <GeneratedBy>Fenomen</GeneratedBy>
+    </None>
+    <None Include="Styles\cropper.min.css">
+      <GeneratedBy>Fenomen</GeneratedBy>
+    </None>
+    <None Include="Styles\documentation.css">
+      <GeneratedBy>Fenomen</GeneratedBy>
+    </None>
+    <None Include="Styles\Grid-Widget.css">
+      <GeneratedBy>Fenomen</GeneratedBy>
+    </None>
+    <Resource Include="Styles\Images\ajax-loader.gif">
+      <GeneratedBy>Fenomen</GeneratedBy>
+    </Resource>
+    <Resource Include="Styles\Images\ajax-loader.png">
+      <GeneratedBy>Fenomen</GeneratedBy>
+    </Resource>
+    <Resource Include="Styles\Images\ajax-loader-line.gif">
+      <GeneratedBy>Fenomen</GeneratedBy>
+    </Resource>
+    <Resource Include="Styles\Images\ajax-loader-small.gif">
+      <GeneratedBy>Fenomen</GeneratedBy>
+    </Resource>
+    <Resource Include="Styles\Images\arrow_left.png">
+      <GeneratedBy>Fenomen</GeneratedBy>
+    </Resource>
+    <Resource Include="Styles\Images\arrow_right.png">
+      <GeneratedBy>Fenomen</GeneratedBy>
+    </Resource>
+    <Resource Include="Styles\Images\arrow-n.png">
+      <GeneratedBy>Fenomen</GeneratedBy>
+    </Resource>
+    <Resource Include="Styles\Images\arrow-n-s.png">
+      <GeneratedBy>Fenomen</GeneratedBy>
+    </Resource>
+    <Resource Include="Styles\Images\arrow-s.png">
+      <GeneratedBy>Fenomen</GeneratedBy>
+    </Resource>
+    <Resource Include="Styles\Images\Bandeau1.jpg">
+      <GeneratedBy>Fenomen</GeneratedBy>
+    </Resource>
+    <Resource Include="Styles\Images\bloc-bas-droite.gif">
+      <GeneratedBy>Fenomen</GeneratedBy>
+    </Resource>
+    <Resource Include="Styles\Images\blue-arrow.png">
+      <GeneratedBy>Fenomen</GeneratedBy>
+    </Resource>
+    <Resource Include="Styles\Images\bt1-off.png">
+      <GeneratedBy>Fenomen</GeneratedBy>
+    </Resource>
+    <Resource Include="Styles\Images\bt1-on.png">
+      <GeneratedBy>Fenomen</GeneratedBy>
+    </Resource>
+    <Resource Include="Styles\Images\bt2-off.png">
+      <GeneratedBy>Fenomen</GeneratedBy>
+    </Resource>
+    <Resource Include="Styles\Images\bt2-on.png">
+      <GeneratedBy>Fenomen</GeneratedBy>
+    </Resource>
+    <Resource Include="Styles\Images\bt3-off.png">
+      <GeneratedBy>Fenomen</GeneratedBy>
+    </Resource>
+    <Resource Include="Styles\Images\bt3-on.png">
+      <GeneratedBy>Fenomen</GeneratedBy>
+    </Resource>
+    <Resource Include="Styles\Images\bt4-off.png">
+      <GeneratedBy>Fenomen</GeneratedBy>
+    </Resource>
+    <Resource Include="Styles\Images\bt4-on.png">
+      <GeneratedBy>Fenomen</GeneratedBy>
+    </Resource>
+    <Resource Include="Styles\Images\bt5-off.png">
+      <GeneratedBy>Fenomen</GeneratedBy>
+    </Resource>
+    <Resource Include="Styles\Images\bt5-on.png">
+      <GeneratedBy>Fenomen</GeneratedBy>
+    </Resource>
+    <Resource Include="Styles\Images\close.png">
+      <GeneratedBy>Fenomen</GeneratedBy>
+    </Resource>
+    <Resource Include="Styles\Images\data-icon.png">
+      <GeneratedBy>Fenomen</GeneratedBy>
+    </Resource>
+    <Resource Include="Styles\Images\delete.png">
+      <GeneratedBy>Fenomen</GeneratedBy>
+    </Resource>
+    <Resource Include="Styles\Images\document-icon.png">
+      <GeneratedBy>Fenomen</GeneratedBy>
+    </Resource>
+    <Resource Include="Styles\Images\edit.png">
+      <GeneratedBy>Fenomen</GeneratedBy>
+    </Resource>
+    <Resource Include="Styles\Images\fd-titre.jpg">
+      <GeneratedBy>Fenomen</GeneratedBy>
+    </Resource>
+    <Resource Include="Styles\Images\Fleche-bas.gif">
+      <GeneratedBy>Fenomen</GeneratedBy>
+    </Resource>
+    <Resource Include="Styles\Images\fond-bloc.jpg">
+      <GeneratedBy>Fenomen</GeneratedBy>
+    </Resource>
+    <Resource Include="Styles\Images\fond-menu.gif">
+      <GeneratedBy>Fenomen</GeneratedBy>
+    </Resource>
+    <Resource Include="Styles\Images\GI.png">
+      <GeneratedBy>Fenomen</GeneratedBy>
+    </Resource>
+    <Resource Include="Styles\Images\GO.png">
+      <GeneratedBy>Fenomen</GeneratedBy>
+    </Resource>
+    <Resource Include="Styles\Images\icons-18-black.png">
+      <GeneratedBy>Fenomen</GeneratedBy>
+    </Resource>
+    <Resource Include="Styles\Images\icons-18-white.png">
+      <GeneratedBy>Fenomen</GeneratedBy>
+    </Resource>
+    <Resource Include="Styles\Images\icons-36-black.png">
+      <GeneratedBy>Fenomen</GeneratedBy>
+    </Resource>
+    <Resource Include="Styles\Images\icons-36-white.png">
+      <GeneratedBy>Fenomen</GeneratedBy>
+    </Resource>
+    <Resource Include="Styles\Images\info.png">
+      <GeneratedBy>Fenomen</GeneratedBy>
+    </Resource>
+    <Resource Include="Styles\Images\logo.png">
+      <GeneratedBy>Fenomen</GeneratedBy>
+    </Resource>
+    <Resource Include="Styles\Images\magnifying14x14.png">
+      <GeneratedBy>Fenomen</GeneratedBy>
+    </Resource>
+    <Resource Include="Styles\Images\mCSB_buttons.png">
+      <GeneratedBy>Fenomen</GeneratedBy>
+    </Resource>
+    <Resource Include="Styles\Images\overlay-loader.gif">
+      <GeneratedBy>Fenomen</GeneratedBy>
+    </Resource>
+    <Resource Include="Styles\Images\plus.png">
+      <GeneratedBy>Fenomen</GeneratedBy>
+    </Resource>
+    <Resource Include="Styles\Images\RdC.png">
+      <GeneratedBy>Fenomen</GeneratedBy>
+    </Resource>
+    <Resource Include="Styles\Images\treeview-default.gif">
+      <GeneratedBy>Fenomen</GeneratedBy>
+    </Resource>
+    <Resource Include="Styles\Images\treeview-default-line.gif">
+      <GeneratedBy>Fenomen</GeneratedBy>
+    </Resource>
+    <Resource Include="Styles\Images\ui-bg_diagonals-thick_20_666666_40x40.png">
+      <GeneratedBy>Fenomen</GeneratedBy>
+    </Resource>
+    <Resource Include="Styles\Images\ui-bg_flat_0_aaaaaa_40x100.png">
+      <GeneratedBy>Fenomen</GeneratedBy>
+    </Resource>
+    <Resource Include="Styles\Images\ui-bg_flat_55_fbec88_40x100.png">
+      <GeneratedBy>Fenomen</GeneratedBy>
+    </Resource>
+    <Resource Include="Styles\Images\ui-bg_glass_75_d0e5f5_1x400.png">
+      <GeneratedBy>Fenomen</GeneratedBy>
+    </Resource>
+    <Resource Include="Styles\Images\ui-bg_glass_85_dfeffc_1x400.png">
+      <GeneratedBy>Fenomen</GeneratedBy>
+    </Resource>
+    <Resource Include="Styles\Images\ui-bg_glass_95_fef1ec_1x400.png">
+      <GeneratedBy>Fenomen</GeneratedBy>
+    </Resource>
+    <Resource Include="Styles\Images\ui-bg_gloss-wave_55_5c9ccc_500x100.png">
+      <GeneratedBy>Fenomen</GeneratedBy>
+    </Resource>
+    <Resource Include="Styles\Images\ui-bg_inset-hard_100_f5f8f9_1x100.png">
+      <GeneratedBy>Fenomen</GeneratedBy>
+    </Resource>
+    <Resource Include="Styles\Images\ui-bg_inset-hard_100_fcfdfd_1x100.png">
+      <GeneratedBy>Fenomen</GeneratedBy>
+    </Resource>
+    <Resource Include="Styles\Images\ui-icons_217bc0_256x240.png">
+      <GeneratedBy>Fenomen</GeneratedBy>
+    </Resource>
+    <Resource Include="Styles\Images\ui-icons_2e83ff_256x240.png">
+      <GeneratedBy>Fenomen</GeneratedBy>
+    </Resource>
+    <Resource Include="Styles\Images\ui-icons_469bdd_256x240.png">
+      <GeneratedBy>Fenomen</GeneratedBy>
+    </Resource>
+    <Resource Include="Styles\Images\ui-icons_6da8d5_256x240.png">
+      <GeneratedBy>Fenomen</GeneratedBy>
+    </Resource>
+    <Resource Include="Styles\Images\ui-icons_cd0a0a_256x240.png">
+      <GeneratedBy>Fenomen</GeneratedBy>
+    </Resource>
+    <Resource Include="Styles\Images\ui-icons_d8e7f3_256x240.png">
+      <GeneratedBy>Fenomen</GeneratedBy>
+    </Resource>
+    <Resource Include="Styles\Images\ui-icons_f9bd01_256x240.png">
+      <GeneratedBy>Fenomen</GeneratedBy>
+    </Resource>
+    <None Include="Styles\jquery.alerts.css">
+      <GeneratedBy>Fenomen</GeneratedBy>
+    </None>
+    <None Include="Styles\jquery.custom.GO.css">
+      <GeneratedBy>Fenomen</GeneratedBy>
+    </None>
+    <None Include="Styles\jquery.jgrowl.css">
+      <GeneratedBy>Fenomen</GeneratedBy>
+    </None>
+    <None Include="Styles\jquery.mCustomScrollbar.css">
+      <GeneratedBy>Fenomen</GeneratedBy>
+    </None>
+    <None Include="Styles\jquery.mobile-1.1.0.min.css">
+      <GeneratedBy>Fenomen</GeneratedBy>
+    </None>
+    <None Include="Styles\JqueryMenu.css">
+      <GeneratedBy>Fenomen</GeneratedBy>
+    </None>
+    <None Include="Styles\jquery-ui-1.10.1.custom.css">
+      <GeneratedBy>Fenomen</GeneratedBy>
+    </None>
+    <None Include="Styles\layout.css">
+      <GeneratedBy>Fenomen</GeneratedBy>
+    </None>
+    <None Include="Styles\LoginPage.css">
+      <GeneratedBy>Fenomen</GeneratedBy>
+    </None>
+    <None Include="Styles\MobileLayout.css">
+      <GeneratedBy>Fenomen</GeneratedBy>
+    </None>
+    <None Include="Styles\myapplication.css">
+      <GeneratedBy>Fenomen</GeneratedBy>
+    </None>
+    <None Include="Styles\Reports.css">
+      <GeneratedBy>Fenomen</GeneratedBy>
+    </None>
+    <None Include="Styles\reset.css">
+      <GeneratedBy>Fenomen</GeneratedBy>
+    </None>
+    <None Include="Styles\sidr.css">
+      <GeneratedBy>Fenomen</GeneratedBy>
+    </None>
+    <None Include="Styles\ui-elements.css">
+      <GeneratedBy>Fenomen</GeneratedBy>
+    </None>
     <None Include="Styles\widget-grid.css">
       <GeneratedBy>Fenomen</GeneratedBy>
     </None>
@@ -1040,21 +900,161 @@
     <None Include="Styles\widget-paginator.ipad.css">
       <GeneratedBy>Fenomen</GeneratedBy>
     </None>
-    <None Include="Styles\jquery-ui-1.10.1.custom.css">
+    <Content Include="ViewModels\Common\DialogPopupViewModel.js">
       <GeneratedBy>Fenomen</GeneratedBy>
-    </None>
-    <None Include="Styles\jquery.custom.GO.css">
+    </Content>
+    <Content Include="ViewModels\Common\NoticeBoxViewModel.js">
       <GeneratedBy>Fenomen</GeneratedBy>
-    </None>
-    <None Include="Styles\reset.css">
+    </Content>
+    <Content Include="ViewModels\Country\CountryFormViewModel.js">
       <GeneratedBy>Fenomen</GeneratedBy>
-    </None>
-    <None Include="Styles\jquery.alerts.css">
+    </Content>
+    <Content Include="ViewModels\Country\CountryGridViewModel.js">
       <GeneratedBy>Fenomen</GeneratedBy>
-    </None>
-    <None Include="Styles\myapplication.css">
+    </Content>
+    <Content Include="ViewModels\Country\Filters\CountryFilterViewModel.js">
       <GeneratedBy>Fenomen</GeneratedBy>
-    </None>
+    </Content>
+    <Content Include="ViewModels\Location\Filters\LocationFilterViewModel.js">
+      <GeneratedBy>Fenomen</GeneratedBy>
+    </Content>
+    <Content Include="ViewModels\Location\LocationFormViewModel.js">
+      <GeneratedBy>Fenomen</GeneratedBy>
+    </Content>
+    <Content Include="ViewModels\Location\LocationGridViewModel.js">
+      <GeneratedBy>Fenomen</GeneratedBy>
+    </Content>
+    <Content Include="ViewModels\Place\Filters\PlaceFilterViewModel.js">
+      <GeneratedBy>Fenomen</GeneratedBy>
+    </Content>
+    <Content Include="ViewModels\Place\PlaceFormViewModel.js">
+      <GeneratedBy>Fenomen</GeneratedBy>
+    </Content>
+    <Content Include="ViewModels\Place\PlaceGridViewModel.js">
+      <GeneratedBy>Fenomen</GeneratedBy>
+    </Content>
+    <Content Include="ViewModels\PlaceToLocation\Filters\PlaceToLocationFilterViewModel.js">
+      <GeneratedBy>Fenomen</GeneratedBy>
+    </Content>
+    <Content Include="ViewModels\PlaceToLocation\PlaceToLocationFormViewModel.js">
+      <GeneratedBy>Fenomen</GeneratedBy>
+    </Content>
+    <Content Include="ViewModels\PlaceToLocation\PlaceToLocationGridViewModel.js">
+      <GeneratedBy>Fenomen</GeneratedBy>
+    </Content>
+    <Content Include="Views\Application.aspx">
+      <GeneratedBy>Fenomen</GeneratedBy>
+    </Content>
+    <Compile Include="Views\Application.aspx.cs">
+      <GeneratedBy>Fenomen</GeneratedBy>
+      <DependentUpon>Application.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Views\Application.aspx.designer.cs">
+      <GeneratedBy>Fenomen</GeneratedBy>
+      <AutoGen>true</AutoGen>
+      <DesignTime>true</DesignTime>
+      <DependentUpon>Application.aspx.resx</DependentUpon>
+    </Compile>
+    <Content Include="Views\Application30599230-22bb-4108-a6c2-ec314d5f1b04Layout.html">
+      <GeneratedBy>Fenomen</GeneratedBy>
+    </Content>
+    <Content Include="Views\Applicatione71bc82d-442d-41a6-831e-eae563c45cb6Layout.html">
+      <GeneratedBy>Fenomen</GeneratedBy>
+    </Content>
+    <Content Include="Views\CountryItemsPageView.html">
+      <GeneratedBy>Fenomen</GeneratedBy>
+    </Content>
+    <Content Include="Views\CountryPageView.html">
+      <GeneratedBy>Fenomen</GeneratedBy>
+    </Content>
+    <Content Include="Views\LocationItemsPageView.html">
+      <GeneratedBy>Fenomen</GeneratedBy>
+    </Content>
+    <Content Include="Views\LocationPageView.html">
+      <GeneratedBy>Fenomen</GeneratedBy>
+    </Content>
+    <Content Include="Views\PartialViews\Common\AlertPopupPartialView.html">
+      <GeneratedBy>Fenomen</GeneratedBy>
+    </Content>
+    <Content Include="Views\PartialViews\Common\ConfirmPopupPartialView.html">
+      <GeneratedBy>Fenomen</GeneratedBy>
+    </Content>
+    <Content Include="Views\PartialViews\Common\PromptPopupPartialView.html">
+      <GeneratedBy>Fenomen</GeneratedBy>
+    </Content>
+    <Content Include="Views\PartialViews\Country\CountryFormControlPartialView.html">
+      <GeneratedBy>Fenomen</GeneratedBy>
+    </Content>
+    <Content Include="Views\PartialViews\Country\CountryFormPartialView.html">
+      <GeneratedBy>Fenomen</GeneratedBy>
+    </Content>
+    <Content Include="Views\PartialViews\Country\CountryGridPartialView.html">
+      <GeneratedBy>Fenomen</GeneratedBy>
+    </Content>
+    <Content Include="Views\PartialViews\Country\Filters\CountryFilterPartialView.html">
+      <GeneratedBy>Fenomen</GeneratedBy>
+    </Content>
+    <Content Include="Views\PartialViews\Location\Filters\LocationFilterPartialView.html">
+      <GeneratedBy>Fenomen</GeneratedBy>
+    </Content>
+    <Content Include="Views\PartialViews\Location\LocationFormControlPartialView.html">
+      <GeneratedBy>Fenomen</GeneratedBy>
+    </Content>
+    <Content Include="Views\PartialViews\Location\LocationFormPartialView.html">
+      <GeneratedBy>Fenomen</GeneratedBy>
+    </Content>
+    <Content Include="Views\PartialViews\Location\LocationGridPartialView.html">
+      <GeneratedBy>Fenomen</GeneratedBy>
+    </Content>
+    <Content Include="Views\PartialViews\Place\Filters\PlaceFilterPartialView.html">
+      <GeneratedBy>Fenomen</GeneratedBy>
+    </Content>
+    <Content Include="Views\PartialViews\Place\PlaceFormControlPartialView.html">
+      <GeneratedBy>Fenomen</GeneratedBy>
+    </Content>
+    <Content Include="Views\PartialViews\Place\PlaceFormPartialView.html">
+      <GeneratedBy>Fenomen</GeneratedBy>
+    </Content>
+    <Content Include="Views\PartialViews\Place\PlaceGridPartialView.html">
+      <GeneratedBy>Fenomen</GeneratedBy>
+    </Content>
+    <Content Include="Views\PartialViews\PlaceToLocation\Filters\PlaceToLocationFilterPartialView.html">
+      <GeneratedBy>Fenomen</GeneratedBy>
+    </Content>
+    <Content Include="Views\PartialViews\PlaceToLocation\PlaceToLocationFormControlPartialView.html">
+      <GeneratedBy>Fenomen</GeneratedBy>
+    </Content>
+    <Content Include="Views\PartialViews\PlaceToLocation\PlaceToLocationFormPartialView.html">
+      <GeneratedBy>Fenomen</GeneratedBy>
+    </Content>
+    <Content Include="Views\PartialViews\PlaceToLocation\PlaceToLocationGridPartialView.html">
+      <GeneratedBy>Fenomen</GeneratedBy>
+    </Content>
+    <Content Include="Views\PlaceItemsPageView.html">
+      <GeneratedBy>Fenomen</GeneratedBy>
+    </Content>
+    <Content Include="Views\PlacePageView.html">
+      <GeneratedBy>Fenomen</GeneratedBy>
+    </Content>
+    <Content Include="Views\PlaceToLocationItemsPageView.html">
+      <GeneratedBy>Fenomen</GeneratedBy>
+    </Content>
+    <Content Include="Views\PlaceToLocationPageView.html">
+      <GeneratedBy>Fenomen</GeneratedBy>
+    </Content>
+    <Content Include="Views\ViewLoader.js">
+      <GeneratedBy>Fenomen</GeneratedBy>
+    </Content>
+    <Content Include="Widgets\datagrid.js">
+      <GeneratedBy>Fenomen</GeneratedBy>
+    </Content>
+    <Content Include="Widgets\paginator.js">
+      <GeneratedBy>Fenomen</GeneratedBy>
+    </Content>
+    <Content Include="Widgets\treeview.js">
+      <GeneratedBy>Fenomen</GeneratedBy>
+    </Content>
   </ItemGroup>
   <ItemGroup>
     <Reference Include="GenerativeObjects.Practices">
