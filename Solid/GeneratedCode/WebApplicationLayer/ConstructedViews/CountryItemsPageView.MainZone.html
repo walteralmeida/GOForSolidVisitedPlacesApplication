@@ -60,7 +60,9 @@
               <thead class="gridControl">
                 <tr>
                   <th scope="col" data-bind="html: 'Name', click: function(data, event){ onHeaderClicked('Name') }, css: { 'ui-grid-sort-s':((sortOrder() == 'desc') &amp;&amp; (sortColumnName() == 'Name')), 'ui-grid-sort-n':((sortOrder() == 'asc') &amp;&amp; (sortColumnName() == 'Name')), 'ui-grid-sort-n-s':(sortColumnName() != 'Name') }" class="ui-grid-header-container pointer sortableCol"></th>
-                  <th scope="col" data-bind="html: 'URI', click: function(data, event){ onHeaderClicked('URI') }, css: { 'ui-grid-sort-s':((sortOrder() == 'desc') &amp;&amp; (sortColumnName() == 'URI')), 'ui-grid-sort-n':((sortOrder() == 'asc') &amp;&amp; (sortColumnName() == 'URI')), 'ui-grid-sort-n-s':(sortColumnName() != 'URI') }" class="ui-grid-header-container pointer sortableCol"></th>
+                  <th scope="col" data-bind="html: 'Long Name', click: function(data, event){ onHeaderClicked('LongName') }, css: { 'ui-grid-sort-s':((sortOrder() == 'desc') &amp;&amp; (sortColumnName() == 'LongName')), 'ui-grid-sort-n':((sortOrder() == 'asc') &amp;&amp; (sortColumnName() == 'LongName')), 'ui-grid-sort-n-s':(sortColumnName() != 'LongName') }" class="ui-grid-header-container pointer sortableCol"></th>
+                  <th scope="col" data-bind="html: 'Population Total', click: function(data, event){ onHeaderClicked('PopulationTotal') }, css: { 'ui-grid-sort-s':((sortOrder() == 'desc') &amp;&amp; (sortColumnName() == 'PopulationTotal')), 'ui-grid-sort-n':((sortOrder() == 'asc') &amp;&amp; (sortColumnName() == 'PopulationTotal')), 'ui-grid-sort-n-s':(sortColumnName() != 'PopulationTotal') }" class="ui-grid-header-container pointer sortableCol"></th>
+                  <th scope="col" data-bind="html: 'Population Density', click: function(data, event){ onHeaderClicked('PopulationDensity') }, css: { 'ui-grid-sort-s':((sortOrder() == 'desc') &amp;&amp; (sortColumnName() == 'PopulationDensity')), 'ui-grid-sort-n':((sortOrder() == 'asc') &amp;&amp; (sortColumnName() == 'PopulationDensity')), 'ui-grid-sort-n-s':(sortColumnName() != 'PopulationDensity') }" class="ui-grid-header-container pointer sortableCol"></th>
                 </tr>
               </thead>
               <tbody data-bind="foreach: CountryObjectCollection()">
@@ -68,7 +70,9 @@
                   <td data-bind="jqStopBubble: 'a'">
                     <a data-bind="attr: { href: '#!' + ApplicationController.getRootHashTag('CountryDetails') + 'Home/Countries/CountryDetails/' + Data.URI(), title: Data.Name }, html: Data.Name"></a>
                   </td>
-                  <td data-bind="html: Data.URI"></td>
+                  <td data-bind="html: Data.LongName"></td>
+                  <td data-bind="html: Data.PopulationTotal"></td>
+                  <td data-bind="html: Data.PopulationDensity"></td>
                 </tr>
               </tbody>
             </table>
