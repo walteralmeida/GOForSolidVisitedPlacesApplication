@@ -1,0 +1,189 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="12.0" DefaultTargets="Merge_EntityFactories;Merge_EntityValidators;Merge_CustomFields;Merge_ViewModels;Merge_Controllers;Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(SolutionDir)\global.props" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProductVersion>9.0.30729</ProductVersion>
+    <SchemaVersion>2.0</SchemaVersion>
+    <ProjectGuid>{7925E1FE-977A-45E6-8C7F-10F9B0E17581}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>Solid.Application.Web.Custom</RootNamespace>
+    <AssemblyName>Solid.Application.Web.Custom</AssemblyName>
+    <ProjectTypeGuids>{3D9AD99F-2412-4246-B90B-4EAA41C64699};{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}</ProjectTypeGuids>
+    <!-- <ProjectTypeGuids>{349c5851-65df-11da-9384-00065b846f21};{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}</ProjectTypeGuids>-->
+    <TargetFrameworkVersion>$(DotNetFrameworkVersion)</TargetFrameworkVersion>
+    <FileUpgradeFlags>
+    </FileUpgradeFlags>
+    <OldToolsVersion>3.5</OldToolsVersion>
+    <UpgradeBackupLocation />
+    <TargetFrameworkProfile />
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <CodeAnalysisRuleSet>AllRules.ruleset</CodeAnalysisRuleSet>
+    <UseVSHostingProcess>true</UseVSHostingProcess>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <CodeAnalysisRuleSet>AllRules.ruleset</CodeAnalysisRuleSet>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="System" />
+    <Reference Include="System.Configuration" />
+    <Reference Include="System.Core">
+      <RequiredTargetFramework>4.5</RequiredTargetFramework>
+    </Reference>
+    <Reference Include="System.Data" />
+    <Reference Include="System.Runtime.Serialization">
+      <RequiredTargetFramework>4.5</RequiredTargetFramework>
+    </Reference>
+    <Reference Include="System.ServiceModel">
+      <RequiredTargetFramework>4.5</RequiredTargetFramework>
+    </Reference>
+    <Reference Include="System.ServiceModel.Web">
+      <RequiredTargetFramework>4.5</RequiredTargetFramework>
+    </Reference>
+    <Reference Include="System.Web" />
+    <Reference Include="System.Web.ApplicationServices" />
+    <Reference Include="System.Xml" />
+    <Reference Include="System.Xml.Linq">
+      <RequiredTargetFramework>4.5</RequiredTargetFramework>
+    </Reference>
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Custom\readme.js">
+      <GeneratedBy>Fenomen</GeneratedBy>
+    </Content>
+    <Content Include="Custom/Model\readme.js">
+      <GeneratedBy>Fenomen</GeneratedBy>
+    </Content>
+    <Content Include="Custom/ViewModels\readme.js">
+      <GeneratedBy>Fenomen</GeneratedBy>
+    </Content>
+    <Content Include="Custom/Controllers\readme.js">
+      <GeneratedBy>Fenomen</GeneratedBy>
+    </Content>
+  </ItemGroup>
+  <ItemGroup>
+    <Reference Include="GenerativeObjects.Practices">
+      <HintPath>C:\Program Files (x86)\GenerativeObjects\Runtime Libraries\GenerativeObjects.Practices.dll</HintPath>
+    </Reference>
+    <Reference Include="GenerativeObjects.Practices.MVPVM">
+      <HintPath>C:\Program Files (x86)\GenerativeObjects\Runtime Libraries\GenerativeObjects.Practices.MVPVM.dll</HintPath>
+    </Reference>
+    <Reference Include="GenerativeObjects.Practices.ORMSupportClasses">
+      <HintPath>C:\Program Files (x86)\GenerativeObjects\Runtime Libraries\GenerativeObjects.Practices.ORMSupportClasses.dll</HintPath>
+    </Reference>
+    <Reference Include="Unity.Abstractions">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>C:\Program Files (x86)\GenerativeObjects\External References\Unity.Abstractions.dll</HintPath>
+    </Reference>
+    <Reference Include="ServiceStack.Text">
+      <HintPath>C:\Program Files (x86)\GenerativeObjects\External References\ServiceStack.Text.dll</HintPath>
+    </Reference>
+    <Reference Include="MSCaptcha">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>C:\Program Files (x86)\GenerativeObjects\External References\MSCaptcha.dll</HintPath>
+    </Reference>
+    <ProjectReference Include="..\..\GeneratedCode\BusinessLayer\Solid.BusinessLayer.ORMSupportClasses.csproj">
+      <Project>{70E37A60-34C4-4282-ABCC-76C6EE28B92A}</Project>
+      <Name>Solid.BusinessLayer.ORMSupportClasses</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\GeneratedCode\DataLayer\Solid.Data.DataObjects.csproj">
+      <Project>{627B81F1-9A5E-4CAB-B153-EDC596BA83F0}</Project>
+      <Name>Solid.Data.DataObjects</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\GeneratedCode\BusinessLayer\Solid.BusinessLayer.csproj">
+      <Project>{156CD422-5621-4E6B-8610-E23F8B08D4D0}</Project>
+      <Name>Solid.BusinessLayer</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\GeneratedCode\ModelLayer\Solid.Client.Model.csproj">
+      <Project>{3DFBAFE2-CC7A-4A67-B34B-413470D479DB}</Project>
+      <Name>Solid.Client.Model</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
+  <!-- Regroup Entities Factories -->
+  <Target Name="Merge_EntityFactories">
+    <ItemGroup>
+      <JsFilesEntityFactories Include="Custom/Model/readme.js" />
+      <JsFilesEntityFactories Include="Custom/Model/DataObjects/*.custom.js" />
+      <EntityFactoriesFileLines Include="$([System.IO.File]::ReadAllText(%(JsFilesEntityFactories.Identity)))" />
+    </ItemGroup>
+    <WriteLinesToFile File="Custom/EntityFactories.js" Lines="@(EntityFactoriesFileLines)" Overwrite="true" />
+  </Target>
+  <!-- Regroup Custom JS Files for Validators -->
+  <Target Name="Merge_EntityValidators">
+    <ItemGroup>
+      <JsFilesEntityValidators Include="Custom/Model/readme.js" />
+      <JsFilesEntityValidators Include="Custom/Model/DataObjectValidators/*.custom.js" />
+      <EntityValidatorsFileLines Include="$([System.IO.File]::ReadAllText(%(JsFilesEntityValidators.Identity)))" />
+    </ItemGroup>
+    <WriteLinesToFile File="Custom/EntityValidators.js" Lines="@(EntityValidatorsFileLines)" Overwrite="true" />
+  </Target>
+  <!-- Regroup Custom JS Files for Custom Fields in a single File -->
+  <Target Name="Merge_CustomFields">
+    <ItemGroup>
+      <JsFilesCustomFields Include="Custom/Model/readme.js" />
+      <JsFilesCustomFields Include="Custom/Model/CustomFields/*.custom.js" />
+      <CustomFieldsFileLines Include="$([System.IO.File]::ReadAllText(%(JsFilesCustomFields.Identity)))" />
+    </ItemGroup>
+    <WriteLinesToFile File="Custom/CustomFields.js" Lines="@(CustomFieldsFileLines)" Overwrite="true" />
+  </Target>
+  <!-- Merge Custom View Models -->
+  <Target Name="Merge_ViewModels">
+    <ItemGroup>
+      <!-- Match Form / List / Grid -->
+      <JsFilesViewModels Include="Custom/ViewModels/readme.js" />
+      <JsFilesViewModels Include="Custom/ViewModels/*.custom.js" />
+      <JsFilesViewModels Include="Custom/ViewModels/*/*.custom.js" />
+      <!-- Match Filters -->
+      <JsFilesViewModels Include="Custom/ViewModels/*/Filters/*.custom.js" />
+      <ViewModelsFileLines Include="$([System.IO.File]::ReadAllText(%(JsFilesViewModels.Identity)))" />
+    </ItemGroup>
+    <WriteLinesToFile File="Custom/ViewModels.js" Lines="@(ViewModelsFileLines)" Overwrite="true" />
+  </Target>
+  <!-- Merge Custom Page Controllers -->
+  <Target Name="Merge_Controllers">
+    <ItemGroup>
+      <!-- Match Custom Page Controllers -->
+      <JsFilesControllers Include="Custom/Controllers/readme.js" />
+      <JsFilesControllers Include="Custom/Controllers/*.custom.js" />
+      <ControllersFileLines Include="$([System.IO.File]::ReadAllText(%(JsFilesControllers.Identity)))" />
+    </ItemGroup>
+    <WriteLinesToFile File="Custom/PageControllers.js" Lines="@(ControllersFileLines)" Overwrite="true" />
+  </Target>
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+  <ProjectExtensions>
+    <VisualStudio>
+      <FlavorProperties GUID="{3D9AD99F-2412-4246-B90B-4EAA41C64699}">
+        <WcfProjectProperties>
+          <AutoStart>False</AutoStart>
+        </WcfProjectProperties>
+      </FlavorProperties>
+    </VisualStudio>
+  </ProjectExtensions>
+  <PropertyGroup>
+    <PostBuildEvent>
+    </PostBuildEvent>
+  </PropertyGroup>
+</Project>

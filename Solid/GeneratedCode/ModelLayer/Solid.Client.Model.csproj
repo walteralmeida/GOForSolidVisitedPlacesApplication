@@ -1,0 +1,244 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="12.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(SolutionDir)\global.props" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProductVersion>9.0.30729</ProductVersion>
+    <SchemaVersion>2.0</SchemaVersion>
+    <ProjectGuid>{3DFBAFE2-CC7A-4A67-B34B-413470D479DB}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>Solid.Client.Model</RootNamespace>
+    <AssemblyName>Solid.Client.Model</AssemblyName>
+    <TargetFrameworkVersion>$(DotNetFrameworkVersion)</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+    <FileUpgradeFlags>
+    </FileUpgradeFlags>
+    <OldToolsVersion>3.5</OldToolsVersion>
+    <UpgradeBackupLocation />
+    <PublishUrl>publish\</PublishUrl>
+    <Install>true</Install>
+    <InstallFrom>Disk</InstallFrom>
+    <UpdateEnabled>false</UpdateEnabled>
+    <UpdateMode>Foreground</UpdateMode>
+    <UpdateInterval>7</UpdateInterval>
+    <UpdateIntervalUnits>Days</UpdateIntervalUnits>
+    <UpdatePeriodically>false</UpdatePeriodically>
+    <UpdateRequired>false</UpdateRequired>
+    <MapFileExtensions>true</MapFileExtensions>
+    <ApplicationRevision>0</ApplicationRevision>
+    <ApplicationVersion>1.0.0.%2a</ApplicationVersion>
+    <IsWebBootstrapper>false</IsWebBootstrapper>
+    <UseApplicationTrust>false</UseApplicationTrust>
+    <BootstrapperEnabled>true</BootstrapperEnabled>
+    <TargetFrameworkProfile />
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <CodeAnalysisRuleSet>AllRules.ruleset</CodeAnalysisRuleSet>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <CodeAnalysisRuleSet>AllRules.ruleset</CodeAnalysisRuleSet>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="Microsoft.Practices.EnterpriseLibrary.Logging, Version=5.0.414.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>C:\Program Files (x86)\GenerativeObjects\External References\Microsoft.Practices.EnterpriseLibrary.Logging.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Practices.EnterpriseLibrary.PolicyInjection">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>C:\Program Files (x86)\GenerativeObjects\External References\Microsoft.Practices.EnterpriseLibrary.PolicyInjection.dll</HintPath>
+    </Reference>
+    <Reference Include="Unity.Abstractions">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>C:\Program Files (x86)\GenerativeObjects\External References\Unity.Abstractions.dll</HintPath>
+    </Reference>
+    <Reference Include="Unity.Interception">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>C:\Program Files (x86)\GenerativeObjects\External References\Unity.Interception.dll</HintPath>
+    </Reference>
+    <Reference Include="Unity.Interception.Configuration">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>C:\Program Files (x86)\GenerativeObjects\External References\Unity.Interception.Configuration.dll</HintPath>
+    </Reference>
+    <Reference Include="Unity.Configuration">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>C:\Program Files (x86)\GenerativeObjects\External References\Unity.Configuration.dll</HintPath>
+    </Reference>
+    <Reference Include="Unity.Container">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>C:\Program Files (x86)\GenerativeObjects\External References\Unity.Container.dll</HintPath>
+    </Reference>
+    <Reference Include="PresentationCore" />
+    <Reference Include="Newtonsoft.Json">
+      <HintPath>C:\Program Files (x86)\GenerativeObjects\External References\Newtonsoft.Json.dll</HintPath>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.configuration" />
+    <Reference Include="System.Core">
+      <RequiredTargetFramework>3.5</RequiredTargetFramework>
+    </Reference>
+    <Reference Include="System.Runtime.Serialization" />
+    <Reference Include="System.ServiceModel">
+      <RequiredTargetFramework>3.0</RequiredTargetFramework>
+    </Reference>
+    <Reference Include="System.Xml.Linq">
+      <RequiredTargetFramework>3.5</RequiredTargetFramework>
+    </Reference>
+    <Reference Include="System.Data.DataSetExtensions">
+      <RequiredTargetFramework>3.5</RequiredTargetFramework>
+    </Reference>
+    <Reference Include="System.Data" />
+    <Reference Include="System.Web" />
+    <Reference Include="System.Xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Common\Container.cs">
+      <GeneratedBy>Fenomen</GeneratedBy>
+    </Compile>
+    <Compile Include="Common\Container.custom.cs">
+      <GeneratedBy>Fenomen</GeneratedBy>
+    </Compile>
+    <Compile Include="Common\AuthenticationService.cs">
+      <GeneratedBy>Fenomen</GeneratedBy>
+    </Compile>
+    <Compile Include="DataProviders\GORoleService.cs">
+      <GeneratedBy>Fenomen</GeneratedBy>
+    </Compile>
+    <Compile Include="DataProviders\GOGroupRoleService.cs">
+      <GeneratedBy>Fenomen</GeneratedBy>
+    </Compile>
+    <Compile Include="DataProviders\PlaceService.cs">
+      <GeneratedBy>Fenomen</GeneratedBy>
+    </Compile>
+    <Compile Include="DataProviders\LocationService.cs">
+      <GeneratedBy>Fenomen</GeneratedBy>
+    </Compile>
+    <Compile Include="DataProviders\PlaceToLocationService.cs">
+      <GeneratedBy>Fenomen</GeneratedBy>
+    </Compile>
+    <Compile Include="DataProviders\GOUserService.cs">
+      <GeneratedBy>Fenomen</GeneratedBy>
+    </Compile>
+    <Compile Include="DataProviders\GOGroupService.cs">
+      <GeneratedBy>Fenomen</GeneratedBy>
+    </Compile>
+    <Compile Include="DataProviders\GOUserRoleService.cs">
+      <GeneratedBy>Fenomen</GeneratedBy>
+    </Compile>
+    <Compile Include="DataProviders\CountryService.cs">
+      <GeneratedBy>Fenomen</GeneratedBy>
+    </Compile>
+    <Compile Include="DataProviders\GOUserGroupService.cs">
+      <GeneratedBy>Fenomen</GeneratedBy>
+    </Compile>
+    <Compile Include="DataProviders\GOLoginHistoryService.cs">
+      <GeneratedBy>Fenomen</GeneratedBy>
+    </Compile>
+  </ItemGroup>
+  <ItemGroup>
+    <WCFMetadata Include="Service References\" />
+  </ItemGroup>
+  <ItemGroup>
+    <Reference Include="GenerativeObjects.Practices, Version=1.0.0.0">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>C:\Program Files (x86)\GenerativeObjects\Runtime Libraries\GenerativeObjects.Practices.dll</HintPath>
+    </Reference>
+    <Reference Include="GenerativeObjects.Practices.MVPVM, Version=1.0.0.0">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>C:\Program Files (x86)\GenerativeObjects\Runtime Libraries\GenerativeObjects.Practices.MVPVM.dll</HintPath>
+    </Reference>
+    <Reference Include="GenerativeObjects.Practices.LayerSupportClasses, Version=1.0.0.0">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>C:\Program Files (x86)\GenerativeObjects\Runtime Libraries\GenerativeObjects.Practices.LayerSupportClasses.dll</HintPath>
+    </Reference>
+    <Reference Include="GenerativeObjects.Practices.ORMSupportClasses, Version=1.0.0.0">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>C:\Program Files (x86)\GenerativeObjects\Runtime Libraries\GenerativeObjects.Practices.ORMSupportClasses.dll</HintPath>
+    </Reference>
+    <Reference Include="GenerativeObjects.Services">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>C:\Program Files (x86)\GenerativeObjects\Runtime Libraries\GenerativeObjects.Services.dll</HintPath>
+    </Reference>
+    <ProjectReference Include="..\Features\Security\Common\Solid.Features.Security.Common.csproj">
+      <Project>{87F91005-7D93-40D4-8759-A41BBCDCAED1}</Project>
+      <Name>Solid.Features.Security.Common</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\BusinessLayer\Solid.BusinessLayer.ORMSupportClasses.csproj">
+      <Project>{70E37A60-34C4-4282-ABCC-76C6EE28B92A}</Project>
+      <Name>Solid.BusinessLayer.ORMSupportClasses</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\DataLayer\Solid.Data.csproj">
+      <Project>{F6727353-2D14-4915-A97E-C1AF2787AE5C}</Project>
+      <Name>Solid.Data</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\DataLayer\Solid.Data.DataObjects.csproj">
+      <Project>{627B81F1-9A5E-4CAB-B153-EDC596BA83F0}</Project>
+      <Name>Solid.Data.DataObjects</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\BusinessLayer\Solid.BusinessLayer.csproj">
+      <Project>{156CD422-5621-4E6B-8610-E23F8B08D4D0}</Project>
+      <Name>Solid.BusinessLayer</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\BusinessLayerClientComponents\Solid.BusinessLayer.Components.Client.csproj">
+      <Project>{4DAAAFB8-0096-464E-AAB7-A320A67DEF9A}</Project>
+      <Name>Solid.BusinessLayer.Components.Client</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\BusinessLayerServerComponents\Solid.BusinessLayer.Components.Server.csproj">
+      <Project>{1DD625C0-4E21-47DC-97E8-AFCDD69CF722}</Project>
+      <Name>Solid.BusinessLayer.Components.Server</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\DataLayer\Solid.Data.SqlClient.csproj">
+      <Project>{9DE3DD4D-F46E-4B4D-9E2D-83A97CD52C98}</Project>
+      <Name>Solid.Data.SqlClient</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\DataLayerDataProviders\Solid.Data.DataProviders.csproj">
+      <Project>{37911B71-59AF-42D6-8DC5-816487D0DC4E}</Project>
+      <Name>Solid.Data.DataProviders</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\DataLayerDeleteHandlers\Solid.Data.DeleteHandlers.csproj">
+      <Project>{95268A3E-8ABC-47A5-84D4-7DA69F9F1785}</Project>
+      <Name>Solid.Data.DeleteHandlers</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <BootstrapperPackage Include="Microsoft.Net.Client.3.5">
+      <Visible>False</Visible>
+      <ProductName>.NET Framework 3.5 SP1 Client Profile</ProductName>
+      <Install>false</Install>
+    </BootstrapperPackage>
+    <BootstrapperPackage Include="Microsoft.Net.Framework.3.5.SP1">
+      <Visible>False</Visible>
+      <ProductName>.NET Framework 3.5 SP1</ProductName>
+      <Install>true</Install>
+    </BootstrapperPackage>
+    <BootstrapperPackage Include="Microsoft.Windows.Installer.3.1">
+      <Visible>False</Visible>
+      <ProductName>Windows Installer 3.1</ProductName>
+      <Install>true</Install>
+    </BootstrapperPackage>
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+  <PropertyGroup>
+  </PropertyGroup>
+</Project>

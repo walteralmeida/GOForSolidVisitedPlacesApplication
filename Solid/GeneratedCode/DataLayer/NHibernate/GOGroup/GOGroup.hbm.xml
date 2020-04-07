@@ -1,0 +1,61 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<hibernate-mapping 
+	xmlns="urn:nhibernate-mapping-2.2" 
+    namespace="Solid.Data.DataObjects" 
+	assembly="Solid.Data.DataObjects" 
+	default-lazy="true" 
+>
+	<class 
+		name="ORMGOGroup" 
+		table="[GOGroup]" 
+		schema="[GOSecurity]"
+	>
+
+
+			
+		<id name="Name">
+            <column name="`Name`" sql-type="nvarchar (200) COLLATE SQL_Latin1_General_CP1_CI_AS" not-null="true"/>
+            <generator class="assigned" />
+        </id>
+
+		<property name="Description">
+            <column name="`Description`" sql-type="nvarchar (250) COLLATE SQL_Latin1_General_CP1_CI_AS" not-null="false" />
+        </property> 
+		<property name="DisplayName">
+            <column name="`DisplayName`" sql-type="nvarchar (200) COLLATE SQL_Latin1_General_CP1_CI_AS" not-null="true" />
+        </property> 
+		<property name="IsSpecialGroup">
+            <column name="`IsSpecialGroup`" sql-type="bit" not-null="true" />
+        </property> 
+		<property name="SpecialGroup">
+            <column name="`SpecialGroup`" sql-type="int" not-null="true" />
+        </property> 
+
+ 
+
+
+
+		<bag
+			name = "GroupRoleItems"
+			inverse="true" 
+			batch-size="15"
+		>
+			<key>
+				<column name="`GOGroupName`" />
+			</key>
+			<one-to-many class = "ORMGOGroupRole" />
+		</bag>
+		<bag
+			name = "UserGroupItems"
+			inverse="true" 
+			batch-size="15"
+		>
+			<key>
+				<column name="`GOGroupName`" />
+			</key>
+			<one-to-many class = "ORMGOUserGroup" />
+		</bag>
+
+    </class> 
+
+</hibernate-mapping>

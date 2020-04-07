@@ -1,0 +1,144 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="12.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(SolutionDir)\global.props" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProductVersion>9.0.30729</ProductVersion>
+    <SchemaVersion>2.0</SchemaVersion>
+    <ProjectGuid>{DE4DE307-666F-4B70-995F-611218663865}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>Solid.Tests.Common</RootNamespace>
+    <AssemblyName>Solid.Tests.Common</AssemblyName>
+    <TargetFrameworkVersion>$(DotNetFrameworkVersion)</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+    <FileUpgradeFlags>
+    </FileUpgradeFlags>
+    <OldToolsVersion>3.5</OldToolsVersion>
+    <UpgradeBackupLocation />
+    <PublishUrl>publish\</PublishUrl>
+    <Install>true</Install>
+    <InstallFrom>Disk</InstallFrom>
+    <UpdateEnabled>false</UpdateEnabled>
+    <UpdateMode>Foreground</UpdateMode>
+    <UpdateInterval>7</UpdateInterval>
+    <UpdateIntervalUnits>Days</UpdateIntervalUnits>
+    <UpdatePeriodically>false</UpdatePeriodically>
+    <UpdateRequired>false</UpdateRequired>
+    <MapFileExtensions>true</MapFileExtensions>
+    <ApplicationRevision>0</ApplicationRevision>
+    <ApplicationVersion>1.0.0.%2a</ApplicationVersion>
+    <IsWebBootstrapper>false</IsWebBootstrapper>
+    <UseApplicationTrust>false</UseApplicationTrust>
+    <BootstrapperEnabled>true</BootstrapperEnabled>
+    <TargetFrameworkProfile />
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <CodeAnalysisRuleSet>AllRules.ruleset</CodeAnalysisRuleSet>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <CodeAnalysisRuleSet>AllRules.ruleset</CodeAnalysisRuleSet>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="GenerativeObjects.Practices">
+      <HintPath>C:\Program Files (x86)\GenerativeObjects\Runtime Libraries\GenerativeObjects.Practices.dll</HintPath>
+    </Reference>
+    <Reference Include="GenerativeObjects.Practices.Web.Remote">
+      <HintPath>C:\Program Files (x86)\GenerativeObjects\Runtime Libraries\GenerativeObjects.Practices.Web.Remote.dll</HintPath>
+    </Reference>
+    <Reference Include="GenerativeObjects.Practices.LayerSupportClasses">
+      <HintPath>C:\Program Files (x86)\GenerativeObjects\Runtime Libraries\GenerativeObjects.Practices.LayerSupportClasses.dll</HintPath>
+    </Reference>
+    <Reference Include="GenerativeObjects.Practices.Test">
+      <HintPath>C:\Program Files (x86)\GenerativeObjects\Runtime Libraries\GenerativeObjects.Practices.Test.dll</HintPath>
+    </Reference>
+    <Reference Include="GenerativeObjects.Practices.ORMSupportClasses">
+      <HintPath>C:\Program Files (x86)\GenerativeObjects\Runtime Libraries\GenerativeObjects.Practices.ORMSupportClasses.dll</HintPath>
+    </Reference>
+    <Reference Include="GenerativeObjects.Practices.MVPVM">
+      <HintPath>C:\Program Files (x86)\GenerativeObjects\Runtime Libraries\GenerativeObjects.Practices.MVPVM.dll</HintPath>
+    </Reference>
+    <Reference Include="Unity.Abstractions">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>C:\Program Files (x86)\GenerativeObjects\External References\Unity.Abstractions.dll</HintPath>
+    </Reference>
+    <Reference Include="nunit.framework">
+      <HintPath>C:\Program Files (x86)\GenerativeObjects\External References\nunit.framework.dll</HintPath>
+    </Reference>
+    <Reference Include="nunit.core.interfaces">
+      <HintPath>C:\Program Files (x86)\GenerativeObjects\External References\nunit.core.interfaces.dll</HintPath>
+    </Reference>
+    <Reference Include="nunit.util">
+      <HintPath>C:\Program Files (x86)\GenerativeObjects\External References\nunit.util.dll</HintPath>
+    </Reference>
+    <Reference Include="NUnit.VisualStudio.TestAdapter">
+      <HintPath>C:\Program Files (x86)\GenerativeObjects\External References\NUnit.VisualStudio.TestAdapter.dll</HintPath>
+    </Reference>
+    <Reference Include="nunit.core">
+      <HintPath>C:\Program Files (x86)\GenerativeObjects\External References\nunit.core.dll</HintPath>
+    </Reference>
+    <Reference Include="Newtonsoft.Json">
+      <HintPath>C:\Program Files (x86)\GenerativeObjects\External References\Newtonsoft.Json.dll</HintPath>
+    </Reference>
+    <Reference Include="ICSharpCode.SharpZipLib">
+      <HintPath>C:\Program Files (x86)\GenerativeObjects\External References\ICSharpCode.SharpZipLib.dll</HintPath>
+    </Reference>
+    <Reference Include="Excel.4.5">
+      <HintPath>C:\Program Files (x86)\GenerativeObjects\External References\Excel.4.5.dll</HintPath>
+    </Reference>
+    <Reference Include="xunit.abstractions">
+      <HintPath>C:\Program Files (x86)\GenerativeObjects\External References\xunit.abstractions.dll</HintPath>
+    </Reference>
+    <Reference Include="xunit.assert">
+      <HintPath>C:\Program Files (x86)\GenerativeObjects\External References\xunit.assert.dll</HintPath>
+    </Reference>
+    <Reference Include="xunit.core">
+      <HintPath>C:\Program Files (x86)\GenerativeObjects\External References\xunit.core.dll</HintPath>
+    </Reference>
+    <Reference Include="xunit.execution.desktop">
+      <HintPath>C:\Program Files (x86)\GenerativeObjects\External References\xunit.execution.desktop.dll</HintPath>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Xml" />
+    <Reference Include="System.Data.OleDb" />
+    <Reference Include="System.Configuration" />
+  </ItemGroup>
+  <ItemGroup>
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\..\..\DataLayer\Solid.Data.csproj">
+      <Project>{F6727353-2D14-4915-A97E-C1AF2787AE5C}</Project>
+      <Name>Solid.Data</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\..\DataLayer\Solid.Data.DataObjects.csproj">
+      <Project>{627B81F1-9A5E-4CAB-B153-EDC596BA83F0}</Project>
+      <Name>Solid.Data.DataObjects</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\..\DataLayer\Solid.Data.SqlClient.csproj">
+      <Project>{9DE3DD4D-F46E-4B4D-9E2D-83A97CD52C98}</Project>
+      <Name>Solid.Data.SqlClient</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <PropertyGroup>
+  </PropertyGroup>
+</Project>

@@ -1,0 +1,9 @@
+﻿<p>
+	You have requested to reinitialize your password,
+	<br/>
+	Please click on the following link to set your new password:
+	<br/>
+	<a href='%LINK%'>Reset my password</a>
+</p>
+<br/>
+The %APPNAME% Team.

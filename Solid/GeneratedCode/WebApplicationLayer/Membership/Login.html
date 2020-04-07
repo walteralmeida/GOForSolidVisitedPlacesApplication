@@ -1,0 +1,134 @@
+﻿<html>
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=Edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Login</title>
+    <link href="../styles/2/reset.css" rel="stylesheet" />
+    <link href="../styles/2/jquery-ui-1.10.1.custom.css" rel="stylesheet" />
+    <link href="../styles/2/jquery.alerts.css" rel="stylesheet" />
+    <link href="../styles/2/myapplication.css" rel="stylesheet" />
+    <link href="../styles/2/widget-grid.css" rel="stylesheet" />
+    <link href="../styles/2/jquery.jgrowl.css" rel="stylesheet" />
+    <link href="../styles/2/jquery.mCustomScrollbar.css" rel="stylesheet" />
+    <link href="../styles/2/jquery.custom.GO.css" rel="stylesheet" />
+    <link href="../styles/2/Reports.css" rel="stylesheet" />
+    <link href="../styles/2/layout.css" rel="stylesheet" />
+    <link href="../styles/2/Reports.css" rel="stylesheet" />
+    <link href="../styles/2/ui-elements.css" rel="stylesheet" />
+    <link href="../styles/2/LoginPage.css" rel="stylesheet" />
+    <link href="../styles/2/BreadCrumb.css" rel="stylesheet" />
+    <link href="../styles/2/Grid-Widget.css" rel="stylesheet" />
+    <link href="../styles/2/documentation.css" rel="stylesheet" />
+    <link href="../styles/2/JqueryMenu.css" rel="stylesheet" />
+    <link href="../styles/2/MobileLayout.css" rel="stylesheet" />
+    <link href="../styles/2/sidr.css" rel="stylesheet" />
+    <link rel="shortcut icon" type="image/x-icon" href="../styles/images/favicon.ico" />
+    <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons" />
+    <script src="../2/scripts/jquery-1.12.1.min.js"></script>
+    <script src="../scripts/jquery.cookie.js"></script>
+    <script src="../2/scripts/jquery.alerts.js"></script>
+    <script src="../2/scripts/json2.min.js"></script>
+    <script src="../2/scripts/knockout-3.4.js"></script>
+    <script src="../2/scripts/jquery.alerts.js"></script>
+    <script src="../2/scripts/jquery-ui-1.10.2.custom.min.js"></script>
+    <script src="../2/scripts/jquery.custom.GO.js"></script>
+    <script src="../2/scripts/jquery.metadata.js"></script>
+    <script src="../2/scripts/jquery.hoverIntent.js"></script>
+    <script src="../2/scripts/jquery.mousewheel.min.js"></script>
+    <script src="../2/scripts/jquery.mCustomScrollbar.js"></script>
+    <script src="../2/scripts/jquery.cycle.all.js"></script>
+    <script src="../2/scripts/knockoutbindings.js"></script>
+    <script src="../2/scripts/knockout.postbox.js"></script>
+    <script src="../2/scripts/mersenne-twister.js"></script>
+    <script src="../2/scripts/base64.js"></script>
+    <script src="../2/scripts/generativeobjects.js"></script>
+    <script src="../2/scripts/jquery.jgrowl.js"></script>
+    <script src="../2/scripts/sammy-min.js"></script>
+    <script src="../namespaces.js"></script>
+    <script src="../2/Application/Application.js"></script>
+    <script src="../2/Application/ApplicationMessages.js"></script>
+    <script src="../2/Application/ApplicationSettings.js"></script>
+    <script src="../2/model/components/GOSecurityProviderProxy.js"></script>
+    <script src="../2/Views/ViewLoader.js"></script>
+    <script src="../2/Application/ApplicationSourceHandler.js"></script>
+    <script src="../2/Application/ApplicationController.js"></script>
+    <script src="../2/Model/DataSets/ObjectsDataSet.js"></script>
+    <script src="LoginPageViewModel.js"></script>
+  </head>
+  <body>
+    <form class="loginPage">
+      <div class="main-wrapper">
+        <header>
+          <div class="header-image"></div>
+          <h1>Login</h1>
+        </header>
+        <!--end header-->
+        <div class="main-content">
+          <div class="breadcrumbs"></div>
+          <div class="zone-content">
+            <div class="loginLeftColumn">
+              <p>Welcome!</p>
+            </div>
+            <div class="loginRightColumn">
+              <h2>Login</h2>
+              <div class="loginContent">
+                <div class="accountInfo" data-test-id="accountInfo">
+                  <table>
+                    <tbody>
+                      <tr>
+                        <td colspan="2" data-bind="visible : data.loginFailed" style="color:Red; padding: 5px;">
+                          <label data-bind="html : data.errorMessage" />
+                        </td>
+                      </tr>
+                      <tr>
+                        <td style="padding:5px;">
+                          <label for="LoginUser_UserName" id="LoginUser_UserNameLabel" style="font-weight:bold;" data-bind="text: Solid.Web.Messages.userName" data-test-id="LoginUser_UserNameLabel" />
+                        </td>
+                        <td style="padding:5px;" class="">
+                          <input name="LoginUser$UserName" type="text" data-bind="value: data.username" id="LoginUser_UserName" class="textEntry" data-test-id="LoginUser_UserName" />
+                          <span id="LoginUser_UserNameRequired" data-bind="title: Solid.Web.Messages.userNameMandatory" class="failureNotification" style="visibility:hidden;">*</span>
+                        </td>
+                      </tr>
+                      <tr>
+                        <td style="padding:5px;">
+                          <label for="LoginUser_Password" id="LoginUser_PasswordLabel" style="font-weight:bold;" data-bind="text: Solid.Web.Messages.password" data-test-id="LoginUser_PasswordLabel" />
+                        </td>
+                        <td style="padding:5px;" class="">
+                          <input name="LoginUser$Password" type="password" data-bind="value: data.password" id="LoginUser_Password" class="passwordEntry" data-test-id="LoginUser_Password" />
+                          <span id="LoginUser_PasswordRequired" data-bind="title: Solid.Web.Messages.passwordMandatory" class="failureNotification" style="visibility:hidden;">*</span>
+                        </td>
+                      </tr>
+                    </tbody>
+                  </table>
+                  <p class="submitButton">
+                    <input type="submit" name="LoginUser$LoginButton" data-bind="click : commands.login, value: commands.loginText, enable: commands.loginEnabled" id="LoginUser_LoginButton" class="command-button" data-test-id="LoginUser_LoginButton" />
+                  </p>
+                </div>
+              </div>
+            </div>
+          </div>
+          <!--end maincontent-->
+        </div>
+        <!--end main-->
+        <footer>
+          <div class="footercontent">
+            <p>Built With Generative Objects!</p>
+          </div>
+          <!--end content-->
+        </footer>
+        <!--end footer-->
+      </div>
+      <!--end wrapper-->
+      <div id="popupContainer">
+        <a data-placeholder="closeAllPopupsButton" class="overlayClose" onclick="ApplicationController.closeAllPopups()"></a>
+        <a class="overlayBack" onclick="ApplicationController.closeCurrentPopup()">Retour</a>
+        <div id="popupContainerCloseButton"></div>
+      </div>
+    </form>
+  </body>
+</html><script>
+    (function (global) {
+          ApplicationSourceHandler = new Solid.Web.Application.SourceHandler();          ApplicationController = new Solid.Web.Application.Controller();          LoginPageViewModel = new Solid.Web.Membership.LoginPageViewModel();     } (window));
+</script>
+ 

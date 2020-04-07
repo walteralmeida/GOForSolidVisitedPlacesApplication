@@ -1,0 +1,41 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<hibernate-mapping 
+	xmlns="urn:nhibernate-mapping-2.2" 
+    namespace="Solid.Data.DataObjects" 
+	assembly="Solid.Data.DataObjects" 
+	default-lazy="true" 
+>
+	<class 
+		name="ORMGOLoginHistory" 
+		table="[GOLoginHistory]" 
+		schema="[GOSecurity]"
+	>
+
+
+			
+		<id name="Id">
+            <column name="`Id`" sql-type="int" not-null="true"/>
+            <generator class="identity" />
+        </id>
+
+		<property name="Info">
+            <column name="`Info`" sql-type="nvarchar (100) COLLATE SQL_Latin1_General_CP1_CI_AS" not-null="true" />
+        </property> 
+		<property name="Result">
+            <column name="`Result`" sql-type="bit" not-null="true" />
+        </property> 
+		<property name="Timestamp">
+            <column name="`Timestamp`" sql-type="datetime" not-null="true" />
+        </property> 
+		<property name="User">
+            <column name="`User`" sql-type="nvarchar (100) COLLATE SQL_Latin1_General_CP1_CI_AS" not-null="true" />
+        </property> 
+
+ 
+
+
+
+
+    </class> 
+
+</hibernate-mapping>

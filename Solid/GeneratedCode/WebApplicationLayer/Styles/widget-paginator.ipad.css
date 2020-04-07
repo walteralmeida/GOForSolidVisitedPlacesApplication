@@ -1,0 +1,45 @@
+
+
+.grid-pagination-container {
+    padding-top:2em;
+    line-height: 2.9em;
+}
+
+.msg-loading,
+.release,
+.finished {
+    display:none;
+}
+
+/** display the loading message **/
+.busy .msg-loading {
+    display:block;
+    background-repeat: no-repeat;
+    text-indent: 4em;
+}
+.busy > div > span:not(.msg-loading) {
+    display:none;
+}
+/** when full, display the end message **/
+.full > div > span:not(.finished) {
+    display:none;
+}
+.full .finished {
+    display:block;
+}
+/** reverse **/
+.release .arrow {
+    -webkit-transform:rotate(180deg);
+}
+
+.release .release {
+    display:inline;
+}
+.arrow {
+    font-size:200%;
+    vertical-align:middle;
+    display:inline-block;
+    width:4em;
+    text-align:center;
+}
+

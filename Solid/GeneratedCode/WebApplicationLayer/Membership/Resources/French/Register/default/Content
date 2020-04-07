@@ -1,0 +1,13 @@
+Bienvenue à %APPNAME%!
+<br/>
+<br/>
+Votre identifiant de connexion est: %USERNAME%.
+<br/>
+<br/>
+Pour valider votre compte, cliquez sur le lien suivant: <a href='%LINK%' >Valider votre compte</a>.
+<br/>
+<br/>
+Merci d'utiliser %APPNAME%.
+<br/>
+<br/>
+L'équipe %APPNAME%.

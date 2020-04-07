@@ -1,0 +1,82 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<hibernate-mapping 
+	xmlns="urn:nhibernate-mapping-2.2" 
+    namespace="Solid.Data.DataObjects" 
+	assembly="Solid.Data.DataObjects" 
+	default-lazy="true" 
+>
+	<class 
+		name="ORMGOUser" 
+		table="[GOUser]" 
+		schema="[GOSecurity]"
+	>
+
+
+			
+		<id name="Id">
+            <column name="`Id`" sql-type="uniqueidentifier" not-null="true"/>
+            <generator class="assigned" />
+        </id>
+
+		<property name="Blocked">
+            <column name="`Blocked`" sql-type="bit" not-null="true" />
+        </property> 
+		<property name="EmailAddress">
+            <column name="`EmailAddress`" sql-type="nvarchar (150) COLLATE SQL_Latin1_General_CP1_CI_AS" not-null="true" />
+        </property> 
+		<property name="EmailValidated">
+            <column name="`EmailValidated`" sql-type="bit" not-null="true" />
+        </property> 
+		<property name="FirstName">
+            <column name="`FirstName`" sql-type="nvarchar (100) COLLATE SQL_Latin1_General_CP1_CI_AS" not-null="false" />
+        </property> 
+		<property name="FullName">
+            <column name="`FullName`" sql-type="nvarchar (250) COLLATE SQL_Latin1_General_CP1_CI_AS" not-null="true" />
+        </property> 
+		<property name="LastName">
+            <column name="`LastName`" sql-type="nvarchar (100) COLLATE SQL_Latin1_General_CP1_CI_AS" not-null="false" />
+        </property> 
+		<property name="Password">
+            <column name="`Password`" sql-type="nvarchar (150) COLLATE SQL_Latin1_General_CP1_CI_AS" not-null="true" />
+        </property> 
+		<property name="PasswordExpiry">
+            <column name="`PasswordExpiry`" sql-type="datetime" not-null="false" />
+        </property> 
+		<property name="Unregistered">
+            <column name="`Unregistered`" sql-type="bit" not-null="true" />
+        </property> 
+		<property name="UserName">
+            <column name="`UserName`" sql-type="nvarchar (150) COLLATE SQL_Latin1_General_CP1_CI_AS" not-null="true" />
+        </property> 
+		<property name="UserValidated">
+            <column name="`UserValidated`" sql-type="bit" not-null="true" />
+        </property> 
+
+ 
+
+
+
+		<bag
+			name = "UserGroupItems"
+			inverse="true" 
+			batch-size="15"
+		>
+			<key>
+				<column name="`GOUserId`" />
+			</key>
+			<one-to-many class = "ORMGOUserGroup" />
+		</bag>
+		<bag
+			name = "UserRoleItems"
+			inverse="true" 
+			batch-size="15"
+		>
+			<key>
+				<column name="`GOUserId`" />
+			</key>
+			<one-to-many class = "ORMGOUserRole" />
+		</bag>
+
+    </class> 
+
+</hibernate-mapping>

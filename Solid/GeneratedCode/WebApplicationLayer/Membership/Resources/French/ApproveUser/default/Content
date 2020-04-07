@@ -1,0 +1,7 @@
+<p>
+	%DISPLAYNAME% a vérifié son adresse email. Veuillez vous connecter à votre compte Administrateur et approuver leur compte pour qu'ils puissent accéder à l'application!
+	<br/>
+		L'équipe %APPNAME%.
+	<br/>
+	<a title='%APPNAME%' href='%LINK%'>Connectez-vous à %APPNAME%</a>
+</p>

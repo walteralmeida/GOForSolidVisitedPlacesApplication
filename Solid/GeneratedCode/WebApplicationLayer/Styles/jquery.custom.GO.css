@@ -1,0 +1,190 @@
+﻿
+.ui-treeautocomplete-menu, .ui-treeautocomplete-menu .ui-menu {
+    min-width: 200px;
+    width: auto;
+    z-index: 5000;
+}
+
+    .ui-treeautocomplete-menu.nosublevels {
+        max-height: 500px;
+        overflow-x: hidden;
+        overflow-y: auto;
+    }
+
+    .ui-treeautocomplete-menu .ui-icon {
+        margin: 3px 0;
+    }
+
+.ui-treeautocomplete-comboboxwrapper {
+    margin: 0;
+    position: relative;
+    width: 100%;
+    margin-top: -18px;
+}
+
+.ui-treeautocomplete-wrapper {
+    background-color: #FFFFFF;
+    cursor: text;
+    /* display: inline-block; */
+    height: 28px;
+    position: absolute;
+    width: 100%;
+    top: 0;
+    left: 0;
+}
+
+.ui-treeautocomplete-cross {
+    cursor: pointer;
+    font-weight: bold;
+    position: absolute;
+    right: 6px;
+    top: 3px;
+    background-color: transparent;
+    height: 20px;
+    width: 20px;
+    text-align: center;
+}
+
+    .ui-treeautocomplete-cross:hover {
+        text-decoration: none;
+    }
+
+.ui-treeautocomplete-input, .ui-treeautocomplete-input:focus {
+    height: 24px;
+    left: 0;
+    padding-left: 4px;
+    position: absolute;
+    top: 0;
+    width: 100%;
+}
+
+.ui-treeautocomplete-combobox-toggle {
+    bottom: 0;
+    height: 26px;
+    margin-top: -1px;
+    padding: 0;
+    position: absolute;
+    right: -11px;
+    top: 0;
+    width: 16px;
+}
+
+.formEditLookupFieldControl {
+    width: 98%;
+    padding: 4px;
+    display: table;
+    margin: 0 0 0 1px;
+}
+
+.formEditLookupFieldControl-withbutton {
+    width: 97%;
+}
+
+.formEditLookupFieldControl-button {
+    display: table-cell;
+    width: 30px;
+    padding: 0 0 0 6px;
+    vertical-align: top;
+}
+
+    .formEditLookupFieldControl-button button {
+        width: 36px;
+        display: inline-block;
+        padding: 6px;
+    }
+
+    .formEditLookupFieldControl-button img {
+        width: 14px;
+        height: 14px;
+    }
+
+.formEditLookupFieldControl-button-first {
+    padding-left: 10px;
+}
+
+.lookupFieldWrapper {
+    width: 100%;
+    display: table-cell;
+    vertical-align: top;
+}
+
+.formEditLookupFieldControl-withbutton .ui-treeautocomplete-comboboxwrapper {
+    margin-top: 0;
+}
+
+.errorControl .formEditLookupFieldControl {
+    margin: 15px 0 10px 0;
+}
+
+.ui-autocomplete-loading {
+    background: url("../images/ajax-loader-small.gif") no-repeat scroll right center white;
+}
+
+.ui-treeautocomplete-menu li.ui-autocomplete-loading {
+    background-position: center center;
+}
+
+.ui-treeautocomplete-menu ul.ui-autocomplete-loading {
+    background: none repeat scroll 0 0 white;
+    min-width: 50px;
+    width: 50px;
+}
+
+.ui-autocomplete-loading .ui-treeautocomplete-cross {
+    display: none;
+}
+
+.ui-treeautocomplete-menu .ui-autocomplete-loading .ui-state-focus {
+    background: inherit;
+    border: inherit;
+    color: inherit;
+    font-weight: inherit;
+}
+
+.ui-treeautocomplete-disabled-node > a {
+    color: #808080;
+    font-style: italic;
+}
+
+/* Hiding the defaut "clear" cross for IE 10 */
+.ui-treeautocomplete-input::-ms-clear {
+    display: none;
+}
+
+/** Hack FF */
+@-moz-document url-prefix() {
+    .ui-treeautocomplete-combobox-toggle {
+        margin-top: 0;
+        height: 28px;
+    }
+
+    .ui-treeautocomplete-input, .ui-treeautocomplete-input:focus {
+        height: 28px;
+    }
+
+    .ui-treeautocomplete-cross {
+        right: 7px;
+        top: 6px;
+        height: 22px;
+    }
+}
+
+/** Hack Chrome*/
+@media screen and (-webkit-min-device-pixel-ratio:0) {
+    .lookupFieldWrapper {
+        margin-top: 0;
+    }
+
+    .ui-treeautocomplete-combobox-toggle {
+        height: 28px;
+    }
+
+    .ui-treeautocomplete-cross {
+        top: 5px;
+        height: 22px;
+    }
+
+    .ui-treeautocomplete-input, .ui-treeautocomplete-input:focus {
+        padding: 1px 0 1px 4px;
+    }
+}

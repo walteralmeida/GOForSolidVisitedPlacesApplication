@@ -1,0 +1,32 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 11.00
+# Visual Studio 2010
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Custom Components", "Custom Components", "{5B2A2170-2601-4DC2-B515-D558DCBBFF1C}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Solid.BusinessLayer.Components.Server", "GeneratedCode/BusinessLayerServerComponents\Solid.BusinessLayer.Components.Server.csproj", "{1DD625C0-4E21-47DC-97E8-AFCDD69CF722}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Solid.BusinessLayer.Components.Client", "GeneratedCode/BusinessLayerClientComponents\Solid.BusinessLayer.Components.Client.csproj", "{4DAAAFB8-0096-464E-AAB7-A320A67DEF9A}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{1DD625C0-4E21-47DC-97E8-AFCDD69CF722}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{1DD625C0-4E21-47DC-97E8-AFCDD69CF722}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{1DD625C0-4E21-47DC-97E8-AFCDD69CF722}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{1DD625C0-4E21-47DC-97E8-AFCDD69CF722}.Release|Any CPU.Build.0 = Release|Any CPU
+		{4DAAAFB8-0096-464E-AAB7-A320A67DEF9A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{4DAAAFB8-0096-464E-AAB7-A320A67DEF9A}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{4DAAAFB8-0096-464E-AAB7-A320A67DEF9A}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{4DAAAFB8-0096-464E-AAB7-A320A67DEF9A}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{1DD625C0-4E21-47DC-97E8-AFCDD69CF722} = {5B2A2170-2601-4DC2-B515-D558DCBBFF1C}
+		{4DAAAFB8-0096-464E-AAB7-A320A67DEF9A} = {5B2A2170-2601-4DC2-B515-D558DCBBFF1C}
+	EndGlobalSection
+EndGlobal

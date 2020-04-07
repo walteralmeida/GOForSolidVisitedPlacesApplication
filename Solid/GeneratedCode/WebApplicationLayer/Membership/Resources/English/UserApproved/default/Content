@@ -1,0 +1,18 @@
+﻿<p>
+	Dear %DISPLAYNAME%,
+	<br/>
+	<br/>
+	Welcome to %APPNAME%!
+	<br/>
+	<br/>
+	An Administrator has approved your account.
+	<br/>
+	<br/>
+	You may now <a href='%LINK%'>connect to %APPNAME%</a>
+	<br/>
+	<br/>
+	Thank you for using %APPNAME%!
+	<br/>
+	<br/>
+	The %APPNAME% Team.
+</p>

@@ -1,0 +1,7 @@
+﻿<p>
+	%DISPLAYNAME% has verified their email address. Please log-in to your Administrator account and approve their account so they can access the app!
+	<br/>
+		The %APPNAME% Team.
+	<br/>
+	<a title='%APPNAME%' href='%LINK%'>Connect to %APPNAME%</a>
+</p>

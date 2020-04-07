@@ -1,0 +1,186 @@
+﻿
+
+.gridControl { 
+    /*margin-bottom: 1em;
+    margin:10px;*/
+    line-height:18px;
+}
+.gridControl table {
+    width:100%;
+    /*table-layout: fixed;*/
+}
+    
+.gridControl th { 
+    text-align:left;
+}
+.gridControl td,
+.gridControl th { 
+    padding: 0.4em;    
+}
+
+.gridControl td.sortableCol  {
+    padding-right: 15px; /* For sorting arrow */
+}
+
+.gridControl th.ui-grid-header-container {
+    background-position: right center;
+    background-repeat: no-repeat;
+    padding-right: 15px; /* For sorting arrow */
+}
+
+.gridControl th.ui-grid-sort-s {    
+    background-image: url("../images/arrow-s.png");
+}
+
+.gridControl th.ui-grid-sort-n-s {    
+    background-image: url("../images/arrow-n-s.png");
+}
+
+.gridControl th.ui-grid-sort-n {    
+    background-image: url("../images/arrow-n.png");
+}
+
+.gridControl li a {
+    /*padding: 0.5em;*/
+}
+.gridControl li a.selected {
+    background-color: black; 
+    color: white;
+}
+
+/* dont forget to change the max-height with javascript */
+.hidden-grid-header {
+    display:none;
+}
+.grid-scrollable .grid-header {
+    /*padding-right:13px; *//* scrollabar width (on most browsers) */
+}
+.grid-scrollable .grid-content {
+    /* the scrollbar has to be here all the time, for the dimension calculation to be always exact */
+    /*overflow-y:scroll;*/
+    overflow:auto;
+}
+
+
+.grid-content {
+    border: solid 1px lightgray;
+}
+
+.grid-content table tr:nth-child(2n+1){ 
+    background-color: #EBF1F2;
+}
+
+.grid-content table tr:hover {
+    transition:all 0.2s ease-in; 
+    -webkit-transition:all 0.2s ease-in; 
+    -moz-transition:all 0.2s ease-in; 
+    -o-transition:all 0.2s ease-in; 
+    background-color: #F2DEBB;
+}
+
+.grid-content table tr.currenttr {
+    background: #ffc578; /* Old browsers */
+    background: -moz-linear-gradient(top, #ffc578 0%, #fb9d23 100%); /* FF3.6+ */
+    background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,#ffc578), color-stop(100%,#fb9d23)); /* Chrome,Safari4+ */
+    background: -webkit-linear-gradient(top, #ffc578 0%,#fb9d23 100%); /* Chrome10+,Safari5.1+ */
+    background: -o-linear-gradient(top, #ffc578 0%,#fb9d23 100%); /* Opera 11.10+ */
+    background: -ms-linear-gradient(top, #ffc578 0%,#fb9d23 100%); /* IE10+ */
+    background: linear-gradient(to bottom, #ffc578 0%,#fb9d23 100%); /* W3C */
+}
+
+.grid-header {
+    color:#fff; width:100%;
+    background: #45484d; /* Old browsers */
+    background: -moz-linear-gradient(top, #45484d 0%, #000000 100%); /* FF3.6+ */
+    background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,#45484d), color-stop(100%,#000000)); /* Chrome,Safari4+ */
+    background: -webkit-linear-gradient(top, #45484d 0%,#000000 100%); /* Chrome10+,Safari5.1+ */
+    background: -o-linear-gradient(top, #45484d 0%,#000000 100%); /* Opera 11.10+ */
+    background: -ms-linear-gradient(top, #45484d 0%,#000000 100%); /* IE10+ */
+    background: linear-gradient(to bottom, #45484d 0%,#000000 100%); /* W3C */
+    filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#45484d', endColorstr='#000000',GradientType=0 ); /* IE6-9 */
+}
+
+
+* { -webkit-tap-highlight-color:transparent; }
+
+/* TODO : go up to 10 ? */
+.nb-cols-2 td,
+.nb-cols-2 th {
+    width:50%;
+    word-wrap:break-word;
+}
+.nb-cols-3 td,
+.nb-cols-3 th {
+    width:33%;
+    word-wrap:break-word;
+}
+.nb-cols-4 td,
+.nb-cols-4 th {
+    width:25%;
+    word-wrap:break-word;
+}
+.nb-cols-5 td,
+.nb-cols-5 th {
+    width:20%;
+    word-wrap:break-word;
+}
+.nb-cols-6 td,
+.nb-cols-6 th {
+    width:16%;
+    word-wrap:break-word;
+}
+
+.nb-cols-7 td,
+.nb-cols-7 th {
+    width:14%;
+    word-wrap:break-word;
+}
+
+.nb-cols-8 td,
+.nb-cols-8 th {
+    width:12.5%;
+    word-wrap:break-word;
+}
+
+.grid-header-filler
+{
+    width: 17px;
+    height: 32px;
+    position: absolute;
+    right: 0;
+    top: 0;
+    display: none;
+}
+
+.grid-header-filler.mCS_no_scrollbar
+{
+    display: none;
+}
+
+.grid-header-wrapper
+{
+    padding-right: 17px;
+    width: auto;
+    background: #45484d; /* Old browsers */
+    background: -moz-linear-gradient(top, #45484d 0%, #000000 100%); /* FF3.6+ */
+    background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,#45484d), color-stop(100%,#000000)); /* Chrome,Safari4+ */
+    background: -webkit-linear-gradient(top, #45484d 0%,#000000 100%); /* Chrome10+,Safari5.1+ */
+    background: -o-linear-gradient(top, #45484d 0%,#000000 100%); /* Opera 11.10+ */
+    background: -ms-linear-gradient(top, #45484d 0%,#000000 100%); /* IE10+ */
+    background: linear-gradient(to bottom, #45484d 0%,#000000 100%); /* W3C */
+    filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#45484d', endColorstr='#000000',GradientType=0 ); /* IE6-9 */
+}
+
+.grid-header-wrapper.mCS_no_scrollbar
+{
+    padding-right: 0px;
+    width: 100%;
+}
+
+.ui-icon-sort-arrows {
+    vertical-align:middle;
+    display:inline-block;
+    float: right;
+    background-image: url("../images/ui-icons_d8e7f3_256x240.png")
+    /* arrow invisible by default*/
+}

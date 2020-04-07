@@ -1,0 +1,37 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<hibernate-mapping 
+	xmlns="urn:nhibernate-mapping-2.2" 
+    namespace="Solid.Data.DataObjects" 
+	assembly="Solid.Data.DataObjects" 
+	default-lazy="true" 
+>
+	<class 
+		name="ORMGOUserRole" 
+		table="[GOUserRole]" 
+		schema="[GOSecurity]"
+	>
+
+
+		<composite-id name="CompositeIdentity">
+			<key-property name="GORoleName" column="`GORoleName`" /> 
+			<key-many-to-one name="User" column="`GOUserId`" />
+		</composite-id>
+
+
+		
+		<!-- many-to-one Role -->
+		<property name="GORoleName" type="System.String" not-null="true" formula = "[GORoleName]"></property>  
+		
+		<!-- many-to-one User -->
+		<property name="GOUserId" type="System.Guid" not-null="true" formula = "[GOUserId]"></property>  
+		<many-to-one name="User" update="false" insert="false" > 
+			<column name="`GOUserId`" sql-type="uniqueidentifier" not-null="true"/>
+		</many-to-one> 
+ 
+
+
+
+
+    </class> 
+
+</hibernate-mapping>

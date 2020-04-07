@@ -1,0 +1,37 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<hibernate-mapping 
+	xmlns="urn:nhibernate-mapping-2.2" 
+    namespace="Solid.Data.DataObjects" 
+	assembly="Solid.Data.DataObjects" 
+	default-lazy="true" 
+>
+	<class 
+		name="ORMGOGroupRole" 
+		table="[GOGroupRole]" 
+		schema="[GOSecurity]"
+	>
+
+
+		<composite-id name="CompositeIdentity">
+			<key-many-to-one name="Group" column="`GOGroupName`" />
+			<key-property name="GORoleName" column="`GORoleName`" /> 
+		</composite-id>
+
+
+		
+		<!-- many-to-one Role -->
+		<property name="GORoleName" type="System.String" not-null="true" formula = "[GORoleName]"></property>  
+		
+		<!-- many-to-one Group -->
+		<property name="GOGroupName" type="System.String" not-null="true" formula = "[GOGroupName]"></property>  
+		<many-to-one name="Group" update="false" insert="false" > 
+			<column name="`GOGroupName`" sql-type="nvarchar (200) COLLATE SQL_Latin1_General_CP1_CI_AS" not-null="true"/>
+		</many-to-one> 
+ 
+
+
+
+
+    </class> 
+
+</hibernate-mapping>

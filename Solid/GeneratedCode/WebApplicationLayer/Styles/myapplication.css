@@ -1,0 +1,168 @@
+
+
+/* the blocking element is a div inside each presentationElementContainer that you can use to disallow clicking on the container, and to display some waiting message*/
+.errorDescription {
+    color : red;
+    font-style : italic;
+}
+
+.errorConsole {
+    width:98%;
+    height:400px;
+    resize:none;
+}
+
+.successText {
+    color : green;
+}
+
+.errorText {
+    color : red;
+}
+
+.warningText {
+    color : orange;
+}
+
+.errorControl {
+    border-color : red;
+}
+
+.pointer {
+    cursor:pointer;
+}
+
+.multiline-textfield {
+    resize:none;
+    width:100%;
+}
+
+.busy .blocking-element,
+.disabled .blocking-element{
+    display:block;
+}
+.busy .blocking-element {
+    /* the loader was generated on ajaxload.info */
+    background-image:url("../images/ajax-loader.gif");
+    background-position:center center;
+    background-repeat:no-repeat;
+}
+.blocking-element {
+    display:none;
+    /* stretch the dimension of the DIV to the parent dimensions*/
+    bottom:0; top:0;left:0;right:0;
+    position:absolute; /* the parent has to be of position:relative; */
+    text-align:center;
+    color:white;
+    line-height:10em; /* the loading text is not completely to the top*/
+    z-index: 1000;
+}
+
+
+.presentationElementContainer {
+    position:relative;
+    margin:5px;
+    padding:10px;
+    background-color:white;
+    background-image: url("../images/fond-bloc.jpg");
+    background-repeat:no-repeat;
+    background-position: 0 0;
+/*    background-image: linear-gradient(bottom, rgb(251,232,164) 7%, rgb(255,255,197) 54%, rgb(255,255,237) 100%);
+    background-image: -o-linear-gradient(bottom, rgb(251,232,164) 7%, rgb(255,255,197) 54%, rgb(255,255,237) 100%);
+    background-image: -moz-linear-gradient(bottom, rgb(251,232,164) 7%, rgb(255,255,197) 54%, rgb(255,255,237) 100%);
+    background-image: -webkit-linear-gradient(bottom, rgb(251,232,164) 7%, rgb(255,255,197) 54%, rgb(255,255,237) 100%);
+    background-image: -ms-linear-gradient(bottom, rgb(251,232,164) 7%, rgb(255,255,197) 54%, rgb(255,255,237) 100%);
+*/}
+.applicationPage {
+    width:50%;
+}
+
+.listControl {
+    margin:10px;
+}
+
+.formControl {
+    margin:10px;
+}
+
+.fieldControl {
+    width:100%;
+}
+
+.formControlTable {
+    width:100%;
+    table-layout:fixed;
+    word-wrap: break-word;
+}
+.formControlTable th {
+    width:30%;
+    text-align:left;
+}
+.formControlTable td {
+    padding-left:20px;
+}
+.formControlTable tr {
+    height:35px;
+}
+
+.formControlLabel {
+    min-width:150px;
+    color: black;
+    font-weight:normal;
+    font-size: 1em;
+}
+
+.formControlLabel input {
+    width:100%;
+}
+
+input.busy {
+    background-image:url("../images/ajax-loader-line.gif");
+    background-position:center center;
+    background-repeat:no-repeat;
+    color:#999999;
+}
+
+/* we suppose that the button right next to an input is relative to it and should be over it*/
+.formControlLabel button + input {
+    width:89%;
+}
+
+.formControlLabel button {
+    float:right;
+    margin-top:-2px;
+}
+
+.withToolTipAndPadding {
+    background-image: url("../images/info.png");
+    background-position: right center;
+    background-repeat:no-repeat;
+    padding:2px 25px 2px 0;
+}
+
+.withToolTip {
+    background-image: url("../images/info.png");
+    background-position: right center;
+    background-repeat:no-repeat;
+}
+
+
+
+.formControlField {
+    width:100%;
+}
+
+
+.ui-nodatamessage {
+    font-style:italic;
+}
+
+.gridbuttonscontainer {
+    text-align:left;
+    margin:10px;
+    min-height: 30px;
+}
+
+.ui-checkbox-widget {
+    text-align : left;
+}

@@ -1,0 +1,280 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="12.0" DefaultTargets="Build;TransformWebConfig" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(SolutionDir)\global.props" />
+  <!-- This may be a different version -->
+  <UsingTask TaskName="TransformXml" AssemblyFile="$(ExternalReferences)\Microsoft.Web.Publishing.Tasks.dll" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProductVersion>9.0.30729</ProductVersion>
+    <SchemaVersion>2.0</SchemaVersion>
+    <ProjectGuid>{782CFF06-3FB4-422B-913C-E9428C123598}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>Solid.ServiceLayer</RootNamespace>
+    <AssemblyName>Solid.ServiceLayer</AssemblyName>
+    <ProjectTypeGuids>{3D9AD99F-2412-4246-B90B-4EAA41C64699};{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}</ProjectTypeGuids>
+    <StartArguments>/client:"WcfTestClient.exe"</StartArguments>
+    <TargetFrameworkVersion>$(DotNetFrameworkVersion)</TargetFrameworkVersion>
+    <FileUpgradeFlags>
+    </FileUpgradeFlags>
+    <OldToolsVersion>3.5</OldToolsVersion>
+    <UpgradeBackupLocation />
+    <TargetFrameworkProfile />
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <!-- needed by target 'Encrypt' -->
+    <OutputPathWithoutBackSlash>bin\Debug</OutputPathWithoutBackSlash>
+    <OutputPath>$(OutputPathWithoutBackSlash)\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <CodeAnalysisRuleSet>AllRules.ruleset</CodeAnalysisRuleSet>
+    <UseVSHostingProcess>true</UseVSHostingProcess>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <!-- needed by target 'Encrypt' -->
+    <OutputPathWithoutBackSlash>bin\Release</OutputPathWithoutBackSlash>
+    <OutputPath>$(OutputPathWithoutBackSlash)\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <CodeAnalysisRuleSet>AllRules.ruleset</CodeAnalysisRuleSet>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="Unity.Abstractions">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>$(ExternalReferences)\Unity.Abstractions.dll</HintPath>
+    </Reference>
+    <Reference Include="Unity.Container">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>$(ExternalReferences)\Unity.Container.dll</HintPath>
+    </Reference>
+    <Reference Include="Newtonsoft.Json">
+      <HintPath>$(ExternalReferences)\Newtonsoft.Json.dll</HintPath>
+    </Reference>
+    <Reference Include="PresentationCore" />
+    <Reference Include="Microsoft.Azure.KeyVault.Core">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>$(ExternalReferences)\Microsoft.Azure.KeyVault.Core.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.WindowsAzure.Storage">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>$(ExternalReferences)\Microsoft.WindowsAzure.Storage.dll</HintPath>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.Configuration" />
+    <Reference Include="System.Core">
+      <RequiredTargetFramework>3.5</RequiredTargetFramework>
+    </Reference>
+    <Reference Include="System.Data" />
+    <Reference Include="System.Runtime.Serialization">
+      <RequiredTargetFramework>3.0</RequiredTargetFramework>
+    </Reference>
+    <Reference Include="System.ServiceModel">
+      <RequiredTargetFramework>3.0</RequiredTargetFramework>
+    </Reference>
+    <Reference Include="System.ServiceModel.Web">
+      <RequiredTargetFramework>3.5</RequiredTargetFramework>
+    </Reference>
+    <Reference Include="System.Web" />
+    <Reference Include="System.Xml" />
+    <Reference Include="System.Xml.Linq">
+      <RequiredTargetFramework>3.5</RequiredTargetFramework>
+    </Reference>
+    <Reference Include="NLog">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>$(ExternalReferences)\NLog.dll</HintPath>
+    </Reference>
+    <Reference Include="NLog.Extended">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>$(ExternalReferences)\NLog.Extended.dll</HintPath>
+    </Reference>
+    <Reference Include="NLog.Web">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>$(ExternalReferences)\NLog.Web.dll</HintPath>
+    </Reference>
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="JsonGOReportsHelperServiceHandler.cs">
+      <GeneratedBy>Fenomen</GeneratedBy>
+    </Compile>
+    <Compile Include="JsonGOFileUploaderServiceHandler.cs">
+      <GeneratedBy>Fenomen</GeneratedBy>
+    </Compile>
+    <Compile Include="JsonGOSecurityProviderServiceHandler.cs">
+      <GeneratedBy>Fenomen</GeneratedBy>
+    </Compile>
+    <Compile Include="JsonGOReportsHelperService.cs">
+      <GeneratedBy>Fenomen</GeneratedBy>
+    </Compile>
+    <Compile Include="JsonGOFileUploaderService.cs">
+      <GeneratedBy>Fenomen</GeneratedBy>
+    </Compile>
+    <Compile Include="JsonGOSecurityProviderService.cs">
+      <GeneratedBy>Fenomen</GeneratedBy>
+    </Compile>
+    <Compile Include="ApplicationSettingsHandler.cs">
+      <GeneratedBy>Fenomen</GeneratedBy>
+    </Compile>
+    <Compile Include="MetaDataHandler.cs">
+      <GeneratedBy>Fenomen</GeneratedBy>
+    </Compile>
+    <Compile Include="ViewsHandler.cs">
+      <GeneratedBy>Fenomen</GeneratedBy>
+    </Compile>
+    <Compile Include="ConstructedViewsHandler.cs">
+      <GeneratedBy>Fenomen</GeneratedBy>
+    </Compile>
+    <Compile Include="DataApiHandler.cs">
+      <GeneratedBy>Fenomen</GeneratedBy>
+    </Compile>
+    <Compile Include="EntityApiHandler.cs">
+      <GeneratedBy>Fenomen</GeneratedBy>
+    </Compile>
+    <Compile Include="IEntityApiHandler.cs">
+      <GeneratedBy>Fenomen</GeneratedBy>
+    </Compile>
+    <Compile Include="AutoInclude.cs">
+      <GeneratedBy>Fenomen</GeneratedBy>
+    </Compile>
+    <Content Include="web.config">
+      <GeneratedBy>Fenomen</GeneratedBy>
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="NLog.config">
+      <GeneratedBy>Fenomen</GeneratedBy>
+    </Content>
+    <Content Include="web.custom.config">
+      <GeneratedBy>Fenomen</GeneratedBy>
+    </Content>
+    <Compile Include="Container.cs">
+      <GeneratedBy>Fenomen</GeneratedBy>
+    </Compile>
+    <Compile Include="Container.custom.cs">
+      <GeneratedBy>Fenomen</GeneratedBy>
+    </Compile>
+    <None Include="Global.asax">
+      <GeneratedBy>Fenomen</GeneratedBy>
+    </None>
+    <Compile Include="Global.asax.cs">
+      <GeneratedBy>Fenomen</GeneratedBy>
+      <DependentUpon>Global.asax</DependentUpon>
+    </Compile>
+  </ItemGroup>
+  <ItemGroup>
+    <Reference Include="GenerativeObjects.Practices, Version=1.0.0.0">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>$(RuntimeLibraries)\GenerativeObjects.Practices.dll</HintPath>
+    </Reference>
+    <Reference Include="GenerativeObjects.Practices.ORMSupportClasses, Version=1.0.0.0">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>$(RuntimeLibraries)\GenerativeObjects.Practices.ORMSupportClasses.dll</HintPath>
+    </Reference>
+    <Reference Include="GenerativeObjects.Practices.MVPVM, Version=1.0.0.0">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>$(RuntimeLibraries)\GenerativeObjects.Practices.MVPVM.dll</HintPath>
+    </Reference>
+    <Reference Include="GenerativeObjects.Practices.LayerSupportClasses">
+      <HintPath>$(RuntimeLibraries)\GenerativeObjects.Practices.LayerSupportClasses.dll</HintPath>
+    </Reference>
+    <Reference Include="GenerativeObjects.Services">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>$(RuntimeLibraries)\GenerativeObjects.Services.dll</HintPath>
+    </Reference>
+    <ProjectReference Include="..\BusinessLayer\Solid.BusinessLayer.ORMSupportClasses.csproj">
+      <Project>{70E37A60-34C4-4282-ABCC-76C6EE28B92A}</Project>
+      <Name>Solid.BusinessLayer.ORMSupportClasses</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\DataLayer\Solid.Data.csproj">
+      <Project>{F6727353-2D14-4915-A97E-C1AF2787AE5C}</Project>
+      <Name>Solid.Data</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\DataLayer\Solid.Data.DataObjects.csproj">
+      <Project>{627B81F1-9A5E-4CAB-B153-EDC596BA83F0}</Project>
+      <Name>Solid.Data.DataObjects</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\DataLayer\Solid.Data.SqlClient.csproj">
+      <Project>{9DE3DD4D-F46E-4B4D-9E2D-83A97CD52C98}</Project>
+      <Name>Solid.Data.SqlClient</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\BusinessLayer\Solid.BusinessLayer.csproj">
+      <Project>{156CD422-5621-4E6B-8610-E23F8B08D4D0}</Project>
+      <Name>Solid.BusinessLayer</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\DataLayerDataProviders\Solid.Data.DataProviders.csproj">
+      <Project>{37911B71-59AF-42D6-8DC5-816487D0DC4E}</Project>
+      <Name>Solid.Data.DataProviders</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\DataLayerDeleteHandlers\Solid.Data.DeleteHandlers.csproj">
+      <Project>{95268A3E-8ABC-47A5-84D4-7DA69F9F1785}</Project>
+      <Name>Solid.Data.DeleteHandlers</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\CustomCode\DataLayerDataProviders\Custom\Solid.Data.DataProviders.Custom.csproj">
+      <Project>{4E7991D2-2B84-426C-947B-17DDBD0E4701}</Project>
+      <Name>Solid.Data.DataProviders.Custom</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Features\Security\ServiceLayer\Solid.Features.Security.ServiceLayer.csproj">
+      <Project>{8370E0A9-2896-43FC-B972-16FF5E054163}</Project>
+      <Name>Solid.Features.Security.ServiceLayer</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Features\Security\Common\Solid.Features.Security.Common.csproj">
+      <Project>{87F91005-7D93-40D4-8759-A41BBCDCAED1}</Project>
+      <Name>Solid.Features.Security.Common</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Features\Security\DataLayer\Solid.Features.Security.DataLayer.csproj">
+      <Project>{FFE72C4F-4D85-4A61-90D3-C76796945F13}</Project>
+      <Name>Solid.Features.Security.DataLayer</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\BusinessLayerServerComponents\Solid.BusinessLayer.Components.Server.csproj">
+      <Project>{1DD625C0-4E21-47DC-97E8-AFCDD69CF722}</Project>
+      <Name>Solid.BusinessLayer.Components.Server</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\BusinessLayerServerComponentsExtensions\Solid.BusinessLayer.Components.Server.Extensions.csproj">
+      <Project>{2F6295DA-0203-4C1B-9C81-2F6126C5DC65}</Project>
+      <Name>Solid.BusinessLayer.Components.Server.Extensions</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\BusinessLayerClientComponents\Solid.BusinessLayer.Components.Client.csproj">
+      <Project>{4DAAAFB8-0096-464E-AAB7-A320A67DEF9A}</Project>
+      <Name>Solid.BusinessLayer.Components.Client</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Features\Security\BusinessLayer\Solid.Features.Security.BusinessLayer.csproj">
+      <Project>{8E73429C-F32A-45FF-8045-2AF0FCBF5DDF}</Project>
+      <Name>Solid.Features.Security.BusinessLayer</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+  <Target Name="TransformWebConfig">
+    <TransformXml Source="web.config" Transform="web.custom.config" Destination="$(OutputPath)web.config" Condition=" Exists('web.custom.config') " />
+  </Target>
+  <!-- Encrypt securedProperties section -->
+  <Target Name="Encrypt" AfterTargets="TransformWebConfig">
+    <Exec Command="$(EncryptExePath)\aspnet_regiis.exe -pef &quot;$(EncryptSection)&quot; $(MSBuildProjectDirectory)\$(OutputPathWithoutBackSlash) -prov &quot;$(EncryptDefaultRsaProvider)&quot;" />
+  </Target>
+  <ProjectExtensions>
+    <VisualStudio>
+      <FlavorProperties GUID="{3D9AD99F-2412-4246-B90B-4EAA41C64699}">
+        <WcfProjectProperties>
+          <AutoStart>True</AutoStart>
+        </WcfProjectProperties>
+      </FlavorProperties>
+    </VisualStudio>
+  </ProjectExtensions>
+  <PropertyGroup>
+    <PostBuildEvent>
+    </PostBuildEvent>
+  </PropertyGroup>
+</Project>

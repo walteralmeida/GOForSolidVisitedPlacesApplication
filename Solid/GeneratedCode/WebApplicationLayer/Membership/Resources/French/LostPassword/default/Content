@@ -1,0 +1,9 @@
+<p>
+	Vous avez demandé à réinitialiser votre mot de passe,
+	<br/>
+	Veuillez cliquer sur le lien suivant pour définir votre nouveau mot de passe:
+	<br/>
+	<a href='%LINK%'>Réinitialiser mon mot de passe</a>
+</p>
+<br/>
+L'équipe %APPNAME%.
