@@ -1,0 +1,55 @@
+﻿#ignore thumbnails created by windows
+Thumbs.db
+#Ignore files build by Visual Studio
+*.obj
+*.exe
+*.pdb
+*.user
+*.aps
+*.pch
+*.vspscc
+*_i.c
+*_p.c
+*.ncb
+*.suo
+*.tlb
+*.tlh
+*.cache
+*.ilk
+*.log
+[Bb]in
+[Dd]ebug*/
+*.lib
+*.tt.bak
+*.sbr
+*.lpt
+obj/
+_ReSharper*/
+[Tt]est[Rr]esult*
+*.vssscc
+*templatesSource.cs
+*.orig
+*.custom.config
+*.go-min.js
+*.go-obf.js
+*.go-min.css
+ApplicationPackage/*
+GenerativeObjectsPackage/*
+Application/ServiceLayer/web.custom.config
+*node_module*
+Application/Model/T4 Templates/GenerativeObjects/PresentationLayer/SilverLight/CSharp/FormLookupFieldControlInclude (Restaur�) 12-12-2011 14.14.tt
+#Ignore VS2015 upgrade files
+Framework/Backup*
+Framework/UpgradeLog*
+#Ignore VS2015 user-specific files
+.vs/
+#Ignore VIM files
+*.swp
+.*~
+[oO]utput[Aa]ssemblies/
+#Ignore packages folder
+packages/*
+Sql/LiveUpdateDatabaseScript.sql
+unit.test.auto.unzip/
+*.bak
+.idea/
