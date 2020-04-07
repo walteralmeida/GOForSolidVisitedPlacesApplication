@@ -1,0 +1,83 @@
+﻿<div data-test-id="main-page-content">
+  <div class="main-wrapper">
+    <header>
+      <div class="header-image"></div>
+      <h1 data-bind="'text' : pageTitle"></h1>
+      <div id="mobile-header">
+        <a id="responsive-menu-button">
+          <span class="burger-menu">☰</span>
+        </a>
+      </div>
+      <div class="menu-login">
+        <div id="login">
+          <span data-bind="visible: security.isLoggedIn">
+            <span data-bind="text: Solid.Web.Messages.welcomeUser"></span>
+            <span data-bind="text : security.currentUserName" class="bold"></span>
+          </span>
+          <a data-bind="visible: !security.isLoggedIn(), text: Solid.Web.Messages.loginLink" class="loginLink" href="Membership/Login.html" data-test-id="loginLink">Log In</a>
+          <a data-bind="visible: security.isLoggedIn(), click: security.logOut, text: Solid.Web.Messages.logoutLink" class="loginLink" href="#" data-test-id="loginLink">Log Out</a>
+        </div>
+        <div class="navigation-menu">
+          <ul id="horizontal-menu">
+            <li data-bind="'enable' : navigation.isHomeEnabled(), 'visible' : navigation.isHomeVisible()" class="desktop-node menu-root">
+              <a href="#" data-test-id="75305345-b76d-4079-ae25-5ee461454f03">Home</a>
+              <ul>
+                <li data-bind="'enable' : navigation.isLocationsEnabled(), 'visible' : navigation.isLocationsVisible()" class="desktop-node">
+                  <a href="#" data-bind="'click' : function(data,event) { commands.navigateTo('Locations') }" data-test-id="28738e7a-bebd-4559-8c04-608df04dbba5">Locations</a>
+                </li>
+                <li data-bind="'enable' : navigation.isPlaceToLocationsEnabled(), 'visible' : navigation.isPlaceToLocationsVisible()" class="desktop-node">
+                  <a href="#" data-bind="'click' : function(data,event) { commands.navigateTo('PlaceToLocations') }" data-test-id="53c912de-45f9-4ed8-b244-a9688126b608">Place To Locations</a>
+                </li>
+                <li data-bind="'enable' : navigation.isCountriesEnabled(), 'visible' : navigation.isCountriesVisible()" class="desktop-node">
+                  <a href="#" data-bind="'click' : function(data,event) { commands.navigateTo('Countries') }" data-test-id="361f22a0-0d00-4823-9bdb-fa50bae046d4">Countries</a>
+                </li>
+                <li data-bind="'enable' : navigation.isPlacesEnabled(), 'visible' : navigation.isPlacesVisible()" class="desktop-node">
+                  <a href="#" data-bind="'click' : function(data,event) { commands.navigateTo('Places') }" data-test-id="7045f861-53d3-4d31-848f-c9a6197b68bb">Places</a>
+                </li>
+              </ul>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </header>
+    <!--end header-->
+    <div class="main-content">
+      <div class="breadcrumbs">
+        <ul data-bind="foreach: navigation.breadCrumbs">
+          <li>
+            <a data-bind="attr: { href: url }, click: $parent.commands.navigateToUrl, text: text, css:{ breadcrumbnext : currentpage == false, disabledlink: isactive == false, enabledlink: isactive == true}, enable: currentpage == false"></a>
+          </li>
+        </ul>
+      </div>
+      <div class="zone-content">
+        <div class="leftColumn">
+          <div id="contentZone_LeftColumn" data-test-id="contentZone_LeftColumn"></div>
+        </div>
+        <div class="rightColumn">
+          <div id="contentZone_RightColumn" data-test-id="contentZone_RightColumn"></div>
+        </div>
+      </div>
+      <!--end maincontent-->
+    </div>
+    <!--end main-->
+  </div>
+  <!--end wrapper-->
+  <div id="popupContainer">
+    <a data-placeholder="closeAllPopupsButton" class="overlayClose" onclick="ApplicationController.closeAllPopups()"></a>
+    <a class="overlayBack" onclick="ApplicationController.closeCurrentPopup()">Retour</a>
+    <div id="popupContainerCloseButton"></div>
+  </div>
+  <script type="text/javascript">
+if (GenerativeObjects.Web.GetEnvironment().isMobile) {
+$('#responsive-menu-button').sidr({
+source: '.menu-login',
+side: 'right',
+name: 'horizontal-menu'
+});
+} else {
+$("#horizontal-menu").hmenu({
+hideFirstLevelArrow: true
+});
+}
+</script>
+</div> 

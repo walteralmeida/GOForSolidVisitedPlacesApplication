@@ -1,0 +1,12 @@
+<div id="popupContainer_container">
+  <h2 data-bind="text: title" />
+  <div class="alert-popup-msg">
+    <div data-bind="text: message"></div>
+    <input type="text" size="30" data-bind="value: valuePrompt" id="popupContainer_prompt" />
+  </div>
+  <div>
+    <button data-bind="click: clickOk, hasfocus: true, text: Solid.Web.Messages.okLabel" class="command-button"></button>
+    <button data-bind="click: clickCancel, text: Solid.Web.Messages.cancelLabel" class="command-button"></button>
+  </div>
+</div>
+
