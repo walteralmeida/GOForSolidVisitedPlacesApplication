@@ -69,6 +69,9 @@ namespace Solid.Tests.Api.Tests
 				currentEntity.Uri = testData["Uri"].ToString().Trim() != null ? testData["Uri"].ToString().Trim().ToString() : null;
 				include = testData["Include"].ToString().Trim();
 			}
+			currentEntity.Name = testData["Name"]?.ToString().Trim() != null ? testData["Name"]?.ToString().Trim().ToString() : null;
+			currentEntity.OrganizationName = testData["Organization Name"]?.ToString().Trim() != null ? testData["Organization Name"]?.ToString().Trim().ToString() : null;
+			currentEntity.Role = testData["Role"]?.ToString().Trim() != null ? testData["Role"]?.ToString().Trim().ToString() : null;
 			var expected_result = ConvertToStatusCode(testData["Result"]);
 			
 			#endregion

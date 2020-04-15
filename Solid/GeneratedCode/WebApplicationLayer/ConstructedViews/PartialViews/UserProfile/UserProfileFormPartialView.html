@@ -36,6 +36,69 @@
             </div>
           </span>
         </div>
+        <div class="form-field view requiredField" data-bind="'visible':StatusData.DisplayMode() == 'view' &amp;&amp; StatusData.IsNameVisible()" data-test-id="b577580d-5f4c-4d42-a3e0-cf1f13f303e9" data-entityfield="name-view">
+          <span class="form-field-label-zone" data-bind="'visible':StatusData.DisplayMode() == 'view' &amp;&amp; StatusData.IsNameVisible(), 'css' : { errorText : !UserProfileObject().StatusData.isNameValid() }" data-test-id="label_b577580d-5f4c-4d42-a3e0-cf1f13f303e9">
+            <label class="form-field-label">Name</label>
+          </span>
+          <span class="form-field-control-container" data-bind="'css' : { errorControl : !UserProfileObject().StatusData.isNameValid() }">
+            <div class="text-field">
+              <span class="form-field-text" data-bind="text: UserProfileObject().Data.Name, 'css' : { 'errorControl' : !UserProfileObject().StatusData.isNameValid() }" data-test-id="view_b577580d-5f4c-4d42-a3e0-cf1f13f303e9" />
+            </div>
+          </span>
+        </div>
+        <div class="form-field edit requiredField" data-bind="'visible':StatusData.DisplayMode() == 'edit' &amp;&amp; StatusData.IsNameVisible()" data-test-id="b577580d-5f4c-4d42-a3e0-cf1f13f303e9" data-entityfield="name-edit">
+          <span class="form-field-label-zone" data-bind="'visible':StatusData.DisplayMode() == 'edit' &amp;&amp; StatusData.IsNameVisible(), 'css' : { errorText : !UserProfileObject().StatusData.isNameValid() }" data-test-id="label_b577580d-5f4c-4d42-a3e0-cf1f13f303e9">
+            <label class="form-field-label">Name</label>
+          </span>
+          <span class="form-field-control-container" data-bind="'enable' : !StatusData.IsNameReadOnly(), 'css' : { errorControl : !UserProfileObject().StatusData.isNameValid() }">
+            <div class="text-field">
+              <input class="form-field-text" data-bind="value: UserProfileObject().Data.Name, 'enable' : !StatusData.IsNameReadOnly(), 'css' : { 'errorControl' : !UserProfileObject().StatusData.isNameValid() }" type="text" data-test-id="edit_b577580d-5f4c-4d42-a3e0-cf1f13f303e9" />
+              <span class="errorDescription" data-bind="'visible' : !UserProfileObject().StatusData.isNameValid(), text : UserProfileObject().StatusData.nameErrorMessage"></span>
+            </div>
+          </span>
+        </div>
+        <div class="form-field view optionalField" data-bind="'visible':StatusData.DisplayMode() == 'view' &amp;&amp; StatusData.IsRoleVisible()" data-test-id="a58d2f1b-1649-4878-bb44-19669554942d" data-entityfield="role-view">
+          <span class="form-field-label-zone" data-bind="'visible':StatusData.DisplayMode() == 'view' &amp;&amp; StatusData.IsRoleVisible(), 'css' : { errorText : !UserProfileObject().StatusData.isRoleValid() }" data-test-id="label_a58d2f1b-1649-4878-bb44-19669554942d">
+            <label class="form-field-label">Role</label>
+          </span>
+          <span class="form-field-control-container" data-bind="'css' : { errorControl : !UserProfileObject().StatusData.isRoleValid() }">
+            <div class="text-field">
+              <span class="form-field-text" data-bind="text: UserProfileObject().Data.Role, 'css' : { 'errorControl' : !UserProfileObject().StatusData.isRoleValid() }" data-test-id="view_a58d2f1b-1649-4878-bb44-19669554942d" />
+            </div>
+          </span>
+        </div>
+        <div class="form-field edit optionalField" data-bind="'visible':StatusData.DisplayMode() == 'edit' &amp;&amp; StatusData.IsRoleVisible()" data-test-id="a58d2f1b-1649-4878-bb44-19669554942d" data-entityfield="role-edit">
+          <span class="form-field-label-zone" data-bind="'visible':StatusData.DisplayMode() == 'edit' &amp;&amp; StatusData.IsRoleVisible(), 'css' : { errorText : !UserProfileObject().StatusData.isRoleValid() }" data-test-id="label_a58d2f1b-1649-4878-bb44-19669554942d">
+            <label class="form-field-label">Role</label>
+          </span>
+          <span class="form-field-control-container" data-bind="'enable' : !StatusData.IsRoleReadOnly(), 'css' : { errorControl : !UserProfileObject().StatusData.isRoleValid() }">
+            <div class="text-field">
+              <input class="form-field-text" data-bind="value: UserProfileObject().Data.Role, 'enable' : !StatusData.IsRoleReadOnly(), 'css' : { 'errorControl' : !UserProfileObject().StatusData.isRoleValid() }" type="text" data-test-id="edit_a58d2f1b-1649-4878-bb44-19669554942d" />
+              <span class="errorDescription" data-bind="'visible' : !UserProfileObject().StatusData.isRoleValid(), text : UserProfileObject().StatusData.roleErrorMessage"></span>
+            </div>
+          </span>
+        </div>
+        <div class="form-field view optionalField" data-bind="'visible':StatusData.DisplayMode() == 'view' &amp;&amp; StatusData.IsOrganizationNameVisible()" data-test-id="85ba80db-196c-4b2e-87fc-e2222d6ed277" data-entityfield="organizationname-view">
+          <span class="form-field-label-zone" data-bind="'visible':StatusData.DisplayMode() == 'view' &amp;&amp; StatusData.IsOrganizationNameVisible(), 'css' : { errorText : !UserProfileObject().StatusData.isOrganizationNameValid() }" data-test-id="label_85ba80db-196c-4b2e-87fc-e2222d6ed277">
+            <label class="form-field-label">Organization Name</label>
+          </span>
+          <span class="form-field-control-container" data-bind="'css' : { errorControl : !UserProfileObject().StatusData.isOrganizationNameValid() }">
+            <div class="text-field">
+              <span class="form-field-text" data-bind="text: UserProfileObject().Data.OrganizationName, 'css' : { 'errorControl' : !UserProfileObject().StatusData.isOrganizationNameValid() }" data-test-id="view_85ba80db-196c-4b2e-87fc-e2222d6ed277" />
+            </div>
+          </span>
+        </div>
+        <div class="form-field edit optionalField" data-bind="'visible':StatusData.DisplayMode() == 'edit' &amp;&amp; StatusData.IsOrganizationNameVisible()" data-test-id="85ba80db-196c-4b2e-87fc-e2222d6ed277" data-entityfield="organizationname-edit">
+          <span class="form-field-label-zone" data-bind="'visible':StatusData.DisplayMode() == 'edit' &amp;&amp; StatusData.IsOrganizationNameVisible(), 'css' : { errorText : !UserProfileObject().StatusData.isOrganizationNameValid() }" data-test-id="label_85ba80db-196c-4b2e-87fc-e2222d6ed277">
+            <label class="form-field-label">Organization Name</label>
+          </span>
+          <span class="form-field-control-container" data-bind="'enable' : !StatusData.IsOrganizationNameReadOnly(), 'css' : { errorControl : !UserProfileObject().StatusData.isOrganizationNameValid() }">
+            <div class="text-field">
+              <input class="form-field-text" data-bind="value: UserProfileObject().Data.OrganizationName, 'enable' : !StatusData.IsOrganizationNameReadOnly(), 'css' : { 'errorControl' : !UserProfileObject().StatusData.isOrganizationNameValid() }" type="text" data-test-id="edit_85ba80db-196c-4b2e-87fc-e2222d6ed277" />
+              <span class="errorDescription" data-bind="'visible' : !UserProfileObject().StatusData.isOrganizationNameValid(), text : UserProfileObject().StatusData.organizationNameErrorMessage"></span>
+            </div>
+          </span>
+        </div>
         <div data-bind="'visible':StatusData.IsVisitedPlaceItemsVisible()" data-test-id="a47ea0e7-28f0-4010-b6d4-bb0724d10b78" data-entityfield="visitedplaceitems-view" class="requiredField">
           <span data-bind="'css' : { errorControl : !UserProfileObject().StatusData.isVisitedPlaceItemsValid() }">
             <div>

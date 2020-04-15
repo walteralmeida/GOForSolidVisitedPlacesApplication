@@ -192,6 +192,21 @@
 			defaultResourceName: "userprofile",
 			dataProperties: [
 				{
+					name: "Name", 
+					dataType: "String",
+					isNullable: false 
+				},
+				{
+					name: "OrganizationName", 
+					dataType: "String",
+					isNullable: true 
+				},
+				{
+					name: "Role", 
+					dataType: "String",
+					isNullable: true 
+				},
+				{
 					name: "Uri", 
 					isPartOfKey: true,
 					dataType: "String",

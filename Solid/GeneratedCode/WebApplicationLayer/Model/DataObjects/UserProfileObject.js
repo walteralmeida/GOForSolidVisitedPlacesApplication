@@ -31,7 +31,12 @@
 			_gOUser_NewObjectId : ko.observable(null),
 			GOUser: function () { return self.getGOUser(); },
  			VisitedPlaceItems: function () { return self.getVisitedPlaceItems(); },
- 			// State attributes
+ 		
+			// Other fields
+			Name: ko.observable(null),
+			OrganizationName: ko.observable(null),
+			Role: ko.observable(null),
+			// State attributes
 			InternalObjectId: ko.observable(null),
 
 			// IsDirty indicates weither the data objects has to be persisted
@@ -54,6 +59,12 @@
 		this.StatusData = {
 			isGOUserValid: ko.observable(true),
 			gOUserErrorMessage: ko.observable(null), 
+			isNameValid: ko.observable(true),
+			nameErrorMessage: ko.observable(null), 
+			isOrganizationNameValid: ko.observable(true),
+			organizationNameErrorMessage: ko.observable(null), 
+			isRoleValid: ko.observable(true),
+			roleErrorMessage: ko.observable(null), 
 			isUriValid: ko.observable(true),
 			uriErrorMessage: ko.observable(null), 
 			isVisitedPlaceItemsValid: ko.observable(true),
@@ -246,6 +257,9 @@
 		clone.Data.Uri_OldValue(this.Data.Uri_OldValue());
 		clone.Data.Uri(this.Data.Uri());
 		clone.Data._gOUser_NewObjectId (this.Data._gOUser_NewObjectId());
+		clone.Data.Name(this.Data.Name());
+		clone.Data.OrganizationName(this.Data.OrganizationName());
+		clone.Data.Role(this.Data.Role());
 		clone.contextIds = this.contextIds;
 
 		clone.Data.IsDirty(this.Data.IsDirty());
@@ -273,7 +287,10 @@
 			this.Data.Uri_OldValue(sourceObject.Data.Uri_OldValue());
 			this.Data.Uri(sourceObject.Data.Uri());
 			this.Data._gOUser_NewObjectId (sourceObject.Data._gOUser_NewObjectId());
-				this.contextIds = sourceObject.contextIds;
+				this.Data.Name(sourceObject.Data.Name());
+			this.Data.OrganizationName(sourceObject.Data.OrganizationName());
+			this.Data.Role(sourceObject.Data.Role());
+			this.contextIds = sourceObject.contextIds;
 
 			this.Data.IsDirty(sourceObject.Data.IsDirty());
 			this.Data.IsNew(sourceObject.Data.IsNew());
@@ -308,6 +325,9 @@
 		// Subscriptions
 		this.subscriptions.push(this.Data.IsDirty.subscribe(isDirtySubscriptionHandler, this));
 		this.subscriptions.push(this.Data.IsMarkedForDeletion.subscribe(isMarkedForDeletionSubscriptionHandler, this));
+		this.subscriptions.push(this.Data.Name.subscribe(NamePropertySubscriptionHandler, this));
+		this.subscriptions.push(this.Data.OrganizationName.subscribe(OrganizationNamePropertySubscriptionHandler, this));
+		this.subscriptions.push(this.Data.Role.subscribe(RolePropertySubscriptionHandler, this));
 		this.subscriptions.push(this.Data.Uri.subscribe(UriPropertySubscriptionHandler, this));
 		this.subscriptions.push(this.Data._gOUser_NewObjectId.subscribe(gOUserNewObjectSubscriptionHandler, this));
 
@@ -348,7 +368,7 @@
 	
 	function statusDataValidationComputed() {
 		var isValid = true;
-		isValid = isValid && this.StatusData.isUriValid() && this.StatusData.isUserProfileEntityValid();
+		isValid = isValid && this.StatusData.isNameValid() && this.StatusData.isOrganizationNameValid() && this.StatusData.isRoleValid() && this.StatusData.isUriValid() && this.StatusData.isUserProfileEntityValid();
 		return isValid;
 	}
 
@@ -364,6 +384,42 @@
 		this.Data.IsDirty(true);
 	}
 			
+
+	function NamePropertySubscriptionHandler(newValue) {
+		
+		if (this.DirtyHandlerOn) {			
+            this.Data.IsDirty(true);
+		}
+ 
+		if (this.notifyChangesOn) {		
+			this.updateDependentCustomValues();
+			this.onPropertyChanged("Name");
+		}
+    }
+
+	function OrganizationNamePropertySubscriptionHandler(newValue) {
+		
+		if (this.DirtyHandlerOn) {			
+            this.Data.IsDirty(true);
+		}
+ 
+		if (this.notifyChangesOn) {		
+			this.updateDependentCustomValues();
+			this.onPropertyChanged("OrganizationName");
+		}
+    }
+
+	function RolePropertySubscriptionHandler(newValue) {
+		
+		if (this.DirtyHandlerOn) {			
+            this.Data.IsDirty(true);
+		}
+ 
+		if (this.notifyChangesOn) {		
+			this.updateDependentCustomValues();
+			this.onPropertyChanged("Role");
+		}
+    }
 
 	function UriPropertySubscriptionHandler(newValue) {
 		// PK Changed => update dataset internalId table (don't do it if new object)

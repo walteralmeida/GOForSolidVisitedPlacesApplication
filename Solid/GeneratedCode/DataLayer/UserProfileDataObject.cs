@@ -38,6 +38,12 @@ namespace Solid.Data.DataObjects
 		private ILogEngine _logEngine = ApplicationSettings.Container.Resolve<ILogEngine>();
 		public virtual Parameters CurrentTransactionParameters => ApplicationSettings.Container.Resolve<IDataProviderTransaction>().Parameters;
  
+		[JsonProperty ("Name")]
+		protected System.String _name;
+		[JsonProperty ("OrganizationName")]
+		protected System.String _organizationName;
+		[JsonProperty ("Role")]
+		protected System.String _role;
 		[JsonProperty ("Uri")]
 		protected System.String _uri;
 	
@@ -70,6 +76,9 @@ namespace Solid.Data.DataObjects
 		/// </summary>
 		public UserProfileDataObject(UserProfileDataObject template, bool deepCopy)
 		{
+			this.SetNameValue(template.Name, false, false);
+			this.SetOrganizationNameValue(template.OrganizationName, false, false);
+			this.SetRoleValue(template.Role, false, false);
 			this.SetUriValue(template.Uri, false, false);
  
  
@@ -108,6 +117,9 @@ namespace Solid.Data.DataObjects
 				throw new PulpException("Wrong type of object");
 
 			this.SetIsNewValue(sourceObject.IsNew, false, false);						
+			this.SetNameValue(userProfileSource.Name, false, false);
+			this.SetOrganizationNameValue(userProfileSource.OrganizationName, false, false);
+			this.SetRoleValue(userProfileSource.Role, false, false);
 			this.SetUriValue(userProfileSource.Uri, false, false);
 
 
@@ -416,6 +428,90 @@ namespace Solid.Data.DataObjects
 	
 			
 			
+		public virtual void SetNameValue(System.String valueToSet)
+		{
+			SetNameValue(valueToSet, true, true);
+		}
+
+		public virtual void SetNameValue(System.String valueToSet, bool notifyChanges, bool dirtyHandlerOn)
+		{
+			if (_name != valueToSet)
+			{
+				_name = valueToSet;
+
+				OnPropertyChanged("Name", notifyChanges, dirtyHandlerOn);
+			}
+		}
+		
+		/// <summary> The Name property of the UserProfile DataObject</summary>
+        public virtual System.String Name 
+		{
+			get	{ return _name; }
+			
+			
+			set
+			{
+				SetNameValue(value);
+			}
+		}		
+			
+			
+		public virtual void SetOrganizationNameValue(System.String valueToSet)
+		{
+			SetOrganizationNameValue(valueToSet, true, true);
+		}
+
+		public virtual void SetOrganizationNameValue(System.String valueToSet, bool notifyChanges, bool dirtyHandlerOn)
+		{
+			if (_organizationName != valueToSet)
+			{
+				_organizationName = valueToSet;
+
+				OnPropertyChanged("OrganizationName", notifyChanges, dirtyHandlerOn);
+			}
+		}
+		
+		/// <summary> The Organization Name property of the UserProfile DataObject</summary>
+        public virtual System.String OrganizationName 
+		{
+			get	{ return String.IsNullOrEmpty(_organizationName) ? null : _organizationName; }
+			
+			
+			set
+			{
+				SetOrganizationNameValue(value);
+			}
+		}		
+			
+			
+		public virtual void SetRoleValue(System.String valueToSet)
+		{
+			SetRoleValue(valueToSet, true, true);
+		}
+
+		public virtual void SetRoleValue(System.String valueToSet, bool notifyChanges, bool dirtyHandlerOn)
+		{
+			if (_role != valueToSet)
+			{
+				_role = valueToSet;
+
+				OnPropertyChanged("Role", notifyChanges, dirtyHandlerOn);
+			}
+		}
+		
+		/// <summary> The Role property of the UserProfile DataObject</summary>
+        public virtual System.String Role 
+		{
+			get	{ return String.IsNullOrEmpty(_role) ? null : _role; }
+			
+			
+			set
+			{
+				SetRoleValue(value);
+			}
+		}		
+			
+			
 		public virtual void SetUriValue(System.String valueToSet)
 		{
 			SetUriValue(valueToSet, true, true);
@@ -503,7 +599,10 @@ namespace Solid.Data.DataObjects
 
 			var p = (UserProfileDataObject) obj;
 			var fieldsComparison = true;
+			fieldsComparison &= this.OrganizationName == p.OrganizationName;
 			fieldsComparison &= this.Uri == p.Uri;
+			fieldsComparison &= this.Role == p.Role;
+			fieldsComparison &= this.Name == p.Name;
 			return fieldsComparison;
 		}
 
