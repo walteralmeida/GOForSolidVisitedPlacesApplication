@@ -102,6 +102,10 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Content Include="web.custom.config">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+      <GeneratedBy>Fenomen</GeneratedBy>
+    </Content>
     <Compile Include="ApplicationSettingsHandler.cs">
       <GeneratedBy>Fenomen</GeneratedBy>
     </Compile>
@@ -162,9 +166,6 @@
     </Compile>
     <Content Include="web.config">
       <GeneratedBy>Fenomen</GeneratedBy>
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
-    <Content Include="web.custom.config">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
   </ItemGroup>

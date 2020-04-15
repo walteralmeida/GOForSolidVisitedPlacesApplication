@@ -27,7 +27,6 @@ namespace Solid.Data.DataObjects
 		/// All Persistent non-key fields
 		///
 		public virtual System.String EmailAddress { get; set; }
-		public virtual System.String UserName { get; set; }
 		public virtual System.String FullName { get; set; }
 		public virtual System.String LastName { get; set; }
 		public virtual System.String Password { get; set; }
@@ -45,6 +44,9 @@ namespace Solid.Data.DataObjects
 		///
 		/// All FK-Side Relations
 		///
+		public virtual ORMUserProfile UserProfile { get; set; }
+		public virtual System.String UserName { get; set; }
+
 	
  
 		///
@@ -83,7 +85,6 @@ namespace Solid.Data.DataObjects
 		{
 			x.SetIdValue(Id, false, false);
 			x.SetEmailAddressValue(EmailAddress, false, false);
-			x.SetUserNameValue(UserName, false, false);
 			x.SetFullNameValue(FullName, false, false);
 			x.SetLastNameValue(LastName, false, false);
 			x.SetPasswordValue(Password, false, false);
@@ -93,6 +94,7 @@ namespace Solid.Data.DataObjects
 			x.SetEmailValidatedValue(EmailValidated, false, false);
 			x.SetBlockedValue(Blocked, false, false);
 			x.SetUserValidatedValue(UserValidated, false, false);
+			x.SetUserNameValue(this.UserName, false, false);
 		}
 
 		protected void SetRelations(GOUserDataObject x)
@@ -112,6 +114,16 @@ namespace Solid.Data.DataObjects
 
 					x.UserRoleItems.Add(userRoleItemsItem);
 				}
+			}
+
+			if (prefetches.Contains("UserProfile") && this.UserProfile != null)
+			{
+				var userProfile = x.ObjectsDataSet.GetObject(new UserProfileDataObject((System.String)this.UserProfile.Uri) { IsNew = false });
+
+				if (userProfile == null)
+					userProfile = this.UserProfile.ToDataObject(x.ObjectsDataSet) as UserProfileDataObject;
+
+				x.SetUserProfileValue(userProfile);
 			}
 
 			if (prefetches.Contains("UserGroupItems") && this.UserGroupItems.Count > 0)

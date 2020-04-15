@@ -33,10 +33,10 @@ namespace Solid.Data.DataObjects
 
 		protected void CopyTo(ORMGOUserRole x, NHibernate.ISession session)
 		{
-			x.GORoleName = this.Role != null ? this.Role.Name : GORoleName; 
 				
 			x.User = this.User != null ? session.Load<ORMGOUser>(this.User.Id) : (this.GOUserId != null ? session.Load<ORMGOUser>(this.GOUserId) : null);
 			x.GOUserId = this.User != null ? this.User.Id : GOUserId; 
+			x.GORoleName = this.Role != null ? this.Role.Name : GORoleName; 
 		}
  
 		private void Evict(ORMGOUserRole result, NHibernate.ISession session)

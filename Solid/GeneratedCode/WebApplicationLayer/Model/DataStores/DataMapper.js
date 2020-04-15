@@ -434,6 +434,82 @@
 			}
 		}
 
+		if (jsondata.ObjectsDataSet.UserProfileObjectsDataSet) {
+	    	for (var prop in jsondata.ObjectsDataSet.UserProfileObjectsDataSet.UserProfileObjects) {
+				if (Solid.Web.Model.DataObjects.UserProfileObject === undefined) {
+					GO.log('missing Solid.Web.Model.DataObjects.UserProfileObject definition. Are you missing a JS dependency?');
+					break;
+				}
+
+				newDataObject = new Solid.Web.Model.DataObjects.UserProfileObject();
+				newDataObject.Data.IsNew(false);
+				newDataObject.contextIds.push(thecontextId);
+				newDataObject = GenerativeObjects.Web.JSONToDataObject(jsondata.ObjectsDataSet.UserProfileObjectsDataSet.UserProfileObjects[prop], newDataObject);
+				newDataObject.Data.IsDirty(false);
+				dataSet.AddOrReplaceObject(newDataObject);
+				
+				if((entityName === "userprofile") && jsondata.PrimaryKeys !== undefined)
+				{
+					for(i=0; i<jsondata.PrimaryKeys.length ; i++) 
+					{
+						if(jsondata.PrimaryKeys[i] === newDataObject.Data.Uri())
+						{
+							result.push(newDataObject);
+							jsondata.PrimaryKeys.splice(i, 1);
+							break; // Break in order to avoid looping when the item has already been founded
+						}
+					}
+				}
+				else {
+					if((entityName === "userprofile"))
+					{
+						if(jsondata.PrimaryKey === newDataObject.Data.Uri())
+						{
+							result.push(newDataObject);
+						}
+					}
+				}
+			}
+		}
+
+		if (jsondata.ObjectsDataSet.VisitedPlaceObjectsDataSet) {
+	    	for (var prop in jsondata.ObjectsDataSet.VisitedPlaceObjectsDataSet.VisitedPlaceObjects) {
+				if (Solid.Web.Model.DataObjects.VisitedPlaceObject === undefined) {
+					GO.log('missing Solid.Web.Model.DataObjects.VisitedPlaceObject definition. Are you missing a JS dependency?');
+					break;
+				}
+
+				newDataObject = new Solid.Web.Model.DataObjects.VisitedPlaceObject();
+				newDataObject.Data.IsNew(false);
+				newDataObject.contextIds.push(thecontextId);
+				newDataObject = GenerativeObjects.Web.JSONToDataObject(jsondata.ObjectsDataSet.VisitedPlaceObjectsDataSet.VisitedPlaceObjects[prop], newDataObject);
+				newDataObject.Data.IsDirty(false);
+				dataSet.AddOrReplaceObject(newDataObject);
+				
+				if((entityName === "visitedplace") && jsondata.PrimaryKeys !== undefined)
+				{
+					for(i=0; i<jsondata.PrimaryKeys.length ; i++) 
+					{
+						if(jsondata.PrimaryKeys[i] === newDataObject.Data.Id())
+						{
+							result.push(newDataObject);
+							jsondata.PrimaryKeys.splice(i, 1);
+							break; // Break in order to avoid looping when the item has already been founded
+						}
+					}
+				}
+				else {
+					if((entityName === "visitedplace"))
+					{
+						if(jsondata.PrimaryKey === newDataObject.Data.Id())
+						{
+							result.push(newDataObject);
+						}
+					}
+				}
+			}
+		}
+
 		for (var i = 0; i < result.length; i++) {
 			result[i].updateDependentValues();
 		}
@@ -675,6 +751,46 @@
 				}
 			}
 		}
+		if (dataset.userProfileObjectsDataSet) {
+			objects = dataset.userProfileObjectsDataSet.userProfileObjects;
+			
+			if ( !GO.isObjectEmpty(objects) ) {
+				var init = false;
+				
+				for (prop in objects) {
+					if (objects[prop].Data.IsDirty() === false || GO.Web.isDataObjectInContext(objects[prop], contextId) === false)
+						continue;
+
+					if (init === false) {
+						jsondata.ObjectsDataSet.UserProfileObjectsDataSet = {};
+						jsondata.ObjectsDataSet.UserProfileObjectsDataSet.UserProfileObjects = {};
+						init = true;
+					}
+
+					jsondata.ObjectsDataSet.UserProfileObjectsDataSet.UserProfileObjects[objects[prop].Data.InternalObjectId()] = GenerativeObjects.Web.DataObjectToJSON(objects[prop]);
+				}
+			}
+		}
+		if (dataset.visitedPlaceObjectsDataSet) {
+			objects = dataset.visitedPlaceObjectsDataSet.visitedPlaceObjects;
+			
+			if ( !GO.isObjectEmpty(objects) ) {
+				var init = false;
+				
+				for (prop in objects) {
+					if (objects[prop].Data.IsDirty() === false || GO.Web.isDataObjectInContext(objects[prop], contextId) === false)
+						continue;
+
+					if (init === false) {
+						jsondata.ObjectsDataSet.VisitedPlaceObjectsDataSet = {};
+						jsondata.ObjectsDataSet.VisitedPlaceObjectsDataSet.VisitedPlaceObjects = {};
+						init = true;
+					}
+
+					jsondata.ObjectsDataSet.VisitedPlaceObjectsDataSet.VisitedPlaceObjects[objects[prop].Data.InternalObjectId()] = GenerativeObjects.Web.DataObjectToJSON(objects[prop]);
+				}
+			}
+		}
         return jsondata;
 	};		
 
@@ -753,6 +869,18 @@
 			jsondata.ObjectsDataSet.PlaceToLocationObjectsDataSet.PlaceToLocationObjects = {};
 
 			jsondata.ObjectsDataSet.PlaceToLocationObjectsDataSet.PlaceToLocationObjects[dataobject.Data.InternalObjectId()] = GenerativeObjects.Web.DataObjectToJSON(dataobject);
+		}
+		if (dataobject._objectType === "UserProfile") {
+			jsondata.ObjectsDataSet.UserProfileObjectsDataSet = {};
+			jsondata.ObjectsDataSet.UserProfileObjectsDataSet.UserProfileObjects = {};
+
+			jsondata.ObjectsDataSet.UserProfileObjectsDataSet.UserProfileObjects[dataobject.Data.InternalObjectId()] = GenerativeObjects.Web.DataObjectToJSON(dataobject);
+		}
+		if (dataobject._objectType === "VisitedPlace") {
+			jsondata.ObjectsDataSet.VisitedPlaceObjectsDataSet = {};
+			jsondata.ObjectsDataSet.VisitedPlaceObjectsDataSet.VisitedPlaceObjects = {};
+
+			jsondata.ObjectsDataSet.VisitedPlaceObjectsDataSet.VisitedPlaceObjects[dataobject.Data.InternalObjectId()] = GenerativeObjects.Web.DataObjectToJSON(dataobject);
 		}
         return jsondata;
 	};		

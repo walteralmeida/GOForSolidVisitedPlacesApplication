@@ -1,0 +1,36 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<hibernate-mapping 
+	xmlns="urn:nhibernate-mapping-2.2" 
+    namespace="Solid.Data.DataObjects" 
+	assembly="Solid.Data.DataObjects" 
+	default-lazy="true" 
+>
+	<class 
+		name="ORMUserProfile" 
+		table="[UserProfile]" 
+		schema="[dbo]"
+	>
+
+
+			
+		<id name="Uri">
+            <column name="`Uri`" sql-type="nvarchar (300) COLLATE SQL_Latin1_General_CP1_CI_AS" not-null="true"/>
+            <generator class="assigned" />
+        </id>
+
+
+ 
+
+		<one-to-one 
+			name="GOUser" 
+			class="ORMGOUser" 
+			lazy="no-proxy"
+			property-ref = "UserProfile"
+		>
+		</one-to-one>
+
+
+
+    </class> 
+
+</hibernate-mapping>

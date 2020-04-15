@@ -57,6 +57,7 @@ namespace Solid.Data.DataObjects
 		// fields to store relation Ids when relating to new objects (with no PK set yet)
 
 
+
 		#endregion
 		
 		#region initialization
@@ -89,6 +90,7 @@ namespace Solid.Data.DataObjects
 			this.SetPopulationDensityValue(template.PopulationDensity, false, false);
 			this.SetPopulationTotalValue(template.PopulationTotal, false, false);
 			this.SetURIValue(template.URI, false, false);
+ 
  
  
  
@@ -135,6 +137,7 @@ namespace Solid.Data.DataObjects
 			this.SetURIValue(countrySource.URI, false, false);
 
 
+
 			if (deepCopy)
 			{
 				this.ObjectsDataSet = countrySource.ObjectsDataSet.Clone();
@@ -173,6 +176,7 @@ namespace Solid.Data.DataObjects
 
 		public override void UpdateRelatedInternalIds(ConcurrentDictionary<int, int> datasetMergingInternalIdMapping)
         {
+
 
 
 		}
@@ -365,10 +369,103 @@ namespace Solid.Data.DataObjects
             }            
         }
 
+
+		public virtual DataObjectCollection<VisitedPlaceDataObject> LoadVisitedPlaceItems(bool skipSecurity = false)
+		{
+			return LoadVisitedPlaceItems(CurrentTransactionParameters ?? new Parameters(), skipSecurity);
+		}
+
+		public virtual DataObjectCollection<VisitedPlaceDataObject> LoadVisitedPlaceItems(Parameters parameters, bool skipSecurity = false)
+		{
+			// load the collection if not yet loaded
+            if (!__visitedPlaceItemsAlreadyLazyLoaded)
+            {
+				__visitedPlaceItemsAlreadyLazyLoaded = true;
+                var filterPredicate = "CountryURI == @0";
+                var filterArguments = new object[] { (System.String)this.URI };
+				var result = ApplicationSettings.Container.Resolve<IDataProvider<VisitedPlaceDataObject>>().GetCollection(null, filterPredicate, filterArguments, parameters : parameters, skipSecurity: skipSecurity);
+                // Reference Links are not serialized => should reconstruct them now
+                if (result != null && result.ObjectsDataSet != null) 
+                { 
+                    Merge(result.ObjectsDataSet);
+                }
+            }
+
+			return GetVisitedPlaceItems(false);
+		}
+		
+		private bool __visitedPlaceItemsAlreadyLazyLoaded = false;
+		[JsonProperty]
+		public virtual DataObjectCollection<VisitedPlaceDataObject> VisitedPlaceItems 
+		{
+			get
+			{			
+				return GetVisitedPlaceItems(true);
+			}
+		}
+		
+		public virtual bool ShouldSerializeVisitedPlaceItems()
+		{
+			return ObjectsDataSet != null && ObjectsDataSet.RelationsToInclude != null && ObjectsDataSet.RelationsToInclude.ContainsKey("CountryDataObject") && ObjectsDataSet.RelationsToInclude["CountryDataObject"].Contains("VisitedPlaceItems");
+		}
+
+		public virtual DataObjectCollection<VisitedPlaceDataObject> GetVisitedPlaceItems(bool allowLazyLoading)
+		{
+			if (ObjectsDataSet == null)
+				return null;
+
+			// Lazy loading enabled and collection not yet loaded => load the collection
+			if (allowLazyLoading && LazyLoadingEnabled && !__visitedPlaceItemsAlreadyLazyLoaded)
+			{
+				LoadVisitedPlaceItems();
+			}
+			var visitedPlaceItems = ObjectsDataSet.GetRelatedObjects<VisitedPlaceDataObject>(this, "VisitedPlaceItems");							
+			visitedPlaceItems.CollectionChanged += new NotifyCollectionChangedEventHandler(VisitedPlaceItems_CollectionChanged);
+				
+			return visitedPlaceItems;
+		}
+
+        private void VisitedPlaceItems_CollectionChanged(object sender, NotifyCollectionChangedEventArgs e)
+        {
+            switch (e.Action)
+            {
+                case NotifyCollectionChangedAction.Add:
+                    foreach (var item in e.NewItems)
+                    {
+						var relatedObj = item as VisitedPlaceDataObject;
+						if (relatedObj == null)
+						{
+							_logEngine.LogError("Add Event throw an Exception", "Unable to get value of expected related Object : VisitedPlace", "CountryDataObject.VisitedPlaceItems_CollectionChanged", null);
+							throw new PulpException("Unexpected Error : The Add Event of CountryDataObject throw an exception while trying to add VisitedPlaceDataObject : NullReference occured");
+						}
+
+						if (this.IsNew)
+						{
+							relatedObj._country_NewObjectId = this.InternalObjectId;
+						}
+						else
+						{
+							relatedObj.CountryURI = this.URI;
+						}
+ 
+						if (relatedObj.IsNew && relatedObj.CountryURI == default(System.String))
+							relatedObj.CountryURI = this.URI;
+                    }
+                    break;
+                case NotifyCollectionChangedAction.Remove:
+                    // foreach (var item in e.OldItems)
+                    // {
+                        //(item as VisitedPlaceDataObject).Country = null;
+                    // }
+                    break;
+            }            
+        }
+
 		public override void ClearLazyLoadFlags()
 		{
 			__locationItemsAlreadyLazyLoaded = false;
 			__placeItemsAlreadyLazyLoaded = false;
+			__visitedPlaceItemsAlreadyLazyLoaded = false;
 		}
 
 		public override IEnumerable<IDataObject> GetAllRelatedReferencedObjects()
@@ -384,6 +481,8 @@ namespace Solid.Data.DataObjects
 				result.AddRange(LocationItems);
 			if (LoadPlaceItems() != null)
 				result.AddRange(PlaceItems);
+			if (LoadVisitedPlaceItems() != null)
+				result.AddRange(VisitedPlaceItems);
 			return result;
 		}
 
@@ -644,6 +743,14 @@ namespace Solid.Data.DataObjects
 			if (GetPlaceItems(false) != null)
             {
                 foreach (var item in GetPlaceItems(false))
+                {
+                    item.NotifyPropertyChanged(String.Concat("Country.", propertyName), callers);                    
+                }
+            }
+
+			if (GetVisitedPlaceItems(false) != null)
+            {
+                foreach (var item in GetVisitedPlaceItems(false))
                 {
                     item.NotifyPropertyChanged(String.Concat("Country.", propertyName), callers);                    
                 }

@@ -25,5 +25,7 @@ namespace Solid.BusinessLayer.ORMSupportClasses
 		IDataProvider<LocationDataObject> LocationDataProvider { get; }
 		IDataProvider<PlaceDataObject> PlaceDataProvider { get; }
 		IDataProvider<PlaceToLocationDataObject> PlaceToLocationDataProvider { get; }
+		IDataProvider<UserProfileDataObject> UserProfileDataProvider { get; }
+		IDataProvider<VisitedPlaceDataObject> VisitedPlaceDataProvider { get; }
   }
 }

@@ -111,6 +111,12 @@
     <Compile Include="PlaceToLocationDeleteHandler.cs">
       <GeneratedBy>Fenomen</GeneratedBy>
     </Compile>
+    <Compile Include="UserProfileDeleteHandler.cs">
+      <GeneratedBy>Fenomen</GeneratedBy>
+    </Compile>
+    <Compile Include="VisitedPlaceDeleteHandler.cs">
+      <GeneratedBy>Fenomen</GeneratedBy>
+    </Compile>
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\DataLayer\Solid.Data.csproj">

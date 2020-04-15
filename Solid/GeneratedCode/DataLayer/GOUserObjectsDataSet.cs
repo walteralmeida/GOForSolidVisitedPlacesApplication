@@ -82,6 +82,10 @@ namespace Solid.Data.DataObjects
 		
 		
  
+		// Index to quickly find all GOUser with a given userProfile foreign key
+		public ConcurrentDictionary<System.String, List<int>> UserProfile_FKIndex = new ConcurrentDictionary<System.String, List<int>>();
+		
+ 
 		
  
 		
@@ -131,6 +135,21 @@ namespace Solid.Data.DataObjects
 				}
 			}
 
+
+			foreach(var fkKeyValue in this.UserProfile_FKIndex)
+			{
+				var iscompleted = false;
+				var count2 = 0;
+				while (!iscompleted && count2++ < 15)
+				{
+					iscompleted = clone.UserProfile_FKIndex.TryAdd(fkKeyValue.Key, new List<int>());
+				}
+
+				foreach (var pk in fkKeyValue.Value)
+				{
+					clone.UserProfile_FKIndex[fkKeyValue.Key].Add(pk);
+				}
+			}
 
 
 			
@@ -245,6 +264,37 @@ namespace Solid.Data.DataObjects
 			}
 
 	 
+			// Update the UserProfile FK Index 
+			if ((objectToAdd as GOUserDataObject).UserName != null)
+			{
+				if (!UserProfile_FKIndex.ContainsKey((System.String)(objectToAdd as GOUserDataObject).UserName))
+				{
+					var iscompleted = false;
+					var count2 = 0;
+					while (!iscompleted && count2++ < 15)
+					{
+						iscompleted = UserProfile_FKIndex.TryAdd((System.String)(objectToAdd as GOUserDataObject).UserName, new List<int>());
+					}
+				}
+				
+				if (!UserProfile_FKIndex[(System.String)(objectToAdd as GOUserDataObject).UserName].Contains(newInternalId))	
+					UserProfile_FKIndex[(System.String)(objectToAdd as GOUserDataObject).UserName].Add(newInternalId);
+
+	            UserProfileDataObject relatedUserProfile;
+	            if ((objectToAdd as GOUserDataObject)._userProfile_NewObjectId != null)
+	            {
+	                relatedUserProfile = _rootObjectDataSet.GetObject(new UserProfileDataObject() { IsNew = true, InternalObjectId = (objectToAdd as GOUserDataObject)._userProfile_NewObjectId });
+	            }
+	            else
+	            {
+	                relatedUserProfile = _rootObjectDataSet.GetObject(new UserProfileDataObject((System.String)(objectToAdd as GOUserDataObject).UserName) { IsNew = false });
+	            }
+
+	            if (relatedUserProfile != null && this.RootObjectDataSet.NotifyChanges)
+	                relatedUserProfile.NotifyPropertyChanged("GOUser", new SeenObjectCollection());
+			}
+			
+	 
 	 
 		
 		}
@@ -293,6 +343,40 @@ namespace Solid.Data.DataObjects
 				}
 				
 		 
+			// Delete the UserProfile FK Index 
+				if ((objectToRemove as GOUserDataObject).UserName != null)
+				{
+					if (UserProfile_FKIndex.ContainsKey((System.String)(objectToRemove as GOUserDataObject).UserName) && UserProfile_FKIndex[(System.String)(objectToRemove as GOUserDataObject).UserName].Contains((int)objectToRemoveInternalId))
+					{
+						UserProfile_FKIndex[(System.String)(objectToRemove as GOUserDataObject).UserName].Remove((int)objectToRemoveInternalId);
+
+						if (!UserProfile_FKIndex[(System.String)(objectToRemove as GOUserDataObject).UserName].Any())
+						{
+							List<int> outvalue;
+							var iscompleted = false;
+							var count2 = 0;
+							while (!iscompleted && count2++ < 15)
+							{
+								iscompleted = UserProfile_FKIndex.TryRemove((System.String)(objectToRemove as GOUserDataObject).UserName, out outvalue);
+							}
+						}
+					}
+
+					UserProfileDataObject relatedUserProfile;
+		            if ((objectToRemove as GOUserDataObject)._userProfile_NewObjectId != null)
+		            {
+		                relatedUserProfile = _rootObjectDataSet.GetObject(new UserProfileDataObject() { IsNew = true, InternalObjectId = (objectToRemove as GOUserDataObject)._userProfile_NewObjectId });
+		            }
+		            else
+		            {
+		                relatedUserProfile = _rootObjectDataSet.GetObject(new UserProfileDataObject((System.String)(objectToRemove as GOUserDataObject).UserName) { IsNew = false });
+		            }
+
+		            if (relatedUserProfile != null && this.RootObjectDataSet.NotifyChanges)
+		                relatedUserProfile.NotifyPropertyChanged("GOUser", new SeenObjectCollection());
+					
+				}			
+		 
 		 
 			}		
 		}
@@ -336,6 +420,23 @@ namespace Solid.Data.DataObjects
         }
 
 		 
+		
+		public IEnumerable<GOUserDataObject> GetGOUserForUserProfile(UserProfileDataObject userProfileInstance) 
+		{
+			if (userProfileInstance.IsNew)
+            {
+			
+              return GOUserObjects.Where(o => o.Value._userProfile_NewObjectId != null && o.Value._userProfile_NewObjectId == userProfileInstance.InternalObjectId).Select(o => o.Value);
+			}
+				
+			if (UserProfile_FKIndex.ContainsKey(userProfileInstance.Uri))
+			{
+				return UserProfile_FKIndex[userProfileInstance.Uri].Where(e => GOUserObjects.ContainsKey(e)).Select(e => GOUserObjects[e]);
+			}
+			
+			return new DataObjectCollection<GOUserDataObject>();
+		}
+		 
 		 
 
         public override DataObjectCollection<TDataObject> GetRelatedObjects<TDataObject>(IDataObject rootObject, string relationName)
@@ -361,6 +462,7 @@ namespace Solid.Data.DataObjects
 
 				return result;
 			}
+ 
  
 			if (relationName == "UserRoleItems")
             {
@@ -440,6 +542,37 @@ namespace Solid.Data.DataObjects
 
 		public override void ReconstructIndexes()
 		{
+		 
+			// Reconstruct the UserProfile FK Index 
+			UserProfile_FKIndex = new ConcurrentDictionary< System.String, List<int>>();
+				
+			foreach (var item in GOUserObjects.Values)
+			{
+				if (item.UserName == null) 
+					continue;				
+				
+				if (item.IsMarkedForDeletion)
+					continue;
+
+				var fk = item.UserName;	
+
+				if (!UserProfile_FKIndex.ContainsKey(fk))
+				{
+					var iscompleted = false;
+					var count2 = 0;
+					while (!iscompleted && count2++ < 15)
+					{
+						iscompleted = UserProfile_FKIndex.TryAdd(fk, new List<int>());
+					}
+				}
+				if(item.InternalObjectId == null)
+				{
+					_logEngine.LogError("Unable to reconstruct indexes.", "An error occured while trying to reconstruct indexes", "GOUserObjectsDataSet", null);
+					throw new PulpException("Unable to reconstruct indexes.");
+				}
+					
+				UserProfile_FKIndex[fk].Add((int)item.InternalObjectId);
+			}			
 		 
 		 
 		}

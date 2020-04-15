@@ -29,6 +29,8 @@ namespace Solid.BusinessLayer.ORMSupportClasses
 		private IDataProvider<LocationDataObject> _locationDataProvider;
 		private IDataProvider<PlaceDataObject> _placeDataProvider;
 		private IDataProvider<PlaceToLocationDataObject> _placeToLocationDataProvider;
+		private IDataProvider<UserProfileDataObject> _userProfileDataProvider;
+		private IDataProvider<VisitedPlaceDataObject> _visitedPlaceDataProvider;
 		#endregion
 
 		public IDataProvider<CountryDataObject> CountryDataProvider 
@@ -149,6 +151,28 @@ namespace Solid.BusinessLayer.ORMSupportClasses
                     _placeToLocationDataProvider = ApplicationSettings.Container.Resolve<IDataProvider<PlaceToLocationDataObject>>();
 
                 return _placeToLocationDataProvider;
+			}
+		}
+
+		public IDataProvider<UserProfileDataObject> UserProfileDataProvider 
+		{ 
+			get
+			{
+                if (null == _userProfileDataProvider)
+                    _userProfileDataProvider = ApplicationSettings.Container.Resolve<IDataProvider<UserProfileDataObject>>();
+
+                return _userProfileDataProvider;
+			}
+		}
+
+		public IDataProvider<VisitedPlaceDataObject> VisitedPlaceDataProvider 
+		{ 
+			get
+			{
+                if (null == _visitedPlaceDataProvider)
+                    _visitedPlaceDataProvider = ApplicationSettings.Container.Resolve<IDataProvider<VisitedPlaceDataObject>>();
+
+                return _visitedPlaceDataProvider;
 			}
 		}
 

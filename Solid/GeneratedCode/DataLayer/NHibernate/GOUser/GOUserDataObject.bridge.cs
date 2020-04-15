@@ -35,7 +35,6 @@ namespace Solid.Data.DataObjects
 		{
 			x.Id = Id;
 			x.EmailAddress = EmailAddress?.Truncate(150);
-			x.UserName = UserName?.Truncate(150);
 			x.FullName = FullName?.Truncate(250);
 			x.LastName = LastName?.Truncate(100);
 			x.Password = Password?.Truncate(150);
@@ -45,6 +44,9 @@ namespace Solid.Data.DataObjects
 			x.EmailValidated = EmailValidated;
 			x.Blocked = Blocked;
 			x.UserValidated = UserValidated;
+				
+			x.UserProfile = this.UserProfile != null ? session.Load<ORMUserProfile>(this.UserProfile.Uri) : (this.UserName != null ? session.Load<ORMUserProfile>(this.UserName) : null);
+			x.UserName = this.UserProfile != null ? this.UserProfile.Uri : UserName; 
 		}
  
 		private void Evict(ORMGOUser result, NHibernate.ISession session)

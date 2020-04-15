@@ -22,5 +22,7 @@ namespace Solid.Data
 		LocationDataObject,
 		PlaceDataObject,
 		PlaceToLocationDataObject,
+		UserProfileDataObject,
+		VisitedPlaceDataObject,
   }
 }

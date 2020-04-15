@@ -266,7 +266,14 @@ GO.Regex = GO.Regex || {};
                 else if (r === null) {
                     return 1;
                 }
-				return l == r ? 0 : l < r ? -1 : 1;
+
+                if (typeof l == "string") {
+                    // javascript perform case sensitive string compare => put string lowercase to perform case insensitive sort
+                    return l.toLowerCase() == r.toLowerCase() ? 0 : l.toLowerCase() < r.toLowerCase() ? -1 : 1;
+                }
+                else {
+                    return l == r ? 0 : l < r ? -1 : 1;
+                }
 			};
 		} else {
 			return function (left, right) {
@@ -278,7 +285,14 @@ GO.Regex = GO.Regex || {};
                 else if (r === null) {
                     return 1;
                 }
-				return l == r ? 0 : l < r ? -1 : 1;
+
+                if (typeof l == "string") {
+                    // javascript perform case sensitive string compare => put string lowercase to perform case insensitive sort
+                    return l.toLowerCase() == r.toLowerCase() ? 0 : l.toLowerCase() < r.toLowerCase() ? -1 : 1;
+                }
+                else {
+                    return l == r ? 0 : l < r ? -1 : 1;
+                }
 			};
 		}
 	};

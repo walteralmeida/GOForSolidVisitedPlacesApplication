@@ -19,14 +19,14 @@
 
 
 		
-		<!-- many-to-one Role -->
-		<property name="GORoleName" type="System.String" not-null="true" formula = "[GORoleName]"></property>  
-		
 		<!-- many-to-one User -->
 		<property name="GOUserId" type="System.Guid" not-null="true" formula = "[GOUserId]"></property>  
 		<many-to-one name="User" update="false" insert="false" > 
 			<column name="`GOUserId`" sql-type="uniqueidentifier" not-null="true"/>
 		</many-to-one> 
+		
+		<!-- many-to-one Role -->
+		<property name="GORoleName" type="System.String" not-null="true" formula = "[GORoleName]"></property>  
  
 
 

@@ -124,6 +124,24 @@
 		return this.placeToLocationObjectsDataSet;			
 	};
 
+	Solid.Web.Model.DataSets.ObjectsDataSet.prototype.getUserProfileObjectsDataSet = function () {
+		// Solid.Web.Model.DataSets.userProfileObjectsDataSet can be undefined if script file not already loaded
+		if (typeof this.userProfileObjectsDataSet === "undefined" && Solid.Web.Model.DataSets.userProfileObjectsDataSet !== undefined) {
+			this.userProfileObjectsDataSet = new Solid.Web.Model.DataSets.userProfileObjectsDataSet(this);
+		}
+
+		return this.userProfileObjectsDataSet;			
+	};
+
+	Solid.Web.Model.DataSets.ObjectsDataSet.prototype.getVisitedPlaceObjectsDataSet = function () {
+		// Solid.Web.Model.DataSets.visitedPlaceObjectsDataSet can be undefined if script file not already loaded
+		if (typeof this.visitedPlaceObjectsDataSet === "undefined" && Solid.Web.Model.DataSets.visitedPlaceObjectsDataSet !== undefined) {
+			this.visitedPlaceObjectsDataSet = new Solid.Web.Model.DataSets.visitedPlaceObjectsDataSet(this);
+		}
+
+		return this.visitedPlaceObjectsDataSet;			
+	};
+
 	Solid.Web.Model.DataSets.ObjectsDataSet.prototype.GetAllObjectsDataSets = function () {
 		var toReturn = [];
 			
@@ -169,6 +187,14 @@
 
 		if (this.placeToLocationObjectsDataSet) {
 			toReturn.push(this.placeToLocationObjectsDataSet);			
+		}	
+
+		if (this.userProfileObjectsDataSet) {
+			toReturn.push(this.userProfileObjectsDataSet);			
+		}	
+
+		if (this.visitedPlaceObjectsDataSet) {
+			toReturn.push(this.visitedPlaceObjectsDataSet);			
 		}	
 
 		return toReturn;
@@ -232,6 +258,16 @@
 				toReturn.push(this.placeToLocationObjectsDataSet);			
 			}	
 		}       
+		else if (entityType === "UserProfile") {
+			if (this.userProfileObjectsDataSet) {
+				toReturn.push(this.userProfileObjectsDataSet);			
+			}	
+		}       
+		else if (entityType === "VisitedPlace") {
+			if (this.visitedPlaceObjectsDataSet) {
+				toReturn.push(this.visitedPlaceObjectsDataSet);			
+			}	
+		}       
 		return toReturn;
 	};
 
@@ -268,6 +304,12 @@
 		}
 		else if (entityType === "PlaceToLocation") {		
 			return this.getPlaceToLocationObjectsDataSet();
+		}
+		else if (entityType === "UserProfile") {		
+			return this.getUserProfileObjectsDataSet();
+		}
+		else if (entityType === "VisitedPlace") {		
+			return this.getVisitedPlaceObjectsDataSet();
 		}
 		return null;
 	};
@@ -320,6 +362,14 @@
 
 	Solid.Web.Model.DataSets.ObjectsDataSet.prototype.placeToLocationObjects = function () {
 		return this.getPlaceToLocationObjectsDataSet().placeToLocationObjects;
+	};
+
+	Solid.Web.Model.DataSets.ObjectsDataSet.prototype.userProfileObjects = function () {
+		return this.getUserProfileObjectsDataSet().userProfileObjects;
+	};
+
+	Solid.Web.Model.DataSets.ObjectsDataSet.prototype.visitedPlaceObjects = function () {
+		return this.getVisitedPlaceObjectsDataSet().visitedPlaceObjects;
 	};
 
 	Solid.Web.Model.DataSets.ObjectsDataSet.prototype.getNextNewObjectId = function() {		
@@ -446,6 +496,16 @@
 		else if (entityType === "PlaceToLocation") {
 			if (this.placeToLocationObjectsDataSet) {
 				toReturn = $.extend(toReturn, this.placeToLocationObjectsDataSet.placeToLocationObjects);			
+			}	
+		}       
+		else if (entityType === "UserProfile") {
+			if (this.userProfileObjectsDataSet) {
+				toReturn = $.extend(toReturn, this.userProfileObjectsDataSet.userProfileObjects);			
+			}	
+		}       
+		else if (entityType === "VisitedPlace") {
+			if (this.visitedPlaceObjectsDataSet) {
+				toReturn = $.extend(toReturn, this.visitedPlaceObjectsDataSet.visitedPlaceObjects);			
 			}	
 		}       
 			
@@ -588,6 +648,22 @@
 			delete this.dirtyContextIds[contextId];
 			this.fireContextIdsStatusChangeEvent();
 		}
+		if (this.userProfileObjectsDataSet) {
+			this.userProfileObjectsDataSet.cleanContext(contextId);
+		}
+
+		if (this.dirtyContextIds[contextId]) {
+			delete this.dirtyContextIds[contextId];
+			this.fireContextIdsStatusChangeEvent();
+		}
+		if (this.visitedPlaceObjectsDataSet) {
+			this.visitedPlaceObjectsDataSet.cleanContext(contextId);
+		}
+
+		if (this.dirtyContextIds[contextId]) {
+			delete this.dirtyContextIds[contextId];
+			this.fireContextIdsStatusChangeEvent();
+		}
    };
 
 	Solid.Web.Model.DataSets.ObjectsDataSet.prototype.setContextIdsDirty = function (contextIds) {
@@ -658,6 +734,12 @@
 		if (this.placeToLocationObjectsDataSet) {
 			clone.placeToLocationObjectsDataSet = this.placeToLocationObjectsDataSet.Clone(this);
 		}
+		if (this.userProfileObjectsDataSet) {
+			clone.userProfileObjectsDataSet = this.userProfileObjectsDataSet.Clone(this);
+		}
+		if (this.visitedPlaceObjectsDataSet) {
+			clone.visitedPlaceObjectsDataSet = this.visitedPlaceObjectsDataSet.Clone(this);
+		}
         // Will reset the objects links to the root ObjectsDataSet to the new dataset
         clone.EnsureInitialized();
 		return clone;
@@ -703,6 +785,12 @@
 		}
 		if (dataSetToMerge.placeToLocationObjectsDataSet) {
 			this.getPlaceToLocationObjectsDataSet().Merge(dataSetToMerge.placeToLocationObjectsDataSet);
+		}
+		if (dataSetToMerge.userProfileObjectsDataSet) {
+			this.getUserProfileObjectsDataSet().Merge(dataSetToMerge.userProfileObjectsDataSet);
+		}
+		if (dataSetToMerge.visitedPlaceObjectsDataSet) {
+			this.getVisitedPlaceObjectsDataSet().Merge(dataSetToMerge.visitedPlaceObjectsDataSet);
 		}
   };
 
@@ -802,6 +890,24 @@
 		}
 		if (this.placeToLocationObjectsDataSet) {
 			var allObjects = this.placeToLocationObjectsDataSet.placeToLocationObjects;
+				
+			if (allObjects) {
+				for (var i; i < allObjects.length; i++) {
+					allObjects[i].ObjectsDataSet = this;
+				}
+			}
+		}
+		if (this.userProfileObjectsDataSet) {
+			var allObjects = this.userProfileObjectsDataSet.userProfileObjects;
+				
+			if (allObjects) {
+				for (var i; i < allObjects.length; i++) {
+					allObjects[i].ObjectsDataSet = this;
+				}
+			}
+		}
+		if (this.visitedPlaceObjectsDataSet) {
+			var allObjects = this.visitedPlaceObjectsDataSet.visitedPlaceObjects;
 				
 			if (allObjects) {
 				for (var i; i < allObjects.length; i++) {

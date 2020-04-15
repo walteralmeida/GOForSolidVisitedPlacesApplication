@@ -110,6 +110,7 @@ Solid.BusinessLayer.ORMSupportClasses.LogEngine), new ContainerControlledLifetim
 
 			}	// End Server Components
 			container.RegisterType<IDataProvider<GORoleDataObject>, GORoleDataProvider>();
+			container.RegisterType<IDataProvider<VisitedPlaceDataObject>, VisitedPlaceDataProvider>();
 			container.RegisterType<IDataProvider<PlaceDataObject>, PlaceDataProvider>();
 			container.RegisterType<IDataProvider<LocationDataObject>, LocationDataProvider>();
 			container.RegisterType<IDataProvider<PlaceToLocationDataObject>, PlaceToLocationDataProvider>();
@@ -120,6 +121,7 @@ Solid.BusinessLayer.ORMSupportClasses.LogEngine), new ContainerControlledLifetim
 		
             #region Data Providers
 			container.RegisterType<IDataProvider<GOGroupRoleDataObject>, GOGroupRoleDataProvider>();
+			container.RegisterType<IDataProvider<UserProfileDataObject>, UserProfileDataProvider>();
 			container.RegisterType<IDataProvider<GOUserDataObject>, GOUserDataProvider>();
 			container.RegisterType<IDataProvider<GOGroupDataObject>, GOGroupDataProvider>();
 			container.RegisterType<IDataProvider<GOUserRoleDataObject>, GOUserRoleDataProvider>();
@@ -141,10 +143,14 @@ Solid.BusinessLayer.ORMSupportClasses.LogEngine), new ContainerControlledLifetim
             #region Authorizations & Data Provider Extensions
 			container.RegisterType<IEntityAuthorizations, GORoleAuthorizations>("goroleauthorizations", new ContainerControlledLifetimeManager());
 			container.RegisterType<IDataProviderExtension<GORoleDataObject>, GORoleDataProviderSecurityExtension>("goroledataprovidersecurityextension", new ContainerControlledLifetimeManager());
+			container.RegisterType<IEntityAuthorizations, VisitedPlaceAuthorizations>("visitedplaceauthorizations", new ContainerControlledLifetimeManager());
+			container.RegisterType<IDataProviderExtension<VisitedPlaceDataObject>, VisitedPlaceDataProviderSecurityExtension>("visitedplacedataprovidersecurityextension", new ContainerControlledLifetimeManager());
 			container.RegisterType<IEntityAuthorizations, GOGroupRoleAuthorizations>("gogrouproleauthorizations", new ContainerControlledLifetimeManager());
 			container.RegisterType<IDataProviderExtension<GOGroupRoleDataObject>, GOGroupRoleDataProviderSecurityExtension>("gogrouproledataprovidersecurityextension", new ContainerControlledLifetimeManager());
 			container.RegisterType<IEntityAuthorizations, PlaceAuthorizations>("placeauthorizations", new ContainerControlledLifetimeManager());
 			container.RegisterType<IDataProviderExtension<PlaceDataObject>, PlaceDataProviderSecurityExtension>("placedataprovidersecurityextension", new ContainerControlledLifetimeManager());
+			container.RegisterType<IEntityAuthorizations, UserProfileAuthorizations>("userprofileauthorizations", new ContainerControlledLifetimeManager());
+			container.RegisterType<IDataProviderExtension<UserProfileDataObject>, UserProfileDataProviderSecurityExtension>("userprofiledataprovidersecurityextension", new ContainerControlledLifetimeManager());
 			container.RegisterType<IEntityAuthorizations, LocationAuthorizations>("locationauthorizations", new ContainerControlledLifetimeManager());
 			container.RegisterType<IDataProviderExtension<LocationDataObject>, LocationDataProviderSecurityExtension>("locationdataprovidersecurityextension", new ContainerControlledLifetimeManager());
 			container.RegisterType<IEntityAuthorizations, PlaceToLocationAuthorizations>("placetolocationauthorizations", new ContainerControlledLifetimeManager());
@@ -172,8 +178,10 @@ Solid.BusinessLayer.ORMSupportClasses.LogEngine), new ContainerControlledLifetim
             #endregion Server Component Security Extensions
             #region Data Object Factories
 			container.RegisterType<IDataObjectFactory<GORoleDataObject>, GORoleFactory>(new ContainerControlledLifetimeManager());
+			container.RegisterType<IDataObjectFactory<VisitedPlaceDataObject>, VisitedPlaceFactory>(new ContainerControlledLifetimeManager());
 			container.RegisterType<IDataObjectFactory<GOGroupRoleDataObject>, GOGroupRoleFactory>(new ContainerControlledLifetimeManager());
 			container.RegisterType<IDataObjectFactory<PlaceDataObject>, PlaceFactory>(new ContainerControlledLifetimeManager());
+			container.RegisterType<IDataObjectFactory<UserProfileDataObject>, UserProfileFactory>(new ContainerControlledLifetimeManager());
 			container.RegisterType<IDataObjectFactory<LocationDataObject>, LocationFactory>(new ContainerControlledLifetimeManager());
 			container.RegisterType<IDataObjectFactory<PlaceToLocationDataObject>, PlaceToLocationFactory>(new ContainerControlledLifetimeManager());
 			container.RegisterType<IDataObjectFactory<GOUserDataObject>, GOUserFactory>(new ContainerControlledLifetimeManager());
@@ -186,8 +194,10 @@ Solid.BusinessLayer.ORMSupportClasses.LogEngine), new ContainerControlledLifetim
 
             #region Data Provider Dispatchers
 			container.RegisterType<IDataProviderDispatcher<GORoleDataObject>, GORoleDataProviderDispatcher>();
+			container.RegisterType<IDataProviderDispatcher<VisitedPlaceDataObject>, VisitedPlaceDataProviderDispatcher>();
 			container.RegisterType<IDataProviderDispatcher<GOGroupRoleDataObject>, GOGroupRoleDataProviderDispatcher>();
 			container.RegisterType<IDataProviderDispatcher<PlaceDataObject>, PlaceDataProviderDispatcher>();
+			container.RegisterType<IDataProviderDispatcher<UserProfileDataObject>, UserProfileDataProviderDispatcher>();
 			container.RegisterType<IDataProviderDispatcher<LocationDataObject>, LocationDataProviderDispatcher>();
 			container.RegisterType<IDataProviderDispatcher<PlaceToLocationDataObject>, PlaceToLocationDataProviderDispatcher>();
 			container.RegisterType<IDataProviderDispatcher<GOUserDataObject>, GOUserDataProviderDispatcher>();
@@ -200,8 +210,10 @@ Solid.BusinessLayer.ORMSupportClasses.LogEngine), new ContainerControlledLifetim
             
             #region Entity Api Handlers
 			container.RegisterType<IEntityApiHandler, EntityApiHandler<GORoleDataObject>>("goroleapihandler");
+			container.RegisterType<IEntityApiHandler, EntityApiHandler<VisitedPlaceDataObject>>("visitedplaceapihandler");
 			container.RegisterType<IEntityApiHandler, EntityApiHandler<GOGroupRoleDataObject>>("gogrouproleapihandler");
 			container.RegisterType<IEntityApiHandler, EntityApiHandler<PlaceDataObject>>("placeapihandler");
+			container.RegisterType<IEntityApiHandler, EntityApiHandler<UserProfileDataObject>>("userprofileapihandler");
 			container.RegisterType<IEntityApiHandler, EntityApiHandler<LocationDataObject>>("locationapihandler");
 			container.RegisterType<IEntityApiHandler, EntityApiHandler<PlaceToLocationDataObject>>("placetolocationapihandler");
 			container.RegisterType<IEntityApiHandler, EntityApiHandler<GOUserDataObject>>("gouserapihandler");
@@ -217,10 +229,14 @@ Solid.BusinessLayer.ORMSupportClasses.LogEngine), new ContainerControlledLifetim
 			{
 				// GORole
 				container.RegisterType<IEntityApiExtensionProvider<GORoleDataObject>, EntityApiExtensionProvider<GORoleDataObject>>(new ContainerControlledLifetimeManager());
+				// VisitedPlace
+				container.RegisterType<IEntityApiExtensionProvider<VisitedPlaceDataObject>, EntityApiExtensionProvider<VisitedPlaceDataObject>>(new ContainerControlledLifetimeManager());
 				// GOGroupRole
 				container.RegisterType<IEntityApiExtensionProvider<GOGroupRoleDataObject>, EntityApiExtensionProvider<GOGroupRoleDataObject>>(new ContainerControlledLifetimeManager());
 				// Place
 				container.RegisterType<IEntityApiExtensionProvider<PlaceDataObject>, EntityApiExtensionProvider<PlaceDataObject>>(new ContainerControlledLifetimeManager());
+				// UserProfile
+				container.RegisterType<IEntityApiExtensionProvider<UserProfileDataObject>, EntityApiExtensionProvider<UserProfileDataObject>>(new ContainerControlledLifetimeManager());
 				// Location
 				container.RegisterType<IEntityApiExtensionProvider<LocationDataObject>, EntityApiExtensionProvider<LocationDataObject>>(new ContainerControlledLifetimeManager());
 				// PlaceToLocation
@@ -250,8 +266,10 @@ Solid.BusinessLayer.ORMSupportClasses.LogEngine), new ContainerControlledLifetim
 			// DeleteHandler DataProvider Extensions
 			{
 				container.RegisterType<IDataProviderExtension<GORoleDataObject>, GORoleDeleteHandler>("goroledeletehandler");
+				container.RegisterType<IDataProviderExtension<VisitedPlaceDataObject>, VisitedPlaceDeleteHandler>("visitedplacedeletehandler");
 				container.RegisterType<IDataProviderExtension<GOGroupRoleDataObject>, GOGroupRoleDeleteHandler>("gogrouproledeletehandler");
 				container.RegisterType<IDataProviderExtension<PlaceDataObject>, PlaceDeleteHandler>("placedeletehandler");
+				container.RegisterType<IDataProviderExtension<UserProfileDataObject>, UserProfileDeleteHandler>("userprofiledeletehandler");
 				container.RegisterType<IDataProviderExtension<LocationDataObject>, LocationDeleteHandler>("locationdeletehandler");
 				container.RegisterType<IDataProviderExtension<PlaceToLocationDataObject>, PlaceToLocationDeleteHandler>("placetolocationdeletehandler");
 				container.RegisterType<IDataProviderExtension<GOUserDataObject>, GOUserDeleteHandler>("gouserdeletehandler");

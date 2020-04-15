@@ -39,12 +39,6 @@ namespace Solid.Data.DataObjects
 		///
 		/// All FK-Side Relations
 		///
-		// Note: GORole is not mapped to the database, so we only map the FK
-		public virtual System.String GORoleName 
-		{ 
-			get { return  CompositeIdentity.GORoleName; }
-			set { CompositeIdentity.GORoleName = value; }
-		}
 		public virtual ORMGOUser User 
 		{ 
 			get { return  CompositeIdentity.User; }
@@ -54,6 +48,12 @@ namespace Solid.Data.DataObjects
 		{ 
 			get { return  CompositeIdentity.GOUserId; }
 			set { CompositeIdentity.GOUserId = value; }
+		}
+		// Note: GORole is not mapped to the database, so we only map the FK
+		public virtual System.String GORoleName 
+		{ 
+			get { return  CompositeIdentity.GORoleName; }
+			set { CompositeIdentity.GORoleName = value; }
 		}
 	
 		
@@ -93,8 +93,8 @@ namespace Solid.Data.DataObjects
 
 		protected void SetProperties(GOUserRoleDataObject x)
 		{
-			x.SetGORoleNameValue(this.GORoleName, false, false);
 			x.SetGOUserIdValue(this.GOUserId, false, false);
+			x.SetGORoleNameValue(this.GORoleName, false, false);
 		}
 
 		protected void SetRelations(GOUserRoleDataObject x)
@@ -137,16 +137,6 @@ namespace Solid.Data.DataObjects
 	[Serializable]
 	public class CompositeKeyForGOUserRole 
 	{
-		private bool HasForeignKeyForRelation_Role 
-		{
-			get
-			{
-				return 
-					GORoleName != default(System.String); 
-			}
-		}		
-		public System.String GORoleName { get; set; }
-
 		private bool HasForeignKeyForRelation_User 
 		{
 			get
@@ -204,6 +194,16 @@ namespace Solid.Data.DataObjects
 				_GOUserId = value;
 			}
 		}
+
+		private bool HasForeignKeyForRelation_Role 
+		{
+			get
+			{
+				return 
+					GORoleName != default(System.String); 
+			}
+		}		
+		public System.String GORoleName { get; set; }
 
  
 		public override bool Equals(object obj)

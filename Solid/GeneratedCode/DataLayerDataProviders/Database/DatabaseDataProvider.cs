@@ -27,7 +27,7 @@ namespace Solid.Data.DataProviders.Database
     {
         protected static bool HasDatabaseDataSource(IDataObject entity)
         {
-			return (entity is GOGroupRoleDataObject || entity is GOUserDataObject || entity is GOGroupDataObject || entity is GOUserRoleDataObject || entity is GOUserGroupDataObject || entity is GOLoginHistoryDataObject);
+			return (entity is GOGroupRoleDataObject || entity is UserProfileDataObject || entity is GOUserDataObject || entity is GOGroupDataObject || entity is GOUserRoleDataObject || entity is GOUserGroupDataObject || entity is GOLoginHistoryDataObject);
 		}
 
         // filterExpression is used to filter data, when filter is statically known. dynamicFilterExpression is used for dynamic filtering, when filter is not known at compile time. Both can be used at the same time
@@ -290,6 +290,9 @@ namespace Solid.Data.DataProviders.Database
 			case "GOGroupRoleDataObject":
 				entityDataProviderType = typeof(GOGroupRoleDataProvider);
 				break;
+			case "UserProfileDataObject":
+				entityDataProviderType = typeof(UserProfileDataProvider);
+				break;
 			case "GOUserDataObject":
 				entityDataProviderType = typeof(GOUserDataProvider);
 				break;
@@ -347,6 +350,8 @@ namespace Solid.Data.DataProviders.Database
 			{
 			case "GOGroupRoleDataObject":
 				return ApplicationSettings.Container.Resolve<IDataProvider<GOGroupRoleDataObject>>();
+			case "UserProfileDataObject":
+				return ApplicationSettings.Container.Resolve<IDataProvider<UserProfileDataObject>>();
 			case "GOUserDataObject":
 				return ApplicationSettings.Container.Resolve<IDataProvider<GOUserDataObject>>();
 			case "GOGroupDataObject":

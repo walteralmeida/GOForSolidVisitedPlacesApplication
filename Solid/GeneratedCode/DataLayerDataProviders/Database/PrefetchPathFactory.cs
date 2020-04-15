@@ -48,6 +48,10 @@ namespace Solid.Data.DataProviders.Database
 
 					_pathNodes["gorole"].Add( "grouproleitems", new PathNode { EntityName = "GOGroupRole", PathName = "GroupRoleItems" });
 					_pathNodes["gorole"].Add( "userroleitems", new PathNode { EntityName = "GOUserRole", PathName = "UserRoleItems" });
+					_pathNodes.Add ( "visitedplace", new Dictionary<string,PathNode>());
+
+					_pathNodes["visitedplace"].Add( "userprofile", new PathNode { EntityName = "UserProfile", PathName = "UserProfile" });
+					_pathNodes["visitedplace"].Add( "country", new PathNode { EntityName = "Country", PathName = "Country" });
 					_pathNodes.Add ( "gogrouprole", new Dictionary<string,PathNode>());
 
 					_pathNodes["gogrouprole"].Add( "group", new PathNode { EntityName = "GOGroup", PathName = "Group" });
@@ -56,6 +60,10 @@ namespace Solid.Data.DataProviders.Database
 
 					_pathNodes["place"].Add( "country", new PathNode { EntityName = "Country", PathName = "Country" });
 					_pathNodes["place"].Add( "placetolocationitems", new PathNode { EntityName = "PlaceToLocation", PathName = "PlaceToLocationItems" });
+					_pathNodes.Add ( "userprofile", new Dictionary<string,PathNode>());
+
+					_pathNodes["userprofile"].Add( "gouser", new PathNode { EntityName = "GOUser", PathName = "GOUser" });
+					_pathNodes["userprofile"].Add( "visitedplaceitems", new PathNode { EntityName = "VisitedPlace", PathName = "VisitedPlaceItems" });
 					_pathNodes.Add ( "location", new Dictionary<string,PathNode>());
 
 					_pathNodes["location"].Add( "country", new PathNode { EntityName = "Country", PathName = "Country" });
@@ -67,6 +75,7 @@ namespace Solid.Data.DataProviders.Database
 					_pathNodes.Add ( "gouser", new Dictionary<string,PathNode>());
 
 					_pathNodes["gouser"].Add( "userroleitems", new PathNode { EntityName = "GOUserRole", PathName = "UserRoleItems" });
+					_pathNodes["gouser"].Add( "userprofile", new PathNode { EntityName = "UserProfile", PathName = "UserProfile" });
 					_pathNodes["gouser"].Add( "usergroupitems", new PathNode { EntityName = "GOUserGroup", PathName = "UserGroupItems" });
 					_pathNodes.Add ( "gogroup", new Dictionary<string,PathNode>());
 
@@ -78,6 +87,7 @@ namespace Solid.Data.DataProviders.Database
 					_pathNodes["gouserrole"].Add( "user", new PathNode { EntityName = "GOUser", PathName = "User" });
 					_pathNodes.Add ( "country", new Dictionary<string,PathNode>());
 
+					_pathNodes["country"].Add( "visitedplaceitems", new PathNode { EntityName = "VisitedPlace", PathName = "VisitedPlaceItems" });
 					_pathNodes["country"].Add( "placeitems", new PathNode { EntityName = "Place", PathName = "PlaceItems" });
 					_pathNodes["country"].Add( "locationitems", new PathNode { EntityName = "Location", PathName = "LocationItems" });
 					_pathNodes.Add ( "gousergroup", new Dictionary<string,PathNode>());
@@ -94,14 +104,16 @@ namespace Solid.Data.DataProviders.Database
 		private static Dictionary<string,string> _entityRelations = new Dictionary<string,string>()
         {
           { "gorole", "GroupRoleItems, UserRoleItems" },
+          { "visitedplace", "UserProfile, Country" },
           { "gogrouprole", "Group, Role" },
           { "place", "Country, PlaceToLocationItems" },
+          { "userprofile", "GOUser, VisitedPlaceItems" },
           { "location", "Country, PlaceToLocationItems" },
           { "placetolocation", "Location, Place" },
-          { "gouser", "UserRoleItems, UserGroupItems" },
+          { "gouser", "UserRoleItems, UserProfile, UserGroupItems" },
           { "gogroup", "UserGroupItems, GroupRoleItems" },
           { "gouserrole", "Role, User" },
-          { "country", "PlaceItems, LocationItems" },
+          { "country", "VisitedPlaceItems, PlaceItems, LocationItems" },
           { "gousergroup", "Group, User" },
       };
 
@@ -115,10 +127,10 @@ namespace Solid.Data.DataProviders.Database
 		
 		private static List<string> DatabaseEntities = new List<string>()
         {
-			"GOGroupRole", "GOUser", "GOGroup", "GOUserRole", "GOUserGroup", "GOLoginHistory" 
+			"GOGroupRole", "UserProfile", "GOUser", "GOGroup", "GOUserRole", "GOUserGroup", "GOLoginHistory" 
         };
 
-		private static Dictionary<string, string> EntityNames = new Dictionary<string, string> { { "country", "Country" }, { "gogroup", "GOGroup" }, { "gogrouprole", "GOGroupRole" }, { "gologinhistory", "GOLoginHistory" }, { "gorole", "GORole" }, { "gouser", "GOUser" }, { "gousergroup", "GOUserGroup" }, { "gouserrole", "GOUserRole" }, { "location", "Location" }, { "place", "Place" }, { "placetolocation", "PlaceToLocation" } };
+		private static Dictionary<string, string> EntityNames = new Dictionary<string, string> { { "country", "Country" }, { "gogroup", "GOGroup" }, { "gogrouprole", "GOGroupRole" }, { "gologinhistory", "GOLoginHistory" }, { "gorole", "GORole" }, { "gouser", "GOUser" }, { "gousergroup", "GOUserGroup" }, { "gouserrole", "GOUserRole" }, { "location", "Location" }, { "place", "Place" }, { "placetolocation", "PlaceToLocation" }, { "userprofile", "UserProfile" }, { "visitedplace", "VisitedPlace" } };
 
         private static PathNode GetPathNode(string entityName, string relationName)
         {
@@ -247,6 +259,10 @@ namespace Solid.Data.DataProviders.Database
 					return new PathEdge<PlaceEntity>(prefetchPath, pathEdges.ToArray());
 				case EntityType.PlaceToLocationEntity:
 					return new PathEdge<PlaceToLocationEntity>(prefetchPath, pathEdges.ToArray());
+				case EntityType.UserProfileEntity:
+					return new PathEdge<UserProfileEntity>(prefetchPath, pathEdges.ToArray());
+				case EntityType.VisitedPlaceEntity:
+					return new PathEdge<VisitedPlaceEntity>(prefetchPath, pathEdges.ToArray());
             }
 			
 			return null;

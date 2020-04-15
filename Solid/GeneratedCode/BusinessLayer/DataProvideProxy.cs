@@ -32,6 +32,8 @@ namespace Solid.BusinessLayer.ORMSupportClasses
 			{ typeof(LocationDataObject), typeof(IDataProvider<LocationDataObject>) },
 			{ typeof(PlaceDataObject), typeof(IDataProvider<PlaceDataObject>) },
 			{ typeof(PlaceToLocationDataObject), typeof(IDataProvider<PlaceToLocationDataObject>) },
+			{ typeof(UserProfileDataObject), typeof(IDataProvider<UserProfileDataObject>) },
+			{ typeof(VisitedPlaceDataObject), typeof(IDataProvider<VisitedPlaceDataObject>) },
 		};
 		#endregion
 

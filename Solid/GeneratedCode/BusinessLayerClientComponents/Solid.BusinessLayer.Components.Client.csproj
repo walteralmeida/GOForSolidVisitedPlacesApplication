@@ -104,6 +104,12 @@
     <Compile Include="PlaceToLocationCustomFieldsProvider.cs">
       <GeneratedBy>Fenomen</GeneratedBy>
     </Compile>
+    <Compile Include="UserProfileCustomFieldsProvider.cs">
+      <GeneratedBy>Fenomen</GeneratedBy>
+    </Compile>
+    <Compile Include="VisitedPlaceCustomFieldsProvider.cs">
+      <GeneratedBy>Fenomen</GeneratedBy>
+    </Compile>
   </ItemGroup>
   <ItemGroup>
     <Reference Include="GenerativeObjects.Practices, Version=1.0.0.0">

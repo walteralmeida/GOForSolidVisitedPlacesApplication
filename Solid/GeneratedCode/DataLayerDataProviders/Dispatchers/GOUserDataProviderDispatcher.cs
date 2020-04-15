@@ -26,6 +26,8 @@ namespace Solid.Data.DataProviders.Dispatchers
 		[Dependency]   
 		public IDataProvider<GOUserRoleDataObject> GOUserRoleDataProvider { get; set; }        
 		[Dependency]   
+		public IDataProvider<UserProfileDataObject> UserProfileDataProvider { get; set; }        
+		[Dependency]   
 		public IDataProvider<GOUserGroupDataObject> GOUserGroupDataProvider { get; set; }        
 
         public void DispatchForEntity(GOUserDataObject entity, List<string> includes, IObjectsDataSet context, Dictionary<string, object> parameters, bool skipSecurity = false)
@@ -62,6 +64,27 @@ namespace Solid.Data.DataProviders.Dispatchers
 								{
 									var objectToFetch = GOUserRoleDataProvider.GetCollection(null, String.Format("GOUserId == \"{0}\"", entity.Id), null, null, 0, 0, subincludes, context, parameters, skipSecurity);
 									if (objectToFetch != null) 
+									{
+										entity.ObjectsDataSet.Merge(objectToFetch.ObjectsDataSet);
+									}
+								}
+								catch (GOServerException e)
+								{
+									if (e.Reason != "accessDenied")
+										throw;
+								}
+								break;
+							}
+                  case "userprofile":
+							{
+								// custom code can implement IPrefetch<ORMGOUser> and add prefetch info through PrefetchAssociations helper => if set, we skip the dispatch-fetch
+								if (prefetches.Contains("UserProfile"))
+									break;
+
+								try
+								{
+									var objectToFetch = UserProfileDataProvider.Get(new UserProfileDataObject(entity.UserName), null, subincludes, context, parameters, skipSecurity);
+									if(objectToFetch != null) 
 									{
 										entity.ObjectsDataSet.Merge(objectToFetch.ObjectsDataSet);
 									}
@@ -133,6 +156,24 @@ namespace Solid.Data.DataProviders.Dispatchers
 							try
 							{
 								entities.First().ObjectsDataSet.Merge(GOUserRoleDataProvider.GetCollection(null, "(@0.Contains(outerIt.GOUserId))", filterparameters, null, 0, 0, subincludes, context, parameters, skipSecurity).ObjectsDataSet);
+							}
+							catch (GOServerException e)
+							{
+								if (e.Reason != "accessDenied")
+									throw;
+							}
+							break;
+						}
+						case "userprofile":
+                        {
+							// custom code can implement IPrefetch<ORMGOUser> and add prefetch info through PrefetchAssociations helper => if set, we skip the dispatch-fetch
+							if (prefetches.Contains("UserProfile"))
+								break;
+
+							var filterparameters = new object[] { entities.Select(e => e.UserName).Distinct().ToArray() } ;
+							try
+							{
+								entities.First().ObjectsDataSet.Merge(UserProfileDataProvider.GetCollection(null, "(@0.Contains(outerIt.Uri))", filterparameters, null, 0, 0, subincludes, context, parameters, skipSecurity).ObjectsDataSet);
 							}
 							catch (GOServerException e)
 							{

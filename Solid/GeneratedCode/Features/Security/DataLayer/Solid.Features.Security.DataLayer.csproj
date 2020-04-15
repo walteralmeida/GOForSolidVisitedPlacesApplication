@@ -153,6 +153,12 @@
     <Compile Include="IPlaceToLocationAuthorizations.cs">
       <GeneratedBy>Fenomen</GeneratedBy>
     </Compile>
+    <Compile Include="IUserProfileAuthorizations.cs">
+      <GeneratedBy>Fenomen</GeneratedBy>
+    </Compile>
+    <Compile Include="IVisitedPlaceAuthorizations.cs">
+      <GeneratedBy>Fenomen</GeneratedBy>
+    </Compile>
     <Compile Include="LocationAuthorizations.cs">
       <GeneratedBy>Fenomen</GeneratedBy>
     </Compile>
@@ -169,6 +175,18 @@
       <GeneratedBy>Fenomen</GeneratedBy>
     </Compile>
     <Compile Include="PlaceToLocationDataProviderSecurityExtension.cs">
+      <GeneratedBy>Fenomen</GeneratedBy>
+    </Compile>
+    <Compile Include="UserProfileAuthorizations.cs">
+      <GeneratedBy>Fenomen</GeneratedBy>
+    </Compile>
+    <Compile Include="UserProfileDataProviderSecurityExtension.cs">
+      <GeneratedBy>Fenomen</GeneratedBy>
+    </Compile>
+    <Compile Include="VisitedPlaceAuthorizations.cs">
+      <GeneratedBy>Fenomen</GeneratedBy>
+    </Compile>
+    <Compile Include="VisitedPlaceDataProviderSecurityExtension.cs">
       <GeneratedBy>Fenomen</GeneratedBy>
     </Compile>
   </ItemGroup>

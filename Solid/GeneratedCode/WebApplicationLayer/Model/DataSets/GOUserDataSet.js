@@ -21,6 +21,10 @@
 		
 		this.fkIndexes = {};
 
+		
+		// Index to quickly find all GOUser with a given userProfile foreign key
+		this.fkIndexes.userProfile = {};
+
 
 		
 	};
@@ -51,6 +55,9 @@
 
 		for (var key0 in this.gOUserObjectInternalIds) {
 			clone.gOUserObjectInternalIds[key0] = this.gOUserObjectInternalIds[key0];
+		}
+		for (var fk0 in this.fkIndexes.userProfile) {
+			clone.fkIndexes.userProfile[fk0] = this.fkIndexes.userProfile[fk0];	
 		}
 			
 		return clone;
@@ -97,7 +104,23 @@
 		if (objectToAdd.Data.IsNew() === false && !existingObject) {
 			this.gOUserObjectInternalIds[objectToAdd.Data.Id()] = newInternalId;
 		}
+		// Update the UserProfile FK Index 
+		if (objectToAdd.Data.UserName()) {			
+			this.fkIndexes.userProfile[objectToAdd.Data.UserName()] = this.fkIndexes.userProfile[objectToAdd.Data.UserName()] || {};
+			this.fkIndexes.userProfile[objectToAdd.Data.UserName()][newInternalId] = true;
+		}
 	};
+	// Update the UserProfile FK Index 
+	Solid.Web.Model.DataSets.gOUserObjectsDataSet.prototype.UpdateUserProfileFKIndex = function (old_UserName, new_UserName, parentEntity) {
+		if (old_UserName !== undefined && old_UserName !== null && old_UserName !== "" && this.fkIndexes.userProfile[old_UserName] && this.fkIndexes.userProfile[old_UserName][parentEntity.Data.InternalObjectId()]) {
+			delete this.fkIndexes.userProfile[old_UserName][parentEntity.Data.InternalObjectId()];
+		}
+
+        if (new_UserName !== undefined && new_UserName !== null && new_UserName !== "") {
+			this.fkIndexes.userProfile[new_UserName] = this.fkIndexes.userProfile[new_UserName] || {};
+			this.fkIndexes.userProfile[new_UserName][parentEntity.Data.InternalObjectId()] = true;
+        }                
+    };                        
 		
     Solid.Web.Model.DataSets.gOUserObjectsDataSet.prototype.RemoveObject = function (objectToRemove) {
         if (!this.gOUserObjects)
@@ -125,6 +148,9 @@
 			delete this.gOUserObjectInternalIds[objectToRemove.Data.Id()];
 		}
 
+			// Delete the UserProfile FK Index 
+		if (objectToRemove.Data.UserName() && this.fkIndexes.userProfile[objectToRemove.Data.UserName()] && this.fkIndexes.userProfile[objectToRemove.Data.UserName()][objectToRemoveInternalId])
+			delete this.fkIndexes.userProfile[objectToRemove.Data.UserName()][objectToRemoveInternalId];
 	};
 
 	Solid.Web.Model.DataSets.gOUserObjectsDataSet.prototype.GetObjectByInternalId = function (internalObjectId, includeHierarchy) {
@@ -177,6 +203,24 @@
 
 		return toReturn;
     };
+
+	Solid.Web.Model.DataSets.gOUserObjectsDataSet.prototype.GetGOUserForUserProfile = function (userProfile) {
+		var result = [];
+
+		if (userProfile.Data.IsNew()) {
+            for (var prop in this.gOUserObjects) {
+                if (this.gOUserObjects[prop].Data._userProfile_NewObjectId() === userProfile.Data.InternalObjectId())
+                    result.push(this.gOUserObjects[prop]);
+            }
+        } else {
+			if (this.fkIndexes.userProfile[userProfile.Data.Uri()]){
+				for (var internalId in this.fkIndexes.userProfile[userProfile.Data.Uri()])
+					result.push(this.gOUserObjects[internalId]);
+			}
+		}
+
+		return result;
+	};
 
 	Solid.Web.Model.DataSets.gOUserObjectsDataSet.prototype.GetRelatedObjects = function (rootObject, relationName) {
 		if (relationName == "UserGroupItems") {

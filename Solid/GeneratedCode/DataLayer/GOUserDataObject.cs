@@ -68,6 +68,15 @@ namespace Solid.Data.DataObjects
 	
 		// fields to store relation Ids when relating to new objects (with no PK set yet)
 
+		[JsonProperty(DefaultValueHandling = DefaultValueHandling.Ignore)]
+		protected internal virtual int? _userProfile_NewObjectId { get; set; }
+        
+		public virtual bool ShouldSerialize_userProfile_NewObjectId()
+        {
+            return ObjectsDataSet != null && ObjectsDataSet.SerializeTechnicalProperties;
+        }
+
+
 
 		#endregion
 		
@@ -117,6 +126,8 @@ namespace Solid.Data.DataObjects
 			this.SetUserValidatedValue(template.UserValidated, false, false);
  
  
+			this._userProfile_NewObjectId = template._userProfile_NewObjectId;
+ 
  
 			this.SetIsNewValue(template.IsNew, false, false);
 
@@ -165,6 +176,8 @@ namespace Solid.Data.DataObjects
 			this.SetUserNameValue(gOUserSource.UserName, false, false);
 			this.SetUserValidatedValue(gOUserSource.UserValidated, false, false);
 
+			this._userProfile_NewObjectId = (sourceObject as GOUserDataObject)._userProfile_NewObjectId;
+
 
 			if (deepCopy)
 			{
@@ -204,6 +217,18 @@ namespace Solid.Data.DataObjects
 
 		public override void UpdateRelatedInternalIds(ConcurrentDictionary<int, int> datasetMergingInternalIdMapping)
         {
+
+			if (this._userProfile_NewObjectId != null)
+			{
+				if (!datasetMergingInternalIdMapping.ContainsKey((int) this._userProfile_NewObjectId))
+				{
+                    this._userProfile_NewObjectId = null;
+				}
+                else
+				{
+					this._userProfile_NewObjectId = datasetMergingInternalIdMapping[(int) this._userProfile_NewObjectId];
+				}
+			}
 
 
 		}
@@ -303,6 +328,160 @@ namespace Solid.Data.DataObjects
                     break;
             }            
         }
+
+      public virtual void SetUserProfileValue(UserProfileDataObject valueToSet)
+		{
+			SetUserProfileValue(valueToSet, true, true);
+		}
+
+        public virtual void SetUserProfileValue(UserProfileDataObject valueToSet, bool notifyChanges, bool dirtyHandlerOn)
+		{	
+		
+			UserProfileDataObject existing_userProfile = null ;
+
+			if ( !(this.UserName == null || ObjectsDataSet == null))
+			{
+				var key = this._userProfile_NewObjectId == null ? new UserProfileDataObject(this.UserName) { IsNew = false } : new UserProfileDataObject() { IsNew = true, InternalObjectId = this._userProfile_NewObjectId };			
+				existing_userProfile = (UserProfileDataObject)ObjectsDataSet.GetObject(key);
+			}
+				
+			if (ReferenceEquals(existing_userProfile ,valueToSet))
+            {
+                if (valueToSet == null)
+                {
+					_userProfile_NewObjectId = null;
+					_userName = null;
+				}
+				return;
+            }
+			// Give opportunity to change value before set
+			OnBeforeSetRelationField("UserProfile", valueToSet);
+					
+			// Setting the navigator desync the FK. The FK should be resync
+			if (!ReferenceEquals(null, valueToSet))
+			{
+				if(ObjectsDataSet == null)
+				{
+					_logEngine.LogError("Unable to set Relation Field", "Unable to set Relation Field, your entity doesn't have a DataSet.", "GOUserDataObject", null);
+					throw new PulpException("Unable to set Relation fields, your entity doesn't have a DataSet");
+				}
+
+                ObjectsDataSet.AddObjectIfDoesNotExist(valueToSet);
+				
+				if (valueToSet.IsNew)
+				{
+					if (_userProfile_NewObjectId != valueToSet.InternalObjectId)
+					{
+						_userProfile_NewObjectId = valueToSet.InternalObjectId;
+						_userName = valueToSet.Uri;
+						OnPropertyChanged("UserName",notifyChanges, dirtyHandlerOn);
+					}
+				}
+				else
+				{
+					if (_userName != valueToSet.Uri)
+					{
+						_userProfile_NewObjectId = null;
+
+						_userName = valueToSet.Uri;
+						OnPropertyChanged("UserName",notifyChanges, dirtyHandlerOn);
+					}
+				}
+			}
+			else
+			{
+					_userProfile_NewObjectId = null;
+					_userName = null;
+					
+				OnPropertyChanged("UserName",notifyChanges, dirtyHandlerOn);
+			}
+			if (!ReferenceEquals(existing_userProfile ,valueToSet))
+				OnPropertyChanged("UserProfile", notifyChanges, dirtyHandlerOn);
+		}
+
+		private bool __userProfileCurrentLoading = false;
+		public virtual UserProfileDataObject LoadUserProfile(bool skipSecurity = false)
+		{
+			return LoadUserProfile(CurrentTransactionParameters ?? new Parameters(), skipSecurity);
+		}
+
+		public virtual UserProfileDataObject LoadUserProfile(Parameters parameters, bool skipSecurity = false)
+		{
+			var userProfile = GetUserProfile(allowLazyLoading: false); 
+			if (userProfile != null)
+				return userProfile;
+
+			
+			userProfile = (UserProfileDataObject)ObjectsDataSet.GetObject(new UserProfileDataObject(this.UserName) { IsNew = false });
+
+            if (userProfile == null && !__userProfileCurrentLoading)
+            {
+				__userProfileCurrentLoading = true;
+                userProfile = ApplicationSettings.Container.Resolve<IDataProvider<UserProfileDataObject>>().Get(new UserProfileDataObject(this.UserName), parameters : parameters, skipSecurity: skipSecurity);
+                SetUserProfileValue(userProfile, false, false);
+				__userProfileCurrentLoading = false;
+            }
+
+			// Return the object was added to our dataset, not the 'temporary' instance that was loaded via the Get()
+            return userProfile == null ? null : ObjectsDataSet.GetObject(userProfile);
+		}
+		
+		[JsonProperty]
+		public virtual UserProfileDataObject UserProfile 
+		{
+			get
+			{			
+				return GetUserProfile(true);
+			}
+			set
+			{
+				SetUserProfileValue(value);
+			}
+		}
+		
+		public virtual bool ShouldSerializeUserProfile()
+		{
+			return ObjectsDataSet != null && ObjectsDataSet.RelationsToInclude != null && ObjectsDataSet.RelationsToInclude.ContainsKey("GOUserDataObject") && ObjectsDataSet.RelationsToInclude["GOUserDataObject"].Contains("UserProfile");
+		}
+
+		public virtual UserProfileDataObject GetUserProfile(bool allowLazyLoading)
+		{
+			if (ObjectsDataSet == null)
+				return null;
+
+			UserProfileDataObject userProfile;
+
+				
+			if (_userProfile_NewObjectId != null)
+			{
+				userProfile = (UserProfileDataObject)ObjectsDataSet.GetObject(new UserProfileDataObject() { IsNew = true, InternalObjectId = _userProfile_NewObjectId });
+			}
+			else
+			{
+				if (UserName == null)
+					userProfile = null;
+				else
+				userProfile = (UserProfileDataObject)ObjectsDataSet.GetObject(new UserProfileDataObject(this.UserName) { IsNew = false });
+				
+				if (allowLazyLoading && userProfile == null && LazyLoadingEnabled)
+				{
+					userProfile = LoadUserProfile();
+				}
+			}
+				
+			return userProfile;
+		}
+
+		public virtual System.String UserProfileForeignKey
+		{
+			get { return UserName; }
+			set 
+			{	
+				UserName = value;
+			}
+			
+		}
+		
 
 
 		public virtual DataObjectCollection<GOUserRoleDataObject> LoadUserRoleItems(bool skipSecurity = false)
@@ -405,6 +584,8 @@ namespace Solid.Data.DataObjects
 		public override IEnumerable<IDataObject> GetAllRelatedReferencedObjects()
 		{
 			var result = new List<IDataObject>();
+			if (LoadUserProfile() != null)
+				result.Add(UserProfile);
 			return result;
 		}
 		
@@ -423,7 +604,9 @@ namespace Solid.Data.DataObjects
 			if (other == null)
 				return false;
 
-			return false;
+			return
+				UserProfile == other ||
+				(other is UserProfileDataObject && (UserName != default(System.String)) && (UserName == (other as UserProfileDataObject).Uri)); 
 		}
 
 		#endregion
@@ -769,6 +952,8 @@ namespace Solid.Data.DataObjects
 			{
 				_userName = valueToSet;
 
+				// UserName is a FK. Setting its value should result in a event
+				OnPropertyChanged("UserProfile", notifyChanges, dirtyHandlerOn);
 				OnPropertyChanged("UserName", notifyChanges, dirtyHandlerOn);
 			}
 		}
@@ -837,6 +1022,12 @@ namespace Solid.Data.DataObjects
                     item.NotifyPropertyChanged(String.Concat("User.", propertyName), callers);                    
                 }
             }
+
+			var userProfile = GetUserProfile(false);
+			if (userProfile != null && this.IsDirty)
+            {
+				userProfile.NotifyPropertyChanged("GOUser." + propertyName, callers);
+			}
 
 			if (GetUserRoleItems(false) != null)
             {

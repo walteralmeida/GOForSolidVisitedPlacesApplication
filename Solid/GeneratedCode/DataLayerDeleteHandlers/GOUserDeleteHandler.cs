@@ -47,6 +47,12 @@ namespace Solid.Data.DeleteHandlers
 					this.Delete(item, parameters, settings, instance);
 				}				
 			}
+			// GOUser.UserProfile (Reference)
+			{
+				instance = Resync(instance);
+				instance.LoadUserProfile(parameters, skipSecurity: true);
+				// We are the FK side entity and the PK side is optional, so no action required here (because when we're deleted, any reference(s) to UserProfile(s) is (are) deleted with us)	
+			}
 		}
 	}
 }

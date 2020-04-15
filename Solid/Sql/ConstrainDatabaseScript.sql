@@ -27,7 +27,36 @@ BEGIN
 		PRINT 'WARNING: Unable to apply NOT NULL constraint to column GOGroupRole.GORoleName because there is at least one existing NULL value in the database. Column constraint will remain NULL (optional).'
 END
 GO
--- step 3: Check for Unique Constraint U_UserNameUniqueConstraint on [GOSecurity].[GOUser] and try to apply if not already done so
+-- step 3: Check for NOT NULL constraint for FK GOSecurity.GOUser.UserName and try to apply if not already done so
+IF (SELECT is_nullable FROM sys.columns WHERE object_id = object_id('[GOSecurity].[GOUser]') and name = 'UserName') = 1
+BEGIN
+	IF NOT EXISTS (SELECT UserName FROM [GOSecurity].[GOUser] WHERE UserName is NULL)
+	BEGIN	
+		ALTER TABLE [GOSecurity].[GOUser] 
+			ALTER COLUMN [UserName] [nvarchar] (150) COLLATE SQL_Latin1_General_CP1_CI_AS NOT NULL 
+		PRINT 'INFO: GOUser.UserName has been constrained successfully (Mandatory, NOT NULL)'
+	END
+	ELSE
+		PRINT 'WARNING: Unable to apply NOT NULL constraint to column GOUser.UserName because there is at least one existing NULL value in the database. Column constraint will remain NULL (optional).'
+END
+GO
+-- step 4: Check for Unique Constraint U_GOUser_UserProfile on [GOSecurity].[GOUser] and try to apply if not already done so
+IF NOT EXISTS (SELECT * FROM sys.indexes WHERE name = 'U_GOUser_UserProfile' AND object_id = OBJECT_ID('[GOSecurity].[GOUser]'))
+BEGIN
+	IF (SELECT COUNT (*) FROM [GOSecurity].[GOUser] WHERE [UserName] IS NULL) <= 1 
+	BEGIN
+		CREATE UNIQUE NONCLUSTERED INDEX [U_GOUser_UserProfile]
+		ON [GOSecurity].[GOUser] 
+			([UserName]) 
+		PRINT 'INFO: Unique Constraint U_GOUser_UserProfile has been applied successfully'
+	END
+	ELSE
+	BEGIN
+		PRINT 'WARNING: Failed to apply Unique Constraint on entity table GOUser - there is more than one existing NULL in mandatory column(s): [UserName]'
+	END
+END
+GO
+-- step 5: Check for Unique Constraint U_UserNameUniqueConstraint on [GOSecurity].[GOUser] and try to apply if not already done so
 IF NOT EXISTS (SELECT * FROM sys.indexes WHERE name = 'U_UserNameUniqueConstraint' AND object_id = OBJECT_ID('[GOSecurity].[GOUser]'))
 BEGIN
 	IF (SELECT COUNT (*) FROM [GOSecurity].[GOUser] WHERE [UserName] IS NULL) <= 1 
@@ -43,7 +72,7 @@ BEGIN
 	END
 END
 GO
--- step 4: Check for NOT NULL constraint for FK GOSecurity.GOUserRole.GOUserId and try to apply if not already done so
+-- step 6: Check for NOT NULL constraint for FK GOSecurity.GOUserRole.GOUserId and try to apply if not already done so
 IF (SELECT is_nullable FROM sys.columns WHERE object_id = object_id('[GOSecurity].[GOUserRole]') and name = 'GOUserId') = 1
 BEGIN
 	IF NOT EXISTS (SELECT GOUserId FROM [GOSecurity].[GOUserRole] WHERE GOUserId is NULL)
@@ -56,7 +85,7 @@ BEGIN
 		PRINT 'WARNING: Unable to apply NOT NULL constraint to column GOUserRole.GOUserId because there is at least one existing NULL value in the database. Column constraint will remain NULL (optional).'
 END
 GO
--- step 5: Check for NOT NULL constraint for FK GOSecurity.GOUserRole.GORoleName and try to apply if not already done so
+-- step 7: Check for NOT NULL constraint for FK GOSecurity.GOUserRole.GORoleName and try to apply if not already done so
 IF (SELECT is_nullable FROM sys.columns WHERE object_id = object_id('[GOSecurity].[GOUserRole]') and name = 'GORoleName') = 1
 BEGIN
 	IF NOT EXISTS (SELECT GORoleName FROM [GOSecurity].[GOUserRole] WHERE GORoleName is NULL)
@@ -69,7 +98,7 @@ BEGIN
 		PRINT 'WARNING: Unable to apply NOT NULL constraint to column GOUserRole.GORoleName because there is at least one existing NULL value in the database. Column constraint will remain NULL (optional).'
 END
 GO
--- step 6: Check for NOT NULL constraint for FK GOSecurity.GOUserGroup.GOUserId and try to apply if not already done so
+-- step 8: Check for NOT NULL constraint for FK GOSecurity.GOUserGroup.GOUserId and try to apply if not already done so
 IF (SELECT is_nullable FROM sys.columns WHERE object_id = object_id('[GOSecurity].[GOUserGroup]') and name = 'GOUserId') = 1
 BEGIN
 	IF NOT EXISTS (SELECT GOUserId FROM [GOSecurity].[GOUserGroup] WHERE GOUserId is NULL)
@@ -82,7 +111,7 @@ BEGIN
 		PRINT 'WARNING: Unable to apply NOT NULL constraint to column GOUserGroup.GOUserId because there is at least one existing NULL value in the database. Column constraint will remain NULL (optional).'
 END
 GO
--- step 7: Check for NOT NULL constraint for FK GOSecurity.GOUserGroup.GOGroupName and try to apply if not already done so
+-- step 9: Check for NOT NULL constraint for FK GOSecurity.GOUserGroup.GOGroupName and try to apply if not already done so
 IF (SELECT is_nullable FROM sys.columns WHERE object_id = object_id('[GOSecurity].[GOUserGroup]') and name = 'GOGroupName') = 1
 BEGIN
 	IF NOT EXISTS (SELECT GOGroupName FROM [GOSecurity].[GOUserGroup] WHERE GOGroupName is NULL)

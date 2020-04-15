@@ -169,29 +169,6 @@
 		}
 	};
 
-	Solid.Web.Model.DataObjects.Validation.GOUserValidator.validateUserName = function (dataobject) {
-		var isValid = true;
-      if(dataobject.Data.UserName() == undefined || dataobject.Data.UserName() == null || dataobject.Data.UserName() === "")
-		{
-			dataobject.StatusData.isUserNameValid(false);
-			dataobject.StatusData.userNameErrorMessage(Solid.Web.Messages.validationRuleRequiredMessage.replace(/%FIELDNAME%/g, "User Name"));
-			isValid = false;
-		}
-		else {
-			dataobject.StatusData.isUserNameValid(isValid && true);
-		}
-		// Max Length
-		if(dataobject.Data.UserName() != null && dataobject.Data.UserName().length > 150)
-		{
-			dataobject.StatusData.isUserNameValid(false);
-			dataobject.StatusData.userNameErrorMessage(Solid.Web.Messages.validationRuleMaxLengthMessage.replace(/%FIELDNAME%/g, "User Name").replace(/%LENGTH%/g, "150"));
-				isValid = false;
-		}
-		else {
-			dataobject.StatusData.isUserNameValid(isValid && true);
-		}
-	};
-
 	Solid.Web.Model.DataObjects.Validation.GOUserValidator.validateUserRoleItems = function (dataobject) {
       if(dataobject.Data.UserRoleItems() == undefined || dataobject.Data.UserRoleItems() == null || dataobject.Data.UserRoleItems() === "")
 		{
@@ -247,7 +224,6 @@
 		Solid.Web.Model.DataObjects.Validation.GOUserValidator.validatePassword (dataobject);
 		Solid.Web.Model.DataObjects.Validation.GOUserValidator.validateUnregistered (dataobject);
 		Solid.Web.Model.DataObjects.Validation.GOUserValidator.validateUserGroupItems (dataobject);
-		Solid.Web.Model.DataObjects.Validation.GOUserValidator.validateUserName (dataobject);
 		Solid.Web.Model.DataObjects.Validation.GOUserValidator.validateUserRoleItems (dataobject);
 		Solid.Web.Model.DataObjects.Validation.GOUserValidator.validateUserValidated (dataobject);
 		doContinue = true;
@@ -287,9 +263,6 @@
 	    if (dataobject.StatusData.isUserGroupItemsValid() === false) {
 			dataobject.StatusData.errorSummary.push(dataobject.StatusData.userGroupItemsErrorMessage());
 		}
-	    if (dataobject.StatusData.isUserNameValid() === false) {
-			dataobject.StatusData.errorSummary.push(dataobject.StatusData.userNameErrorMessage());
-		}
 	    if (dataobject.StatusData.isUserRoleItemsValid() === false) {
 			dataobject.StatusData.errorSummary.push(dataobject.StatusData.userRoleItemsErrorMessage());
 		}
@@ -326,10 +299,10 @@
 		dataobject.StatusData.passwordErrorMessage(null);
 		dataobject.StatusData.isUnregisteredValid(true);
 		dataobject.StatusData.unregisteredErrorMessage(null);
-		dataobject.StatusData.isUserNameValid(true);
-		dataobject.StatusData.userNameErrorMessage(null);
 		dataobject.StatusData.isUserValidatedValid(true);
 		dataobject.StatusData.userValidatedErrorMessage(null);
+		dataobject.StatusData.isUserProfileValid(true);
+		dataobject.StatusData.userProfileErrorMessage(null);
 		
 		dataobject.StatusData.isGOUserEntityValid(true);
 		dataobject.StatusData.gOUserEntityErrorMessage(null);

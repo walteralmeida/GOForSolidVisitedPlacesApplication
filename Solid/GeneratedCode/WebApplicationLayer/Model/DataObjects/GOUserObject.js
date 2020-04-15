@@ -28,7 +28,9 @@
 			Id_OldValue: ko.observable(Math.uuid()),	
 			
 			// Relation	fields (navigators + FK temporary keys observable if needed)
+			_userProfile_NewObjectId : ko.observable(null),
 			UserGroupItems: function () { return self.getUserGroupItems(); },
+ 			UserProfile: function () { return self.getUserProfile(); },
  			UserRoleItems: function () { return self.getUserRoleItems(); },
  		
 			// Other fields
@@ -42,6 +44,7 @@
 			PasswordExpiry: ko.observable(),
 			Unregistered: ko.observable(),
 			UserName: ko.observable(null),
+			UserName_OldValue: ko.observable(null), // Keeping track of FK
 			UserValidated: ko.observable(),
 			// State attributes
 			InternalObjectId: ko.observable(null),
@@ -90,6 +93,8 @@
 			userGroupItemsErrorMessage: ko.observable(null), 
 			isUserNameValid: ko.observable(true),
 			userNameErrorMessage: ko.observable(null), 
+			isUserProfileValid: ko.observable(true),
+			userProfileErrorMessage: ko.observable(null), 
 			isUserRoleItemsValid: ko.observable(true),
 			userRoleItemsErrorMessage: ko.observable(null), 
 			isUserValidatedValid: ko.observable(true),
@@ -199,6 +204,12 @@
 			}
 		}
 
+		var userProfileItem = this.Data.UserProfile();
+			
+		if (userProfileItem !== null && userProfileItem) {
+			userProfileItem.onPropertyChanged("GOUser." + localPropertyName, callers);
+		}		
+	
 		var userRoleItemsItems = this.Data.UserRoleItems();
 
 		if (userRoleItemsItems !== null && userRoleItemsItems) {
@@ -249,6 +260,72 @@
 				this.Data.IsDirty(true);
         }            
     };		
+	Solid.Web.Model.DataObjects.GOUserObject.prototype.getUserProfile = function () {
+		if (!this.ObjectsDataSet)
+            return null;
+
+		if(Solid.Web.Model.DataObjects.UserProfileObject === undefined) {
+			// case script not already loaded
+			return null;
+		}
+
+		var result;
+        var userProfileDataset = this.ObjectsDataSet.getUserProfileObjectsDataSet();
+
+        if (this.Data._userProfile_NewObjectId() !== null) {                
+            result = userProfileDataset.GetObjectByInternalId(this.Data._userProfile_NewObjectId(), true);
+        } else {
+            result = userProfileDataset.GetObjectByPK(this.Data.UserName());
+        }		
+
+		if (result)
+			result.updateDependentValues();
+
+		return result;
+	};
+
+	Solid.Web.Model.DataObjects.GOUserObject.prototype.setUserProfile = function (valueToSet, notifyChanges, dirtyHandlerOn) {
+		var existing_userProfile = null;
+
+		if (((this.Data.UserName === null) && this.Data._userProfile_NewObjectId() === null) || this.ObjectsDataSet === null) {
+			existing_userProfile = null;
+		} else {
+			var userProfileDataset = this.ObjectsDataSet.getUserProfileObjectsDataSet();
+
+			if (this.Data._userProfile_NewObjectId() === null) {
+				existing_userProfile =  userProfileDataset.GetObjectByPK(this.Data.UserName());
+			} else {
+				existing_userProfile = userProfileDataset.GetObjectByInternalId(this.Data._userProfile_NewObjectId(), true);
+			}				
+		}
+				
+		if (existing_userProfile === valueToSet) {
+          if (valueToSet === null) {
+				this.Data._userProfile_NewObjectId(null);
+				this.Data.UserName(null);
+				}
+			return;
+        }
+		// Setting the navigator desync the FK. The FK should be resync
+		if (valueToSet !== null) {
+            this.ObjectsDataSet.AddObjectIfDoesNotExist(valueToSet);
+				
+			if (valueToSet.Data.IsNew()) {
+				if (this.Data._userProfile_NewObjectId() !== valueToSet.Data.InternalObjectId()) {
+					this.Data._userProfile_NewObjectId(valueToSet.Data.InternalObjectId());
+				}
+			} else {
+				if (this.Data.UserName() !== valueToSet.Data.Uri()) {
+					this.Data._userProfile_NewObjectId(null);
+
+					this.Data.UserName(valueToSet.Data.Uri());
+				}
+			}
+		} else {
+			this.Data._userProfile_NewObjectId(null);			
+			this.Data.UserName(null);
+		}
+	};
 	Solid.Web.Model.DataObjects.GOUserObject.prototype.getUserRoleItems = function () {
 		if (!this.ObjectsDataSet)
             return null;
@@ -308,6 +385,7 @@
 		// Copy all fields
 		clone.Data.Id_OldValue(this.Data.Id_OldValue());
 		clone.Data.Id(this.Data.Id());
+		clone.Data._userProfile_NewObjectId (this.Data._userProfile_NewObjectId());
 		clone.Data.Blocked(this.Data.Blocked());
 		clone.Data.EmailAddress(this.Data.EmailAddress());
 		clone.Data.EmailValidated(this.Data.EmailValidated());
@@ -318,6 +396,7 @@
 		clone.Data.PasswordExpiry(this.Data.PasswordExpiry());
 		clone.Data.Unregistered(this.Data.Unregistered());
 		clone.Data.UserName(this.Data.UserName());
+		clone.Data.UserName_OldValue(this.Data.UserName_OldValue()),
 		clone.Data.UserValidated(this.Data.UserValidated());
 		clone.contextIds = this.contextIds;
 
@@ -345,7 +424,8 @@
 			// Copy all fields
 			this.Data.Id_OldValue(sourceObject.Data.Id_OldValue());
 			this.Data.Id(sourceObject.Data.Id());
-					this.Data.Blocked(sourceObject.Data.Blocked());
+				this.Data._userProfile_NewObjectId (sourceObject.Data._userProfile_NewObjectId());
+				this.Data.Blocked(sourceObject.Data.Blocked());
 			this.Data.EmailAddress(sourceObject.Data.EmailAddress());
 			this.Data.EmailValidated(sourceObject.Data.EmailValidated());
 			this.Data.FirstName(sourceObject.Data.FirstName());
@@ -355,6 +435,7 @@
 			this.Data.PasswordExpiry(sourceObject.Data.PasswordExpiry());
 			this.Data.Unregistered(sourceObject.Data.Unregistered());
 			this.Data.UserName(sourceObject.Data.UserName());
+			this.Data.UserName_OldValue(sourceObject.Data.UserName_OldValue()),
 			this.Data.UserValidated(sourceObject.Data.UserValidated());
 			this.contextIds = sourceObject.contextIds;
 
@@ -406,6 +487,7 @@
 		this.subscriptions.push(this.Data.Unregistered.subscribe(UnregisteredPropertySubscriptionHandler, this));
 		this.subscriptions.push(this.Data.UserName.subscribe(UserNamePropertySubscriptionHandler, this));
 		this.subscriptions.push(this.Data.UserValidated.subscribe(UserValidatedPropertySubscriptionHandler, this));
+		this.subscriptions.push(this.Data._userProfile_NewObjectId.subscribe(userProfileNewObjectSubscriptionHandler, this));
 
 		this.DirtyHandlerOn = false;
 		this.notifyChangesOn = false;
@@ -455,7 +537,8 @@
 	
 	function statusDataValidationComputed() {
 		var isValid = true;
-		isValid = isValid && this.StatusData.isBlockedValid() && this.StatusData.isEmailAddressValid() && this.StatusData.isEmailValidatedValid() && this.StatusData.isFirstNameValid() && this.StatusData.isFullNameValid() && this.StatusData.isIdValid() && this.StatusData.isLastNameValid() && this.StatusData.isPasswordValid() && this.StatusData.isPasswordExpiryValid() && this.StatusData.isUnregisteredValid() && this.StatusData.isUserNameValid() && this.StatusData.isUserValidatedValid() && this.StatusData.isGOUserEntityValid();
+		isValid = isValid && this.StatusData.isBlockedValid() && this.StatusData.isEmailAddressValid() && this.StatusData.isEmailValidatedValid() && this.StatusData.isFirstNameValid() && this.StatusData.isFullNameValid() && this.StatusData.isIdValid() && this.StatusData.isLastNameValid() && this.StatusData.isPasswordValid() && this.StatusData.isPasswordExpiryValid() && this.StatusData.isUnregisteredValid() && this.StatusData.isUserValidatedValid() && this.StatusData.isGOUserEntityValid();
+		isValid = isValid && this.StatusData.isUserProfileValid();
 		return isValid;
 	}
 
@@ -604,6 +687,10 @@
     }
 
 	function UserNamePropertySubscriptionHandler(newValue) {
+		if (this.Data.UserName_OldValue() !== newValue && this.ObjectsDataSet) {
+			this.ObjectsDataSet.getGOUserObjectsDataSet().UpdateUserProfileFKIndex(this.Data.UserName_OldValue(), newValue, this);            
+		}
+		this.Data.UserName_OldValue(newValue);
 		
 		if (this.DirtyHandlerOn) {			
             this.Data.IsDirty(true);
@@ -612,6 +699,7 @@
 		if (this.notifyChangesOn) {		
 			this.updateDependentCustomValues();
 			this.onPropertyChanged("UserName");
+			this.onPropertyChanged("UserProfile");
 		}
     }
 
@@ -627,6 +715,17 @@
 		}
     }
 
+ 
+
+
+	function userProfileNewObjectSubscriptionHandler(newValue) {
+		if (this.DirtyHandlerOn === true) 			
+            this.Data.IsDirty(true);
+
+		if (this.notifyChangesOn === true) {	
+			this.onPropertyChanged("UserProfile");
+		}
+    }
  
 
 

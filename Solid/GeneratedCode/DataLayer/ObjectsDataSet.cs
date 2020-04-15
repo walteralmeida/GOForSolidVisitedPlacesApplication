@@ -52,6 +52,10 @@ namespace Solid.Data.DataObjects
 		private PlaceObjectsDataSet _placeObjectsDataSet = null;
 		[JsonProperty("PlaceToLocationObjectsDataSet", DefaultValueHandling  = DefaultValueHandling.Ignore)]
 		private PlaceToLocationObjectsDataSet _placeToLocationObjectsDataSet = null;
+		[JsonProperty("UserProfileObjectsDataSet", DefaultValueHandling  = DefaultValueHandling.Ignore)]
+		private UserProfileObjectsDataSet _userProfileObjectsDataSet = null;
+		[JsonProperty("VisitedPlaceObjectsDataSet", DefaultValueHandling  = DefaultValueHandling.Ignore)]
+		private VisitedPlaceObjectsDataSet _visitedPlaceObjectsDataSet = null;
 
 		#endregion
 		
@@ -200,6 +204,28 @@ namespace Solid.Data.DataObjects
 			}
 			set { _placeToLocationObjectsDataSet = value; }
 		}
+		public UserProfileObjectsDataSet UserProfileObjectsDataSet 
+		{ 
+			get 
+			{ 
+				if (_userProfileObjectsDataSet == null)
+					return _userProfileObjectsDataSet = new UserProfileObjectsDataSet(this);
+					
+				return _userProfileObjectsDataSet; 
+			}
+			set { _userProfileObjectsDataSet = value; }
+		}
+		public VisitedPlaceObjectsDataSet VisitedPlaceObjectsDataSet 
+		{ 
+			get 
+			{ 
+				if (_visitedPlaceObjectsDataSet == null)
+					return _visitedPlaceObjectsDataSet = new VisitedPlaceObjectsDataSet(this);
+					
+				return _visitedPlaceObjectsDataSet; 
+			}
+			set { _visitedPlaceObjectsDataSet = value; }
+		}
 		
 		public ConcurrentDictionary< int, CountryDataObject> CountryObjects 
 		{ 
@@ -288,6 +314,22 @@ namespace Solid.Data.DataObjects
 				return PlaceToLocationObjectsDataSet.PlaceToLocationObjects;
 			}
 		}
+		
+		public ConcurrentDictionary< int, UserProfileDataObject> UserProfileObjects 
+		{ 
+			get
+			{				
+				return UserProfileObjectsDataSet.UserProfileObjects;
+			}
+		}
+		
+		public ConcurrentDictionary< int, VisitedPlaceDataObject> VisitedPlaceObjects 
+		{ 
+			get
+			{				
+				return VisitedPlaceObjectsDataSet.VisitedPlaceObjects;
+			}
+		}
 
 		#endregion
 		
@@ -310,6 +352,10 @@ namespace Solid.Data.DataObjects
 
 					_pathNodes["GORoleDataObject"].Add( "grouproleitems", new PathNode { EntityName = "GOGroupRoleDataObject", PathName = "GroupRoleItems" });
 					_pathNodes["GORoleDataObject"].Add( "userroleitems", new PathNode { EntityName = "GOUserRoleDataObject", PathName = "UserRoleItems" });
+					_pathNodes.Add ( "VisitedPlaceDataObject", new Dictionary<string,PathNode>());
+
+					_pathNodes["VisitedPlaceDataObject"].Add( "userprofile", new PathNode { EntityName = "UserProfileDataObject", PathName = "UserProfile" });
+					_pathNodes["VisitedPlaceDataObject"].Add( "country", new PathNode { EntityName = "CountryDataObject", PathName = "Country" });
 					_pathNodes.Add ( "GOGroupRoleDataObject", new Dictionary<string,PathNode>());
 
 					_pathNodes["GOGroupRoleDataObject"].Add( "group", new PathNode { EntityName = "GOGroupDataObject", PathName = "Group" });
@@ -318,6 +364,10 @@ namespace Solid.Data.DataObjects
 
 					_pathNodes["PlaceDataObject"].Add( "country", new PathNode { EntityName = "CountryDataObject", PathName = "Country" });
 					_pathNodes["PlaceDataObject"].Add( "placetolocationitems", new PathNode { EntityName = "PlaceToLocationDataObject", PathName = "PlaceToLocationItems" });
+					_pathNodes.Add ( "UserProfileDataObject", new Dictionary<string,PathNode>());
+
+					_pathNodes["UserProfileDataObject"].Add( "gouser", new PathNode { EntityName = "GOUserDataObject", PathName = "GOUser" });
+					_pathNodes["UserProfileDataObject"].Add( "visitedplaceitems", new PathNode { EntityName = "VisitedPlaceDataObject", PathName = "VisitedPlaceItems" });
 					_pathNodes.Add ( "LocationDataObject", new Dictionary<string,PathNode>());
 
 					_pathNodes["LocationDataObject"].Add( "country", new PathNode { EntityName = "CountryDataObject", PathName = "Country" });
@@ -329,6 +379,7 @@ namespace Solid.Data.DataObjects
 					_pathNodes.Add ( "GOUserDataObject", new Dictionary<string,PathNode>());
 
 					_pathNodes["GOUserDataObject"].Add( "userroleitems", new PathNode { EntityName = "GOUserRoleDataObject", PathName = "UserRoleItems" });
+					_pathNodes["GOUserDataObject"].Add( "userprofile", new PathNode { EntityName = "UserProfileDataObject", PathName = "UserProfile" });
 					_pathNodes["GOUserDataObject"].Add( "usergroupitems", new PathNode { EntityName = "GOUserGroupDataObject", PathName = "UserGroupItems" });
 					_pathNodes.Add ( "GOGroupDataObject", new Dictionary<string,PathNode>());
 
@@ -340,6 +391,7 @@ namespace Solid.Data.DataObjects
 					_pathNodes["GOUserRoleDataObject"].Add( "user", new PathNode { EntityName = "GOUserDataObject", PathName = "User" });
 					_pathNodes.Add ( "CountryDataObject", new Dictionary<string,PathNode>());
 
+					_pathNodes["CountryDataObject"].Add( "visitedplaceitems", new PathNode { EntityName = "VisitedPlaceDataObject", PathName = "VisitedPlaceItems" });
 					_pathNodes["CountryDataObject"].Add( "placeitems", new PathNode { EntityName = "PlaceDataObject", PathName = "PlaceItems" });
 					_pathNodes["CountryDataObject"].Add( "locationitems", new PathNode { EntityName = "LocationDataObject", PathName = "LocationItems" });
 					_pathNodes.Add ( "GOUserGroupDataObject", new Dictionary<string,PathNode>());
@@ -355,14 +407,16 @@ namespace Solid.Data.DataObjects
 		private static Dictionary<string,string> _entityRelations = new Dictionary<string,string>()
         {
           { "GORole", "GroupRoleItems, UserRoleItems" },
+          { "VisitedPlace", "UserProfile, Country" },
           { "GOGroupRole", "Group, Role" },
           { "Place", "Country, PlaceToLocationItems" },
+          { "UserProfile", "GOUser, VisitedPlaceItems" },
           { "Location", "Country, PlaceToLocationItems" },
           { "PlaceToLocation", "Location, Place" },
-          { "GOUser", "UserRoleItems, UserGroupItems" },
+          { "GOUser", "UserRoleItems, UserProfile, UserGroupItems" },
           { "GOGroup", "UserGroupItems, GroupRoleItems" },
           { "GOUserRole", "Role, User" },
-          { "Country", "PlaceItems, LocationItems" },
+          { "Country", "VisitedPlaceItems, PlaceItems, LocationItems" },
           { "GOUserGroup", "Group, User" },
       };
 
@@ -462,6 +516,20 @@ namespace Solid.Data.DataObjects
 					yield return placeToLocation; 
 				}				
 			}
+			if (_userProfileObjectsDataSet != null)
+			{
+				foreach(var userProfile in _userProfileObjectsDataSet.UserProfileObjects.Values)
+				{
+					yield return userProfile; 
+				}				
+			}
+			if (_visitedPlaceObjectsDataSet != null)
+			{
+				foreach(var visitedPlace in _visitedPlaceObjectsDataSet.VisitedPlaceObjects.Values)
+				{
+					yield return visitedPlace; 
+				}				
+			}
 		}
 
 		public List<IObjectsDataSet> GetAllEntityObjectsDataSets()
@@ -490,6 +558,10 @@ namespace Solid.Data.DataObjects
 				toReturn.Add(_placeObjectsDataSet);				
 			if (_placeToLocationObjectsDataSet != null)
 				toReturn.Add(_placeToLocationObjectsDataSet);				
+			if (_userProfileObjectsDataSet != null)
+				toReturn.Add(_userProfileObjectsDataSet);				
+			if (_visitedPlaceObjectsDataSet != null)
+				toReturn.Add(_visitedPlaceObjectsDataSet);				
 			return toReturn;
 		}
 
@@ -552,6 +624,16 @@ namespace Solid.Data.DataObjects
 				if (_placeToLocationObjectsDataSet != null)
 					toReturn.Add(_placeToLocationObjectsDataSet);				
 			}       
+			if (entityType == typeof(UserProfileDataObject))
+            {
+				if (_userProfileObjectsDataSet != null)
+					toReturn.Add(_userProfileObjectsDataSet);				
+			}       
+			if (entityType == typeof(VisitedPlaceDataObject))
+            {
+				if (_visitedPlaceObjectsDataSet != null)
+					toReturn.Add(_visitedPlaceObjectsDataSet);				
+			}       
 			return toReturn;
 		}
 
@@ -600,6 +682,14 @@ namespace Solid.Data.DataObjects
 			if (entityType == typeof(PlaceToLocationDataObject))
             {		
 				return PlaceToLocationObjectsDataSet;
+			}
+			if (entityType == typeof(UserProfileDataObject))
+            {		
+				return UserProfileObjectsDataSet;
+			}
+			if (entityType == typeof(VisitedPlaceDataObject))
+            {		
+				return VisitedPlaceObjectsDataSet;
 			}
 			return null;
 		}
@@ -727,6 +817,10 @@ namespace Solid.Data.DataObjects
 				clone.PlaceObjectsDataSet = (PlaceObjectsDataSet) PlaceObjectsDataSet.Clone(this);
 			if (_placeToLocationObjectsDataSet != null)
 				clone.PlaceToLocationObjectsDataSet = (PlaceToLocationObjectsDataSet) PlaceToLocationObjectsDataSet.Clone(this);
+			if (_userProfileObjectsDataSet != null)
+				clone.UserProfileObjectsDataSet = (UserProfileObjectsDataSet) UserProfileObjectsDataSet.Clone(this);
+			if (_visitedPlaceObjectsDataSet != null)
+				clone.VisitedPlaceObjectsDataSet = (VisitedPlaceObjectsDataSet) VisitedPlaceObjectsDataSet.Clone(this);
             // Will reset the objects links to the root ObjectsDataSet to the new dataset
             clone.EnsureInitialized();
 			return clone;
@@ -765,6 +859,10 @@ namespace Solid.Data.DataObjects
 				clone.PlaceObjectsDataSet = (PlaceObjectsDataSet) PlaceObjectsDataSet.CloneDirtyObjects(this);
 			if (_placeToLocationObjectsDataSet != null)	
 				clone.PlaceToLocationObjectsDataSet = (PlaceToLocationObjectsDataSet) PlaceToLocationObjectsDataSet.CloneDirtyObjects(this);
+			if (_userProfileObjectsDataSet != null)	
+				clone.UserProfileObjectsDataSet = (UserProfileObjectsDataSet) UserProfileObjectsDataSet.CloneDirtyObjects(this);
+			if (_visitedPlaceObjectsDataSet != null)	
+				clone.VisitedPlaceObjectsDataSet = (VisitedPlaceObjectsDataSet) VisitedPlaceObjectsDataSet.CloneDirtyObjects(this);
             // Will reset the objects links to the root ObjectsDataSet to the new dataset
             clone.EnsureInitialized();
 			return clone;
@@ -810,6 +908,10 @@ namespace Solid.Data.DataObjects
 				this.PlaceObjectsDataSet.Merge((dataSetToMerge as ObjectsDataSet).PlaceObjectsDataSet, updateOrginalInternalId);
 			if ((dataSetToMerge as ObjectsDataSet)._placeToLocationObjectsDataSet != null)
 				this.PlaceToLocationObjectsDataSet.Merge((dataSetToMerge as ObjectsDataSet).PlaceToLocationObjectsDataSet, updateOrginalInternalId);
+			if ((dataSetToMerge as ObjectsDataSet)._userProfileObjectsDataSet != null)
+				this.UserProfileObjectsDataSet.Merge((dataSetToMerge as ObjectsDataSet).UserProfileObjectsDataSet, updateOrginalInternalId);
+			if ((dataSetToMerge as ObjectsDataSet)._visitedPlaceObjectsDataSet != null)
+				this.VisitedPlaceObjectsDataSet.Merge((dataSetToMerge as ObjectsDataSet).VisitedPlaceObjectsDataSet, updateOrginalInternalId);
 	   		
 			FinalizeMerge();
 			this.NotifyChanges = oldNotifyChanges;
@@ -840,6 +942,10 @@ namespace Solid.Data.DataObjects
 				this.PlaceObjectsDataSet.FinalizeMerge();
 			if (_placeToLocationObjectsDataSet != null)
 				this.PlaceToLocationObjectsDataSet.FinalizeMerge();
+			if (_userProfileObjectsDataSet != null)
+				this.UserProfileObjectsDataSet.FinalizeMerge();
+			if (_visitedPlaceObjectsDataSet != null)
+				this.VisitedPlaceObjectsDataSet.FinalizeMerge();
 			
 			DatasetMergingInternalIdMapping.Clear();
 		}
@@ -996,6 +1102,32 @@ namespace Solid.Data.DataObjects
 					item.ObjectsDataSet = this;
 					item.InternalObjectId = key;
 					PlaceToLocationObjectsDataSet.PlaceToLocationObjectInternalIds.TryAdd(item.PrimaryKeysCollection, key);
+				}
+			}
+			if (_userProfileObjectsDataSet != null)
+			{
+				UserProfileObjectsDataSet.RootObjectDataSet = this;
+
+				foreach (var keyvalue in UserProfileObjectsDataSet.UserProfileObjects)
+				{
+					var item = keyvalue.Value;
+					var key = keyvalue.Key;
+					item.ObjectsDataSet = this;
+					item.InternalObjectId = key;
+					UserProfileObjectsDataSet.UserProfileObjectInternalIds.TryAdd(item.PrimaryKey, key);
+				}
+			}
+			if (_visitedPlaceObjectsDataSet != null)
+			{
+				VisitedPlaceObjectsDataSet.RootObjectDataSet = this;
+
+				foreach (var keyvalue in VisitedPlaceObjectsDataSet.VisitedPlaceObjects)
+				{
+					var item = keyvalue.Value;
+					var key = keyvalue.Key;
+					item.ObjectsDataSet = this;
+					item.InternalObjectId = key;
+					VisitedPlaceObjectsDataSet.VisitedPlaceObjectInternalIds.TryAdd(item.PrimaryKey, key);
 				}
 			}
 		

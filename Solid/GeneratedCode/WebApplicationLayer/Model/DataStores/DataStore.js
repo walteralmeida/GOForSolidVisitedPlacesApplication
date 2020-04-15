@@ -242,12 +242,22 @@
 									return true;
 								} 
 								break;
+							case 'visitedplace':
+								if(currentRoles.indexOf('User') > -1 || currentRoles.indexOf('Administrator') > -1) {
+									return true;
+								} 
+								break;
 							case 'gogrouprole':
 								if(currentRoles.indexOf('User') > -1 || currentRoles.indexOf('Administrator') > -1) {
 									return true;
 								} 
 								break;
 							case 'place':
+								if(currentRoles.indexOf('User') > -1 || currentRoles.indexOf('Administrator') > -1) {
+									return true;
+								} 
+								break;
+							case 'userprofile':
 								if(currentRoles.indexOf('User') > -1 || currentRoles.indexOf('Administrator') > -1) {
 									return true;
 								} 
@@ -305,12 +315,22 @@
 									return true;
 								}
 								break;
+							case 'visitedplace':
+								if(currentRoles.indexOf('User') > -1 || currentRoles.indexOf('Administrator') > -1) {
+									return true;
+								}
+								break;
 							case 'gogrouprole':
 								if(currentRoles.indexOf('User') > -1 || currentRoles.indexOf('Administrator') > -1) {
 									return true;
 								}
 								break;
 							case 'place':
+								if(currentRoles.indexOf('User') > -1 || currentRoles.indexOf('Administrator') > -1) {
+									return true;
+								}
+								break;
+							case 'userprofile':
 								if(currentRoles.indexOf('User') > -1 || currentRoles.indexOf('Administrator') > -1) {
 									return true;
 								}
@@ -368,12 +388,22 @@
 									return true;
 								}
 								break;
+							case 'visitedplace':
+								if(currentRoles.indexOf('User') > -1 || currentRoles.indexOf('Administrator') > -1) {
+									return true;
+								}
+								break;
 							case 'gogrouprole':
 								if(currentRoles.indexOf('User') > -1 || currentRoles.indexOf('Administrator') > -1) {
 									return true;
 								}
 								break;
 							case 'place':
+								if(currentRoles.indexOf('User') > -1 || currentRoles.indexOf('Administrator') > -1) {
+									return true;
+								}
+								break;
+							case 'userprofile':
 								if(currentRoles.indexOf('User') > -1 || currentRoles.indexOf('Administrator') > -1) {
 									return true;
 								}

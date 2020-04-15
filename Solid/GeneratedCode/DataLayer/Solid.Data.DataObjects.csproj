@@ -151,6 +151,12 @@
     <Compile Include="Factories\PlaceToLocationFactory.cs">
       <GeneratedBy>Fenomen</GeneratedBy>
     </Compile>
+    <Compile Include="Factories\UserProfileFactory.cs">
+      <GeneratedBy>Fenomen</GeneratedBy>
+    </Compile>
+    <Compile Include="Factories\VisitedPlaceFactory.cs">
+      <GeneratedBy>Fenomen</GeneratedBy>
+    </Compile>
     <Compile Include="GOGroupDataObject.cs">
       <GeneratedBy>Fenomen</GeneratedBy>
     </Compile>
@@ -280,6 +286,15 @@
     <Compile Include="NHibernate/GOUserRole\GOUserRoleDataObject.bridge.cs">
       <GeneratedBy>Fenomen</GeneratedBy>
     </Compile>
+    <Compile Include="NHibernate/UserProfile\UserProfile.cs">
+      <GeneratedBy>Fenomen</GeneratedBy>
+    </Compile>
+    <EmbeddedResource Include="NHibernate/UserProfile\UserProfile.hbm.xml">
+      <GeneratedBy>Fenomen</GeneratedBy>
+    </EmbeddedResource>
+    <Compile Include="NHibernate/UserProfile\UserProfileDataObject.bridge.cs">
+      <GeneratedBy>Fenomen</GeneratedBy>
+    </Compile>
     <Compile Include="ObjectsDataSet.cs">
       <GeneratedBy>Fenomen</GeneratedBy>
     </Compile>
@@ -299,6 +314,24 @@
       <GeneratedBy>Fenomen</GeneratedBy>
     </Compile>
     <Compile Include="PlaceToLocationObjectsDataSet.cs">
+      <GeneratedBy>Fenomen</GeneratedBy>
+    </Compile>
+    <Compile Include="UserProfileDataObject.cs">
+      <GeneratedBy>Fenomen</GeneratedBy>
+    </Compile>
+    <Compile Include="UserProfileDataObjectCustomFields.cs">
+      <GeneratedBy>Fenomen</GeneratedBy>
+    </Compile>
+    <Compile Include="UserProfileObjectsDataSet.cs">
+      <GeneratedBy>Fenomen</GeneratedBy>
+    </Compile>
+    <Compile Include="VisitedPlaceDataObject.cs">
+      <GeneratedBy>Fenomen</GeneratedBy>
+    </Compile>
+    <Compile Include="VisitedPlaceDataObjectCustomFields.cs">
+      <GeneratedBy>Fenomen</GeneratedBy>
+    </Compile>
+    <Compile Include="VisitedPlaceObjectsDataSet.cs">
       <GeneratedBy>Fenomen</GeneratedBy>
     </Compile>
   </ItemGroup>

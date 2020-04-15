@@ -529,10 +529,10 @@ namespace Solid.Data.DataObjects
 				return false;
 
 			return
-				Role == other ||
-				(other is GORoleDataObject && (GORoleName != default(System.String)) && (GORoleName == (other as GORoleDataObject).Name)) || 
 				User == other ||
-				(other is GOUserDataObject && (GOUserId != default(System.Guid)) && (GOUserId == (other as GOUserDataObject).Id)); 
+				(other is GOUserDataObject && (GOUserId != default(System.Guid)) && (GOUserId == (other as GOUserDataObject).Id)) || 
+				Role == other ||
+				(other is GORoleDataObject && (GORoleName != default(System.String)) && (GORoleName == (other as GORoleDataObject).Name)); 
 		}
 
 		#endregion

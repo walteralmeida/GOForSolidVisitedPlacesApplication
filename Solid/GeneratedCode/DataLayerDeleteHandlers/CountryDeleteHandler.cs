@@ -41,6 +41,12 @@ namespace Solid.Data.DeleteHandlers
 				instance.LoadPlaceItems(parameters, skipSecurity: true);
 				AddAnyBlockages("failDeleteProtected", instance, instance.PlaceItems);
 			}
+			// Country.VisitedPlaceItems (Protected) (i.e. Unable to delete Country instances because VisitedPlaceItems.Country is not optional and needs to be cleared first)
+			{
+				instance = Resync(instance);
+				instance.LoadVisitedPlaceItems(parameters, skipSecurity: true);
+				AddAnyBlockages("failDeleteProtected", instance, instance.VisitedPlaceItems);
+			}
 		}
 	}
 }

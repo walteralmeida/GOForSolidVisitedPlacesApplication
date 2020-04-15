@@ -148,6 +148,12 @@
     <Compile Include="DataProviders\PlaceToLocationService.cs">
       <GeneratedBy>Fenomen</GeneratedBy>
     </Compile>
+    <Compile Include="DataProviders\UserProfileService.cs">
+      <GeneratedBy>Fenomen</GeneratedBy>
+    </Compile>
+    <Compile Include="DataProviders\VisitedPlaceService.cs">
+      <GeneratedBy>Fenomen</GeneratedBy>
+    </Compile>
   </ItemGroup>
   <ItemGroup>
     <WCFMetadata Include="Service References\" />

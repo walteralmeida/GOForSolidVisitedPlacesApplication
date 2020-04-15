@@ -166,6 +166,12 @@
     <Compile Include="Tests\PlaceToLocationApiTests.cs">
       <GeneratedBy>Fenomen</GeneratedBy>
     </Compile>
+    <Compile Include="Tests\UserProfileApiTests.cs">
+      <GeneratedBy>Fenomen</GeneratedBy>
+    </Compile>
+    <Compile Include="Tests\VisitedPlaceApiTests.cs">
+      <GeneratedBy>Fenomen</GeneratedBy>
+    </Compile>
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\..\..\DataLayer\Solid.Data.csproj">

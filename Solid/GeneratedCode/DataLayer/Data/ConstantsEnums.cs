@@ -175,6 +175,30 @@ namespace Solid.Data
 		/// <summary></summary>
 		AmountOfFields
 	}
+	/// <summary>Index enum to fast-access EntityFields in the IEntityFields collection for the entity: UserProfile.</summary>
+	public enum UserProfileFieldIndex
+	{
+		///<summary>Uri. </summary>
+		Uri,
+		/// <summary></summary>
+		AmountOfFields
+	}
+	/// <summary>Index enum to fast-access EntityFields in the IEntityFields collection for the entity: VisitedPlace.</summary>
+	public enum VisitedPlaceFieldIndex
+	{
+		///<summary>Id. </summary>
+		Id,
+		///<summary>UserProfileUri. </summary>
+		UserProfileUri,
+		///<summary>Description. </summary>
+		Description,
+		///<summary>CountryURI. </summary>
+		CountryURI,
+		///<summary>Date. </summary>
+		Date,
+		/// <summary></summary>
+		AmountOfFields
+	}
 
 	/// <summary>Enum definition for all the entity types defined in this namespace. Used by the entityfields factory.</summary>
 	public enum EntityType
@@ -201,5 +225,9 @@ namespace Solid.Data
 		PlaceEntity,
 		///<summary>PlaceToLocation</summary>
 		PlaceToLocationEntity,
+		///<summary>UserProfile</summary>
+		UserProfileEntity,
+		///<summary>VisitedPlace</summary>
+		VisitedPlaceEntity,
 	}
 }

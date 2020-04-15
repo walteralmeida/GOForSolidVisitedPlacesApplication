@@ -63,10 +63,16 @@ namespace Solid.Client.Model
 			container.RegisterType<IDataProvider<GORoleDataObject>, GORoleService>(new PerThreadLifetimeManager(), 
                                                                                                        new InterceptionBehavior<PolicyInjectionBehavior>(), 
                                                                                                        new Interceptor<VirtualMethodInterceptor>());
+			container.RegisterType<IDataProvider<VisitedPlaceDataObject>, VisitedPlaceService>(new PerThreadLifetimeManager(), 
+                                                                                                       new InterceptionBehavior<PolicyInjectionBehavior>(), 
+                                                                                                       new Interceptor<VirtualMethodInterceptor>());
 			container.RegisterType<IDataProvider<GOGroupRoleDataObject>, GOGroupRoleService>(new PerThreadLifetimeManager(), 
                                                                                                        new InterceptionBehavior<PolicyInjectionBehavior>(), 
                                                                                                        new Interceptor<VirtualMethodInterceptor>());
 			container.RegisterType<IDataProvider<PlaceDataObject>, PlaceService>(new PerThreadLifetimeManager(), 
+                                                                                                       new InterceptionBehavior<PolicyInjectionBehavior>(), 
+                                                                                                       new Interceptor<VirtualMethodInterceptor>());
+			container.RegisterType<IDataProvider<UserProfileDataObject>, UserProfileService>(new PerThreadLifetimeManager(), 
                                                                                                        new InterceptionBehavior<PolicyInjectionBehavior>(), 
                                                                                                        new Interceptor<VirtualMethodInterceptor>());
 			container.RegisterType<IDataProvider<LocationDataObject>, LocationService>(new PerThreadLifetimeManager(), 

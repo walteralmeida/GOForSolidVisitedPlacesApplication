@@ -22,6 +22,7 @@
 		this.fkIndexes = {};
 
 
+
 		
 	};
 
@@ -192,6 +193,14 @@
 			var relatedDataSet = this._rootObjectDataSet.getPlaceObjectsDataSet();
 			if (relatedDataSet !== undefined) 
 				result = relatedDataSet.GetPlaceItemsForCountry(rootObject);
+
+			return result;
+		}		
+		if (relationName == "VisitedPlaceItems") {
+            var result = [];
+			var relatedDataSet = this._rootObjectDataSet.getVisitedPlaceObjectsDataSet();
+			if (relatedDataSet !== undefined) 
+				result = relatedDataSet.GetVisitedPlaceItemsForCountry(rootObject);
 
 			return result;
 		}		
