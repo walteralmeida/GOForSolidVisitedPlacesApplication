@@ -91,16 +91,13 @@
     <Content Include="Controllers\LocationPageController.js">
       <GeneratedBy>Fenomen</GeneratedBy>
     </Content>
+    <Content Include="Controllers\MyProfilePageController.js">
+      <GeneratedBy>Fenomen</GeneratedBy>
+    </Content>
     <Content Include="Controllers\PlaceItemsPageController.js">
       <GeneratedBy>Fenomen</GeneratedBy>
     </Content>
     <Content Include="Controllers\PlacePageController.js">
-      <GeneratedBy>Fenomen</GeneratedBy>
-    </Content>
-    <Content Include="Controllers\PlaceToLocationItemsPageController.js">
-      <GeneratedBy>Fenomen</GeneratedBy>
-    </Content>
-    <Content Include="Controllers\PlaceToLocationPageController.js">
       <GeneratedBy>Fenomen</GeneratedBy>
     </Content>
     <Compile Include="dummy.cs">
@@ -960,6 +957,15 @@
     <Content Include="ViewModels\PlaceToLocation\PlaceToLocationGridViewModel.js">
       <GeneratedBy>Fenomen</GeneratedBy>
     </Content>
+    <Content Include="ViewModels\UserProfile\UserProfileFormViewModel.js">
+      <GeneratedBy>Fenomen</GeneratedBy>
+    </Content>
+    <Content Include="ViewModels\VisitedPlace\VisitedPlaceFormViewModel.js">
+      <GeneratedBy>Fenomen</GeneratedBy>
+    </Content>
+    <Content Include="ViewModels\VisitedPlace\VisitedPlaceGridViewModel.js">
+      <GeneratedBy>Fenomen</GeneratedBy>
+    </Content>
     <Content Include="Views\Application.aspx">
       <GeneratedBy>Fenomen</GeneratedBy>
     </Content>
@@ -990,6 +996,9 @@
       <GeneratedBy>Fenomen</GeneratedBy>
     </Content>
     <Content Include="Views\LocationPageView.html">
+      <GeneratedBy>Fenomen</GeneratedBy>
+    </Content>
+    <Content Include="Views\MyProfilePageView.html">
       <GeneratedBy>Fenomen</GeneratedBy>
     </Content>
     <Content Include="Views\PartialViews\Common\AlertPopupPartialView.html">
@@ -1049,16 +1058,25 @@
     <Content Include="Views\PartialViews\PlaceToLocation\PlaceToLocationGridPartialView.html">
       <GeneratedBy>Fenomen</GeneratedBy>
     </Content>
+    <Content Include="Views\PartialViews\UserProfile\UserProfileFormControlPartialView.html">
+      <GeneratedBy>Fenomen</GeneratedBy>
+    </Content>
+    <Content Include="Views\PartialViews\UserProfile\UserProfileFormPartialView.html">
+      <GeneratedBy>Fenomen</GeneratedBy>
+    </Content>
+    <Content Include="Views\PartialViews\VisitedPlace\VisitedPlaceFormControlPartialView.html">
+      <GeneratedBy>Fenomen</GeneratedBy>
+    </Content>
+    <Content Include="Views\PartialViews\VisitedPlace\VisitedPlaceFormPartialView.html">
+      <GeneratedBy>Fenomen</GeneratedBy>
+    </Content>
+    <Content Include="Views\PartialViews\VisitedPlace\VisitedPlaceGridPartialView.html">
+      <GeneratedBy>Fenomen</GeneratedBy>
+    </Content>
     <Content Include="Views\PlaceItemsPageView.html">
       <GeneratedBy>Fenomen</GeneratedBy>
     </Content>
     <Content Include="Views\PlacePageView.html">
-      <GeneratedBy>Fenomen</GeneratedBy>
-    </Content>
-    <Content Include="Views\PlaceToLocationItemsPageView.html">
-      <GeneratedBy>Fenomen</GeneratedBy>
-    </Content>
-    <Content Include="Views\PlaceToLocationPageView.html">
       <GeneratedBy>Fenomen</GeneratedBy>
     </Content>
     <Content Include="Views\ViewLoader.js">

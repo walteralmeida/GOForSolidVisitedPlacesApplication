@@ -6,7 +6,7 @@
 
 (function () {
 	//
-	Solid.Web.ViewModels.CountryGridViewModel = function(controller, $gridContainer, sDataBindRoot, $popupContainer, parentContextId, options) {
+	Solid.Web.ViewModels.VisitedPlaceGridViewModel = function(controller, $gridContainer, sDataBindRoot, $popupContainer, parentContextId, options) {
 		var self = this;
 
 		this.subscriptions = [];
@@ -26,14 +26,14 @@
 
 		this.alternateTitle = options && options.alternateTitle;
 
-		this.DataStore = new Solid.Web.Model.DataStores.DataStore(controller.applicationController.ObjectsDataSet, 'country');
+		this.DataStore = new Solid.Web.Model.DataStores.DataStore(controller.applicationController.ObjectsDataSet, 'visitedplace');
 
 		this.isMemoryOnlyCollection = false;
 
 		// Object Data
-		this.CountryObjectCollection = ko.observableArray();
+		this.VisitedPlaceObjectCollection = ko.observableArray();
 
-		self.subscriptions.push(self.CountryObjectCollection.subscribe( function (newValue) {
+		self.subscriptions.push(self.VisitedPlaceObjectCollection.subscribe( function (newValue) {
 			if (newValue) { for (var i = 0; i < newValue.length; i++) { newValue[i].ObjectsDataSet = self.controller.ObjectsDataSet; } }
 		}));
 
@@ -42,53 +42,10 @@
 		this.filterPredicate = null;
 	    this.filterParameters = null;
 
-		// This grid includes a Presentation Filter
-		this.CountryFilterViewModel = new Solid.Web.ViewModels.Filters.CountryFilterViewModel(self.controller, null, null, self.contextId);
 
-		
-        this.FILTER_NAME = "CountryFilter";  //Persitent filter
-        
-        this.addFilterPredicate = function( predicate ) {
-			self.filterPredicate = self.baseFilterPredicate;
-			if (self.filterPredicate !== '' && self.filterPredicate !== null) {
-				self.filterPredicate += ' && ';
-			} else {
-				self.filterPredicate = '';
-			}
-			self.filterPredicate += '(' + predicate + ')';
-			self.setGridPageNumber(0);
-			self.Rebind();
-
-		};
-
-		this.clearFilterPredicate = function() {
-			self.filterPredicate = self.baseFilterPredicate;
-			self.setGridPageNumber(0);
-			self.Rebind();
-
-            GO.removeQueryStringFromUrl(self.FILTER_NAME);
-		};
-
-		this.onCountryFilterViewModelSearch = function () {
-		    var predicate = self.CountryFilterViewModel.getFilterPredicate();
-		    if (predicate !== null && predicate !== "") {
-		        self.addFilterPredicate(predicate);
-		    } else {
-				self.clearFilterPredicate();
-			}
-		};
-
-		this.onCountryFilterViewModelClear = function () {
-		    self.clearFilterPredicate();
-		};
-
-		// Subscriptions to filter changes
-		self.subscriptions.push(this.CountryFilterViewModel.events.onSearch.subscribe(function (newValue) { self.onCountryFilterViewModelSearch(); }));
-		self.subscriptions.push(this.CountryFilterViewModel.events.onClear.subscribe(function (newValue) { self.onCountryFilterViewModelClear(); }));
-
-		this.include = null;
-		this.sortColumnName = ko.observable("Name"); // rather bind to the oSort object
-        this.sortOrder = ko.observable("asc"); // rather bind to the oSort object
+		this.include = "Country";
+		this.sortColumnName = ko.observable(null); // rather bind to the oSort object
+        this.sortOrder = ko.observable(null); // rather bind to the oSort object
 		this.multiSortOrderBy = "";
 		this.multiSortMode = false;
 
@@ -115,7 +72,7 @@
 		this.selectedObject = ko.pureComputed(function () {
             if (this.selectedObjectId() == -1)
                 return null;
-            return this.controller.ObjectsDataSet.GetObjectByInternalId("Country", this.selectedObjectId());
+            return this.controller.ObjectsDataSet.GetObjectByInternalId("VisitedPlace", this.selectedObjectId());
         }, this);
 
         self.subscriptions.push(this.selectedObjectId.subscribe ( function( newValue ) {
@@ -147,23 +104,22 @@
             IsEnabled: ko.observable(true),
 			IsVisible: ko.observable(true),
             IsEmpty: ko.pureComputed( function () {
-                return !self.CountryObjectCollection() || self.CountryObjectCollection().length === 0;
+                return !self.VisitedPlaceObjectCollection() || self.VisitedPlaceObjectCollection().length === 0;
             }),
             ShowTitle: ko.observable(true),
-			IsFilterVisible: ko.observable(true),
 			DisplayMode: ko.observable('view')
 		};
 
 		// Integrate custom code if any
-		if (Solid.Web.ViewModels.CountryGridViewModelCustom !== undefined) {
-		    this.customViewModel = new Solid.Web.ViewModels.CountryGridViewModelCustom(self);
+		if (Solid.Web.ViewModels.VisitedPlaceGridViewModelCustom !== undefined) {
+		    this.customViewModel = new Solid.Web.ViewModels.VisitedPlaceGridViewModelCustom(self);
 		};
 
 		this.StatusData.Title = ko.pureComputed(function() {
 			if (self.customViewModel && self.customViewModel.Title !== undefined) {
 				return self.customViewModel.Title();
 			}
-			return self.alternateTitle || "Country Items";
+			return self.alternateTitle || "Visited places";
 		});
 
 		self.subscriptions.push(this.StatusData.IsEnabled.subscribe(function (newValue) {
@@ -173,7 +129,7 @@
 
 		// Events
         this.Events = {
-			CountryCollectionLoaded: ko.observable(false),
+			VisitedPlaceCollectionLoaded: ko.observable(false),
 			CollectionLoaded: ko.observable(false),
 			Rebound : ko.observable(false)
         };
@@ -181,18 +137,35 @@
 		// Commands
         this.commands = {
 
-			showCreateNewPopupCommand: function () {
-                self.showCreateNewPopup();
+			showmodifyPopupCommand: function () {
+                self.showmodifyPopup();
             },
-            isShowCreateNewPopupCommandVisible: ko.pureComputed(function () {
-				if(self.customViewModel && self.customViewModel.IsShowCreateNewPopupCommandVisible !== undefined) {
-					return self.customViewModel.IsShowCreateNewPopupCommandVisible();
+            isShowmodifyPopupCommandVisible: ko.pureComputed(function () {
+				if(self.customViewModel && self.customViewModel.IsShowmodifyPopupCommandVisible !== undefined) {
+					return self.customViewModel.IsShowmodifyPopupCommandVisible();
+				}
+
+                return self.selectedObjectId() && self.selectedObjectId() !== -1;
+            }),
+            isShowmodifyPopupCommandEnabled: ko.pureComputed(function () {
+				if(self.customViewModel && self.customViewModel.IsShowmodifyPopupCommandEnabled !== undefined) {
+					return self.customViewModel.IsShowmodifyPopupCommandEnabled();
+				}
+
+                return self.StatusData.IsEnabled() && self.selectedObjectId() && self.selectedObjectId() !== -1;
+            }),			
+			showNewvisitedplacePopupCommand: function () {
+                self.showNewvisitedplacePopup();
+            },
+            isShowNewvisitedplacePopupCommandVisible: ko.pureComputed(function () {
+				if(self.customViewModel && self.customViewModel.IsShowNewvisitedplacePopupCommandVisible !== undefined) {
+					return self.customViewModel.IsShowNewvisitedplacePopupCommandVisible();
 				}
 				return self.DataStore && self.DataStore.CheckAuthorizationForEntityAndMethod('save');
 			}),
-            isShowCreateNewPopupCommandEnabled: ko.pureComputed(function () {
-				if(self.customViewModel && self.customViewModel.IsShowCreateNewPopupCommandEnabled !== undefined) {
-					return self.customViewModel.IsShowCreateNewPopupCommandEnabled();
+            isShowNewvisitedplacePopupCommandEnabled: ko.pureComputed(function () {
+				if(self.customViewModel && self.customViewModel.IsShowNewvisitedplacePopupCommandEnabled !== undefined) {
+					return self.customViewModel.IsShowNewvisitedplacePopupCommandEnabled();
 				}
                 return self.StatusData.IsEnabled();
 			}),
@@ -212,33 +185,42 @@
 				}
 
                 return self.StatusData.IsEnabled() && self.selectedObjectId() && self.selectedObjectId() !== -1;
-            }),			NavigateToDetailsCommand: function() {
-				self.NavigateToDetails();
-			}		};
-		this.CreateNewCommandInitActions = [];
+            })		};
  
-		this.showCreateNewPopup = function () {
-            if (self.commands.isShowCreateNewPopupCommandEnabled() === false)
+		this.showmodifyPopup = function () {
+            if (self.commands.isShowmodifyPopupCommandEnabled() === false)
                 return;
 
-            var newObject = Solid.Web.Model.DataObjects.CountryObjectFactory.createNew(self.controller.ObjectsDataSet, null);
+		    var memoryOnly = self.isMemoryOnlyCollection || self.StatusData.DisplayMode() === 'edit';
+			var isOpenInEditMode = true;
+			ApplicationController.showEditPopup("VisitedPlaceForm", self, self.selectedObject(), memoryOnly, self.contextId, '70%', isOpenInEditMode);
+			GO.log("VisitedPlaceGrid", "Editing entity opening VisitedPlaceForm");
+		};
+
+		this.NewvisitedplaceCommandInitActions = [];
+ 
+		this.showNewvisitedplacePopup = function () {
+            if (self.commands.isShowNewvisitedplacePopupCommandEnabled() === false)
+                return;
+
+            var newObject = Solid.Web.Model.DataObjects.VisitedPlaceObjectFactory.createNew(self.controller.ObjectsDataSet, null);
 
             newObject.DirtyHandlerOn = false;
-            for (var i=0; i < self.CreateNewCommandInitActions.length; i++) {
-                self.CreateNewCommandInitActions[i](newObject);
+            for (var i=0; i < self.NewvisitedplaceCommandInitActions.length; i++) {
+                self.NewvisitedplaceCommandInitActions[i](newObject);
             }
             newObject.DirtyHandlerOn = true;
 
-		    GO.log("CountryGrid", "Creating entity opening AccountForm");
+		    GO.log("VisitedPlaceGrid", "Creating entity opening AccountForm");
 
 		    var memoryOnly = self.isMemoryOnlyCollection || self.StatusData.DisplayMode() === 'edit';
-            ApplicationController.showCreateNewPopup("CountryForm", self, newObject, memoryOnly, self.contextId, '70%');
+            ApplicationController.showCreateNewPopup("VisitedPlaceForm", self, newObject, memoryOnly, self.contextId, '70%');
 		};
 		this.onCurrentDeleted = function () {
-		    GO.log("CountryGrid", "Country deleted");
+		    GO.log("VisitedPlaceGrid", "VisitedPlace deleted");
 			self.Rebind(true);
             self.StatusData.IsBusy(false);
-			ko.postbox.publish('Country.ChangedOnGrid', { contextId: self.contextId, action: 'delete', gridName: 'CountryGrid'  });
+			ko.postbox.publish('VisitedPlace.ChangedOnGrid', { contextId: self.contextId, action: 'delete', gridName: 'VisitedPlaceGrid'  });
 		};
 
 		this.onConfirmDeleteCurrent = function (confirm) {
@@ -247,12 +229,12 @@
 					var objectToDelete = self.selectedObject();
 					var configuration = {};
 					configuration.contextId = self.contextId;
-					configuration.pks = { URI: objectToDelete.Data.URI() };
+					configuration.pks = { Id: objectToDelete.Data.Id() };
 
 					configuration.successHandler =  self.onCurrentDeleted;
 					configuration.errorHandler = self.ShowError;
 
-					GO.log("CountryGrid", "Deletion confirmed, sending query to server", { URI: objectToDelete.Data.URI() });
+					GO.log("VisitedPlaceGrid", "Deletion confirmed, sending query to server", { Id: objectToDelete.Data.Id() });
 					self.DataStore.DeleteObject(configuration);
 				}
                 else {
@@ -262,17 +244,17 @@
                         self.selectedObject().Data.IsMarkedForDeletion(true);
 
                     // remove from grid display collection
-					var index = self.CountryObjectCollection.indexOf(self.selectedObject());
+					var index = self.VisitedPlaceObjectCollection.indexOf(self.selectedObject());
 					if (index > -1) {
-						self.CountryObjectCollection.splice(index, 1);
+						self.VisitedPlaceObjectCollection.splice(index, 1);
 					}
 					// else try to match based on PKs
 					else {
-						for (var i = 0; i < self.CountryObjectCollection().length; ++i) {
+						for (var i = 0; i < self.VisitedPlaceObjectCollection().length; ++i) {
 							if (
-								self.CountryObjectCollection()[i].Data.URI() == self.selectedObject().Data.URI()  
+								self.VisitedPlaceObjectCollection()[i].Data.Id() == self.selectedObject().Data.Id()  
 							) {
-								self.CountryObjectCollection.splice(i, 1);
+								self.VisitedPlaceObjectCollection.splice(i, 1);
 								break;
 							}
 						}
@@ -291,26 +273,24 @@
 		};
 
 		this.deleteCurrent = function() {
-		    GO.log("CountryGrid", "Asking to delete Country");
+		    GO.log("VisitedPlaceGrid", "Asking to delete VisitedPlace");
 			if (self.commands.isDeleteCommandEnabled() === false)
 				return;
 
             self.StatusData.IsBusy(true);
 
-			ApplicationController.showConfirmPopup(self, Solid.Web.Messages.confirmDeleteMessage.replace(/%ENTITY%/g, "Country"), Solid.Web.Messages.confirmDeletePopupTitle, self.onConfirmDeleteCurrent, self.contextId);
+			ApplicationController.showConfirmPopup(self, Solid.Web.Messages.confirmDeleteMessage.replace(/%ENTITY%/g, "VisitedPlace"), Solid.Web.Messages.confirmDeletePopupTitle, self.onConfirmDeleteCurrent, self.contextId);
 		};
 		this.CallAfterSaveRelatedEntity = function () {
-			ko.postbox.publish('Country.ChangedOnGrid', { contextId: self.contextId, action: 'add', gridName: 'CountryGrid' });
+			ko.postbox.publish('VisitedPlace.ChangedOnGrid', { contextId: self.contextId, action: 'add', gridName: 'VisitedPlaceGrid' });
 		}
 
-		this.commands.IsNavigateToDetailsCommandVisible = ko.pureComputed( function () { return self.selectedObjectId() && self.selectedObjectId() !== -1; } );
-		this.commands.IsNavigateToDetailsCommandEnabled = ko.pureComputed( function () { return self.selectedObjectId() && self.selectedObjectId() !== -1 } );
-        this.SetCountryObjectCollection = function(dataObjectCollection) {
-		    GO.log("CountryGrid", "Setting new collection");
+        this.SetVisitedPlaceObjectCollection = function(dataObjectCollection) {
+		    GO.log("VisitedPlaceGrid", "Setting new collection");
 
             self.selectedObjectId(null);
 
-			var currentCollection = self.CountryObjectCollection();
+			var currentCollection = self.VisitedPlaceObjectCollection();
 		    var currentCount = currentCollection.length;
 
             if(!GenerativeObjects.Web.GetEnvironment().isMobile) {// mobile infinite lists need to keep the full list of objects
@@ -321,7 +301,7 @@
 						}
 					}
 				}
-				self.CountryObjectCollection.removeAll();
+				self.VisitedPlaceObjectCollection.removeAll();
 			}
 
 			if (dataObjectCollection) {
@@ -333,27 +313,27 @@
 
                 	newCollection.push(dataObjectCollection[i]);
 				}
-				self.CountryObjectCollection(newCollection);
+				self.VisitedPlaceObjectCollection(newCollection);
             }
         };
 
 		this.Rebind = function(forceExternal) {
             if (forceExternal || (!self.isMemoryOnlyCollection && self.StatusData.DisplayMode() === 'view')) {
-				self.LoadCountryObjectCollection();
+				self.LoadVisitedPlaceObjectCollection();
 			}
 			// If we're only working in memory, we simulate a Rebind by reloading observables
             else {
 				if (self.getSourceCollection) {
 					var allObjects = self.getSourceCollection();
                     self.totalCollection(allObjects.length);
-					self.SetCountryObjectCollection(allObjects);
+					self.SetVisitedPlaceObjectCollection(allObjects);
 				}
             }
 
             self.Events.Rebound(!self.Events.Rebound());
 		};
 
-		this.LoadCountryObjectCollection = function (configuration) {
+		this.LoadVisitedPlaceObjectCollection = function (configuration) {
 			if (!self.DataStore)		
 				return;
 
@@ -361,7 +341,7 @@
 
 			var configuration = $.merge({
 				contextId : self.contextId,
-				successHandler:self.OnCountryObjectCollectionCounted,
+				successHandler:self.OnVisitedPlaceObjectCollectionCounted,
 				errorHandler: self.ShowError
 	        }, configuration || {} );
 
@@ -376,20 +356,20 @@
             if (self.include) {
                 configuration.include = self.include;
             }
-		    GO.log("CountryGrid", "Calling count");
+		    GO.log("VisitedPlaceGrid", "Calling count");
 			self.DataStore.CountObjects(configuration);
         };
 
-		this.OnCountryObjectCollectionCounted = function (count) {
-		    GO.log("CountryGrid", count + " elements counted");
+		this.OnVisitedPlaceObjectCollectionCounted = function (count) {
+		    GO.log("VisitedPlaceGrid", count + " elements counted");
 			self.totalCollection(count);
 			self.totalPageNumber( Math.ceil(count / self.pageSize ) );
 			if (self.pageNumber() >= self.totalPageNumber())
 				self.pageNumber(self.totalPageNumber() > 0  ? self.totalPageNumber()-1 : 0);
 
-			self.LoadPagedCountryObjectCollection();
+			self.LoadPagedVisitedPlaceObjectCollection();
 		};
-		this.LoadPagedCountryObjectCollection = function (configuration) {
+		this.LoadPagedVisitedPlaceObjectCollection = function (configuration) {
 			if (!self.DataStore)		
 				return;
 
@@ -399,7 +379,7 @@
 				contextId : self.contextId,
 				pageSize:self.pageSize,
 	            pageNumber:1+parseInt(self.pageNumber()), // model and widget is 0-based, so we convert
-				successHandler:self.OnCountryObjectCollectionLoaded,
+				successHandler:self.OnVisitedPlaceObjectCollectionLoaded,
 				errorHandler: self.ShowError
 	        }, configuration || {} );
 
@@ -430,19 +410,19 @@
                 configuration.include = self.include;
             }
 
-		    GO.log("CountryGrid", "Calling load");
+		    GO.log("VisitedPlaceGrid", "Calling load");
 			self.DataStore.LoadObjectCollection(configuration);
         };
 
         // Define the load completed functions
 		this.firstLoad = true;
 
-        this.OnCountryObjectCollectionLoaded = function (objectsLoaded) {
-		    GO.log("CountryGrid", "CountryCollection loaded");
-            self.SetCountryObjectCollection(objectsLoaded);
+        this.OnVisitedPlaceObjectCollectionLoaded = function (objectsLoaded) {
+		    GO.log("VisitedPlaceGrid", "VisitedPlaceCollection loaded");
+            self.SetVisitedPlaceObjectCollection(objectsLoaded);
 			self.StatusData.IsBusy(false);
             // the next line is to force notification of change: this way we emulate event handling
-            self.Events.CountryCollectionLoaded(!self.Events.CountryCollectionLoaded());
+            self.Events.VisitedPlaceCollectionLoaded(!self.Events.VisitedPlaceCollectionLoaded());
             self.Events.CollectionLoaded(!self.Events.CollectionLoaded());
 
  
@@ -452,6 +432,15 @@
 			if(self.$popupContainer)
 				ApplicationController.centerPopup();
         };
+
+		this.getCountry_NameValue = function (data) {
+			return data.getCountry() === null ? null : data.getCountry().Data.Name();
+		};
+
+		this.getCountryPKValuesForCountry = function (data) {
+			var uRIValue = data.getCountry() === null ? null : data.getCountry().Data.URI();
+			return uRIValue;
+		}
 
 
 		this.selectedId = ko.observable(null);
@@ -470,8 +459,8 @@
 			sortingOptions: self.sortingOptions,
 			commandExecuted: self.commandExecuted,
 			doubleClickCommand: self.doubleClickCommand,
-			dataCollectionName: 'CountryObjectCollection',
-			dataCollectionObservable: self.CountryObjectCollection,
+			dataCollectionName: 'VisitedPlaceObjectCollection',
+			dataCollectionObservable: self.VisitedPlaceObjectCollection,
 			iNbPageNumberToShow: 5, // always odd
 			methods: {
 				updatePagination: function () {
@@ -556,10 +545,10 @@
             	    self.sortOrder( oSort.order );
 
                   if (self.totalPageNumber() < 2 && !self.multiSortOrderBy) {
-						self.CountryObjectCollection.sort(GO.getSortFunction(oSort.columnName, oSort.order));
+						self.VisitedPlaceObjectCollection.sort(GO.getSortFunction(oSort.columnName, oSort.order));
 					}
 					else {
-						self.LoadCountryObjectCollection();
+						self.LoadVisitedPlaceObjectCollection();
 					}
   	    }));
 
@@ -569,20 +558,12 @@
             	    self.commands[ oCommand.command ].call(self, oCommand.line );
         	}));
 
-			// Adding double-click command to grid
-			self.subscriptions.push(self.gridSettings.doubleClickCommand.subscribe(
-				function (oCommand) {
-				if (self.commands.IsNavigateToDetailsCommandEnabled && self.commands.IsNavigateToDetailsCommandEnabled()) {
-						self.commands.NavigateToDetailsCommand();
-                    }
-				})
-			);
 
 			self.subscriptions.push(self.pageNumber.subscribe(
                 function( iPageNumber ) {
                     self.pageNumber(iPageNumber);
 					if (!self.ignorePageChange) {
-	                    self.LoadCountryObjectCollection();
+	                    self.LoadVisitedPlaceObjectCollection();
 					}
 			}));
 
@@ -598,14 +579,6 @@
 		};
 
 
-		this.NavigateToDetails = function () {
-			var hash = "!/Countries/CountryDetails";
-			if (self.selectedObject()) {
-				hash += "/" + self.selectedObject().Data.URI();
-
-			}
-		    window.location.hash = hash;
-		};
 
 		this.release = function (){
 
@@ -649,17 +622,17 @@
 			// self.gridWidgetInitializer();
 
 			// fix sort problem in data set
-            self.subscriptions.push(self.Events.CountryCollectionLoaded.subscribe(function () {
+            self.subscriptions.push(self.Events.VisitedPlaceCollectionLoaded.subscribe(function () {
 				// if doing multi-sort, this changes the result... so disabled for multi-sort pending understanding why it was needed
 				if(self.sortColumnName() !== null && !self.multiSortOrderBy) {
-					self.CountryObjectCollection.sort(GO.getSortFunction(self.sortColumnName(), self.sortOrder()));
+					self.VisitedPlaceObjectCollection.sort(GO.getSortFunction(self.sortColumnName(), self.sortOrder()));
 				}
 			}));
 
 			// Subscribe to changes on other grids with the same object in order to rebind the current grid
-			self.subscriptions.push(ko.postbox.subscribe("Country.ChangedOnGrid", function(payload) {
+			self.subscriptions.push(ko.postbox.subscribe("VisitedPlace.ChangedOnGrid", function(payload) {
 				// Checking the caller is not the current Grid
-				if (payload.gridName !== 'CountryGrid' || JSON.stringify(payload.contextId) != JSON.stringify(self.contextId)) {
+				if (payload.gridName !== 'VisitedPlaceGrid' || JSON.stringify(payload.contextId) != JSON.stringify(self.contextId)) {
 					self.Rebind();
 				}
 			}));
@@ -767,5 +740,5 @@
 	};
 
 	if (window.ApplicationSourceHandler)
-		window.ApplicationSourceHandler.onSourceLoaded("/ViewModels/Country/CountryGridViewModel.js");
+		window.ApplicationSourceHandler.onSourceLoaded("/ViewModels/VisitedPlace/VisitedPlaceGridViewModel.js");
 } ());

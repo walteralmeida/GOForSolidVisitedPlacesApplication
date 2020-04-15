@@ -6,12 +6,12 @@
 
 (function () {
 	// 
-	Solid.Web.Controllers.CountryPageController = function(applicationController) {
+	Solid.Web.Controllers.MyProfilePageController = function(applicationController) {
 		var self = this;
 		this.subscriptions = [];
 		// store all subscriptions in this array, to unsubscribe on release.
 		
-		this._objectType = "CountryPage";
+		this._objectType = "MyProfilePage";
 
 		this.applicationController = applicationController;
 		this.ObjectsDataSet = applicationController.ObjectsDataSet;
@@ -19,27 +19,27 @@
 		this.customController = undefined;
 
 		// Integrate custom code if any
-		if (Solid.Web.Controllers.CountryPageControllerCustom !== undefined) {
-		    this.customController = new Solid.Web.Controllers.CountryPageControllerCustom(self);
+		if (Solid.Web.Controllers.MyProfilePageControllerCustom !== undefined) {
+		    this.customController = new Solid.Web.Controllers.MyProfilePageControllerCustom(self);
 		};
 
-		this.pageTitle = ko.observable("Country Details Page");
+		this.pageTitle = ko.observable("My Profile");
 
 		// Initialize View Models and Data Stores
 		
-			this.CountryViewModel = new Solid.Web.ViewModels.CountryFormViewModel(this, $("#CountryFormControl"), null, null, this.contextId);		
+			this.UserProfileFormViewModel = new Solid.Web.ViewModels.UserProfileFormViewModel(this, $("#UserProfileFormControl"), null, null, this.contextId);		
 	
 		// Attach to view models events
-		this.subscriptions.push(this.CountryViewModel.StatusData.IsBusy.subscribe( function (newValue) { self.OnCountryViewModelIsBusyChanged(newValue); }));
+		this.subscriptions.push(this.UserProfileFormViewModel.StatusData.IsBusy.subscribe( function (newValue) { self.OnUserProfileFormViewModelIsBusyChanged(newValue); }));
 		
 		this.IsInEditMode = function() {
 
-			return  (self.CountryViewModel.StatusData.DisplayMode && self.CountryViewModel.StatusData.DisplayMode() == 'edit');
+			return  (self.UserProfileFormViewModel.StatusData.DisplayMode && self.UserProfileFormViewModel.StatusData.DisplayMode() == 'edit');
 		};
 
 
 		// Events Handlers
-		this.OnCountryViewModelIsBusyChanged = function (newValue) {
+		this.OnUserProfileFormViewModelIsBusyChanged = function (newValue) {
 		};
 
 		this.initialize = function() {
@@ -49,20 +49,20 @@
 
 			var partsCount = location.hash.split("/").length;
 			var lasttagindex = 0;
-			if (partsCount == 4) {
+			if (partsCount == 3) {
 				var hash = window.location.hash;
 				var allPksValid = true;
 				lasttagindex = hash.lastIndexOf('/');
 				var pk1 = hash.substring(lasttagindex + 1).split(new RegExp("#", "g"))[0];
 				
 				if(allPksValid) {
-					var objectToLoad = new Solid.Web.Model.DataObjects.CountryObject();
-					objectToLoad.Data.URI(pk1);	
-					self.CountryViewModel.LoadCountry(objectToLoad);	
+					var objectToLoad = new Solid.Web.Model.DataObjects.UserProfileObject();
+					objectToLoad.Data.Uri(pk1);	
+					self.UserProfileFormViewModel.LoadUserProfile(objectToLoad);	
 				}
 			}
 			else {
-					self.CountryViewModel.CreateNew();
+					self.UserProfileFormViewModel.CreateNew();
 			}
 				
 	
@@ -83,8 +83,8 @@
 			self.subscriptions = [];
 			self.ObjectsDataSet.cleanContext(self.contextId);
 			
-			self.CountryViewModel.release();
-			self.CountryViewModel = null;
+			self.UserProfileFormViewModel.release();
+			self.UserProfileFormViewModel = null;
 		};
 
 
@@ -92,5 +92,5 @@
 	};		
 	
 	if (window.ApplicationSourceHandler)
-		window.ApplicationSourceHandler.onSourceLoaded("/Controllers/CountryPageController.js");
+		window.ApplicationSourceHandler.onSourceLoaded("/Controllers/MyProfilePageController.js");
 } ());

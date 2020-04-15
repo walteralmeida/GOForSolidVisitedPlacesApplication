@@ -49,7 +49,7 @@
 
 			var partsCount = location.hash.split("/").length;
 			var lasttagindex = 0;
-			if (partsCount == 5) {
+			if (partsCount == 4) {
 				var hash = window.location.hash;
 				var allPksValid = true;
 				lasttagindex = hash.lastIndexOf('/');

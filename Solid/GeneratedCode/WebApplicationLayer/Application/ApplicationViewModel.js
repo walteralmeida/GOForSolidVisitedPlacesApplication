@@ -24,14 +24,10 @@
 			breadCrumbs : ko.observableArray(),			
 			isCountryDetailsEnabled : ko.observable(true),
 			isCountryDetailsVisible : ko.observable(true), 
-			isHomeEnabled : ko.observable(true),
-			isHomeVisible : ko.observable(true), 
 			isLocationsEnabled : ko.observable(true),
 			isLocationsVisible : ko.observable(true), 
-			isPlaceToLocationDetailsEnabled : ko.observable(true),
-			isPlaceToLocationDetailsVisible : ko.observable(true), 
-			isPlaceToLocationsEnabled : ko.observable(true),
-			isPlaceToLocationsVisible : ko.observable(true), 
+			isMyProfileEnabled : ko.observable(true),
+			isMyProfileVisible : ko.observable(true), 
 			isPlacesEnabled : ko.observable(true),
 			isPlacesVisible : ko.observable(true), 
 			isPlaceDetailsEnabled : ko.observable(true),
@@ -46,10 +42,8 @@
 			self.updateDefaultNavigationNodeVisibility();
 
 			self.navigation.isCountryDetailsVisible(self.getNodeVisibility('CountryDetails'));
-			self.navigation.isHomeVisible(self.getNodeVisibility('Home'));
 			self.navigation.isLocationsVisible(self.getNodeVisibility('Locations'));
-			self.navigation.isPlaceToLocationDetailsVisible(self.getNodeVisibility('PlaceToLocationDetails'));
-			self.navigation.isPlaceToLocationsVisible(self.getNodeVisibility('PlaceToLocations'));
+			self.navigation.isMyProfileVisible(self.getNodeVisibility('MyProfile'));
 			self.navigation.isPlacesVisible(self.getNodeVisibility('Places'));
 			self.navigation.isPlaceDetailsVisible(self.getNodeVisibility('PlaceDetails'));
 			self.navigation.isLocationDetailsVisible(self.getNodeVisibility('LocationDetails'));
@@ -62,29 +56,17 @@
 			if (self.viewModelCustom !== undefined && self.viewModelCustom.updateIsCountryDetailsVisible !== undefined) 
 				self.viewModelCustom.updateIsCountryDetailsVisible();
 
-			if (self.viewModelCustom !== undefined && self.viewModelCustom.updateIsHomeEnabled !== undefined) 
-				self.viewModelCustom.updateIsHomeEnabled();
-
-			if (self.viewModelCustom !== undefined && self.viewModelCustom.updateIsHomeVisible !== undefined) 
-				self.viewModelCustom.updateIsHomeVisible();
-
 			if (self.viewModelCustom !== undefined && self.viewModelCustom.updateIsLocationsEnabled !== undefined) 
 				self.viewModelCustom.updateIsLocationsEnabled();
 
 			if (self.viewModelCustom !== undefined && self.viewModelCustom.updateIsLocationsVisible !== undefined) 
 				self.viewModelCustom.updateIsLocationsVisible();
 
-			if (self.viewModelCustom !== undefined && self.viewModelCustom.updateIsPlaceToLocationDetailsEnabled !== undefined) 
-				self.viewModelCustom.updateIsPlaceToLocationDetailsEnabled();
+			if (self.viewModelCustom !== undefined && self.viewModelCustom.updateIsMyProfileEnabled !== undefined) 
+				self.viewModelCustom.updateIsMyProfileEnabled();
 
-			if (self.viewModelCustom !== undefined && self.viewModelCustom.updateIsPlaceToLocationDetailsVisible !== undefined) 
-				self.viewModelCustom.updateIsPlaceToLocationDetailsVisible();
-
-			if (self.viewModelCustom !== undefined && self.viewModelCustom.updateIsPlaceToLocationsEnabled !== undefined) 
-				self.viewModelCustom.updateIsPlaceToLocationsEnabled();
-
-			if (self.viewModelCustom !== undefined && self.viewModelCustom.updateIsPlaceToLocationsVisible !== undefined) 
-				self.viewModelCustom.updateIsPlaceToLocationsVisible();
+			if (self.viewModelCustom !== undefined && self.viewModelCustom.updateIsMyProfileVisible !== undefined) 
+				self.viewModelCustom.updateIsMyProfileVisible();
 
 			if (self.viewModelCustom !== undefined && self.viewModelCustom.updateIsPlacesEnabled !== undefined) 
 				self.viewModelCustom.updateIsPlacesEnabled();

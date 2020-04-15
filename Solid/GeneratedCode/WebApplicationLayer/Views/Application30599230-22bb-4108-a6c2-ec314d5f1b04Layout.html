@@ -19,22 +19,17 @@
         </div>
         <div class="navigation-menu">
           <ul id="horizontal-menu">
-            <li data-bind="'enable' : navigation.isHomeEnabled(), 'visible' : navigation.isHomeVisible()" class="desktop-node menu-root">
-              <a href="#" data-test-id="75305345-b76d-4079-ae25-5ee461454f03">Home</a>
-              <ul>
-                <li data-bind="'enable' : navigation.isLocationsEnabled(), 'visible' : navigation.isLocationsVisible()" class="desktop-node">
-                  <a href="#" data-bind="'click' : function(data,event) { commands.navigateTo('Locations') }" data-test-id="28738e7a-bebd-4559-8c04-608df04dbba5">Locations</a>
-                </li>
-                <li data-bind="'enable' : navigation.isPlaceToLocationsEnabled(), 'visible' : navigation.isPlaceToLocationsVisible()" class="desktop-node">
-                  <a href="#" data-bind="'click' : function(data,event) { commands.navigateTo('PlaceToLocations') }" data-test-id="53c912de-45f9-4ed8-b244-a9688126b608">Place To Locations</a>
-                </li>
-                <li data-bind="'enable' : navigation.isCountriesEnabled(), 'visible' : navigation.isCountriesVisible()" class="desktop-node">
-                  <a href="#" data-bind="'click' : function(data,event) { commands.navigateTo('Countries') }" data-test-id="361f22a0-0d00-4823-9bdb-fa50bae046d4">Countries</a>
-                </li>
-                <li data-bind="'enable' : navigation.isPlacesEnabled(), 'visible' : navigation.isPlacesVisible()" class="desktop-node">
-                  <a href="#" data-bind="'click' : function(data,event) { commands.navigateTo('Places') }" data-test-id="7045f861-53d3-4d31-848f-c9a6197b68bb">Places</a>
-                </li>
-              </ul>
+            <li data-bind="'enable' : navigation.isCountriesEnabled(), 'visible' : navigation.isCountriesVisible()" class="desktop-node menu-root">
+              <a href="#" data-bind="'click' : function(data,event) { commands.navigateTo('Countries') }" data-test-id="361f22a0-0d00-4823-9bdb-fa50bae046d4">Countries</a>
+            </li>
+            <li data-bind="'enable' : navigation.isLocationsEnabled(), 'visible' : navigation.isLocationsVisible()" class="desktop-node menu-root">
+              <a href="#" data-bind="'click' : function(data,event) { commands.navigateTo('Locations') }" data-test-id="28738e7a-bebd-4559-8c04-608df04dbba5">Locations</a>
+            </li>
+            <li data-bind="'enable' : navigation.isPlacesEnabled(), 'visible' : navigation.isPlacesVisible()" class="desktop-node menu-root">
+              <a href="#" data-bind="'click' : function(data,event) { commands.navigateTo('Places') }" data-test-id="7045f861-53d3-4d31-848f-c9a6197b68bb">Places</a>
+            </li>
+            <li data-bind="'enable' : navigation.isMyProfileEnabled(), 'visible' : navigation.isMyProfileVisible()" class="desktop-node menu-root">
+              <a href="#" data-bind="'click' : function(data,event) { commands.navigateTo('MyProfile') }" data-test-id="71f7bedd-e6f7-4480-bea7-8241b7f17232">My Profile</a>
             </li>
           </ul>
         </div>

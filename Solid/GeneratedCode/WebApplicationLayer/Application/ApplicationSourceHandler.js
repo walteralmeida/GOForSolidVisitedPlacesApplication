@@ -65,6 +65,20 @@
 					"/ViewModels/PlaceToLocation/Filters/PlaceToLocationFilterViewModel.js", 
 					"/Controllers/LocationPageController.js" 
 				], 
+				"MyProfilePage-Page": [
+					"/Model/DataObjects/UserProfileObject.js", 
+					"/Model/DataObjectValidators/UserProfileObjectValidator.js", 
+					"/Model/DataSets/UserProfileDataSet.js", 
+					"/Model/DataObjects/VisitedPlaceObject.js", 
+					"/Model/DataObjectValidators/VisitedPlaceObjectValidator.js", 
+					"/Model/DataSets/VisitedPlaceDataSet.js", 
+					"/Model/DataObjects/CountryObject.js", 
+					"/Model/DataObjectValidators/CountryObjectValidator.js", 
+					"/Model/DataSets/CountryDataSet.js", 
+					"/ViewModels/UserProfile/UserProfileFormViewModel.js", 
+					"/ViewModels/VisitedPlace/VisitedPlaceGridViewModel.js", 
+					"/Controllers/MyProfilePageController.js" 
+				], 
 				"PlaceItemsPage-Page": [
 					"/Model/DataObjects/PlaceObject.js", 
 					"/Model/DataObjectValidators/PlaceObjectValidator.js", 
@@ -87,27 +101,6 @@
 					"/ViewModels/PlaceToLocation/PlaceToLocationGridViewModel.js", 
 					"/ViewModels/PlaceToLocation/Filters/PlaceToLocationFilterViewModel.js", 
 					"/Controllers/PlacePageController.js" 
-				], 
-				"PlaceToLocationItemsPage-Page": [
-					"/Model/DataObjects/PlaceToLocationObject.js", 
-					"/Model/DataObjectValidators/PlaceToLocationObjectValidator.js", 
-					"/Model/DataSets/PlaceToLocationDataSet.js", 
-					"/ViewModels/PlaceToLocation/PlaceToLocationGridViewModel.js", 
-					"/ViewModels/PlaceToLocation/Filters/PlaceToLocationFilterViewModel.js", 
-					"/Controllers/PlaceToLocationItemsPageController.js" 
-				], 
-				"PlaceToLocationPage-Page": [
-					"/Model/DataObjects/PlaceToLocationObject.js", 
-					"/Model/DataObjectValidators/PlaceToLocationObjectValidator.js", 
-					"/Model/DataSets/PlaceToLocationDataSet.js", 
-					"/Model/DataObjects/PlaceObject.js", 
-					"/Model/DataObjectValidators/PlaceObjectValidator.js", 
-					"/Model/DataSets/PlaceDataSet.js", 
-					"/Model/DataObjects/LocationObject.js", 
-					"/Model/DataObjectValidators/LocationObjectValidator.js", 
-					"/Model/DataSets/LocationDataSet.js", 
-					"/ViewModels/PlaceToLocation/PlaceToLocationFormViewModel.js", 
-					"/Controllers/PlaceToLocationPageController.js" 
 				], 
 				"CountryForm-Form": [
 					"/Model/DataObjects/CountryObject.js", 
@@ -164,6 +157,28 @@
 					"/Model/DataObjectValidators/LocationObjectValidator.js", 
 					"/Model/DataSets/LocationDataSet.js", 
 					"/ViewModels/PlaceToLocation/PlaceToLocationFormViewModel.js" 
+				], 
+				"UserProfileForm-Form": [
+					"/Model/DataObjects/UserProfileObject.js", 
+					"/Model/DataObjectValidators/UserProfileObjectValidator.js", 
+					"/Model/DataSets/UserProfileDataSet.js", 
+					"/Model/DataObjects/VisitedPlaceObject.js", 
+					"/Model/DataObjectValidators/VisitedPlaceObjectValidator.js", 
+					"/Model/DataSets/VisitedPlaceDataSet.js", 
+					"/Model/DataObjects/CountryObject.js", 
+					"/Model/DataObjectValidators/CountryObjectValidator.js", 
+					"/Model/DataSets/CountryDataSet.js", 
+					"/ViewModels/UserProfile/UserProfileFormViewModel.js", 
+					"/ViewModels/VisitedPlace/VisitedPlaceGridViewModel.js" 
+				], 
+				"VisitedPlaceForm-Form": [
+					"/Model/DataObjects/VisitedPlaceObject.js", 
+					"/Model/DataObjectValidators/VisitedPlaceObjectValidator.js", 
+					"/Model/DataSets/VisitedPlaceDataSet.js", 
+					"/Model/DataObjects/CountryObject.js", 
+					"/Model/DataObjectValidators/CountryObjectValidator.js", 
+					"/Model/DataSets/CountryDataSet.js", 
+					"/ViewModels/VisitedPlace/VisitedPlaceFormViewModel.js" 
 				] 
 		};
 

@@ -42,11 +42,8 @@
 				case 'Locations':
 					pageName = 'LocationItemsPage';
 					break;
-				case 'PlaceToLocationDetails':
-					pageName = 'PlaceToLocationPage';
-					break;
-				case 'PlaceToLocations':
-					pageName = 'PlaceToLocationItemsPage';
+				case 'MyProfile':
+					pageName = 'MyProfilePage';
 					break;
 				case 'Places':
 					pageName = 'PlaceItemsPage';
@@ -80,21 +77,19 @@
 
 			switch (nodeName) {
 			case 'CountryDetails':
-				return root + 'Home/Countries/CountryDetails';
+				return root + 'Countries/CountryDetails';
 			case 'Locations':
-				return root + 'Home/Locations';
-			case 'PlaceToLocationDetails':
-				return root + 'Home/PlaceToLocations/PlaceToLocationDetails';
-			case 'PlaceToLocations':
-				return root + 'Home/PlaceToLocations';
+				return root + 'Locations';
+			case 'MyProfile':
+				return root + 'MyProfile';
 			case 'Places':
-				return root + 'Home/Places';
+				return root + 'Places';
 			case 'PlaceDetails':
-				return root + 'Home/Places/PlaceDetails';
+				return root + 'Places/PlaceDetails';
 			case 'LocationDetails':
-				return root + 'Home/Locations/LocationDetails';
+				return root + 'Locations/LocationDetails';
 			case 'Countries':
-				return root + 'Home/Countries';
+				return root + 'Countries';
 			}
 		
 			return null;
@@ -124,10 +119,9 @@
 			switch(pageName)
 			{
 				case "CountryPage":
+				case "MyProfilePage":
 				case "CountryItemsPage":
 				case "PlacePage":
-				case "PlaceToLocationPage":
-				case "PlaceToLocationItemsPage":
 				case "LocationPage":
 				case "PlaceItemsPage":
 				case "LocationItemsPage":
@@ -608,17 +602,8 @@
 						breadCrumbs = self.customRouting.overridenBreadCrumbs.CountryDetails();
 					}
 					else {
-						breadCrumbs.push({ text: 'Home', url: Solid.Web.Application.BaseURL + '#' + root + 'Home', hash: root + 'Home', currentpage: false, isactive: false });
-						breadCrumbs.push({ text: 'Countries', url: Solid.Web.Application.BaseURL + '#' + root + 'Home/Countries', hash: root + 'Home/Countries', currentpage: false, isactive: true });
-						breadCrumbs.push({ text: 'Country Details', url: Solid.Web.Application.BaseURL + '#' + root + 'Home/Countries/CountryDetails', hash: root + 'Home/Countries/CountryDetails', currentpage: true, isactive: false });
-					}
-					break;
-				case 'Home':
-					if (self.customRouting && self.customRouting.overridenBreadCrumbs && self.customRouting.overridenBreadCrumbs.Home) {
-						breadCrumbs = self.customRouting.overridenBreadCrumbs.Home();
-					}
-					else {
-						breadCrumbs.push({ text: 'Home', url: Solid.Web.Application.BaseURL + '#' + root + 'Home', hash: root + 'Home', currentpage: true, isactive: false });
+						breadCrumbs.push({ text: 'Countries', url: Solid.Web.Application.BaseURL + '#' + root + 'Countries', hash: root + 'Countries', currentpage: false, isactive: true });
+						breadCrumbs.push({ text: 'Country Details', url: Solid.Web.Application.BaseURL + '#' + root + 'Countries/CountryDetails', hash: root + 'Countries/CountryDetails', currentpage: true, isactive: false });
 					}
 					break;
 				case 'Locations':
@@ -626,27 +611,15 @@
 						breadCrumbs = self.customRouting.overridenBreadCrumbs.Locations();
 					}
 					else {
-						breadCrumbs.push({ text: 'Home', url: Solid.Web.Application.BaseURL + '#' + root + 'Home', hash: root + 'Home', currentpage: false, isactive: false });
-						breadCrumbs.push({ text: 'Locations', url: Solid.Web.Application.BaseURL + '#' + root + 'Home/Locations', hash: root + 'Home/Locations', currentpage: true, isactive: false });
+						breadCrumbs.push({ text: 'Locations', url: Solid.Web.Application.BaseURL + '#' + root + 'Locations', hash: root + 'Locations', currentpage: true, isactive: false });
 					}
 					break;
-				case 'PlaceToLocationDetails':
-					if (self.customRouting && self.customRouting.overridenBreadCrumbs && self.customRouting.overridenBreadCrumbs.PlaceToLocationDetails) {
-						breadCrumbs = self.customRouting.overridenBreadCrumbs.PlaceToLocationDetails();
+				case 'MyProfile':
+					if (self.customRouting && self.customRouting.overridenBreadCrumbs && self.customRouting.overridenBreadCrumbs.MyProfile) {
+						breadCrumbs = self.customRouting.overridenBreadCrumbs.MyProfile();
 					}
 					else {
-						breadCrumbs.push({ text: 'Home', url: Solid.Web.Application.BaseURL + '#' + root + 'Home', hash: root + 'Home', currentpage: false, isactive: false });
-						breadCrumbs.push({ text: 'Place To Locations', url: Solid.Web.Application.BaseURL + '#' + root + 'Home/PlaceToLocations', hash: root + 'Home/PlaceToLocations', currentpage: false, isactive: true });
-						breadCrumbs.push({ text: 'Place To Location Details', url: Solid.Web.Application.BaseURL + '#' + root + 'Home/PlaceToLocations/PlaceToLocationDetails', hash: root + 'Home/PlaceToLocations/PlaceToLocationDetails', currentpage: true, isactive: false });
-					}
-					break;
-				case 'PlaceToLocations':
-					if (self.customRouting && self.customRouting.overridenBreadCrumbs && self.customRouting.overridenBreadCrumbs.PlaceToLocations) {
-						breadCrumbs = self.customRouting.overridenBreadCrumbs.PlaceToLocations();
-					}
-					else {
-						breadCrumbs.push({ text: 'Home', url: Solid.Web.Application.BaseURL + '#' + root + 'Home', hash: root + 'Home', currentpage: false, isactive: false });
-						breadCrumbs.push({ text: 'Place To Locations', url: Solid.Web.Application.BaseURL + '#' + root + 'Home/PlaceToLocations', hash: root + 'Home/PlaceToLocations', currentpage: true, isactive: false });
+						breadCrumbs.push({ text: 'My Profile', url: Solid.Web.Application.BaseURL + '#' + root + 'MyProfile', hash: root + 'MyProfile', currentpage: true, isactive: false });
 					}
 					break;
 				case 'Places':
@@ -654,8 +627,7 @@
 						breadCrumbs = self.customRouting.overridenBreadCrumbs.Places();
 					}
 					else {
-						breadCrumbs.push({ text: 'Home', url: Solid.Web.Application.BaseURL + '#' + root + 'Home', hash: root + 'Home', currentpage: false, isactive: false });
-						breadCrumbs.push({ text: 'Places', url: Solid.Web.Application.BaseURL + '#' + root + 'Home/Places', hash: root + 'Home/Places', currentpage: true, isactive: false });
+						breadCrumbs.push({ text: 'Places', url: Solid.Web.Application.BaseURL + '#' + root + 'Places', hash: root + 'Places', currentpage: true, isactive: false });
 					}
 					break;
 				case 'PlaceDetails':
@@ -663,9 +635,8 @@
 						breadCrumbs = self.customRouting.overridenBreadCrumbs.PlaceDetails();
 					}
 					else {
-						breadCrumbs.push({ text: 'Home', url: Solid.Web.Application.BaseURL + '#' + root + 'Home', hash: root + 'Home', currentpage: false, isactive: false });
-						breadCrumbs.push({ text: 'Places', url: Solid.Web.Application.BaseURL + '#' + root + 'Home/Places', hash: root + 'Home/Places', currentpage: false, isactive: true });
-						breadCrumbs.push({ text: 'Place Details', url: Solid.Web.Application.BaseURL + '#' + root + 'Home/Places/PlaceDetails', hash: root + 'Home/Places/PlaceDetails', currentpage: true, isactive: false });
+						breadCrumbs.push({ text: 'Places', url: Solid.Web.Application.BaseURL + '#' + root + 'Places', hash: root + 'Places', currentpage: false, isactive: true });
+						breadCrumbs.push({ text: 'Place Details', url: Solid.Web.Application.BaseURL + '#' + root + 'Places/PlaceDetails', hash: root + 'Places/PlaceDetails', currentpage: true, isactive: false });
 					}
 					break;
 				case 'LocationDetails':
@@ -673,9 +644,8 @@
 						breadCrumbs = self.customRouting.overridenBreadCrumbs.LocationDetails();
 					}
 					else {
-						breadCrumbs.push({ text: 'Home', url: Solid.Web.Application.BaseURL + '#' + root + 'Home', hash: root + 'Home', currentpage: false, isactive: false });
-						breadCrumbs.push({ text: 'Locations', url: Solid.Web.Application.BaseURL + '#' + root + 'Home/Locations', hash: root + 'Home/Locations', currentpage: false, isactive: true });
-						breadCrumbs.push({ text: 'Location Details', url: Solid.Web.Application.BaseURL + '#' + root + 'Home/Locations/LocationDetails', hash: root + 'Home/Locations/LocationDetails', currentpage: true, isactive: false });
+						breadCrumbs.push({ text: 'Locations', url: Solid.Web.Application.BaseURL + '#' + root + 'Locations', hash: root + 'Locations', currentpage: false, isactive: true });
+						breadCrumbs.push({ text: 'Location Details', url: Solid.Web.Application.BaseURL + '#' + root + 'Locations/LocationDetails', hash: root + 'Locations/LocationDetails', currentpage: true, isactive: false });
 					}
 					break;
 				case 'Countries':
@@ -683,8 +653,7 @@
 						breadCrumbs = self.customRouting.overridenBreadCrumbs.Countries();
 					}
 					else {
-						breadCrumbs.push({ text: 'Home', url: Solid.Web.Application.BaseURL + '#' + root + 'Home', hash: root + 'Home', currentpage: false, isactive: false });
-						breadCrumbs.push({ text: 'Countries', url: Solid.Web.Application.BaseURL + '#' + root + 'Home/Countries', hash: root + 'Home/Countries', currentpage: true, isactive: false });
+						breadCrumbs.push({ text: 'Countries', url: Solid.Web.Application.BaseURL + '#' + root + 'Countries', hash: root + 'Countries', currentpage: true, isactive: false });
 					}
 					break;
 			}
@@ -718,8 +687,17 @@
 						var isNavigatingCustom = self.customRouting.parseAdditionnalRoutesForLevel(this, 1);						
                         if (isNavigatingCustom) return; // If custom routing has returned true, we stop navigating
 					}
-					if (this.params.part1.split(new RegExp("#", "g"))[0] == 'Home') {
-						self.internalNavigateTo('Home');
+					if (this.params.part1.split(new RegExp("#", "g"))[0] == 'Locations') {
+						self.internalNavigateTo('Locations');
+					}
+					else if (this.params.part1.split(new RegExp("#", "g"))[0] == 'MyProfile') {
+						self.internalNavigateTo('MyProfile');
+					}
+					else if (this.params.part1.split(new RegExp("#", "g"))[0] == 'Places') {
+						self.internalNavigateTo('Places');
+					}
+					else if (this.params.part1.split(new RegExp("#", "g"))[0] == 'Countries') {
+						self.internalNavigateTo('Countries');
 					}
 					
 				}
@@ -736,17 +714,17 @@
 						var isNavigatingCustom = self.customRouting.parseAdditionnalRoutesForLevel(this, 2);						
                         if (isNavigatingCustom) return; // If custom routing has returned true, we stop navigating
 					}
-					if (this.params.part1 == 'Home' && this.params.part2.split(new RegExp("#", "g"))[0] == 'Locations') {
-						self.internalNavigateTo('Locations');
+					if (this.params.part1 == 'Countries' && this.params.part2.split(new RegExp("#", "g"))[0] == 'CountryDetails') {
+						self.internalNavigateTo('CountryDetails');
 					}
-					else if (this.params.part1 == 'Home' && this.params.part2.split(new RegExp("#", "g"))[0] == 'PlaceToLocations') {
-						self.internalNavigateTo('PlaceToLocations');
+					else if (this.params.part1 == 'Places' && this.params.part2.split(new RegExp("#", "g"))[0] == 'PlaceDetails') {
+						self.internalNavigateTo('PlaceDetails');
 					}
-					else if (this.params.part1 == 'Home' && this.params.part2.split(new RegExp("#", "g"))[0] == 'Places') {
-						self.internalNavigateTo('Places');
+					else if (this.params.part1 == 'Locations' && this.params.part2.split(new RegExp("#", "g"))[0] == 'LocationDetails') {
+						self.internalNavigateTo('LocationDetails');
 					}
-					else if (this.params.part1 == 'Home' && this.params.part2.split(new RegExp("#", "g"))[0] == 'Countries') {
-						self.internalNavigateTo('Countries');
+					else if (this.params.part1.split(new RegExp("#", "g"))[0] == 'MyProfile') {
+						self.internalNavigateTo('MyProfile');
 					}
 					
 				}
@@ -763,59 +741,14 @@
 						var isNavigatingCustom = self.customRouting.parseAdditionnalRoutesForLevel(this, 3);						
                         if (isNavigatingCustom) return; // If custom routing has returned true, we stop navigating
 					}
-					if (this.params.part1 == 'Home' && this.params.part2 == 'Countries' && this.params.part3.split(new RegExp("#", "g"))[0] == 'CountryDetails') {
+					if (this.params.part1 == 'Countries' && this.params.part2.split(new RegExp("#", "g"))[0] == 'CountryDetails') {
 						self.internalNavigateTo('CountryDetails');
 					}
-					else if (this.params.part1 == 'Home' && this.params.part2 == 'PlaceToLocations' && this.params.part3.split(new RegExp("#", "g"))[0] == 'PlaceToLocationDetails') {
-						self.internalNavigateTo('PlaceToLocationDetails');
-					}
-					else if (this.params.part1 == 'Home' && this.params.part2 == 'Places' && this.params.part3.split(new RegExp("#", "g"))[0] == 'PlaceDetails') {
+					else if (this.params.part1 == 'Places' && this.params.part2.split(new RegExp("#", "g"))[0] == 'PlaceDetails') {
 						self.internalNavigateTo('PlaceDetails');
 					}
-					else if (this.params.part1 == 'Home' && this.params.part2 == 'Locations' && this.params.part3.split(new RegExp("#", "g"))[0] == 'LocationDetails') {
+					else if (this.params.part1 == 'Locations' && this.params.part2.split(new RegExp("#", "g"))[0] == 'LocationDetails') {
 						self.internalNavigateTo('LocationDetails');
-					}
-					
-				}
-			}); 
-			this.get(root + ':part1/:part2/:part3/:part4', function () {
-				var doContinue = true;
-
-		        if (self.customRouting && self.customRouting.onBeforeParseForLevel) {
-		            doContinue = self.customRouting.onBeforeParseForLevel(this, 4);
-		        }
-		       
-		        if (doContinue) {
-					if (self.customRouting && self.customRouting.parseAdditionnalRoutesForLevel) {
-						var isNavigatingCustom = self.customRouting.parseAdditionnalRoutesForLevel(this, 4);						
-                        if (isNavigatingCustom) return; // If custom routing has returned true, we stop navigating
-					}
-					if (this.params.part1 == 'Home' && this.params.part2 == 'Countries' && this.params.part3.split(new RegExp("#", "g"))[0] == 'CountryDetails') {
-						self.internalNavigateTo('CountryDetails');
-					}
-					else if (this.params.part1 == 'Home' && this.params.part2 == 'Places' && this.params.part3.split(new RegExp("#", "g"))[0] == 'PlaceDetails') {
-						self.internalNavigateTo('PlaceDetails');
-					}
-					else if (this.params.part1 == 'Home' && this.params.part2 == 'Locations' && this.params.part3.split(new RegExp("#", "g"))[0] == 'LocationDetails') {
-						self.internalNavigateTo('LocationDetails');
-					}
-					
-				}
-			}); 
-			this.get(root + ':part1/:part2/:part3/:part4/:part5', function () {
-				var doContinue = true;
-
-		        if (self.customRouting && self.customRouting.onBeforeParseForLevel) {
-		            doContinue = self.customRouting.onBeforeParseForLevel(this, 5);
-		        }
-		       
-		        if (doContinue) {
-					if (self.customRouting && self.customRouting.parseAdditionnalRoutesForLevel) {
-						var isNavigatingCustom = self.customRouting.parseAdditionnalRoutesForLevel(this, 5);						
-                        if (isNavigatingCustom) return; // If custom routing has returned true, we stop navigating
-					}
-					if (this.params.part1 == 'Home' && this.params.part2 == 'PlaceToLocations' && this.params.part3.split(new RegExp("#", "g"))[0] == 'PlaceToLocationDetails') {
-						self.internalNavigateTo('PlaceToLocationDetails');
 					}
 					
 				}
@@ -825,7 +758,7 @@
 				// Parse additionnal routes
 				for (var level in self.customRouting.additionnalRoutesParser) {
 					var levelasint = parseInt(level);
-					if (levelasint <= 5)
+					if (levelasint <= 3)
 						continue;
 
 					var levelarray = [];

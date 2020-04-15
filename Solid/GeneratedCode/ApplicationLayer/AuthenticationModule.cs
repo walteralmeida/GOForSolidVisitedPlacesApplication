@@ -237,11 +237,8 @@ namespace Solid.ApplicationLayer.HttpModules
 				case "LocationItemsPageView":
 					result.Add("Locations");
 					break;
-				case "PlaceToLocationPageView":
-					result.Add("PlaceToLocationDetails");
-					break;
-				case "PlaceToLocationItemsPageView":
-					result.Add("PlaceToLocations");
+				case "MyProfilePageView":
+					result.Add("MyProfile");
 					break;
 				case "PlaceItemsPageView":
 					result.Add("Places");

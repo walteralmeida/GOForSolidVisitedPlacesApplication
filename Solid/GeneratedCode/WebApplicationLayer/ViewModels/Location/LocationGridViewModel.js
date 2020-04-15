@@ -599,7 +599,7 @@
 
 
 		this.NavigateToDetails = function () {
-			var hash = "!/Home/Locations/LocationDetails";
+			var hash = "!/Locations/LocationDetails";
 			if (self.selectedObject()) {
 				hash += "/" + self.selectedObject().Data.URI();
 

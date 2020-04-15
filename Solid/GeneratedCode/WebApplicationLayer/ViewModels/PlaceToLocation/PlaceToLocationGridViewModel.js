@@ -212,9 +212,7 @@
 				}
 
                 return self.StatusData.IsEnabled() && self.selectedObjectId() && self.selectedObjectId() !== -1;
-            }),			NavigateToDetailsCommand: function() {
-				self.NavigateToDetails();
-			}		};
+            })		};
 		this.CreateNewCommandInitActions = [];
  
 		this.showCreateNewPopup = function () {
@@ -304,8 +302,6 @@
 			ko.postbox.publish('PlaceToLocation.ChangedOnGrid', { contextId: self.contextId, action: 'add', gridName: 'PlaceToLocationGrid' });
 		}
 
-		this.commands.IsNavigateToDetailsCommandVisible = ko.pureComputed( function () { return self.selectedObjectId() && self.selectedObjectId() !== -1; } );
-		this.commands.IsNavigateToDetailsCommandEnabled = ko.pureComputed( function () { return self.selectedObjectId() && self.selectedObjectId() !== -1 } );
         this.SetPlaceToLocationObjectCollection = function(dataObjectCollection) {
 		    GO.log("PlaceToLocationGrid", "Setting new collection");
 
@@ -570,14 +566,6 @@
             	    self.commands[ oCommand.command ].call(self, oCommand.line );
         	}));
 
-			// Adding double-click command to grid
-			self.subscriptions.push(self.gridSettings.doubleClickCommand.subscribe(
-				function (oCommand) {
-				if (self.commands.IsNavigateToDetailsCommandEnabled && self.commands.IsNavigateToDetailsCommandEnabled()) {
-						self.commands.NavigateToDetailsCommand();
-                    }
-				})
-			);
 
 			self.subscriptions.push(self.pageNumber.subscribe(
                 function( iPageNumber ) {
@@ -599,14 +587,6 @@
 		};
 
 
-		this.NavigateToDetails = function () {
-			var hash = "!/Home/PlaceToLocations/PlaceToLocationDetails";
-			if (self.selectedObject()) {
-				hash += "/" + self.selectedObject().Data.LocationURI()+'/'+self.selectedObject().Data.PlaceURI();
-
-			}
-		    window.location.hash = hash;
-		};
 
 		this.release = function (){
 
