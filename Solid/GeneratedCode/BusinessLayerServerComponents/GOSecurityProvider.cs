@@ -218,6 +218,9 @@ namespace Solid.BusinessLayer.Components.Server
 				new Claim(ClaimTypes.Role, String.Join(",", roles.Distinct())),
 			};
 
+			var additionalUserClaims = AppUserClaims.GetExtraUserClaims(user);
+			claims.AddRange(additionalUserClaims);
+
  			var tokenString = authentication.CreateToken(claims);
 			if (useCookies)
 				authentication.AddTokenToCookies(tokenString);

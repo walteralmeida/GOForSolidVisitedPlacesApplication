@@ -264,7 +264,7 @@ namespace Solid.Feature.Security.Common
         {
             BearerTokenTransport tokenTransport;
             var bearerToken = GetBearerToken(HttpContext.Current, out tokenTransport);
-            var result = new UserClaims();
+            var result = new AppUserClaims();
 
             // no connected user, or was connected and timed out
             if (String.IsNullOrEmpty(bearerToken) || HasTokenExpired(bearerToken))
@@ -295,6 +295,8 @@ namespace Solid.Feature.Security.Common
             result.UserId = userid;
             result.UserName = userName;
             result.Roles = roles.Split(',').ToList();
+
+			result.TryParseExtraUserClaims(principal);
 
 			return result;
         }
