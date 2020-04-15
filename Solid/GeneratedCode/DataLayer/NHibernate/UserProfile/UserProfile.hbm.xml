@@ -14,7 +14,7 @@
 
 			
 		<id name="Uri">
-            <column name="`Uri`" sql-type="nvarchar (300) COLLATE SQL_Latin1_General_CP1_CI_AS" not-null="true"/>
+            <column name="`Uri`" sql-type="nvarchar (150) COLLATE SQL_Latin1_General_CP1_CI_AS" not-null="true"/>
             <generator class="assigned" />
         </id>
 

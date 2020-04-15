@@ -33,7 +33,7 @@ GO
 -- step 1: create table dbo.UserProfile 
 CREATE TABLE [dbo].[UserProfile] 
 (
-	[Uri] [nvarchar] (300) COLLATE SQL_Latin1_General_CP1_CI_AS NOT NULL 
+	[Uri] [nvarchar] (150) COLLATE SQL_Latin1_General_CP1_CI_AS NOT NULL 
 ) ON [PRIMARY]
 GO
 IF @@ERROR <> 0 AND @@TRANCOUNT > 0 BEGIN PRINT 'error at step 1, transaction will be rolled back' ROLLBACK TRAN END
@@ -112,7 +112,7 @@ GO
 -- ------------------------------------------------------------------------------------------------------------------------------------------------------------------
 -- MODEL TO DATABASE SYNCHRONISATION
 -- ------------------------------------------------------------------------------------------------------------------------------------------------------------------
-UPDATE [GO.LiveUpdate].[ModelSync] SET [ModelRevisionId] = 46, [When] = GETUTCDATE() WHERE Id = 'AF3DF4FF-A05A-4969-9796-FAC22A6ED2AF'
+UPDATE [GO.LiveUpdate].[ModelSync] SET [ModelRevisionId] = 47, [When] = GETUTCDATE() WHERE Id = 'AF3DF4FF-A05A-4969-9796-FAC22A6ED2AF'
 GO
 -- ------------------------------------------------------------------------------------------------------------------------------------------------------------------
 -- COMMIT LIVE UPDATE DATABASE TRANSACTION

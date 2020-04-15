@@ -44,10 +44,10 @@
 			dataobject.StatusData.isUriValid(isValid && true);
 		}
 		// Max Length
-		if(dataobject.Data.Uri() != null && dataobject.Data.Uri().length > 300)
+		if(dataobject.Data.Uri() != null && dataobject.Data.Uri().length > 150)
 		{
 			dataobject.StatusData.isUriValid(false);
-			dataobject.StatusData.uriErrorMessage(Solid.Web.Messages.validationRuleMaxLengthMessage.replace(/%FIELDNAME%/g, "Uri").replace(/%LENGTH%/g, "300"));
+			dataobject.StatusData.uriErrorMessage(Solid.Web.Messages.validationRuleMaxLengthMessage.replace(/%FIELDNAME%/g, "Uri").replace(/%LENGTH%/g, "150"));
 				isValid = false;
 		}
 		else {

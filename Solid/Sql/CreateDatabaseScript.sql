@@ -55,7 +55,7 @@ GO
 -- -------[ Tables ]-----------------------------------------------------------------------------------------------
 CREATE TABLE [dbo].[UserProfile] 
 (
-	[Uri] [nvarchar] (300) COLLATE SQL_Latin1_General_CP1_CI_AS NOT NULL 
+	[Uri] [nvarchar] (150) COLLATE SQL_Latin1_General_CP1_CI_AS NOT NULL 
 ) ON [PRIMARY]
 GO 
 -- ----------------------------------------------------------------------------------------------------------------
@@ -290,6 +290,6 @@ GO
 -- ----------------------------------------------------------------------------------------------------------------
 -- LiveUpdate Model Sync
 -- ----------------------------------------------------------------------------------------------------------------
-INSERT INTO [GO.LiveUpdate].[ModelSync] ([Id], [ModelRevisionId], [When]) VALUES ('AF3DF4FF-A05A-4969-9796-FAC22A6ED2AF', 46, GETUTCDATE())
+INSERT INTO [GO.LiveUpdate].[ModelSync] ([Id], [ModelRevisionId], [When]) VALUES ('AF3DF4FF-A05A-4969-9796-FAC22A6ED2AF', 47, GETUTCDATE())
 GO
 -- ----------------------------------------------------------------------------------------------------------------
