@@ -178,8 +178,14 @@ namespace Solid.Data
 	/// <summary>Index enum to fast-access EntityFields in the IEntityFields collection for the entity: UserProfile.</summary>
 	public enum UserProfileFieldIndex
 	{
+		///<summary>OrganizationName. </summary>
+		OrganizationName,
 		///<summary>Uri. </summary>
 		Uri,
+		///<summary>Role. </summary>
+		Role,
+		///<summary>Name. </summary>
+		Name,
 		/// <summary></summary>
 		AmountOfFields
 	}

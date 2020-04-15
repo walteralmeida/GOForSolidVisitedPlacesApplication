@@ -32,6 +32,53 @@
 		}
 	};
 
+	Solid.Web.Model.DataObjects.Validation.UserProfileValidator.validateName = function (dataobject) {
+		var isValid = true;
+      if(dataobject.Data.Name() == undefined || dataobject.Data.Name() == null || dataobject.Data.Name() === "")
+		{
+			dataobject.StatusData.isNameValid(false);
+			dataobject.StatusData.nameErrorMessage(Solid.Web.Messages.validationRuleRequiredMessage.replace(/%FIELDNAME%/g, "Name"));
+			isValid = false;
+		}
+		else {
+			dataobject.StatusData.isNameValid(isValid && true);
+		}
+		// Max Length
+		if(dataobject.Data.Name() != null && dataobject.Data.Name().length > 100)
+		{
+			dataobject.StatusData.isNameValid(false);
+			dataobject.StatusData.nameErrorMessage(Solid.Web.Messages.validationRuleMaxLengthMessage.replace(/%FIELDNAME%/g, "Name").replace(/%LENGTH%/g, "100"));
+				isValid = false;
+		}
+		else {
+			dataobject.StatusData.isNameValid(isValid && true);
+		}
+	};
+
+	Solid.Web.Model.DataObjects.Validation.UserProfileValidator.validateOrganizationName = function (dataobject) {
+		// Max Length
+		if(dataobject.Data.OrganizationName() != null && dataobject.Data.OrganizationName().length > 100)
+		{
+			dataobject.StatusData.isOrganizationNameValid(false);
+			dataobject.StatusData.organizationNameErrorMessage(Solid.Web.Messages.validationRuleMaxLengthMessage.replace(/%FIELDNAME%/g, "Organization Name").replace(/%LENGTH%/g, "100"));
+		}
+		else {
+			dataobject.StatusData.isOrganizationNameValid(true);
+		}
+	};
+
+	Solid.Web.Model.DataObjects.Validation.UserProfileValidator.validateRole = function (dataobject) {
+		// Max Length
+		if(dataobject.Data.Role() != null && dataobject.Data.Role().length > 100)
+		{
+			dataobject.StatusData.isRoleValid(false);
+			dataobject.StatusData.roleErrorMessage(Solid.Web.Messages.validationRuleMaxLengthMessage.replace(/%FIELDNAME%/g, "Role").replace(/%LENGTH%/g, "100"));
+		}
+		else {
+			dataobject.StatusData.isRoleValid(true);
+		}
+	};
+
 	Solid.Web.Model.DataObjects.Validation.UserProfileValidator.validateUri = function (dataobject) {
 		var isValid = true;
       if(dataobject.Data.Uri() == undefined || dataobject.Data.Uri() == null || dataobject.Data.Uri() === "")
@@ -90,6 +137,9 @@
 			return;
 
 		Solid.Web.Model.DataObjects.Validation.UserProfileValidator.validateGOUser (dataobject);
+		Solid.Web.Model.DataObjects.Validation.UserProfileValidator.validateName (dataobject);
+		Solid.Web.Model.DataObjects.Validation.UserProfileValidator.validateOrganizationName (dataobject);
+		Solid.Web.Model.DataObjects.Validation.UserProfileValidator.validateRole (dataobject);
 		Solid.Web.Model.DataObjects.Validation.UserProfileValidator.validateUri (dataobject);
 		Solid.Web.Model.DataObjects.Validation.UserProfileValidator.validateVisitedPlaceItems (dataobject);
 		doContinue = true;
@@ -101,6 +151,15 @@
 		dataobject.StatusData.errorSummary.removeAll();
 	    if (dataobject.StatusData.isGOUserValid() === false) {
 			dataobject.StatusData.errorSummary.push(dataobject.StatusData.gOUserErrorMessage());
+		}
+	    if (dataobject.StatusData.isNameValid() === false) {
+			dataobject.StatusData.errorSummary.push(dataobject.StatusData.nameErrorMessage());
+		}
+	    if (dataobject.StatusData.isOrganizationNameValid() === false) {
+			dataobject.StatusData.errorSummary.push(dataobject.StatusData.organizationNameErrorMessage());
+		}
+	    if (dataobject.StatusData.isRoleValid() === false) {
+			dataobject.StatusData.errorSummary.push(dataobject.StatusData.roleErrorMessage());
 		}
 	    if (dataobject.StatusData.isUriValid() === false) {
 			dataobject.StatusData.errorSummary.push(dataobject.StatusData.uriErrorMessage());
@@ -120,6 +179,12 @@
 
 	Solid.Web.Model.DataObjects.Validation.UserProfileValidator.resetValidation = function(dataobject) {
 
+		dataobject.StatusData.isNameValid(true);
+		dataobject.StatusData.nameErrorMessage(null);
+		dataobject.StatusData.isOrganizationNameValid(true);
+		dataobject.StatusData.organizationNameErrorMessage(null);
+		dataobject.StatusData.isRoleValid(true);
+		dataobject.StatusData.roleErrorMessage(null);
 		dataobject.StatusData.isUriValid(true);
 		dataobject.StatusData.uriErrorMessage(null);
 		

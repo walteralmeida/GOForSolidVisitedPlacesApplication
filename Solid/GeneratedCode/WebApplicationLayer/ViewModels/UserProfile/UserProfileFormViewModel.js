@@ -118,6 +118,51 @@
 			return false;
         });
 
+		this.StatusData.IsNameVisible = ko.pureComputed( function () {
+			if (self.customViewModel !== undefined && self.customViewModel.IsNameVisible !== undefined) {
+				return self.customViewModel.IsNameVisible();
+			}
+			
+			return true;
+		});
+
+		this.StatusData.IsNameReadOnly = ko.pureComputed( function () {
+			if (self.customViewModel !== undefined && self.customViewModel.IsNameReadOnly !== undefined) {
+				return self.customViewModel.IsNameReadOnly();
+			}
+			return false;
+        });
+
+		this.StatusData.IsRoleVisible = ko.pureComputed( function () {
+			if (self.customViewModel !== undefined && self.customViewModel.IsRoleVisible !== undefined) {
+				return self.customViewModel.IsRoleVisible();
+			}
+			
+			return true;
+		});
+
+		this.StatusData.IsRoleReadOnly = ko.pureComputed( function () {
+			if (self.customViewModel !== undefined && self.customViewModel.IsRoleReadOnly !== undefined) {
+				return self.customViewModel.IsRoleReadOnly();
+			}
+			return false;
+        });
+
+		this.StatusData.IsOrganizationNameVisible = ko.pureComputed( function () {
+			if (self.customViewModel !== undefined && self.customViewModel.IsOrganizationNameVisible !== undefined) {
+				return self.customViewModel.IsOrganizationNameVisible();
+			}
+			
+			return true;
+		});
+
+		this.StatusData.IsOrganizationNameReadOnly = ko.pureComputed( function () {
+			if (self.customViewModel !== undefined && self.customViewModel.IsOrganizationNameReadOnly !== undefined) {
+				return self.customViewModel.IsOrganizationNameReadOnly();
+			}
+			return false;
+        });
+
 		this.StatusData.IsVisitedPlaceItemsVisible = ko.pureComputed( function () {
 			if (self.customViewModel !== undefined && self.customViewModel.IsVisitedPlaceItemsVisible !== undefined) {
 				return self.customViewModel.IsVisitedPlaceItemsVisible();
