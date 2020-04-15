@@ -15,6 +15,7 @@ namespace Solid.Feature.Security.Common
 {
     public class AppUserClaims : UserClaims
     {
+		public System.String GivenName { get; set; }
 		
 		/// <summary>
         /// Gets a list of Claim from the provided GOUser
@@ -23,6 +24,9 @@ namespace Solid.Feature.Security.Common
         {
 			var claims = new List<Claim>();
 
+			// Handling GivenName claim
+			var givenNameString = user.UserName;
+			claims.Add(new Claim("GivenName", HttpUtility.UrlEncode(givenNameString)));
 			return claims;
 		}
 
@@ -31,6 +35,11 @@ namespace Solid.Feature.Security.Common
         /// </summary>
 		public void TryParseExtraUserClaims(ClaimsPrincipal principal)
         {
+			try 
+			{
+				this.GivenName = HttpUtility.UrlDecode(principal.Claims.Where(c => c.Type == "GivenName").Single().Value.ToString());
+			}
+			catch { }
 		}		
     }
 }
