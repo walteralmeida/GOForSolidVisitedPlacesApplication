@@ -44,7 +44,7 @@ namespace Solid.Data.DataObjects
 		///
 		/// All FK-Side Relations
 		///
-		public virtual ORMUserProfile UserProfile { get; set; }
+		// Note: UserProfile is not mapped to the database, so we only map the FK
 		public virtual System.String UserName { get; set; }
 
 	
@@ -114,16 +114,6 @@ namespace Solid.Data.DataObjects
 
 					x.UserRoleItems.Add(userRoleItemsItem);
 				}
-			}
-
-			if (prefetches.Contains("UserProfile") && this.UserProfile != null)
-			{
-				var userProfile = x.ObjectsDataSet.GetObject(new UserProfileDataObject((System.String)this.UserProfile.Uri) { IsNew = false });
-
-				if (userProfile == null)
-					userProfile = this.UserProfile.ToDataObject(x.ObjectsDataSet) as UserProfileDataObject;
-
-				x.SetUserProfileValue(userProfile);
 			}
 
 			if (prefetches.Contains("UserGroupItems") && this.UserGroupItems.Count > 0)

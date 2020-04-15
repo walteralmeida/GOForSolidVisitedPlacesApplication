@@ -126,9 +126,6 @@
     <Compile Include="Database\PrefetchPathFactory.cs">
       <GeneratedBy>Fenomen</GeneratedBy>
     </Compile>
-    <Compile Include="Database\UserProfileDataProvider.cs">
-      <GeneratedBy>Fenomen</GeneratedBy>
-    </Compile>
     <Compile Include="Dispatchers\CountryDataProviderDispatcher.cs">
       <GeneratedBy>Fenomen</GeneratedBy>
     </Compile>

@@ -112,6 +112,7 @@ Solid.BusinessLayer.ORMSupportClasses.LogEngine), new ContainerControlledLifetim
 			container.RegisterType<IDataProvider<GORoleDataObject>, GORoleDataProvider>();
 			container.RegisterType<IDataProvider<VisitedPlaceDataObject>, VisitedPlaceDataProvider>();
 			container.RegisterType<IDataProvider<PlaceDataObject>, PlaceDataProvider>();
+			container.RegisterType<IDataProvider<UserProfileDataObject>, UserProfileDataProvider>();
 			container.RegisterType<IDataProvider<LocationDataObject>, LocationDataProvider>();
 			container.RegisterType<IDataProvider<PlaceToLocationDataObject>, PlaceToLocationDataProvider>();
 			container.RegisterType<IDataProvider<CountryDataObject>, CountryDataProvider>();
@@ -121,7 +122,6 @@ Solid.BusinessLayer.ORMSupportClasses.LogEngine), new ContainerControlledLifetim
 		
             #region Data Providers
 			container.RegisterType<IDataProvider<GOGroupRoleDataObject>, GOGroupRoleDataProvider>();
-			container.RegisterType<IDataProvider<UserProfileDataObject>, UserProfileDataProvider>();
 			container.RegisterType<IDataProvider<GOUserDataObject>, GOUserDataProvider>();
 			container.RegisterType<IDataProvider<GOGroupDataObject>, GOGroupDataProvider>();
 			container.RegisterType<IDataProvider<GOUserRoleDataObject>, GOUserRoleDataProvider>();

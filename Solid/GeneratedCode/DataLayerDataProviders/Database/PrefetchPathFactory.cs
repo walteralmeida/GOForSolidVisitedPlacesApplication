@@ -127,7 +127,7 @@ namespace Solid.Data.DataProviders.Database
 		
 		private static List<string> DatabaseEntities = new List<string>()
         {
-			"GOGroupRole", "UserProfile", "GOUser", "GOGroup", "GOUserRole", "GOUserGroup", "GOLoginHistory" 
+			"GOGroupRole", "GOUser", "GOGroup", "GOUserRole", "GOUserGroup", "GOLoginHistory" 
         };
 
 		private static Dictionary<string, string> EntityNames = new Dictionary<string, string> { { "country", "Country" }, { "gogroup", "GOGroup" }, { "gogrouprole", "GOGroupRole" }, { "gologinhistory", "GOLoginHistory" }, { "gorole", "GORole" }, { "gouser", "GOUser" }, { "gousergroup", "GOUserGroup" }, { "gouserrole", "GOUserRole" }, { "location", "Location" }, { "place", "Place" }, { "placetolocation", "PlaceToLocation" }, { "userprofile", "UserProfile" }, { "visitedplace", "VisitedPlace" } };

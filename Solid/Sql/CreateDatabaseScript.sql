@@ -52,12 +52,6 @@ GO
 -- Schema 'dbo'
 -- ----------------------------------------------------------------------------------------------------------------
 
--- -------[ Tables ]-----------------------------------------------------------------------------------------------
-CREATE TABLE [dbo].[UserProfile] 
-(
-	[Uri] [nvarchar] (150) COLLATE SQL_Latin1_General_CP1_CI_AS NOT NULL 
-) ON [PRIMARY]
-GO 
 -- ----------------------------------------------------------------------------------------------------------------
 -- Schema 'GOSecurity'
 -- ----------------------------------------------------------------------------------------------------------------
@@ -139,18 +133,6 @@ GO
 USE [go-elastic-pool-dbs-dev/Solid]
 GO
 -- ----------------------------------------------------------------------------------------------------------------
--- Primary Key constraints for schema 'dbo'
--- ----------------------------------------------------------------------------------------------------------------
-ALTER TABLE [dbo].[UserProfile] WITH NOCHECK 
-	ADD CONSTRAINT [PK_UserProfile] PRIMARY KEY CLUSTERED 
-	( 
-		[Uri] 
-	) ON [PRIMARY]
-GO 
--- ----------------------------------------------------------------------------------------------------------------
--- Unique constraints for schema 'dbo'
--- ----------------------------------------------------------------------------------------------------------------
--- ----------------------------------------------------------------------------------------------------------------
 -- Primary Key constraints for schema 'GOSecurity'
 -- ----------------------------------------------------------------------------------------------------------------
 ALTER TABLE [GOSecurity].[GOGroup] WITH NOCHECK 
@@ -228,16 +210,6 @@ ALTER TABLE [GOSecurity].[GOGroupRole]
 		[Name] 
 	) ON UPDATE NO ACTION ON DELETE NO ACTION 
 GO 
-ALTER TABLE [GOSecurity].[GOUser] 
-	ADD CONSTRAINT [FK_GOUser_UserProfile_2f6a1f05-9cc8-4eb0-be38-6afcce780faa] FOREIGN KEY
-	(
-		[UserName] 
-	)
-	REFERENCES [dbo].[UserProfile]
-	(
-		[Uri] 
-	) ON UPDATE NO ACTION ON DELETE NO ACTION 
-GO 
 ALTER TABLE [GOSecurity].[GOUserGroup] 
 	ADD CONSTRAINT [FK_GOUserGroup_GOUser_804177ee-5952-4650-843d-35ab88fbb191] FOREIGN KEY
 	(
@@ -290,6 +262,6 @@ GO
 -- ----------------------------------------------------------------------------------------------------------------
 -- LiveUpdate Model Sync
 -- ----------------------------------------------------------------------------------------------------------------
-INSERT INTO [GO.LiveUpdate].[ModelSync] ([Id], [ModelRevisionId], [When]) VALUES ('AF3DF4FF-A05A-4969-9796-FAC22A6ED2AF', 47, GETUTCDATE())
+INSERT INTO [GO.LiveUpdate].[ModelSync] ([Id], [ModelRevisionId], [When]) VALUES ('AF3DF4FF-A05A-4969-9796-FAC22A6ED2AF', 48, GETUTCDATE())
 GO
 -- ----------------------------------------------------------------------------------------------------------------

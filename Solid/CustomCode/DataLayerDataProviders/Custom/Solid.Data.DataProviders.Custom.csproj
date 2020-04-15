@@ -102,6 +102,9 @@
     <Compile Include="PlaceToLocationDataProvider.cs">
       <GeneratedBy>Fenomen</GeneratedBy>
     </Compile>
+    <Compile Include="UserProfileDataProvider.cs">
+      <GeneratedBy>Fenomen</GeneratedBy>
+    </Compile>
     <Compile Include="VisitedPlaceDataProvider.cs">
       <GeneratedBy>Fenomen</GeneratedBy>
     </Compile>

@@ -44,8 +44,6 @@ namespace Solid.Data.DataObjects
 			x.EmailValidated = EmailValidated;
 			x.Blocked = Blocked;
 			x.UserValidated = UserValidated;
-				
-			x.UserProfile = this.UserProfile != null ? session.Load<ORMUserProfile>(this.UserProfile.Uri) : (this.UserName != null ? session.Load<ORMUserProfile>(this.UserName) : null);
 			x.UserName = this.UserProfile != null ? this.UserProfile.Uri : UserName; 
 		}
  
