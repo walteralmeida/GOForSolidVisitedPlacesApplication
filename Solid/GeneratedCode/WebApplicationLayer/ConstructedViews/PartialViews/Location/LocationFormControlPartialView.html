@@ -239,9 +239,6 @@
             <button data-bind="'click': PlaceToLocationItemsGridViewModel.commands.showCreateNewPopupCommand, 'visible': PlaceToLocationItemsGridViewModel.commands.isShowCreateNewPopupCommandVisible(), 'enable': PlaceToLocationItemsGridViewModel.commands.isShowCreateNewPopupCommandEnabled(),'css' : { 'command-button' : PlaceToLocationItemsGridViewModel.commands.isShowCreateNewPopupCommandEnabled(), 'command-button-disabled' : !PlaceToLocationItemsGridViewModel.commands.isShowCreateNewPopupCommandEnabled() }" data-test-id="1bc169a2-7e3d-482c-9bff-0c04420a12c2" class="command-button">Add</button>
           </div>
           <div class="horizontalList">
-            <button data-action="click" class="command-button" data-bind="'click': PlaceToLocationItemsGridViewModel.commands.NavigateToDetailsCommand, 'visible': PlaceToLocationItemsGridViewModel.commands.IsNavigateToDetailsCommandVisible(), 'enable': PlaceToLocationItemsGridViewModel.commands.IsNavigateToDetailsCommandEnabled()">View</button>
-          </div>
-          <div class="horizontalList">
             <button data-bind="'click': PlaceToLocationItemsGridViewModel.commands.deleteCommand, 'visible': PlaceToLocationItemsGridViewModel.commands.isDeleteCommandVisible(), 'enable': PlaceToLocationItemsGridViewModel.commands.isDeleteCommandEnabled(),'css' : { 'command-button' : PlaceToLocationItemsGridViewModel.commands.isDeleteCommandEnabled(), 'command-button-disabled' : !PlaceToLocationItemsGridViewModel.commands.isDeleteCommandEnabled() }" data-test-id="cace2c9a-8704-4e38-b212-3607bbabe743" class="command-button">Delete</button>
           </div>
         </div>

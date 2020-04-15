@@ -68,7 +68,7 @@
               <tbody data-bind="foreach: CountryObjectCollection()">
                 <tr class="pointer" data-bind="attr: {'data-id': Data.InternalObjectId}, click: $parent.onLineClicked, event: {dblclick: $parent.onLineDblClicked}, css: {'currenttr': $parent.selectedId() == Data.InternalObjectId()}">
                   <td data-bind="jqStopBubble: 'a'">
-                    <a data-bind="attr: { href: '#!' + ApplicationController.getRootHashTag('CountryDetails') + 'Home/Countries/CountryDetails/' + Data.URI(), title: Data.Name }, html: Data.Name"></a>
+                    <a data-bind="attr: { href: '#!' + ApplicationController.getRootHashTag('CountryDetails') + 'Countries/CountryDetails/' + Data.URI(), title: Data.Name }, html: Data.Name"></a>
                   </td>
                   <td data-bind="html: Data.LongName"></td>
                   <td data-bind="html: Data.PopulationTotal"></td>

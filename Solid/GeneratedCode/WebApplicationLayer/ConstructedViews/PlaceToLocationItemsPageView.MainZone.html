@@ -98,9 +98,6 @@
             <button data-bind="'click': commands.showCreateNewPopupCommand, 'visible': commands.isShowCreateNewPopupCommandVisible(), 'enable': commands.isShowCreateNewPopupCommandEnabled(),'css' : { 'command-button' : commands.isShowCreateNewPopupCommandEnabled(), 'command-button-disabled' : !commands.isShowCreateNewPopupCommandEnabled() }" data-test-id="1bc169a2-7e3d-482c-9bff-0c04420a12c2" class="command-button">Add</button>
           </div>
           <div class="horizontalList">
-            <button data-action="click" class="command-button" data-bind="'click': commands.NavigateToDetailsCommand, 'visible': commands.IsNavigateToDetailsCommandVisible(), 'enable': commands.IsNavigateToDetailsCommandEnabled()">View</button>
-          </div>
-          <div class="horizontalList">
             <button data-bind="'click': commands.deleteCommand, 'visible': commands.isDeleteCommandVisible(), 'enable': commands.isDeleteCommandEnabled(),'css' : { 'command-button' : commands.isDeleteCommandEnabled(), 'command-button-disabled' : !commands.isDeleteCommandEnabled() }" data-test-id="cace2c9a-8704-4e38-b212-3607bbabe743" class="command-button">Delete</button>
           </div>
         </div>
