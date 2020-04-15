@@ -9,12 +9,34 @@ using System.Linq.Expressions;
 using GenerativeObjects.Practices.LayerSupportClasses.DataLayer;
 using GenerativeObjects.Practices.ORMSupportClasses;
 using Solid.Data.DataObjects;
- 
+using VDS.RDF;
+using VDS.RDF.Parsing;
+using VDS.RDF.Query;
+using VDS.RDF.Writing;
+using System.Net;
+using System.IO;
+using System.Linq;
 
 namespace Solid.Data.DataProviders.Custom
 {
     public class UserProfileDataProvider : DataProvider<UserProfileDataObject>
     {
+        private static string DownloadFile(string remoteUri)
+        {
+            // Create a new WebClient instance.
+            WebClient myWebClient = new WebClient();
+
+            // Download the Web resource and save it into the current filesystem folder.
+            var tempFile = Path.GetTempFileName();
+
+            //myWebClient.Headers.Add("Authorization", "Bearer eyJhbGciOiJSUzI1NiJ9.eyJpc3MiOiJiNWJkMmU4YWY4MWNiYmYxMDA0NDU1ZGM5MTlkODM4YSIsImF1ZCI6Imh0dHBzOi8vd2FsdGVyYWxtZWlkYS5pbnJ1cHQubmV0IiwiZXhwIjoxNTg2ODEyNzM2LCJpYXQiOjE1ODY4MDkxMzYsImlkX3Rva2VuIjoiZXlKaGJHY2lPaUpTVXpJMU5pSXNJbXRwWkNJNkluWmFhVU5rWkdWSWJIUTBJbjAuZXlKcGMzTWlPaUpvZEhSd2N6b3ZMMmx1Y25Wd2RDNXVaWFFpTENKemRXSWlPaUpvZEhSd2N6b3ZMM2RoYkhSbGNtRnNiV1ZwWkdFdWFXNXlkWEIwTG01bGRDOXdjbTltYVd4bEwyTmhjbVFqYldVaUxDSmhkV1FpT2lKaU5XSmtNbVU0WVdZNE1XTmlZbVl4TURBME5EVTFaR001TVRsa09ETTRZU0lzSW1WNGNDSTZNVFU0T0RBd05qY3hPQ3dpYVdGMElqb3hOVGcyTnprM01URTRMQ0pxZEdraU9pSTJPV1ZpWlRKak16YzRNekUzTWpCaElpd2libTl1WTJVaU9pSmxZbGx4YVhsNVgyZ3phR1ZPWDJ4dVYyMVJNMWswWDFOdFZGaENZV3RoUjE5WmJrRXpUMDl2ZG5Weklpd2lZWHB3SWpvaVlqVmlaREpsT0dGbU9ERmpZbUptTVRBd05EUTFOV1JqT1RFNVpEZ3pPR0VpTENKamJtWWlPbnNpYW5kcklqcDdJbUZzWnlJNklsSlRNalUySWl3aVpTSTZJa0ZSUVVJaUxDSmxlSFFpT25SeWRXVXNJbXRsZVY5dmNITWlPbHNpZG1WeWFXWjVJbDBzSW10MGVTSTZJbEpUUVNJc0ltNGlPaUo2TW10RllWcGllVXMyV1ZaR05IbFBiM2RNVUU1NGJEY3pkamhVZEVKZmExSjRWR3BCYWtvMFYyMW9kbkJRYVVOVldFd3RkRmxzV2psalFtY3dWbkl4Y2kxM2IwMW9hVlIzY0dKa1pWQldiMDh6WTNORFgxTjNlRTVMZGs1RlNrdE1VMEYyWXpjeFowdDBhazFvTTNZNFpISlVTVUowZFc1aWFsOURkMEk0UnpKNlNEVk5SRFF4VDFGb01sOU1ka1IwTWs5RU5rNTVhSFJmTFhRMlZHVnZRbEp1VmxOamVFeHZVVUZPYzJkMFVVUnBSa0prY1daNGQyWTFVMDVSV0MxMU9XcEJXbWhzTVZBd1RUTmxiQzFKYlZZNFdtMXNNbVZZZDA5ZlQxTXlhME5LZWtwSmEyOUZWRkJWVm1OaFZYUkRRME5QTlhKVFUySlBTakZKVFhWek9WcHVSSFY2UlMxM09VTnBka3AyWkZCT2MxOXVVMVIwUm5SQ2MybHpkMVJsWm5oTmVqSk9ORWMwWVRoVFl6WlFZVXhRYld0clpuRnlNSEp2T0d4VFFVVjZSMnMwZEZGcE5XWk1hWFpLZWpGNmF5MVpkWGNpZlgwc0ltRjBYMmhoYzJnaU9pSjRPWE5pUldZeVltWXphWGswVkcxaWNXUTBUV2RSSW4wLmg5UWtXNmU5aThqTERkTFUxT2pSQ2RDN0JmX3U4WDMwbC1LOUlsYnBaNkZ0RXdvalZBNGoydlZsY25GV0NvVDFaZXZ0UHNmUmUwS3h5NjNkcU5OcFU3dmg2VkZmeGFlOU9MTWdnTFFudHlzbmsydEFQbTJmSGswZ2xBU3VkTkpaMFdxTmlZbFhPbXg2YzV1THpvMHlfLUM1aGJvRkZGWGhiMUtLNlpoVE85RmRVNjVoTHJXcXRfVW1jUFl2dDEyRmM4SkFoRlZkZWdSdkkyakh6dDJCRzZEakcxVDVEaHhiel93aF9GNkpYaEVlSjVteXVCZi1lRl9qbkYtM3VtR0lkWGhuZTJDV01PNU81dkRyWWx4TDdwRjdwTHBYbVA5U09yYkxHUVVhX29GX212R3Z5Wm1MaXBzU2tWaXZPZUwwYkVoWVR6ZWY5bkdxaFd1VXRIWV80ZyIsInRva2VuX3R5cGUiOiJwb3AifQ.e4KbyieL6-ajSNanN6yH1KYTBEbAN6ZKl5DPBA4xGTTeTxOkfnn8Xp9F0FIFhZO4E66_72NIAg6T5uIy2pxuarbnbV-EHCT_hZvU2Zj_823wS2ZV8QoB4cJLHBZN8wJpeMlXgvUnY8Ftx3I2nEKP8A50ZhDtJs_oTP_iqkuHEw2C3tjoXZuf0oP6TpqhumXRtuvXyPPh8v0J4bPyQn0CW2QX3ZF71HYDkxYUEBIAHhkuOdnZy1cKQRP1j91aOEiMTxtTqlIpkRd2l_q1AXzCWKvNe1-8NgECs8vWRv2PYIf2p66z5u0huq2Wjq2S9gNd69KYZnpyFqCGKjrPWMDh7Q");
+            //myWebClient.Headers.Add(HttpRequestHeader.Cookie, "nssidp.sid=s%3AB8zEMZScbRPyeOq2XGO8At4Rvc-p_FHu.X5LJHjUb8E3SowsfylNKH9DYfBVzd2SoPPwsOvRmQNg");
+            myWebClient.DownloadFile(remoteUri, tempFile);
+
+            return tempFile;
+        }
+
+
         protected override int DoCount(LambdaExpression securityFilterExpression, string filterPredicate, object[] filterArguments, IObjectsDataSet context, Dictionary<string, object> parameters)
         {
             throw new NotImplementedException();
@@ -27,7 +49,44 @@ namespace Solid.Data.DataProviders.Custom
 
         protected override UserProfileDataObject DoGet(UserProfileDataObject entity, LambdaExpression securityFilterExpression, List<string> includes, IObjectsDataSet context, Dictionary<string, object> parameters)
         {
-            throw new NotImplementedException();
+            var tempFile = DownloadFile(entity.Uri.Replace("||", "://") + "/profile/card#me");
+
+            try
+            {
+                var g = new Graph();
+                g.LoadFromFile(tempFile);
+
+                var query = @"SELECT ?Name ?Role ?OrganizationName WHERE 
+                                { ?me a <http://xmlns.com/foaf/0.1/Person> .
+                                  ?me <http://www.w3.org/2006/vcard/ns#fn> ?Name .
+                                        OPTIONAL 
+                                        {
+                                          ?me <http://www.w3.org/2006/vcard/ns#organization-name> ?OrganizationName .
+                                          ?me <http://www.w3.org/2006/vcard/ns#role> ?Role .
+                                        }
+                                }";
+
+
+
+                var result = ((SparqlResultSet)g.ExecuteQuery(query)).SingleOrDefault();
+
+                if (result == null)
+                    return null;
+
+                entity.Role = result["Role"].ToString();
+                entity.OrganizationName = result["OrganizationName"].ToString();
+                entity.Name = result["Name"].ToString();
+
+                entity.IsNew = false;
+                entity.IsDirty = false;
+            }
+            finally
+            {
+                if (File.Exists(tempFile))
+                    File.Delete(tempFile);
+            }
+
+            return entity;
         }
 
         protected override DataObjectCollection<UserProfileDataObject> DoGetCollection(LambdaExpression securityFilterExpression, string filterPredicate, object[] filterArguments, string orderByPredicate, int pageNumber, int pageSize, List<string> includes, IObjectsDataSet context, Dictionary<string, object> parameters)

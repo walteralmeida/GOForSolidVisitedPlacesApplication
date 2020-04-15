@@ -67,6 +67,10 @@
     <Reference Include="GenerativeObjects.Practices.ORMSupportClasses">
       <HintPath>C:\Program Files (x86)\GenerativeObjects\Runtime Libraries\GenerativeObjects.Practices.ORMSupportClasses.dll</HintPath>
     </Reference>
+    <Reference Include="HtmlAgilityPack, Version=1.11.17.0, Culture=neutral, PublicKeyToken=bd319b19eaf3b43a, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>C:\Program Files (x86)\GenerativeObjects\External References\HtmlAgilityPack.dll</HintPath>
+    </Reference>
     <Reference Include="Unity.Abstractions">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>C:\Program Files (x86)\GenerativeObjects\External References\Unity.Abstractions.dll</HintPath>
