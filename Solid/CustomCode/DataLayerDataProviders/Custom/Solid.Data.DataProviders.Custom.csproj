@@ -56,7 +56,7 @@
   <ItemGroup>
     <Reference Include="dotNetRDF, Version=2.4.0.0, Culture=neutral, PublicKeyToken=6055ffe4c97cc780, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\..\..\..\..\Program Files (x86)\GenerativeObjects\External References\dotNetRDF.dll</HintPath>
+      <HintPath>C:\Program Files (x86)\GenerativeObjects\External References\dotNetRDF.dll</HintPath>
     </Reference>
     <Reference Include="GenerativeObjects.Practices">
       <HintPath>C:\Program Files (x86)\GenerativeObjects\Runtime Libraries\GenerativeObjects.Practices.dll</HintPath>
@@ -83,7 +83,7 @@
     <Reference Include="System.Data" />
     <Reference Include="System.Xml" />
     <Reference Include="VDS.Common">
-      <HintPath>..\..\..\..\..\..\Program Files (x86)\GenerativeObjects\External References\VDS.Common.dll</HintPath>
+      <HintPath>C:\Program Files (x86)\GenerativeObjects\External References\VDS.Common.dll</HintPath>
     </Reference>
   </ItemGroup>
   <ItemGroup>
