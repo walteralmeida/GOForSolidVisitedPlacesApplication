@@ -64,12 +64,12 @@
         UserName: function () {
             var id = null;
             if (ApplicationController && ApplicationController.viewModel) {
-                id = ApplicationController.viewModel.security.currentUserClaims().UserName;
+                id = decodeURIComponent(ApplicationController.viewModel.security.currentUserClaims().GivenName).replace('https://', 'https||');
             } else {
                 var token = $.cookie("BearerToken");
                 if (token) {
                     var currentUserClaims = GO.deconstructJWT(token);
-                    id = currentUserClaims.UserName;
+                    id = decodeURIComponent(currentUserClaims.GivenName).replace('https://', 'https||');
                 }
             }
             return id;
