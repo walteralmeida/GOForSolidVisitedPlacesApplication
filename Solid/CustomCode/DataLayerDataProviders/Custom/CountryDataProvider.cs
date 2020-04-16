@@ -75,6 +75,8 @@ namespace Solid.Data.DataProviders.Custom
             var result = results.Single();
 
             var country = new CountryDataObject();
+            var dataset = ApplicationSettings.Container.Resolve<IObjectsDataSet>();
+            dataset.AddObject(country);
 
             country.URI = entity.URI;
             country.Name = (result.Where(r => r.Key == "countryName").Single().Value as BaseLiteralNode).Value;
@@ -90,10 +92,9 @@ namespace Solid.Data.DataProviders.Custom
         {
             SparqlRemoteEndpoint endpoint = new SparqlRemoteEndpoint(new Uri("http://dbpedia.org/sparql"), "http://dbpedia.org");
 
-            //Make a SELECT query against the Endpoint
-            SparqlResultSet results = endpoint.QueryWithResultSet(
-                @"SELECT ?country, ?countryName, ?longName, ?flag, ?populationTotal, MAX(?populationDensity) as ?density ,  ?abstract
-                  WHERE {
+
+            string query = @"SELECT ?country, ?countryName, ?longName, ?flag, ?populationTotal, MAX(?populationDensity) as ?density ,  ?abstract
+                             WHERE {
                                 ?country a <http://dbpedia.org/class/yago/WikicatMemberStatesOfTheUnitedNations> .
                                 ?country rdfs:label ?countryName .
 
@@ -111,7 +112,15 @@ namespace Solid.Data.DataProviders.Custom
                                 }
                                 }
                                 ORDER BY ?countryName
-                                " + $"LIMIT {pageSize} OFFSET {(pageNumber-1)*pageSize}");
+                                ";
+
+            if (pageNumber != 0 || pageSize != 0)
+            {
+                query += $"LIMIT {pageSize} OFFSET {(pageNumber - 1) * pageSize}";
+            }
+
+            //Make a SELECT query against the Endpoint
+            SparqlResultSet results = endpoint.QueryWithResultSet(query);
 
             var toReturn = new DataObjectCollection<CountryDataObject>();
             toReturn.ObjectsDataSet = ApplicationSettings.Container.Resolve<IObjectsDataSet>();
@@ -130,7 +139,7 @@ namespace Solid.Data.DataProviders.Custom
                 toReturn.Add(country);
             }
 
-            return new DataObjectCollection<CountryDataObject>(toReturn);
+            return toReturn;
         }
 
         protected override CountryDataObject DoSave(CountryDataObject entity, LambdaExpression securityFilterExpression, List<string> includes, IObjectsDataSet context, Dictionary<string, object> parameters)
