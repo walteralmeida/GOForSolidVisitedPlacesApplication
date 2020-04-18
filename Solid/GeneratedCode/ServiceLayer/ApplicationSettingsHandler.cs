@@ -37,11 +37,13 @@ namespace Solid.ServiceLayer.WebHandlers
 				var acceptGZip = HttpContext.Current.Request.Headers["Accept-Encoding"] != null && HttpContext.Current.Request.Headers["Accept-Encoding"].Contains("gzip");
 				AddGZipCompression(context, acceptGZip);
 
-                var baseUrl = GenerativeObjects.Practices.HttpUtilities.GetApplicationBaseUrl();
+                var baseUrl = GenerativeObjects.Practices.HttpUtilities.GetApplicationBaseUrl(includeOrigin : false);
 
                 var content = new StringBuilder();
                 content.AppendLine("(function () {");
-				content.AppendFormat("Solid.Web.Application.BaseURL = \"{0}\";\n", baseUrl);
+
+				// we let the client browser set the origin, it case of proxy, the origin on the browser can be different than the server
+				content.AppendFormat("Solid.Web.Application.BaseURL = location.origin + \"{0}\";\n", baseUrl);
 				
 				var sessionTokenTimeoutInSeconds = Convert.ToInt32(ConfigurationManager.AppSettings["SessionTokenTimeout"]) * 60;
 				content.AppendFormat("Solid.Web.Application.SessionTokenTimeout = \"{0}\";\n", sessionTokenTimeoutInSeconds);

@@ -1246,31 +1246,19 @@ GO.Regex = GO.Regex || {};
     GO.Filter.initializeFilterFromUrl = function (filterName, viewModel) {
         var filterViewModel = viewModel[filterName + "ViewModel"];
 
-        // before setting filters => need to wait until all filter collections are loaded.
-        var waitForFilterCollectionsLoaded = timeoutms => new Promise(function (resolve, reject) {
-            var check = () => {
-                if (filterViewModel.statusData.filterCollectionLoaded) {
-                    resolve();
-                }
-                else if ((timeoutms -= 100) < 0) {
-                    reject('timeout');
-                }
-                else
-                    setTimeout(check, 100)
-            }
-
-            setTimeout(check, 100);
-
-        });
-
-        // in both resolve and reject cases : we set the filters, to make sure as much as the filters can be set
-        waitForFilterCollectionsLoaded(5000).then(function (val) {
+        if (filterViewModel.statusData.filterCollectionLoaded()) {
             GO.Filter.initializeFilterFromUrlMethod(filterName, viewModel)
-        },
-            function (val) {
+        }
+        else {
+            filterViewModel.statusData.initialized = false;
+            filterViewModel.statusData.filterCollectionLoaded.subscribe(function (newvalue) {
+                if (filterViewModel.statusData.initialized)
+                    return;
+
+                filterViewModel.statusData.initialized = true;
                 GO.Filter.initializeFilterFromUrlMethod(filterName, viewModel)
             });
-
+        }
     };
 
     GO.Filter.initializeFilterFromUrlMethod = function (filterName, viewModel) {

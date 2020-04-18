@@ -92,10 +92,10 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="DataProviderHelper.cs" />
     <Compile Include="CountryDataProvider.cs">
       <GeneratedBy>Fenomen</GeneratedBy>
     </Compile>
-    <Compile Include="DataProviderHelper.cs" />
     <Compile Include="GORoleDataProvider.cs">
       <GeneratedBy>Fenomen</GeneratedBy>
     </Compile>

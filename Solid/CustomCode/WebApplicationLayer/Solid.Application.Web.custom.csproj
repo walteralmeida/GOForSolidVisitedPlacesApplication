@@ -64,6 +64,7 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Content Include="Custom\Application\Routes.custom.js" />
     <Content Include="Custom/Controllers\readme.js">
       <GeneratedBy>Fenomen</GeneratedBy>
     </Content>
@@ -73,7 +74,6 @@
     <Content Include="Custom/ViewModels\readme.js">
       <GeneratedBy>Fenomen</GeneratedBy>
     </Content>
-    <Content Include="Custom\Application\Routes.custom.js" />
     <Content Include="Custom\readme.js">
       <GeneratedBy>Fenomen</GeneratedBy>
     </Content>

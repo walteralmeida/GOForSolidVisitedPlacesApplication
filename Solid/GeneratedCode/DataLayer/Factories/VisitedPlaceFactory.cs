@@ -31,7 +31,7 @@ namespace Solid.Data.DataObjects.Factories
         {
             var pksAsArray = pks.ToArray();
 
-            if (pksAsArray.Length != 1)
+            if (pksAsArray.Length != 2)
                 throw new ApplicationException("CreateObject - VisitedPlace - Wrong number of PKs");
 
 			System.Guid id;
@@ -45,8 +45,19 @@ namespace Solid.Data.DataObjects.Factories
                 throw new ApplicationException("Wrong pk type for VisitedPlace.Id - should be System.Guid");
 			}
 
+			System.String userprofileuri;
+
+			try 
+			{
+				userprofileuri = pksAsArray[1];           
+			}
+			catch(Exception)
+			{
+                throw new ApplicationException("Wrong pk type for VisitedPlace.UserProfileUri - should be System.String");
+			}
+
                          
-            var result = new VisitedPlaceDataObject(id);
+            var result = new VisitedPlaceDataObject(id, userprofileuri);
             return result;
         }
 

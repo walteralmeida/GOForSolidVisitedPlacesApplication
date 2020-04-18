@@ -546,7 +546,8 @@
 			   
 
 			configuration.pks = {
-				Id : objectToLoad.Data.Id()
+				Id : objectToLoad.Data.Id(), 
+				UserProfileUri : objectToLoad.Data.UserProfileUri()
 			};          
 
 			configuration.successHandler =  self.OnVisitedPlaceLoaded;
