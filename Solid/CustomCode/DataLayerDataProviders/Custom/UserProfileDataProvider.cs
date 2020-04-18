@@ -35,14 +35,12 @@ namespace Solid.Data.DataProviders.Custom
 
         protected override UserProfileDataObject DoGet(UserProfileDataObject entity, LambdaExpression securityFilterExpression, List<string> includes, IObjectsDataSet context, Dictionary<string, object> parameters)
         {
-            var tempFile = DataProviderHelper.DownloadFile(entity.Uri.Replace("||", "://") + "/profile/card#me",".ttl");
+            var userProfileUri = entity.Uri.Replace("||", "://") + "/profile/card#me";
 
-            try
-            {
-                var g = new Graph();
-                g.LoadFromFile(tempFile);
+            var g = new Graph();
+            UriLoader.Load(g, new Uri(userProfileUri));
 
-                var query = @"SELECT ?Name ?Role ?OrganizationName WHERE 
+            var query = @"SELECT ?Name ?Role ?OrganizationName WHERE 
                                 { ?me a <http://xmlns.com/foaf/0.1/Person> .
                                   ?me <http://www.w3.org/2006/vcard/ns#fn> ?Name .
                                         OPTIONAL 
@@ -54,23 +52,17 @@ namespace Solid.Data.DataProviders.Custom
 
 
 
-                var result = ((SparqlResultSet)g.ExecuteQuery(query)).SingleOrDefault();
+            var result = ((SparqlResultSet)g.ExecuteQuery(query)).SingleOrDefault();
 
-                if (result == null)
-                    return null;
+            if (result == null)
+                return null;
 
-                entity.Role = result["Role"].ToString();
-                entity.OrganizationName = result["OrganizationName"].ToString();
-                entity.Name = result["Name"].ToString();
+            entity.Role = result["Role"].ToString();
+            entity.OrganizationName = result["OrganizationName"].ToString();
+            entity.Name = result["Name"].ToString();
 
-                entity.IsNew = false;
-                entity.IsDirty = false;
-            }
-            finally
-            {
-                if (File.Exists(tempFile))
-                    File.Delete(tempFile);
-            }
+            entity.IsNew = false;
+            entity.IsDirty = false;
 
             return entity;
         }
