@@ -121,6 +121,10 @@
       <Project>{627B81F1-9A5E-4CAB-B153-EDC596BA83F0}</Project>
       <Name>Solid.Data.DataObjects</Name>
     </ProjectReference>
+    <ProjectReference Include="..\..\..\GeneratedCode\Features\Security\Common\Solid.Features.Security.Common.csproj">
+      <Project>{87F91005-7D93-40D4-8759-A41BBCDCAED1}</Project>
+      <Name>Solid.Features.Security.Common</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <PropertyGroup>

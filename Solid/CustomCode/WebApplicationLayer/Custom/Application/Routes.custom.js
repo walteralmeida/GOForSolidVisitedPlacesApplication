@@ -64,12 +64,12 @@
         UserName: function () {
             var id = null;
             if (ApplicationController && ApplicationController.viewModel) {
-                id = decodeURIComponent(ApplicationController.viewModel.security.currentUserClaims().GivenName).replace('https://', 'https||');
+                id = decodeURIComponent(ApplicationController.viewModel.security.currentUserClaims().GivenName).replace('https://', 'https||').replace(/\//g, '|').replace('#','$');
             } else {
                 var token = $.cookie("BearerToken");
                 if (token) {
                     var currentUserClaims = GO.deconstructJWT(token);
-                    id = decodeURIComponent(currentUserClaims.GivenName).replace('https://', 'https||');
+                    id = decodeURIComponent(currentUserClaims.GivenName).replace('https://', 'https||').replace(/\//g, '|').replace('#', '$');
                 }
             }
             return id;

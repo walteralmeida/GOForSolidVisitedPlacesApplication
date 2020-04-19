@@ -55,6 +55,9 @@
     <script src="../17/Application/ApplicationController.js"></script>
     <script src="../17/Model/DataSets/ObjectsDataSet.js"></script>
     <script src="LoginPageViewModel.js"></script>
+    <script src="../17/scripts/jquery.jgrowl.js"></script>
+    <script src="../17/scripts/solid-auth-client.bundle.js"></script>
+      
   </head>
   <body>
     <form class="loginPage">
@@ -103,6 +106,7 @@
                   </table>
                   <p class="submitButton">
                     <input type="submit" name="LoginUser$LoginButton" data-bind="click : commands.login, value: commands.loginText, enable: commands.loginEnabled" id="LoginUser_LoginButton" class="command-button" data-test-id="LoginUser_LoginButton" />
+                      <input type="submit" name="LoginUser$LoginButtonSolid" data-bind="click : commands.loginSolid, value: 'Login Solid', id="LoginUser_LoginButtonSolid" class="command-button" data-test-id="LoginUser_LoginButtonSolid" />
                   </p>
                 </div>
               </div>

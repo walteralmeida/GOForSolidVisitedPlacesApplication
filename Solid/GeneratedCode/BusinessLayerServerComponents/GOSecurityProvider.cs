@@ -31,6 +31,7 @@ using GenerativeObjects.Practices.LayerSupportClasses.ServiceLayer;
 using GenerativeObjects.Practices.LayerSupportClasses.Features.Threading;
 using GenerativeObjects.Practices.LayerSupportClasses.ServiceLayer.Http;
 using System.IO;
+using NLog;
 
 namespace Solid.BusinessLayer.Components.Server
 {
@@ -132,13 +133,72 @@ namespace Solid.BusinessLayer.Components.Server
             return sBuilder.ToString();
         }
 
+        public string Authenticate(string username, string password, bool useCookies)
+        {
+            if (username.StartsWith("https://"))
+                return SolidAuthenticate(username, password, useCookies);
+            else
+                return ApplicationAuthenticate(username, password, useCookies);
+        }
+
+        public string SolidAuthenticate(string username, string password, bool useCookies)
+        {
+            Logger techLogger = LogManager.GetCurrentClassLogger();
+
+            var includes = new List<string>
+            {
+                "UserRoleItems.Role", "UserGroupItems.Group.GroupRoleItems"
+            };
+
+            username = username.TrimEnd(' ').TrimEnd('/').TrimEnd('\\');
+
+            var existingUser = DataFacade.GOUserDataProvider.GetCollection(filterPredicate: $"UserName == \"{username}\"",
+                                                                           includes: includes,
+                                                                           skipSecurity: true).SingleOrDefault();
+
+            GOUserDataObject currentUser;
+
+            if (existingUser == null)
+            {
+                techLogger.Debug($"User with username={username} doen't exist => create a new One.");
+                // new user provided by SOLID : create it
+                currentUser = CreateNewUser(username, null, null, username, Guid.NewGuid().ToString(), true, true);
+            }
+            else
+            {
+                currentUser = existingUser;
+            }
+
+            if (currentUser.IsNew || currentUser.IsDirty)
+            {
+                DataFacade.GOUserDataProvider.Save(currentUser, skipSecurity: true);
+
+                if (currentUser.IsNew)
+                {
+                    techLogger.Info($"SOLID - connect: Creation new user {currentUser.EmailAddress} ({currentUser.FullName})");
+                }
+                else
+                {
+                    techLogger.Warn($"SOLID - connect: user isDirty but not new - {currentUser.EmailAddress} ({currentUser.FullName}). Weird, should not.");
+                }
+
+                currentUser = DataFacade.GOUserDataProvider.Get(currentUser, includes: includes, skipSecurity: true);
+            }
+
+            var token = SetAuthenticationToken(currentUser, useCookies : true, solidToken : password);
+
+            techLogger.Info($"SOLID - OK - connection user {currentUser.EmailAddress} ({currentUser.FullName})");
+
+            return token;
+        }
+
         /// <summary>
         /// Authenticate Method
-		/// </summary>
-		/// <param name="username"></param>
-		/// <param name="password"></param>
+        /// </summary>
+        /// <param name="username"></param>
+        /// <param name="password"></param>
         /// <returns></returns>		
-		public string Authenticate(string username, string password, bool useCookies) 
+        public string ApplicationAuthenticate(string username, string password, bool useCookies) 
 		{
 			// Get user data object. Include Roles because we'll need them to apply any password policy.
 			var includes = new List<string>
@@ -199,7 +259,7 @@ namespace Solid.BusinessLayer.Components.Server
 		/// <summary>
         /// SetAuthenticationToken Method
 		/// </summary>	
-		private string SetAuthenticationToken(GOUserDataObject user, bool useCookies)
+		private string SetAuthenticationToken(GOUserDataObject user, bool useCookies, string solidToken = null)
 		{
 			var authentication = ApplicationSettings.Container.Resolve<IAuthentication>();
 
@@ -218,7 +278,12 @@ namespace Solid.BusinessLayer.Components.Server
 				new Claim(ClaimTypes.Role, String.Join(",", roles.Distinct())),
 			};
 
-			var additionalUserClaims = AppUserClaims.GetExtraUserClaims(user);
+            if(!String.IsNullOrEmpty (solidToken))
+            {
+                claims.Add(new Claim("SolidToken", solidToken));
+            }
+
+            var additionalUserClaims = AppUserClaims.GetExtraUserClaims(user);
 			claims.AddRange(additionalUserClaims);
 
  			var tokenString = authentication.CreateToken(claims);
@@ -770,7 +835,7 @@ namespace Solid.BusinessLayer.Components.Server
 			return content;
 		}
 
-		private GOUserDataObject CreateNewUser(string username, string firstname, string lastname, string email, string password)
+		private GOUserDataObject CreateNewUser(string username, string firstname, string lastname, string email, string password, bool emailvalidated = false, bool uservalidated = false)
 		{
 			var newUser = new GOUserDataObject();
 			var dataset = ApplicationSettings.Container.Resolve<IObjectsDataSet>();
@@ -780,8 +845,8 @@ namespace Solid.BusinessLayer.Components.Server
 			newUser.FirstName = firstname;
 			newUser.LastName = lastname;
 			newUser.FullName = !String.IsNullOrEmpty(firstname) && !String.IsNullOrEmpty(firstname) ? $"{firstname} {lastname}" : username;
-			newUser.EmailValidated = false;
-			newUser.UserValidated = false;
+			newUser.EmailValidated = emailvalidated;
+			newUser.UserValidated = uservalidated;
 
 			var role = DataFacade.GORoleDataProvider.Get(new GORoleDataObject(DefaultRoleForNewUsers), skipSecurity: true);
 			var gouserrole = new GOUserRoleDataObject() { GORoleName = role.Name };

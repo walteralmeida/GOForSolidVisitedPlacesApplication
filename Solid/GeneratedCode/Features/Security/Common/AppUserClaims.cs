@@ -16,6 +16,7 @@ namespace Solid.Feature.Security.Common
     public class AppUserClaims : UserClaims
     {
 		public System.String GivenName { get; set; }
+        public String SolidToken { get; set; }
 		
 		/// <summary>
         /// Gets a list of Claim from the provided GOUser
@@ -37,7 +38,8 @@ namespace Solid.Feature.Security.Common
         {
 			try 
 			{
-				this.GivenName = HttpUtility.UrlDecode(principal.Claims.Where(c => c.Type == "GivenName").Single().Value.ToString());
+                this.GivenName = HttpUtility.UrlDecode(principal.Claims.Where(c => c.Type == "GivenName").Single().Value.ToString());
+                this.SolidToken = HttpUtility.UrlDecode(principal.Claims.Where(c => c.Type == "SolidToken").Single().Value.ToString());
 			}
 			catch { }
 		}		

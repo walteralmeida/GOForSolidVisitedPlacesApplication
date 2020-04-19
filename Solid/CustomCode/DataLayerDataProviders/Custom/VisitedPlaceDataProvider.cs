@@ -24,25 +24,39 @@ using System.Text;
 using GenerativeObjects.Practices.LayerSupportClasses;
 using Unity;
 using System.Globalization;
+using GenerativeObjects.Practices.LayerSupportClasses.Features.Security.Common;
+using Solid.Feature.Security.Common;
 
 namespace Solid.Data.DataProviders.Custom
 {
     public class VisitedPlaceDataProvider : DataProvider<VisitedPlaceDataObject>
     {
-
-        private string GetUserProfileUriFromFilter(string filterpredicate)
+        private string GetOriginalUserProfileUriFromFilter(string filterpredicate)
         {
             var regexp = new Regex("UserProfileUri == \"(.*)\"");
 
             var match = regexp.Match(filterpredicate);
 
-            return match.Success ? match.Groups[1].Value.Replace("||", "://") : null;
+            if (!match.Success)
+                return null;
+
+            var uri = match.Groups[1].Value;
+            return uri;
+        }
+
+
+        private string GetUserBaseUriFromFilter(string filterpredicate)
+        {
+            var uri = GetOriginalUserProfileUriFromFilter(filterpredicate);
+            uri = uri.Replace("||", "://").Substring(0, uri.IndexOf("|", 7) + 1);
+
+            return uri;
         }
 
 
         protected override int DoCount(LambdaExpression securityFilterExpression, string filterPredicate, object[] filterArguments, IObjectsDataSet context, Dictionary<string, object> parameters)
         {
-            var userUri = GetUserProfileUriFromFilter(filterPredicate);
+            var userUri = GetUserBaseUriFromFilter(filterPredicate);
             string visitedPlaceDocumentName = "myvisitedplaces.ttl";
 
             DataProviderHelper.EnsurePublicTypeRegistration(userUri, "goapp-visitedplaces", "http://schema.org/TextDigitalDocument", visitedPlaceDocumentName);
@@ -68,7 +82,7 @@ namespace Solid.Data.DataProviders.Custom
 
         protected override void DoDelete(VisitedPlaceDataObject entity, LambdaExpression securityFilterExpression, IObjectsDataSet context, Dictionary<string, object> parameters)
         {
-            var userUri = entity.UserProfileUri.Replace("||", "://");
+            var userUri = entity.UserProfileUri.Replace("||", "://").Substring(0, entity.UserProfileUri.IndexOf("|", 7) + 1);
             string visitedPlaceDocumentName = "myvisitedplaces.ttl";
 
             DataProviderHelper.EnsurePublicTypeRegistration(userUri, "goapp-visitedplaces", "http://schema.org/TextDigitalDocument", visitedPlaceDocumentName);
@@ -93,7 +107,7 @@ namespace Solid.Data.DataProviders.Custom
                 payload += $"DELETE DATA {{{sb.ToString()}}} ";
             }
 
-            string token = ConfigurationManager.AppSettings[$"{userUri}-Token"];
+            var token = DataProviderHelper.GetSolidToken();
 
             var statusPatch = DataProviderHelper.SendPatch(visitedPlaceDocumentUri, payload, token);
 
@@ -105,7 +119,7 @@ namespace Solid.Data.DataProviders.Custom
 
         protected override VisitedPlaceDataObject DoGet(VisitedPlaceDataObject entity, LambdaExpression securityFilterExpression, List<string> includes, IObjectsDataSet context, Dictionary<string, object> parameters)
         {
-            var userUri = entity.UserProfileUri.Replace("||", "://");
+            var userUri = entity.UserProfileUri.Replace("||", "://").Substring(0, entity.UserProfileUri.IndexOf("|", 7) + 1);
             string visitedPlaceDocumentName = "myvisitedplaces.ttl";
 
             DataProviderHelper.EnsurePublicTypeRegistration(userUri, "goapp-visitedplaces", "http://schema.org/TextDigitalDocument", visitedPlaceDocumentName);
@@ -138,7 +152,7 @@ namespace Solid.Data.DataProviders.Custom
 
             var visitedPlace = MapSparqlResultToVisitedPlace(result, mapId : false);
             visitedPlace.Id = entity.Id;
-            visitedPlace.UserProfileUri = userUri.Replace("://", "||").Replace("/", "|");
+            visitedPlace.UserProfileUri = entity.UserProfileUri; //.Replace("||", "://").Replace("|","/").Replace("$","#");
 
             var dataset = ApplicationSettings.Container.Resolve<IObjectsDataSet>();
             dataset.AddObject(visitedPlace);
@@ -148,7 +162,7 @@ namespace Solid.Data.DataProviders.Custom
 
         protected override DataObjectCollection<VisitedPlaceDataObject> DoGetCollection(LambdaExpression securityFilterExpression, string filterPredicate, object[] filterArguments, string orderByPredicate, int pageNumber, int pageSize, List<string> includes, IObjectsDataSet context, Dictionary<string, object> parameters)
         {
-            var userUri = GetUserProfileUriFromFilter(filterPredicate);
+            var userUri = GetUserBaseUriFromFilter(filterPredicate);
             string visitedPlaceDocumentName = "myvisitedplaces.ttl";
 
             DataProviderHelper.EnsurePublicTypeRegistration(userUri, "goapp-visitedplaces", "http://schema.org/TextDigitalDocument", visitedPlaceDocumentName);
@@ -183,7 +197,7 @@ namespace Solid.Data.DataProviders.Custom
             foreach (var result in results)
             {
                 var visitedPlace = MapSparqlResultToVisitedPlace(result);
-                visitedPlace.UserProfileUri = userUri.Replace("://", "||").Replace("/", "|");
+                visitedPlace.UserProfileUri = GetOriginalUserProfileUriFromFilter(filterPredicate);
                 toReturn.Add(visitedPlace);
             }
 
@@ -210,7 +224,7 @@ namespace Solid.Data.DataProviders.Custom
 
         protected override VisitedPlaceDataObject DoSave(VisitedPlaceDataObject entity, LambdaExpression securityFilterExpression, List<string> includes, IObjectsDataSet context, Dictionary<string, object> parameters)
         {
-            var userUri = entity.UserProfileUri.Replace("||", "://");
+            var userUri = entity.UserProfileUri.Replace("||", "://").Substring(0, entity.UserProfileUri.IndexOf("|", 7) + 1);
             string visitedPlaceDocumentName = "myvisitedplaces.ttl";
 
             DataProviderHelper.EnsurePublicTypeRegistration(userUri, "goapp-visitedplaces", "http://schema.org/TextDigitalDocument", visitedPlaceDocumentName);
@@ -246,7 +260,7 @@ namespace Solid.Data.DataProviders.Custom
             
             payload += $"INSERT DATA {{{sb.ToString()}}}";
 
-            string token = ConfigurationManager.AppSettings[$"{userUri}-Token"];
+            var token = DataProviderHelper.GetSolidToken();
 
             var statusPatch = DataProviderHelper.SendPatch(visitedPlaceDocumentUri, payload, token);
 

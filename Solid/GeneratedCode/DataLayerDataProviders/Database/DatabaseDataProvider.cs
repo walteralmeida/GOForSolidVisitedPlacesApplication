@@ -71,8 +71,7 @@ namespace Solid.Data.DataProviders.Database
 
 			// entity returned from SaveToDatabaseThroughORM can be null (e.g. if nothing dirty/new in the saveset, or if deleted)
 			entity = SaveToDatabaseThroughORM(entity, deepMapping);
-			
-	
+
 			// for the refetch, security can be skipped if no related data requested (since we just wrote it, it's just a flat re-sync)
 			bool canRefetchSkipSecurity = includes == null || !includes.Any() || ParameterKeys.IsOptionEnabled(parameters, ParameterKeys.ORMSaveRefetchSkipSecurity);
 			return entity == null ? null : Get(entity, includes: includes, parameters: parameters, skipSecurity: canRefetchSkipSecurity);

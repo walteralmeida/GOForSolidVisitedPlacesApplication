@@ -23,6 +23,9 @@
             login: function () {
                 self.login();
             },
+            loginSolid: function () {
+                self.loginSolid();
+            },
 			loginText: ko.observable(Solid.Web.Messages.connection),
 			loginEnabled: ko.observable(true)
         };
@@ -39,8 +42,38 @@
 			self.commands.loginText(Solid.Web.Messages.connecting);
 			self.commands.loginEnabled("false");
             self.securityProviderProxy.Authenticate(configuration);
-
         };
+
+        async function popupLogin() {
+            let session = await solid.auth.currentSession();
+            let popupUri = 'https://solid.community/common/popup.html';
+            if (!session)
+                session = await solid.auth.popupLogin({ popupUri });
+
+            var token = await solid.auth.issueToken('https://walteralmeida.inrupt.net', session);
+
+            var configuration = {};
+            configuration.username = session.webId;
+            configuration.password = token;
+            configuration.useCookies = true;
+            configuration.successHandler = self.onLoginSucceeded;
+            configuration.errorHandler = self.onLoginError;
+
+            self.commands.loginText(Solid.Web.Messages.connecting);
+            self.commands.loginEnabled("false");
+            self.securityProviderProxy.Authenticate(configuration);
+        }
+
+        this.loginSolid = function () {
+            popupLogin();
+
+            solid.auth.trackSession(session => {
+                if (session) {
+                    var s = session.webId;
+                }
+            });
+        }
+
 
 
         this.onLoginSucceeded = function (token) {

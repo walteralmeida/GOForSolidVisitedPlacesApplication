@@ -1,4 +1,6 @@
 ﻿using GenerativeObjects.Practices.ExceptionHandling;
+using GenerativeObjects.Practices.LayerSupportClasses;
+using GenerativeObjects.Practices.LayerSupportClasses.Features.Security.Common;
 using System;
 using System.Collections.Generic;
 using System.Configuration;
@@ -9,12 +11,21 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Web;
 using VDS.RDF;
+using VDS.RDF.Parsing;
 using VDS.RDF.Query;
+using Unity;
+using Solid.Feature.Security.Common;
 
 namespace Solid.Data.DataProviders.Custom
 {
     public static class DataProviderHelper
     {
+        public static string GetSolidToken()
+        {
+            var authentication = ApplicationSettings.Container.Resolve<IAuthentication>();
+            return $"Bearer {(authentication.GetCurrentUserClaims() as AppUserClaims).SolidToken}";
+        }
+        /*
         public static string DownloadFile(string remoteUri, string extension = null)
         {
             // Create a new WebClient instance.
@@ -38,7 +49,7 @@ namespace Solid.Data.DataProviders.Custom
 
             return tempFile;
         }
-
+        */
         public static HttpStatusCode SendPatch(string url, string payload, string token)
         {
             var request = (HttpWebRequest)WebRequest.Create(url);
@@ -127,74 +138,64 @@ namespace Solid.Data.DataProviders.Custom
             // going too fast to publicTypeIndex. should follow this : https://github.com/solid/solid/blob/master/proposals/data-discovery.md
             var publicTypeIndexUri = $"{userUri}/settings/publicTypeIndex.ttl";
 
-            var tempFile = DataProviderHelper.DownloadFile(publicTypeIndexUri, ".ttl");
+            var g = new Graph();
+            UriLoader.Load(g, new Uri(publicTypeIndexUri));
 
-            try
-            {
-                var g = new Graph();
-                g.LoadFromFile(tempFile);
+            var query = new SparqlParameterizedString();
+            query.Namespaces.AddNamespace("s", new Uri("http://www.w3.org/ns/solid/terms#"));
+            query.Namespaces.AddNamespace("schem", new Uri("http://schema.org"));
 
-                var query = new SparqlParameterizedString();
-                query.Namespaces.AddNamespace("s", new Uri("http://www.w3.org/ns/solid/terms#"));
-                query.Namespaces.AddNamespace("schem", new Uri("http://schema.org"));
+            //  ?reg < http://www.w3.org/ns/solid/terms#forClass> <http://schema.org/TextDigitalDocument>.
+            //  ?reg < http://www.w3.org/ns/solid/terms#instance> <file:///C:/public/visitedplaces.ttl>.
 
-                              //  ?reg < http://www.w3.org/ns/solid/terms#forClass> <http://schema.org/TextDigitalDocument>.
-                              //  ?reg < http://www.w3.org/ns/solid/terms#instance> <file:///C:/public/visitedplaces.ttl>.
-
-                query.CommandText =
-                        @"SELECT ?reg WHERE 
+            query.CommandText =
+                    @"SELECT ?reg WHERE 
                             { 
                                 ?reg s:forClass @type .
                                 ?reg s:instance @location .
                             }";
 
-                // file:///C:/public/notes.ttl => the URI contains file:///C: because it is made relative to where the document is, and here we downloaded it to local file ...
-                query.SetUri("location", new Uri($"file:///C:/public/{registrationLocation}"));
-                query.SetUri("type", new Uri(registrationType));
+            // file:///C:/public/notes.ttl => the URI contains file:///C: because it is made relative to where the document is, and here we downloaded it to local file ...
+            query.SetUri("location", new Uri($"file:///C:/public/{registrationLocation}"));
+            query.SetUri("type", new Uri(registrationType));
 
-                var registrationExists = ((SparqlResultSet)g.ExecuteQuery(query)).Any();
+            var registrationExists = ((SparqlResultSet)g.ExecuteQuery(query)).Any();
 
-                string token = ConfigurationManager.AppSettings[$"{userUri}-Token"];
+            var token = GetSolidToken();
 
-                if (!registrationExists)
+            if (!registrationExists)
+            {
+                // create the type registration
+                string payload = $"INSERT DATA {{:{registrationName} a <http://www.w3.org/ns/solid/terms#TypeRegistration>; <http://www.w3.org/ns/solid/terms#forClass> <http://schema.org/TextDigitalDocument> ; <http://www.w3.org/ns/solid/terms#instance> </public/{registrationLocation}> . }}";
+                var statusPatch = DataProviderHelper.SendPatch(publicTypeIndexUri, payload, token);
+
+                if (statusPatch != HttpStatusCode.OK)
                 {
-                    // create the type registration
-                    string payload = $"INSERT DATA {{:{registrationName} a <http://www.w3.org/ns/solid/terms#TypeRegistration>; <http://www.w3.org/ns/solid/terms#forClass> <http://schema.org/TextDigitalDocument> ; <http://www.w3.org/ns/solid/terms#instance> </public/{registrationLocation}> . }}";
-                    var statusPatch = DataProviderHelper.SendPatch(publicTypeIndexUri, payload, token);
-
-                    if (statusPatch != HttpStatusCode.OK)
-                    {
-                        throw new GOServerException("PATCH Failed");
-                    }
+                    throw new GOServerException("PATCH Failed");
                 }
+            }
 
-                var documentUri = $"{userUri}/public/{registrationLocation}";
+            var documentUri = $"{userUri}/public/{registrationLocation}";
 
-                // verify the document exists
-                var status = DataProviderHelper.SendHead(documentUri, token);
+            // verify the document exists
+            var status = DataProviderHelper.SendHead(documentUri, token);
 
-                if (status != HttpStatusCode.OK)
-                {
-                    // create the document file otherwise
-                    string payload = @"@prefix : <#>.
+            if (status != HttpStatusCode.OK)
+            {
+                // create the document file otherwise
+                string payload = @"@prefix : <#>.
                                         @prefix schem: <http://schema.org/>.
                                         @prefix XML: <http://www.w3.org/2001/XMLSchema#>.
                                         @prefix go: <http://generativeobjects.com/apps#>.";
 
-                    status = DataProviderHelper.SendPost($"{userUri}/public/", registrationLocation, payload, token);
+                status = DataProviderHelper.SendPost($"{userUri}/public/", registrationLocation, payload, token);
 
-                    if (status != HttpStatusCode.OK)
-                    {
-                        throw new GOServerException("POST Failed");
-                    }
+                if (status != HttpStatusCode.OK)
+                {
+                    throw new GOServerException("POST Failed");
                 }
+            }
 
-            }
-            finally
-            {
-                if (File.Exists(tempFile))
-                    File.Delete(tempFile);
-            }
 
         }
 
