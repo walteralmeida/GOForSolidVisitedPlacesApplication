@@ -68,21 +68,38 @@ namespace Solid.Data.DataProviders.Custom
 
         protected override void DoDelete(VisitedPlaceDataObject entity, LambdaExpression securityFilterExpression, IObjectsDataSet context, Dictionary<string, object> parameters)
         {
-            // TO FINISH !!
             var userUri = entity.UserProfileUri.Replace("||", "://");
             string visitedPlaceDocumentName = "myvisitedplaces.ttl";
 
             DataProviderHelper.EnsurePublicTypeRegistration(userUri, "goapp-visitedplaces", "http://schema.org/TextDigitalDocument", visitedPlaceDocumentName);
 
-            string visitedPlacesDocumentUri = $"{userUri}/public/{visitedPlaceDocumentName}";
+            string visitedPlaceDocumentUri = $"{userUri}/public/{visitedPlaceDocumentName}";
+
+            StringBuilder sb;
+            string payload = "";
+
+            if (!entity.IsNew)
+            {
+                // existing entity => we need to delete existing entry, before inserting modified one 
+                var existingEntity = DoGet(entity, securityFilterExpression, null, context, parameters);
+
+                sb = new StringBuilder();
+                sb.AppendLine($":{entity.Id} ");
+                sb.AppendLine($"   a <http://generativeobjects.com/apps#VisitedPlace> ;");
+                sb.AppendLine($"   <http://schema.org/startDate> \"{existingEntity.Date.ToString("yyyy-MM-dd")}\" ;");
+                sb.AppendLine($"   <http://schema.org/description> \"\"\"{existingEntity.Description}\"\"\" ; ");
+                sb.AppendLine($"   <http://dbpedia.org/class/yago/WikicatMemberStatesOfTheUnitedNations> <{existingEntity.CountryURI.Replace("||", "://").Replace("|", "/")}> . ");
+
+                payload += $"DELETE DATA {{{sb.ToString()}}} ";
+            }
 
             string token = ConfigurationManager.AppSettings[$"{userUri}-Token"];
 
-            var statusPatch = DataProviderHelper.SendDelete(visitedPlacesDocumentUri, token);
+            var statusPatch = DataProviderHelper.SendPatch(visitedPlaceDocumentUri, payload, token);
 
             if (statusPatch != HttpStatusCode.OK)
             {
-                throw new GOServerException("Failed to delete the place information");
+                throw new GOServerException("Failed to delete the visited place information");
             }
         }
 
