@@ -57,7 +57,8 @@ namespace Solid.Data.DataObjects.Factories
 			}
 
                          
-            var result = new VisitedPlaceDataObject(id, userprofileuri);
+            var result = new VisitedPlaceDataObject(id);
+			result.UserProfileUri = userprofileuri;
             return result;
         }
 

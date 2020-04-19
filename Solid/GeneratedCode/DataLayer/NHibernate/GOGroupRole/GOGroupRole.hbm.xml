@@ -13,14 +13,11 @@
 
 
 		<composite-id name="CompositeIdentity">
-			<key-many-to-one name="Group" column="`GOGroupName`" />
+			<key-property name="GOGroupName" column="`GOGroupName`" /> 
 			<key-property name="GORoleName" column="`GORoleName`" /> 
-		</composite-id>
+		</composite-id> 
 
 
-		
-		<!-- many-to-one Role -->
-		<property name="GORoleName" type="System.String" not-null="true" formula = "[GORoleName]"></property>  
 		
 		<!-- many-to-one Group -->
 		<property name="GOGroupName" type="System.String" not-null="true" formula = "[GOGroupName]"></property>  

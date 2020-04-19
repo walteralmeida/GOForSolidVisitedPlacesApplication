@@ -759,7 +759,8 @@
 				var configuration = {};			
 				configuration.contextId = self.contextId;
 				configuration.pks = {
-					Id : objectToDelete.Data.Id()
+					Id : objectToDelete.Data.Id(), 
+					UserProfileUri : objectToDelete.Data.UserProfileUri()
 			};          
 
 				configuration.successHandler =  self.OnVisitedPlaceDeleted;

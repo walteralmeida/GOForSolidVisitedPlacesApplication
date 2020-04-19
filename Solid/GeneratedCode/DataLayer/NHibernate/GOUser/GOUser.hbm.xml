@@ -52,14 +52,6 @@
  
 
 
-		<property name="UserName" type="System.String" not-null = "true" formula = "[UserName]"></property>
- 
-		<!-- GOUser.UserProfile one-to-one relation is mapped as a 'many-to-one with unique' from the FK side-->
-		<!-- See https://nhibernate.info/doc/nhibernate-reference/mapping.html, section 5.1.12 one-to-one 'unique foreign key association' -->
-		<many-to-one name="UserProfile" unique="true"  > 
-				<column name="`UserName`" sql-type="nvarchar (150) COLLATE SQL_Latin1_General_CP1_CI_AS" not-null="true" />
-		</many-to-one> 
-
 
 		<bag
 			name = "UserGroupItems"
