@@ -72,6 +72,7 @@
       <HintPath>C:\Program Files (x86)\GenerativeObjects\External References\HtmlAgilityPack.dll</HintPath>
     </Reference>
     <Reference Include="System.Configuration" />
+    <Reference Include="System.Web" />
     <Reference Include="Unity.Abstractions">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>C:\Program Files (x86)\GenerativeObjects\External References\Unity.Abstractions.dll</HintPath>

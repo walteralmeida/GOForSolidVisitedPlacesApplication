@@ -7,6 +7,7 @@ using System.Linq;
 using System.Net;
 using System.Text;
 using System.Threading.Tasks;
+using System.Web;
 using VDS.RDF;
 using VDS.RDF.Query;
 
@@ -18,6 +19,7 @@ namespace Solid.Data.DataProviders.Custom
         {
             // Create a new WebClient instance.
             WebClient myWebClient = new WebClient();
+            myWebClient.Headers["Origin"] = $"{HttpContext.Current.Request.UrlReferrer.Scheme}://{HttpContext.Current.Request.UrlReferrer.Host}";
 
             // Download the Web resource and save it into the current filesystem folder.
             var tempFile = Path.GetTempFileName();
@@ -43,6 +45,7 @@ namespace Solid.Data.DataProviders.Custom
             request.Method = "PATCH";
             request.ContentType = "application/sparql-update";
             request.Headers["Authorization"] = token;
+            request.Headers["Origin"] = $"{HttpContext.Current.Request.UrlReferrer.Scheme}://{HttpContext.Current.Request.UrlReferrer.Host}";
 
             if (!String.IsNullOrEmpty(payload))
             {
@@ -67,6 +70,7 @@ namespace Solid.Data.DataProviders.Custom
             request.ContentType = "text/turtle";
             request.Headers["Authorization"] = token;
             request.Headers["Slug"] = filename;
+            request.Headers["Origin"] = $"{HttpContext.Current.Request.UrlReferrer.Scheme}://{HttpContext.Current.Request.UrlReferrer.Host}";
 
             if (!String.IsNullOrEmpty(payload))
             {
@@ -84,11 +88,26 @@ namespace Solid.Data.DataProviders.Custom
             return response.StatusCode;
         }
 
+        public static HttpStatusCode SendDelete(string url, string token)
+        {
+            var request = (HttpWebRequest)WebRequest.Create(url);
+            request.Method = "DELETE";
+            request.ContentType = "text/turtle";
+            request.Headers["Authorization"] = token;
+            request.Headers["Origin"] = $"{HttpContext.Current.Request.UrlReferrer.Scheme}://{HttpContext.Current.Request.UrlReferrer.Host}";
+
+            var response = (HttpWebResponse)request.GetResponse();
+
+            return response.StatusCode;
+        }
+
         public static HttpStatusCode SendHead(string url, string token)
         {
             var request = (HttpWebRequest)WebRequest.Create(url);
             request.Method = "HEAD";
             request.Headers["Authorization"] = token;
+            request.Headers["Origin"] = $"{HttpContext.Current.Request.UrlReferrer.Scheme}://{HttpContext.Current.Request.UrlReferrer.Host}";
+
 
             try
             {
