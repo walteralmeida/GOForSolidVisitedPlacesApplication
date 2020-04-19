@@ -21,443 +21,133 @@
   <div class="no-data-message" data-bind="'visible' : StatusData.IsEmpty()">No Country data available</div>
   <div class="uiContainer" data-bind="'visible' : !StatusData.IsEmpty()" id="CountryFormControl-CountryFormData">
     <div class="blocking-element ui-widget-overlay"></div>
-    <div class="tabwrapper" id="CountryFormControl-CountryForm-tabs" data-bind="jqTab : {onChangeMethod: TabChangedMethod, TabIndex: StatusData.CurrentTabIndex }">
-      <ul class="tabs CountryFormControl-CountryForm-tabs">
-        <li data-bind="'visible' : StatusData.IsMainTabVisible()" data-test-id="tab_link_6f25c22c-a7cf-44d0-97e2-226629f73063">
-          <a data-id="CountryFormControl-CountryForm-tabs-1" data-bind="html: StatusData.MainTabTitle()">Main</a>
-        </li>
-        <li data-bind="'visible' : StatusData.IsPlaceTabVisible()" data-test-id="tab_link_89a6b68b-940a-4af9-85bc-cfe936426149">
-          <a data-id="CountryFormControl-CountryForm-tabs-2" data-bind="html: StatusData.PlaceTabTitle()">Place Items Items</a>
-        </li>
-        <li data-bind="'visible' : StatusData.IsLocationTabVisible()" data-test-id="tab_link_13023c5a-c493-45c2-ade5-c3fe66b9f221">
-          <a data-id="CountryFormControl-CountryForm-tabs-3" data-bind="html: StatusData.LocationTabTitle()">Location Items Items</a>
-        </li>
-      </ul>
-      <div class="clear"></div>
-      <div class="tabs-container">
-        <div class="CountryFormControl-CountryForm-tabs-contenu CountryFormControl-CountryForm-tabs-1" data-test-id="6f25c22c-a7cf-44d0-97e2-226629f73063">
-          <div>
-            <div class="basicForm" data-placeholder="formFieldsZone">
-              <div class="form-field view requiredField" data-bind="'visible':StatusData.DisplayMode() == 'view' &amp;&amp; StatusData.IsURIVisible()" data-test-id="3c901375-f8fb-4f4b-a6e9-830a0bb7c6e5" data-entityfield="uri-view">
-                <span class="form-field-label-zone" data-bind="'visible':StatusData.DisplayMode() == 'view' &amp;&amp; StatusData.IsURIVisible(), 'css' : { errorText : !CountryObject().StatusData.isURIValid() }" data-test-id="label_3c901375-f8fb-4f4b-a6e9-830a0bb7c6e5">
-                  <label class="form-field-label">URI</label>
-                </span>
-                <span class="form-field-control-container" data-bind="'css' : { errorControl : !CountryObject().StatusData.isURIValid() }">
-                  <div class="text-field">
-                    <span class="form-field-text" data-bind="text: CountryObject().Data.URI, 'css' : { 'errorControl' : !CountryObject().StatusData.isURIValid() }" data-test-id="view_3c901375-f8fb-4f4b-a6e9-830a0bb7c6e5" />
-                  </div>
-                </span>
-              </div>
-              <div class="form-field edit requiredField" data-bind="'visible':StatusData.DisplayMode() == 'edit' &amp;&amp; StatusData.IsURIVisible()" data-test-id="3c901375-f8fb-4f4b-a6e9-830a0bb7c6e5" data-entityfield="uri-edit">
-                <span class="form-field-label-zone" data-bind="'visible':StatusData.DisplayMode() == 'edit' &amp;&amp; StatusData.IsURIVisible(), 'css' : { errorText : !CountryObject().StatusData.isURIValid() }" data-test-id="label_3c901375-f8fb-4f4b-a6e9-830a0bb7c6e5">
-                  <label class="form-field-label">URI</label>
-                </span>
-                <span class="form-field-control-container" data-bind="'enable' : !StatusData.IsURIReadOnly(), 'css' : { errorControl : !CountryObject().StatusData.isURIValid() }">
-                  <div class="text-field">
-                    <input class="form-field-text" data-bind="value: CountryObject().Data.URI, 'enable' : !StatusData.IsURIReadOnly(), 'css' : { 'errorControl' : !CountryObject().StatusData.isURIValid() }" type="text" data-test-id="edit_3c901375-f8fb-4f4b-a6e9-830a0bb7c6e5" />
-                    <span class="errorDescription" data-bind="'visible' : !CountryObject().StatusData.isURIValid(), text : CountryObject().StatusData.uRIErrorMessage"></span>
-                  </div>
-                </span>
-              </div>
-              <div class="form-field view requiredField" data-bind="'visible':StatusData.DisplayMode() == 'view' &amp;&amp; StatusData.IsNameVisible()" data-test-id="f41d8289-b391-46c3-a523-dc1d8f751e44" data-entityfield="name-view">
-                <span class="form-field-label-zone" data-bind="'visible':StatusData.DisplayMode() == 'view' &amp;&amp; StatusData.IsNameVisible(), 'css' : { errorText : !CountryObject().StatusData.isNameValid() }" data-test-id="label_f41d8289-b391-46c3-a523-dc1d8f751e44">
-                  <label class="form-field-label">Name</label>
-                </span>
-                <span class="form-field-control-container" data-bind="'css' : { errorControl : !CountryObject().StatusData.isNameValid() }">
-                  <div class="text-field">
-                    <span class="form-field-text" data-bind="text: CountryObject().Data.Name, 'css' : { 'errorControl' : !CountryObject().StatusData.isNameValid() }" data-test-id="view_f41d8289-b391-46c3-a523-dc1d8f751e44" />
-                  </div>
-                </span>
-              </div>
-              <div class="form-field edit requiredField" data-bind="'visible':StatusData.DisplayMode() == 'edit' &amp;&amp; StatusData.IsNameVisible()" data-test-id="f41d8289-b391-46c3-a523-dc1d8f751e44" data-entityfield="name-edit">
-                <span class="form-field-label-zone" data-bind="'visible':StatusData.DisplayMode() == 'edit' &amp;&amp; StatusData.IsNameVisible(), 'css' : { errorText : !CountryObject().StatusData.isNameValid() }" data-test-id="label_f41d8289-b391-46c3-a523-dc1d8f751e44">
-                  <label class="form-field-label">Name</label>
-                </span>
-                <span class="form-field-control-container" data-bind="'enable' : !StatusData.IsNameReadOnly(), 'css' : { errorControl : !CountryObject().StatusData.isNameValid() }">
-                  <div class="text-field">
-                    <input class="form-field-text" data-bind="value: CountryObject().Data.Name, 'enable' : !StatusData.IsNameReadOnly(), 'css' : { 'errorControl' : !CountryObject().StatusData.isNameValid() }" type="text" data-test-id="edit_f41d8289-b391-46c3-a523-dc1d8f751e44" />
-                    <span class="errorDescription" data-bind="'visible' : !CountryObject().StatusData.isNameValid(), text : CountryObject().StatusData.nameErrorMessage"></span>
-                  </div>
-                </span>
-              </div>
-              <div class="form-field view optionalField" data-bind="'visible':StatusData.DisplayMode() == 'view' &amp;&amp; StatusData.IsLongNameVisible()" data-test-id="cd92a6ad-1a90-4206-b1a5-11c6ed536211" data-entityfield="longname-view">
-                <span class="form-field-label-zone" data-bind="'visible':StatusData.DisplayMode() == 'view' &amp;&amp; StatusData.IsLongNameVisible(), 'css' : { errorText : !CountryObject().StatusData.isLongNameValid() }" data-test-id="label_cd92a6ad-1a90-4206-b1a5-11c6ed536211">
-                  <label class="form-field-label">Long Name</label>
-                </span>
-                <span class="form-field-control-container" data-bind="'css' : { errorControl : !CountryObject().StatusData.isLongNameValid() }">
-                  <div class="text-field">
-                    <span class="form-field-text" data-bind="text: CountryObject().Data.LongName, 'css' : { 'errorControl' : !CountryObject().StatusData.isLongNameValid() }" data-test-id="view_cd92a6ad-1a90-4206-b1a5-11c6ed536211" />
-                  </div>
-                </span>
-              </div>
-              <div class="form-field edit optionalField" data-bind="'visible':StatusData.DisplayMode() == 'edit' &amp;&amp; StatusData.IsLongNameVisible()" data-test-id="cd92a6ad-1a90-4206-b1a5-11c6ed536211" data-entityfield="longname-edit">
-                <span class="form-field-label-zone" data-bind="'visible':StatusData.DisplayMode() == 'edit' &amp;&amp; StatusData.IsLongNameVisible(), 'css' : { errorText : !CountryObject().StatusData.isLongNameValid() }" data-test-id="label_cd92a6ad-1a90-4206-b1a5-11c6ed536211">
-                  <label class="form-field-label">Long Name</label>
-                </span>
-                <span class="form-field-control-container" data-bind="'enable' : !StatusData.IsLongNameReadOnly(), 'css' : { errorControl : !CountryObject().StatusData.isLongNameValid() }">
-                  <div class="text-field">
-                    <input class="form-field-text" data-bind="value: CountryObject().Data.LongName, 'enable' : !StatusData.IsLongNameReadOnly(), 'css' : { 'errorControl' : !CountryObject().StatusData.isLongNameValid() }" type="text" data-test-id="edit_cd92a6ad-1a90-4206-b1a5-11c6ed536211" />
-                    <span class="errorDescription" data-bind="'visible' : !CountryObject().StatusData.isLongNameValid(), text : CountryObject().StatusData.longNameErrorMessage"></span>
-                  </div>
-                </span>
-              </div>
-              <div class="form-field view optionalField" data-bind="'visible':StatusData.DisplayMode() == 'view' &amp;&amp; StatusData.IsPopulationTotalVisible()" data-test-id="046c41ef-9333-494f-b680-e3f77ec22218" data-entityfield="populationtotal-view">
-                <span class="form-field-label-zone" data-bind="'visible':StatusData.DisplayMode() == 'view' &amp;&amp; StatusData.IsPopulationTotalVisible(), 'css' : { errorText : !CountryObject().StatusData.isPopulationTotalValid() }" data-test-id="label_046c41ef-9333-494f-b680-e3f77ec22218">
-                  <label class="form-field-label">Population Total</label>
-                </span>
-                <span class="form-field-control-container" data-bind="'css' : { errorControl : !CountryObject().StatusData.isPopulationTotalValid() }">
-                  <div class="text-field">
-                    <span class="form-field-text" data-bind="text: CountryObject().Data.PopulationTotal, 'css' : { 'errorControl' : !CountryObject().StatusData.isPopulationTotalValid() }" data-test-id="view_046c41ef-9333-494f-b680-e3f77ec22218" />
-                  </div>
-                </span>
-              </div>
-              <div class="form-field edit optionalField" data-bind="'visible':StatusData.DisplayMode() == 'edit' &amp;&amp; StatusData.IsPopulationTotalVisible()" data-test-id="046c41ef-9333-494f-b680-e3f77ec22218" data-entityfield="populationtotal-edit">
-                <span class="form-field-label-zone" data-bind="'visible':StatusData.DisplayMode() == 'edit' &amp;&amp; StatusData.IsPopulationTotalVisible(), 'css' : { errorText : !CountryObject().StatusData.isPopulationTotalValid() }" data-test-id="label_046c41ef-9333-494f-b680-e3f77ec22218">
-                  <label class="form-field-label">Population Total</label>
-                </span>
-                <span class="form-field-control-container" data-bind="'enable' : !StatusData.IsPopulationTotalReadOnly(), 'css' : { errorControl : !CountryObject().StatusData.isPopulationTotalValid() }">
-                  <div class="text-field">
-                    <input class="form-field-text" data-bind="value: CountryObject().Data.PopulationTotal, 'enable' : !StatusData.IsPopulationTotalReadOnly(), 'css' : { 'errorControl' : !CountryObject().StatusData.isPopulationTotalValid() }" type="text" data-test-id="edit_046c41ef-9333-494f-b680-e3f77ec22218" />
-                    <span class="errorDescription" data-bind="'visible' : !CountryObject().StatusData.isPopulationTotalValid(), text : CountryObject().StatusData.populationTotalErrorMessage"></span>
-                  </div>
-                </span>
-              </div>
-              <div class="form-field view optionalField" data-bind="'visible':StatusData.DisplayMode() == 'view' &amp;&amp; StatusData.IsPopulationDensityVisible()" data-test-id="81570b13-3de6-4014-ac35-482b337fb941" data-entityfield="populationdensity-view">
-                <span class="form-field-label-zone" data-bind="'visible':StatusData.DisplayMode() == 'view' &amp;&amp; StatusData.IsPopulationDensityVisible(), 'css' : { errorText : !CountryObject().StatusData.isPopulationDensityValid() }" data-test-id="label_81570b13-3de6-4014-ac35-482b337fb941">
-                  <label class="form-field-label">Population Density</label>
-                </span>
-                <span class="form-field-control-container" data-bind="'css' : { errorControl : !CountryObject().StatusData.isPopulationDensityValid() }">
-                  <div class="text-field">
-                    <span class="form-field-text" data-bind="text: CountryObject().Data.PopulationDensity, 'css' : { 'errorControl' : !CountryObject().StatusData.isPopulationDensityValid() }" data-test-id="view_81570b13-3de6-4014-ac35-482b337fb941" />
-                  </div>
-                </span>
-              </div>
-              <div class="form-field edit optionalField" data-bind="'visible':StatusData.DisplayMode() == 'edit' &amp;&amp; StatusData.IsPopulationDensityVisible()" data-test-id="81570b13-3de6-4014-ac35-482b337fb941" data-entityfield="populationdensity-edit">
-                <span class="form-field-label-zone" data-bind="'visible':StatusData.DisplayMode() == 'edit' &amp;&amp; StatusData.IsPopulationDensityVisible(), 'css' : { errorText : !CountryObject().StatusData.isPopulationDensityValid() }" data-test-id="label_81570b13-3de6-4014-ac35-482b337fb941">
-                  <label class="form-field-label">Population Density</label>
-                </span>
-                <span class="form-field-control-container" data-bind="'enable' : !StatusData.IsPopulationDensityReadOnly(), 'css' : { errorControl : !CountryObject().StatusData.isPopulationDensityValid() }">
-                  <div class="text-field">
-                    <input class="form-field-text" data-bind="value: CountryObject().Data.PopulationDensity, 'enable' : !StatusData.IsPopulationDensityReadOnly(), 'css' : { 'errorControl' : !CountryObject().StatusData.isPopulationDensityValid() }" type="text" data-test-id="edit_81570b13-3de6-4014-ac35-482b337fb941" />
-                    <span class="errorDescription" data-bind="'visible' : !CountryObject().StatusData.isPopulationDensityValid(), text : CountryObject().StatusData.populationDensityErrorMessage"></span>
-                  </div>
-                </span>
-              </div>
-              <div class="form-field view optionalField" data-bind="'visible':StatusData.DisplayMode() == 'view' &amp;&amp; StatusData.IsAbstractVisible()" data-test-id="dc9ce439-43f8-4c6d-b4b0-9a5029073edd" data-entityfield="abstract-view">
-                <span class="form-field-label-zone" data-bind="'visible':StatusData.DisplayMode() == 'view' &amp;&amp; StatusData.IsAbstractVisible(), 'css' : { errorText : !CountryObject().StatusData.isAbstractValid() }" data-test-id="label_dc9ce439-43f8-4c6d-b4b0-9a5029073edd">
-                  <label class="form-field-label">Abstract</label>
-                </span>
-                <span class="form-field-control-container" data-bind="'css' : { errorControl : !CountryObject().StatusData.isAbstractValid() }">
-                  <div class="text-field multiline">
-                    <textarea class="form-field-text multiline" rows="10" disabled="disabled" data-bind="text: CountryObject().Data.Abstract, 'css' : { 'errorControl' : !CountryObject().StatusData.isAbstractValid() }" data-test-id="view_dc9ce439-43f8-4c6d-b4b0-9a5029073edd"></textarea>
-                  </div>
-                </span>
-              </div>
-              <div class="form-field edit optionalField" data-bind="'visible':StatusData.DisplayMode() == 'edit' &amp;&amp; StatusData.IsAbstractVisible()" data-test-id="dc9ce439-43f8-4c6d-b4b0-9a5029073edd" data-entityfield="abstract-edit">
-                <span class="form-field-label-zone" data-bind="'visible':StatusData.DisplayMode() == 'edit' &amp;&amp; StatusData.IsAbstractVisible(), 'css' : { errorText : !CountryObject().StatusData.isAbstractValid() }" data-test-id="label_dc9ce439-43f8-4c6d-b4b0-9a5029073edd">
-                  <label class="form-field-label">Abstract</label>
-                </span>
-                <span class="form-field-control-container" data-bind="'enable' : !StatusData.IsAbstractReadOnly(), 'css' : { errorControl : !CountryObject().StatusData.isAbstractValid() }">
-                  <div class="text-field multiline">
-                    <textarea rows="10" class="form-field-text multiline" data-bind="value: CountryObject().Data.Abstract, 'enable' : !StatusData.IsAbstractReadOnly(), 'css' : { 'errorControl' : !CountryObject().StatusData.isAbstractValid() }" data-test-id="edit_dc9ce439-43f8-4c6d-b4b0-9a5029073edd" />
-                    <span class="errorDescription" data-bind="'visible' : !CountryObject().StatusData.isAbstractValid(), text : CountryObject().StatusData.abstractErrorMessage"></span>
-                  </div>
-                </span>
-              </div>
+    <div>
+      <div class="basicForm" data-placeholder="formFieldsZone">
+        <div class="form-field view requiredField" data-bind="'visible':StatusData.DisplayMode() == 'view' &amp;&amp; StatusData.IsURIVisible()" data-test-id="3c901375-f8fb-4f4b-a6e9-830a0bb7c6e5" data-entityfield="uri-view">
+          <span class="form-field-label-zone" data-bind="'visible':StatusData.DisplayMode() == 'view' &amp;&amp; StatusData.IsURIVisible(), 'css' : { errorText : !CountryObject().StatusData.isURIValid() }" data-test-id="label_3c901375-f8fb-4f4b-a6e9-830a0bb7c6e5">
+            <label class="form-field-label">URI</label>
+          </span>
+          <span class="form-field-control-container" data-bind="'css' : { errorControl : !CountryObject().StatusData.isURIValid() }">
+            <div class="text-field">
+              <span class="form-field-text" data-bind="text: CountryObject().Data.URI, 'css' : { 'errorControl' : !CountryObject().StatusData.isURIValid() }" data-test-id="view_3c901375-f8fb-4f4b-a6e9-830a0bb7c6e5" />
             </div>
-          </div>
+          </span>
         </div>
-        <div class="CountryFormControl-CountryForm-tabs-contenu CountryFormControl-CountryForm-tabs-2" data-test-id="89a6b68b-940a-4af9-85bc-cfe936426149">
-          <div>
-            <div class="basicForm" data-placeholder="formFieldsZone">
-              <div data-bind="'visible':StatusData.IsPlaceItemsVisible()" data-test-id="3cff7504-7a20-4794-baa6-f11e8b1ad06f" data-entityfield="placeitems-view" class="requiredField">
-                <span data-bind="'css' : { errorControl : !CountryObject().StatusData.isPlaceItemsValid() }">
-                  <div>
-                    <div class="subgrid-field" data-test-id="view_3cff7504-7a20-4794-baa6-f11e8b1ad06f">
-                      <div><!--
-// This is Generated Code
-// You should not modify this code as it may be overwritten
-// Generated By Generative Objects 
---> 
-<root>
-  <div class="uiContainer loadingElement" id="CountryFormControl-CountryForm-PlaceItemsGrid" data-test-id="100be521-6c65-4ca2-af6d-267d477e96cf" data-bind="'css': { 'loadingElement': false, 'busy': PlaceItemsGridViewModel.StatusData.IsBusy(), 'disabled': !PlaceItemsGridViewModel.StatusData.IsEnabled() }, 'visible': PlaceItemsGridViewModel.StatusData.IsVisible()">
-    <div class="hideElt" data-bind="css: { hideElt : false }">
-      <div class="busyLine" style="display: none; " data-bind="'visible' : PlaceItemsGridViewModel.StatusData.IsBusy()">
-        <h2 title="" data-bind="visible: PlaceItemsGridViewModel.StatusData.ShowTitle(), html: PlaceItemsGridViewModel.StatusData.Title()"></h2>
-      </div>
-      <div style="display: none; " data-bind="'visible' : !PlaceItemsGridViewModel.StatusData.IsBusy()">
-        <h2 title="" data-bind="visible: PlaceItemsGridViewModel.StatusData.ShowTitle(), html: PlaceItemsGridViewModel.StatusData.Title()"></h2>
-      </div>
-      <div data-bind="'visible': PlaceItemsGridViewModel.StatusData.IsFilterVisible()"><!--
-// This is Generated Code
-// You should not modify this code as it may be overwritten
-// Generated By Generative Objects 
---> 
-<div>
-  <div id="CountryFormControl-CountryForm-PlaceItemsGrid-PlaceFilter-Filter" class="PlaceFilter" data-test-id="db9fe662-cea5-4a39-857c-67cea3c91c01">
-    <form data-bind="submit: PlaceItemsGridViewModel.PlaceFilterViewModel.commands.searchCommand">
-      <fieldset class="uiSearchContainer">
-        <div class="filterFieldSetContent">
-          <div class="filterContentContainer">
-            <div class="filterGroupContainer">
-              <span class="filterFieldSelection filterTextField" data-bind="visible: PlaceItemsGridViewModel.PlaceFilterViewModel.statusData.isAbstractVisible">
-                <label>
-                  <span>Abstract</span>
-                  <input type="text" data-bind="value: PlaceItemsGridViewModel.PlaceFilterViewModel.filterData.fields.Abstract" data-test-id="574e76b0-e809-4e0c-a35b-ff534b8097a7" />
-                </label>
-              </span>
-              <span class="filterFieldSelection filterTextField" data-bind="visible: PlaceItemsGridViewModel.PlaceFilterViewModel.statusData.isNameVisible">
-                <label>
-                  <span>Name</span>
-                  <input type="text" data-bind="value: PlaceItemsGridViewModel.PlaceFilterViewModel.filterData.fields.Name" data-test-id="894da5f2-582f-4161-8697-b16f2efcdd0f" />
-                </label>
-              </span>
-              <span class="filterFieldSelection filterTextField" data-bind="visible: PlaceItemsGridViewModel.PlaceFilterViewModel.statusData.isURIVisible">
-                <label>
-                  <span>URI</span>
-                  <input type="text" data-bind="value: PlaceItemsGridViewModel.PlaceFilterViewModel.filterData.fields.URI" data-test-id="bb866317-7f90-45d4-b7c6-42d66cf3de60" />
-                </label>
-              </span>
-              <span class="filterFieldSelection filterTextField" data-bind="visible: PlaceItemsGridViewModel.PlaceFilterViewModel.statusData.isCountryURIVisible">
-                <label>
-                  <span>CountryURI</span>
-                  <input type="text" data-bind="value: PlaceItemsGridViewModel.PlaceFilterViewModel.filterData.fields.CountryURI" data-test-id="23d19bda-69c4-46e2-9ab9-92ac5b33c725" />
-                </label>
-              </span>
+        <div class="form-field edit requiredField" data-bind="'visible':StatusData.DisplayMode() == 'edit' &amp;&amp; StatusData.IsURIVisible()" data-test-id="3c901375-f8fb-4f4b-a6e9-830a0bb7c6e5" data-entityfield="uri-edit">
+          <span class="form-field-label-zone" data-bind="'visible':StatusData.DisplayMode() == 'edit' &amp;&amp; StatusData.IsURIVisible(), 'css' : { errorText : !CountryObject().StatusData.isURIValid() }" data-test-id="label_3c901375-f8fb-4f4b-a6e9-830a0bb7c6e5">
+            <label class="form-field-label">URI</label>
+          </span>
+          <span class="form-field-control-container" data-bind="'enable' : !StatusData.IsURIReadOnly(), 'css' : { errorControl : !CountryObject().StatusData.isURIValid() }">
+            <div class="text-field">
+              <input class="form-field-text" data-bind="value: CountryObject().Data.URI, 'enable' : !StatusData.IsURIReadOnly(), 'css' : { 'errorControl' : !CountryObject().StatusData.isURIValid() }" type="text" data-test-id="edit_3c901375-f8fb-4f4b-a6e9-830a0bb7c6e5" />
+              <span class="errorDescription" data-bind="'visible' : !CountryObject().StatusData.isURIValid(), text : CountryObject().StatusData.uRIErrorMessage"></span>
             </div>
-          </div>
-          <div class="searchCommandsContainer">
-            <button class="command-button" data-bind="click: PlaceItemsGridViewModel.PlaceFilterViewModel.commands.searchCommand" data-test-id="searchCommand">Search</button>
-            <button class="command-button" data-bind="click: PlaceItemsGridViewModel.PlaceFilterViewModel.commands.clearCommand" data-test-id="clearCommand">Clear</button>
-          </div>
+          </span>
         </div>
-      </fieldset>
-    </form>
-  </div>
-</div> 
-</div>
-      <div class="no-data-message">
-        <span data-bind="'visible' : PlaceItemsGridViewModel.StatusData.IsEmpty()">No Place data available</span>
-      </div>
-      <div class="uiContainer">
-        <div class="blocking-element ui-widget-overlay"></div>
-        <div data-bind="'visible' : !PlaceItemsGridViewModel.StatusData.IsEmpty(),gridWidgetInitializer: PlaceItemsGridViewModel.gridConfiguration" id="{PARENT}-PlaceItemsGridViewModel-grid-widget-PlaceGrid-">
-          <div class="data-grid-container">
-            <table data-placeholder="gridTable" class="data-grid">
-              <thead class="gridControl">
-                <tr>
-                  <th scope="col" data-bind="html: 'Abstract', click: function(data, event){ PlaceItemsGridViewModel.onHeaderClicked('Abstract') }, css: { 'ui-grid-sort-s':((PlaceItemsGridViewModel.sortOrder() == 'desc') &amp;&amp; (PlaceItemsGridViewModel.sortColumnName() == 'Abstract')), 'ui-grid-sort-n':((PlaceItemsGridViewModel.sortOrder() == 'asc') &amp;&amp; (PlaceItemsGridViewModel.sortColumnName() == 'Abstract')), 'ui-grid-sort-n-s':(PlaceItemsGridViewModel.sortColumnName() != 'Abstract') }" class="ui-grid-header-container pointer sortableCol"></th>
-                  <th scope="col" data-bind="html: 'Name', click: function(data, event){ PlaceItemsGridViewModel.onHeaderClicked('Name') }, css: { 'ui-grid-sort-s':((PlaceItemsGridViewModel.sortOrder() == 'desc') &amp;&amp; (PlaceItemsGridViewModel.sortColumnName() == 'Name')), 'ui-grid-sort-n':((PlaceItemsGridViewModel.sortOrder() == 'asc') &amp;&amp; (PlaceItemsGridViewModel.sortColumnName() == 'Name')), 'ui-grid-sort-n-s':(PlaceItemsGridViewModel.sortColumnName() != 'Name') }" class="ui-grid-header-container pointer sortableCol"></th>
-                  <th scope="col" data-bind="html: 'URI', click: function(data, event){ PlaceItemsGridViewModel.onHeaderClicked('URI') }, css: { 'ui-grid-sort-s':((PlaceItemsGridViewModel.sortOrder() == 'desc') &amp;&amp; (PlaceItemsGridViewModel.sortColumnName() == 'URI')), 'ui-grid-sort-n':((PlaceItemsGridViewModel.sortOrder() == 'asc') &amp;&amp; (PlaceItemsGridViewModel.sortColumnName() == 'URI')), 'ui-grid-sort-n-s':(PlaceItemsGridViewModel.sortColumnName() != 'URI') }" class="ui-grid-header-container pointer sortableCol"></th>
-                </tr>
-              </thead>
-              <tbody data-bind="foreach: PlaceItemsGridViewModel.PlaceObjectCollection()">
-                <tr class="pointer" data-bind="attr: {'data-id': Data.InternalObjectId}, click: $parent.PlaceItemsGridViewModel.onLineClicked, event: {dblclick: $parent.PlaceItemsGridViewModel.onLineDblClicked}, css: {'currenttr': $parent.PlaceItemsGridViewModel.selectedId() == Data.InternalObjectId()}">
-                  <td data-bind="html: Data.Abstract"></td>
-                  <td data-bind="jqStopBubble: 'a'">
-                    <a data-bind="attr: { href: '#!' + ApplicationController.getRootHashTag('PlaceDetails') + 'Places/PlaceDetails/' + Data.URI(), title: Data.Name }, html: Data.Name"></a>
-                  </td>
-                  <td data-bind="html: Data.URI"></td>
-                </tr>
-              </tbody>
-            </table>
-          </div>
-        </div>
-      </div>
-      <div class="gridCommandContainer">
-        <div>
-          <div class="horizontalList" data-bind="'visible': !PlaceItemsGridViewModel.StatusData.IsEmpty() &amp;&amp; PlaceItemsGridViewModel.StatusData.IsEnabled() &amp;&amp; PlaceItemsGridViewModel.totalPageNumber() &gt; 1">
-            <div id="{PARENT}-PlaceItemsGridViewModel-grid-paginator-widget-">
-              <ul class="grid-pagination">
-                <li class="page-numbers page-controls" data-bind="attr: { 'data-pagenumber': 0 }, css: { 'invisible': (PlaceItemsGridViewModel.pageNumber() &lt; 1 + 2) }, click: function(data, event){PlaceItemsGridViewModel.gridSettings.methods.paginationClickHandler(data, event)}">
-                  <span class="ui-icon ui-icon-seek-first page-arrows"></span>
-                </li>
-                <li class="page-numbers page-controls" data-bind="attr: { 'data-pagenumber': PlaceItemsGridViewModel.pageNumber() - 1 }, css: { 'invisible': PlaceItemsGridViewModel.pageNumber() &lt; 1 }, click: function(data, event){PlaceItemsGridViewModel.gridSettings.methods.paginationClickHandler(data, event)}">
-                  <span class="ui-icon ui-icon-seek-prev page-arrows"></span>
-                </li>
-                <div data-bind="foreach: PlaceItemsGridViewModel.pageItems()">
-                  <li data-bind="attr: { 'data-pagenumber': pagenumber }, css: { currentPage: domClass == true }, text: text, click: function(data, event){$parent.PlaceItemsGridViewModel.gridSettings.methods.paginationClickHandler(data, event)}" class="page-numbers"></li>
-                </div>
-                <li class="page-numbers page-controls" data-bind="attr: { 'data-pagenumber': parseInt(PlaceItemsGridViewModel.pageNumber(), 10) + parseInt(1, 10) }, css: { 'invisible': PlaceItemsGridViewModel.pageNumber() &gt;= (PlaceItemsGridViewModel.totalPageNumber() - 1) }, click: function(data, event){PlaceItemsGridViewModel.gridSettings.methods.paginationClickHandler(data, event)} ">
-                  <span class="ui-icon ui-icon-seek-next page-arrows"></span>
-                </li>
-                <li class="page-numbers page-controls" data-bind="attr: { 'data-pagenumber': PlaceItemsGridViewModel.totalPageNumber() - 1 }, css: { 'invisible': PlaceItemsGridViewModel.pageNumber() &gt;= (PlaceItemsGridViewModel.totalPageNumber() - (1 + 2)) }, click: function(data, event){PlaceItemsGridViewModel.gridSettings.methods.paginationClickHandler(data, event)}">
-                  <span class="ui-icon ui-icon-seek-end page-arrows"></span>
-                </li>
-              </ul>
+        <div class="form-field view requiredField" data-bind="'visible':StatusData.DisplayMode() == 'view' &amp;&amp; StatusData.IsNameVisible()" data-test-id="f41d8289-b391-46c3-a523-dc1d8f751e44" data-entityfield="name-view">
+          <span class="form-field-label-zone" data-bind="'visible':StatusData.DisplayMode() == 'view' &amp;&amp; StatusData.IsNameVisible(), 'css' : { errorText : !CountryObject().StatusData.isNameValid() }" data-test-id="label_f41d8289-b391-46c3-a523-dc1d8f751e44">
+            <label class="form-field-label">Name</label>
+          </span>
+          <span class="form-field-control-container" data-bind="'css' : { errorControl : !CountryObject().StatusData.isNameValid() }">
+            <div class="text-field">
+              <span class="form-field-text" data-bind="text: CountryObject().Data.Name, 'css' : { 'errorControl' : !CountryObject().StatusData.isNameValid() }" data-test-id="view_f41d8289-b391-46c3-a523-dc1d8f751e44" />
             </div>
-          </div>
-          <div class="grid-count-label" data-bind="'visible' : !PlaceItemsGridViewModel.StatusData.IsEmpty()">
-            <span class="titleText">Place Items: </span>
-            <span data-bind="text: GO.FormatNumberWithSpaces(PlaceItemsGridViewModel.totalCollection())"></span>
-          </div>
-          <div class="horizontalList">
-            <button data-bind="'click': PlaceItemsGridViewModel.commands.showCreateNewPopupCommand, 'visible': PlaceItemsGridViewModel.commands.isShowCreateNewPopupCommandVisible(), 'enable': PlaceItemsGridViewModel.commands.isShowCreateNewPopupCommandEnabled(),'css' : { 'command-button' : PlaceItemsGridViewModel.commands.isShowCreateNewPopupCommandEnabled(), 'command-button-disabled' : !PlaceItemsGridViewModel.commands.isShowCreateNewPopupCommandEnabled() }" data-test-id="f7e2fc2d-8021-4c39-8dca-a044ce8043eb" class="command-button">Add</button>
-          </div>
-          <div class="horizontalList">
-            <button data-action="click" class="command-button" data-bind="'click': PlaceItemsGridViewModel.commands.NavigateToDetailsCommand, 'visible': PlaceItemsGridViewModel.commands.IsNavigateToDetailsCommandVisible(), 'enable': PlaceItemsGridViewModel.commands.IsNavigateToDetailsCommandEnabled()">View</button>
-          </div>
-          <div class="horizontalList">
-            <button data-bind="'click': PlaceItemsGridViewModel.commands.deleteCommand, 'visible': PlaceItemsGridViewModel.commands.isDeleteCommandVisible(), 'enable': PlaceItemsGridViewModel.commands.isDeleteCommandEnabled(),'css' : { 'command-button' : PlaceItemsGridViewModel.commands.isDeleteCommandEnabled(), 'command-button-disabled' : !PlaceItemsGridViewModel.commands.isDeleteCommandEnabled() }" data-test-id="1138c2e5-e299-46c4-b297-517fa98197b7" class="command-button">Delete</button>
-          </div>
+          </span>
         </div>
-      </div>
-    </div>
-  </div>
-</root> 
-</div>
-                    </div>
-                  </div>
-                </span>
-              </div>
+        <div class="form-field edit requiredField" data-bind="'visible':StatusData.DisplayMode() == 'edit' &amp;&amp; StatusData.IsNameVisible()" data-test-id="f41d8289-b391-46c3-a523-dc1d8f751e44" data-entityfield="name-edit">
+          <span class="form-field-label-zone" data-bind="'visible':StatusData.DisplayMode() == 'edit' &amp;&amp; StatusData.IsNameVisible(), 'css' : { errorText : !CountryObject().StatusData.isNameValid() }" data-test-id="label_f41d8289-b391-46c3-a523-dc1d8f751e44">
+            <label class="form-field-label">Name</label>
+          </span>
+          <span class="form-field-control-container" data-bind="'enable' : !StatusData.IsNameReadOnly(), 'css' : { errorControl : !CountryObject().StatusData.isNameValid() }">
+            <div class="text-field">
+              <input class="form-field-text" data-bind="value: CountryObject().Data.Name, 'enable' : !StatusData.IsNameReadOnly(), 'css' : { 'errorControl' : !CountryObject().StatusData.isNameValid() }" type="text" data-test-id="edit_f41d8289-b391-46c3-a523-dc1d8f751e44" />
+              <span class="errorDescription" data-bind="'visible' : !CountryObject().StatusData.isNameValid(), text : CountryObject().StatusData.nameErrorMessage"></span>
             </div>
-          </div>
+          </span>
         </div>
-        <div class="CountryFormControl-CountryForm-tabs-contenu CountryFormControl-CountryForm-tabs-3" data-test-id="13023c5a-c493-45c2-ade5-c3fe66b9f221">
-          <div>
-            <div class="basicForm" data-placeholder="formFieldsZone">
-              <div data-bind="'visible':StatusData.IsLocationItemsVisible()" data-test-id="6e08443f-fb7a-42ee-98b9-5af7d3025c29" data-entityfield="locationitems-view" class="requiredField">
-                <span data-bind="'css' : { errorControl : !CountryObject().StatusData.isLocationItemsValid() }">
-                  <div>
-                    <div class="subgrid-field" data-test-id="view_6e08443f-fb7a-42ee-98b9-5af7d3025c29">
-                      <div><!--
-// This is Generated Code
-// You should not modify this code as it may be overwritten
-// Generated By Generative Objects 
---> 
-<root>
-  <div class="uiContainer loadingElement" id="CountryFormControl-CountryForm-LocationItemsGrid" data-test-id="f2d2c0b7-44d5-4e2f-9792-1ecd79098065" data-bind="'css': { 'loadingElement': false, 'busy': LocationItemsGridViewModel.StatusData.IsBusy(), 'disabled': !LocationItemsGridViewModel.StatusData.IsEnabled() }, 'visible': LocationItemsGridViewModel.StatusData.IsVisible()">
-    <div class="hideElt" data-bind="css: { hideElt : false }">
-      <div class="busyLine" style="display: none; " data-bind="'visible' : LocationItemsGridViewModel.StatusData.IsBusy()">
-        <h2 title="" data-bind="visible: LocationItemsGridViewModel.StatusData.ShowTitle(), html: LocationItemsGridViewModel.StatusData.Title()"></h2>
-      </div>
-      <div style="display: none; " data-bind="'visible' : !LocationItemsGridViewModel.StatusData.IsBusy()">
-        <h2 title="" data-bind="visible: LocationItemsGridViewModel.StatusData.ShowTitle(), html: LocationItemsGridViewModel.StatusData.Title()"></h2>
-      </div>
-      <div data-bind="'visible': LocationItemsGridViewModel.StatusData.IsFilterVisible()"><!--
-// This is Generated Code
-// You should not modify this code as it may be overwritten
-// Generated By Generative Objects 
---> 
-<div>
-  <div id="CountryFormControl-CountryForm-LocationItemsGrid-LocationFilter-Filter" class="LocationFilter" data-test-id="4b79564e-c4be-48d0-b805-522bebdb6cd0">
-    <form data-bind="submit: LocationItemsGridViewModel.LocationFilterViewModel.commands.searchCommand">
-      <fieldset class="uiSearchContainer">
-        <div class="filterFieldSetContent">
-          <div class="filterContentContainer">
-            <div class="filterGroupContainer">
-              <span class="filterFieldSelection filterTextField" data-bind="visible: LocationItemsGridViewModel.LocationFilterViewModel.statusData.isNameVisible">
-                <label>
-                  <span>Name</span>
-                  <input type="text" data-bind="value: LocationItemsGridViewModel.LocationFilterViewModel.filterData.fields.Name" data-test-id="e0ca007c-0f99-416e-8331-4e16ec7bf69c" />
-                </label>
-              </span>
-              <span class="filterFieldSelection filterTextField" data-bind="visible: LocationItemsGridViewModel.LocationFilterViewModel.statusData.isURIVisible">
-                <label>
-                  <span>URI</span>
-                  <input type="text" data-bind="value: LocationItemsGridViewModel.LocationFilterViewModel.filterData.fields.URI" data-test-id="8c8af6b5-8fb5-4794-8034-e2afe7ce74d2" />
-                </label>
-              </span>
-              <span class="filterFieldSelection filterTextField" data-bind="visible: LocationItemsGridViewModel.LocationFilterViewModel.statusData.isCountryURIVisible">
-                <label>
-                  <span>CountryURI</span>
-                  <input type="text" data-bind="value: LocationItemsGridViewModel.LocationFilterViewModel.filterData.fields.CountryURI" data-test-id="b727c34d-656b-4f08-ad4d-cdf7aa2c44d2" />
-                </label>
-              </span>
-              <span class="filterFieldSelection filterTextField" data-bind="visible: LocationItemsGridViewModel.LocationFilterViewModel.statusData.isAbstractVisible">
-                <label>
-                  <span>Abstract</span>
-                  <input type="text" data-bind="value: LocationItemsGridViewModel.LocationFilterViewModel.filterData.fields.Abstract" data-test-id="496eceb0-5401-43c8-a527-44f33c53ca9a" />
-                </label>
-              </span>
+        <div class="form-field view optionalField" data-bind="'visible':StatusData.DisplayMode() == 'view' &amp;&amp; StatusData.IsLongNameVisible()" data-test-id="cd92a6ad-1a90-4206-b1a5-11c6ed536211" data-entityfield="longname-view">
+          <span class="form-field-label-zone" data-bind="'visible':StatusData.DisplayMode() == 'view' &amp;&amp; StatusData.IsLongNameVisible(), 'css' : { errorText : !CountryObject().StatusData.isLongNameValid() }" data-test-id="label_cd92a6ad-1a90-4206-b1a5-11c6ed536211">
+            <label class="form-field-label">Long Name</label>
+          </span>
+          <span class="form-field-control-container" data-bind="'css' : { errorControl : !CountryObject().StatusData.isLongNameValid() }">
+            <div class="text-field">
+              <span class="form-field-text" data-bind="text: CountryObject().Data.LongName, 'css' : { 'errorControl' : !CountryObject().StatusData.isLongNameValid() }" data-test-id="view_cd92a6ad-1a90-4206-b1a5-11c6ed536211" />
             </div>
-          </div>
-          <div class="searchCommandsContainer">
-            <button class="command-button" data-bind="click: LocationItemsGridViewModel.LocationFilterViewModel.commands.searchCommand" data-test-id="searchCommand">Search</button>
-            <button class="command-button" data-bind="click: LocationItemsGridViewModel.LocationFilterViewModel.commands.clearCommand" data-test-id="clearCommand">Clear</button>
-          </div>
+          </span>
         </div>
-      </fieldset>
-    </form>
-  </div>
-</div> 
-</div>
-      <div class="no-data-message">
-        <span data-bind="'visible' : LocationItemsGridViewModel.StatusData.IsEmpty()">No Location data available</span>
-      </div>
-      <div class="uiContainer">
-        <div class="blocking-element ui-widget-overlay"></div>
-        <div data-bind="'visible' : !LocationItemsGridViewModel.StatusData.IsEmpty(),gridWidgetInitializer: LocationItemsGridViewModel.gridConfiguration" id="{PARENT}-LocationItemsGridViewModel-grid-widget-LocationGrid-">
-          <div class="data-grid-container">
-            <table data-placeholder="gridTable" class="data-grid">
-              <thead class="gridControl">
-                <tr>
-                  <th scope="col" data-bind="html: 'Abstract', click: function(data, event){ LocationItemsGridViewModel.onHeaderClicked('Abstract') }, css: { 'ui-grid-sort-s':((LocationItemsGridViewModel.sortOrder() == 'desc') &amp;&amp; (LocationItemsGridViewModel.sortColumnName() == 'Abstract')), 'ui-grid-sort-n':((LocationItemsGridViewModel.sortOrder() == 'asc') &amp;&amp; (LocationItemsGridViewModel.sortColumnName() == 'Abstract')), 'ui-grid-sort-n-s':(LocationItemsGridViewModel.sortColumnName() != 'Abstract') }" class="ui-grid-header-container pointer sortableCol"></th>
-                  <th scope="col" data-bind="html: 'Name', click: function(data, event){ LocationItemsGridViewModel.onHeaderClicked('Name') }, css: { 'ui-grid-sort-s':((LocationItemsGridViewModel.sortOrder() == 'desc') &amp;&amp; (LocationItemsGridViewModel.sortColumnName() == 'Name')), 'ui-grid-sort-n':((LocationItemsGridViewModel.sortOrder() == 'asc') &amp;&amp; (LocationItemsGridViewModel.sortColumnName() == 'Name')), 'ui-grid-sort-n-s':(LocationItemsGridViewModel.sortColumnName() != 'Name') }" class="ui-grid-header-container pointer sortableCol"></th>
-                  <th scope="col" data-bind="html: 'URI', click: function(data, event){ LocationItemsGridViewModel.onHeaderClicked('URI') }, css: { 'ui-grid-sort-s':((LocationItemsGridViewModel.sortOrder() == 'desc') &amp;&amp; (LocationItemsGridViewModel.sortColumnName() == 'URI')), 'ui-grid-sort-n':((LocationItemsGridViewModel.sortOrder() == 'asc') &amp;&amp; (LocationItemsGridViewModel.sortColumnName() == 'URI')), 'ui-grid-sort-n-s':(LocationItemsGridViewModel.sortColumnName() != 'URI') }" class="ui-grid-header-container pointer sortableCol"></th>
-                </tr>
-              </thead>
-              <tbody data-bind="foreach: LocationItemsGridViewModel.LocationObjectCollection()">
-                <tr class="pointer" data-bind="attr: {'data-id': Data.InternalObjectId}, click: $parent.LocationItemsGridViewModel.onLineClicked, event: {dblclick: $parent.LocationItemsGridViewModel.onLineDblClicked}, css: {'currenttr': $parent.LocationItemsGridViewModel.selectedId() == Data.InternalObjectId()}">
-                  <td data-bind="html: Data.Abstract"></td>
-                  <td data-bind="jqStopBubble: 'a'">
-                    <a data-bind="attr: { href: '#!' + ApplicationController.getRootHashTag('LocationDetails') + 'Locations/LocationDetails/' + Data.URI(), title: Data.Name }, html: Data.Name"></a>
-                  </td>
-                  <td data-bind="html: Data.URI"></td>
-                </tr>
-              </tbody>
-            </table>
-          </div>
-        </div>
-      </div>
-      <div class="gridCommandContainer">
-        <div>
-          <div class="horizontalList" data-bind="'visible': !LocationItemsGridViewModel.StatusData.IsEmpty() &amp;&amp; LocationItemsGridViewModel.StatusData.IsEnabled() &amp;&amp; LocationItemsGridViewModel.totalPageNumber() &gt; 1">
-            <div id="{PARENT}-LocationItemsGridViewModel-grid-paginator-widget-">
-              <ul class="grid-pagination">
-                <li class="page-numbers page-controls" data-bind="attr: { 'data-pagenumber': 0 }, css: { 'invisible': (LocationItemsGridViewModel.pageNumber() &lt; 1 + 2) }, click: function(data, event){LocationItemsGridViewModel.gridSettings.methods.paginationClickHandler(data, event)}">
-                  <span class="ui-icon ui-icon-seek-first page-arrows"></span>
-                </li>
-                <li class="page-numbers page-controls" data-bind="attr: { 'data-pagenumber': LocationItemsGridViewModel.pageNumber() - 1 }, css: { 'invisible': LocationItemsGridViewModel.pageNumber() &lt; 1 }, click: function(data, event){LocationItemsGridViewModel.gridSettings.methods.paginationClickHandler(data, event)}">
-                  <span class="ui-icon ui-icon-seek-prev page-arrows"></span>
-                </li>
-                <div data-bind="foreach: LocationItemsGridViewModel.pageItems()">
-                  <li data-bind="attr: { 'data-pagenumber': pagenumber }, css: { currentPage: domClass == true }, text: text, click: function(data, event){$parent.LocationItemsGridViewModel.gridSettings.methods.paginationClickHandler(data, event)}" class="page-numbers"></li>
-                </div>
-                <li class="page-numbers page-controls" data-bind="attr: { 'data-pagenumber': parseInt(LocationItemsGridViewModel.pageNumber(), 10) + parseInt(1, 10) }, css: { 'invisible': LocationItemsGridViewModel.pageNumber() &gt;= (LocationItemsGridViewModel.totalPageNumber() - 1) }, click: function(data, event){LocationItemsGridViewModel.gridSettings.methods.paginationClickHandler(data, event)} ">
-                  <span class="ui-icon ui-icon-seek-next page-arrows"></span>
-                </li>
-                <li class="page-numbers page-controls" data-bind="attr: { 'data-pagenumber': LocationItemsGridViewModel.totalPageNumber() - 1 }, css: { 'invisible': LocationItemsGridViewModel.pageNumber() &gt;= (LocationItemsGridViewModel.totalPageNumber() - (1 + 2)) }, click: function(data, event){LocationItemsGridViewModel.gridSettings.methods.paginationClickHandler(data, event)}">
-                  <span class="ui-icon ui-icon-seek-end page-arrows"></span>
-                </li>
-              </ul>
+        <div class="form-field edit optionalField" data-bind="'visible':StatusData.DisplayMode() == 'edit' &amp;&amp; StatusData.IsLongNameVisible()" data-test-id="cd92a6ad-1a90-4206-b1a5-11c6ed536211" data-entityfield="longname-edit">
+          <span class="form-field-label-zone" data-bind="'visible':StatusData.DisplayMode() == 'edit' &amp;&amp; StatusData.IsLongNameVisible(), 'css' : { errorText : !CountryObject().StatusData.isLongNameValid() }" data-test-id="label_cd92a6ad-1a90-4206-b1a5-11c6ed536211">
+            <label class="form-field-label">Long Name</label>
+          </span>
+          <span class="form-field-control-container" data-bind="'enable' : !StatusData.IsLongNameReadOnly(), 'css' : { errorControl : !CountryObject().StatusData.isLongNameValid() }">
+            <div class="text-field">
+              <input class="form-field-text" data-bind="value: CountryObject().Data.LongName, 'enable' : !StatusData.IsLongNameReadOnly(), 'css' : { 'errorControl' : !CountryObject().StatusData.isLongNameValid() }" type="text" data-test-id="edit_cd92a6ad-1a90-4206-b1a5-11c6ed536211" />
+              <span class="errorDescription" data-bind="'visible' : !CountryObject().StatusData.isLongNameValid(), text : CountryObject().StatusData.longNameErrorMessage"></span>
             </div>
-          </div>
-          <div class="grid-count-label" data-bind="'visible' : !LocationItemsGridViewModel.StatusData.IsEmpty()">
-            <span class="titleText">Location Items: </span>
-            <span data-bind="text: GO.FormatNumberWithSpaces(LocationItemsGridViewModel.totalCollection())"></span>
-          </div>
-          <div class="horizontalList">
-            <button data-bind="'click': LocationItemsGridViewModel.commands.showCreateNewPopupCommand, 'visible': LocationItemsGridViewModel.commands.isShowCreateNewPopupCommandVisible(), 'enable': LocationItemsGridViewModel.commands.isShowCreateNewPopupCommandEnabled(),'css' : { 'command-button' : LocationItemsGridViewModel.commands.isShowCreateNewPopupCommandEnabled(), 'command-button-disabled' : !LocationItemsGridViewModel.commands.isShowCreateNewPopupCommandEnabled() }" data-test-id="d75073fa-b263-4d0a-9384-456c728d9127" class="command-button">Add</button>
-          </div>
-          <div class="horizontalList">
-            <button data-action="click" class="command-button" data-bind="'click': LocationItemsGridViewModel.commands.NavigateToDetailsCommand, 'visible': LocationItemsGridViewModel.commands.IsNavigateToDetailsCommandVisible(), 'enable': LocationItemsGridViewModel.commands.IsNavigateToDetailsCommandEnabled()">View</button>
-          </div>
-          <div class="horizontalList">
-            <button data-bind="'click': LocationItemsGridViewModel.commands.deleteCommand, 'visible': LocationItemsGridViewModel.commands.isDeleteCommandVisible(), 'enable': LocationItemsGridViewModel.commands.isDeleteCommandEnabled(),'css' : { 'command-button' : LocationItemsGridViewModel.commands.isDeleteCommandEnabled(), 'command-button-disabled' : !LocationItemsGridViewModel.commands.isDeleteCommandEnabled() }" data-test-id="0d717def-c593-4d01-a300-e9cd4ab18a7c" class="command-button">Delete</button>
-          </div>
+          </span>
         </div>
-      </div>
-    </div>
-  </div>
-</root> 
-</div>
-                    </div>
-                  </div>
-                </span>
-              </div>
+        <div class="form-field view optionalField" data-bind="'visible':StatusData.DisplayMode() == 'view' &amp;&amp; StatusData.IsPopulationTotalVisible()" data-test-id="046c41ef-9333-494f-b680-e3f77ec22218" data-entityfield="populationtotal-view">
+          <span class="form-field-label-zone" data-bind="'visible':StatusData.DisplayMode() == 'view' &amp;&amp; StatusData.IsPopulationTotalVisible(), 'css' : { errorText : !CountryObject().StatusData.isPopulationTotalValid() }" data-test-id="label_046c41ef-9333-494f-b680-e3f77ec22218">
+            <label class="form-field-label">Population Total</label>
+          </span>
+          <span class="form-field-control-container" data-bind="'css' : { errorControl : !CountryObject().StatusData.isPopulationTotalValid() }">
+            <div class="text-field">
+              <span class="form-field-text" data-bind="text: CountryObject().Data.PopulationTotal, 'css' : { 'errorControl' : !CountryObject().StatusData.isPopulationTotalValid() }" data-test-id="view_046c41ef-9333-494f-b680-e3f77ec22218" />
             </div>
-          </div>
+          </span>
+        </div>
+        <div class="form-field edit optionalField" data-bind="'visible':StatusData.DisplayMode() == 'edit' &amp;&amp; StatusData.IsPopulationTotalVisible()" data-test-id="046c41ef-9333-494f-b680-e3f77ec22218" data-entityfield="populationtotal-edit">
+          <span class="form-field-label-zone" data-bind="'visible':StatusData.DisplayMode() == 'edit' &amp;&amp; StatusData.IsPopulationTotalVisible(), 'css' : { errorText : !CountryObject().StatusData.isPopulationTotalValid() }" data-test-id="label_046c41ef-9333-494f-b680-e3f77ec22218">
+            <label class="form-field-label">Population Total</label>
+          </span>
+          <span class="form-field-control-container" data-bind="'enable' : !StatusData.IsPopulationTotalReadOnly(), 'css' : { errorControl : !CountryObject().StatusData.isPopulationTotalValid() }">
+            <div class="text-field">
+              <input class="form-field-text" data-bind="value: CountryObject().Data.PopulationTotal, 'enable' : !StatusData.IsPopulationTotalReadOnly(), 'css' : { 'errorControl' : !CountryObject().StatusData.isPopulationTotalValid() }" type="text" data-test-id="edit_046c41ef-9333-494f-b680-e3f77ec22218" />
+              <span class="errorDescription" data-bind="'visible' : !CountryObject().StatusData.isPopulationTotalValid(), text : CountryObject().StatusData.populationTotalErrorMessage"></span>
+            </div>
+          </span>
+        </div>
+        <div class="form-field view optionalField" data-bind="'visible':StatusData.DisplayMode() == 'view' &amp;&amp; StatusData.IsPopulationDensityVisible()" data-test-id="81570b13-3de6-4014-ac35-482b337fb941" data-entityfield="populationdensity-view">
+          <span class="form-field-label-zone" data-bind="'visible':StatusData.DisplayMode() == 'view' &amp;&amp; StatusData.IsPopulationDensityVisible(), 'css' : { errorText : !CountryObject().StatusData.isPopulationDensityValid() }" data-test-id="label_81570b13-3de6-4014-ac35-482b337fb941">
+            <label class="form-field-label">Population Density</label>
+          </span>
+          <span class="form-field-control-container" data-bind="'css' : { errorControl : !CountryObject().StatusData.isPopulationDensityValid() }">
+            <div class="text-field">
+              <span class="form-field-text" data-bind="text: CountryObject().Data.PopulationDensity, 'css' : { 'errorControl' : !CountryObject().StatusData.isPopulationDensityValid() }" data-test-id="view_81570b13-3de6-4014-ac35-482b337fb941" />
+            </div>
+          </span>
+        </div>
+        <div class="form-field edit optionalField" data-bind="'visible':StatusData.DisplayMode() == 'edit' &amp;&amp; StatusData.IsPopulationDensityVisible()" data-test-id="81570b13-3de6-4014-ac35-482b337fb941" data-entityfield="populationdensity-edit">
+          <span class="form-field-label-zone" data-bind="'visible':StatusData.DisplayMode() == 'edit' &amp;&amp; StatusData.IsPopulationDensityVisible(), 'css' : { errorText : !CountryObject().StatusData.isPopulationDensityValid() }" data-test-id="label_81570b13-3de6-4014-ac35-482b337fb941">
+            <label class="form-field-label">Population Density</label>
+          </span>
+          <span class="form-field-control-container" data-bind="'enable' : !StatusData.IsPopulationDensityReadOnly(), 'css' : { errorControl : !CountryObject().StatusData.isPopulationDensityValid() }">
+            <div class="text-field">
+              <input class="form-field-text" data-bind="value: CountryObject().Data.PopulationDensity, 'enable' : !StatusData.IsPopulationDensityReadOnly(), 'css' : { 'errorControl' : !CountryObject().StatusData.isPopulationDensityValid() }" type="text" data-test-id="edit_81570b13-3de6-4014-ac35-482b337fb941" />
+              <span class="errorDescription" data-bind="'visible' : !CountryObject().StatusData.isPopulationDensityValid(), text : CountryObject().StatusData.populationDensityErrorMessage"></span>
+            </div>
+          </span>
+        </div>
+        <div class="form-field view optionalField" data-bind="'visible':StatusData.DisplayMode() == 'view' &amp;&amp; StatusData.IsAbstractVisible()" data-test-id="dc9ce439-43f8-4c6d-b4b0-9a5029073edd" data-entityfield="abstract-view">
+          <span class="form-field-label-zone" data-bind="'visible':StatusData.DisplayMode() == 'view' &amp;&amp; StatusData.IsAbstractVisible(), 'css' : { errorText : !CountryObject().StatusData.isAbstractValid() }" data-test-id="label_dc9ce439-43f8-4c6d-b4b0-9a5029073edd">
+            <label class="form-field-label">Abstract</label>
+          </span>
+          <span class="form-field-control-container" data-bind="'css' : { errorControl : !CountryObject().StatusData.isAbstractValid() }">
+            <div class="text-field multiline">
+              <textarea class="form-field-text multiline" rows="10" disabled="disabled" data-bind="text: CountryObject().Data.Abstract, 'css' : { 'errorControl' : !CountryObject().StatusData.isAbstractValid() }" data-test-id="view_dc9ce439-43f8-4c6d-b4b0-9a5029073edd"></textarea>
+            </div>
+          </span>
+        </div>
+        <div class="form-field edit optionalField" data-bind="'visible':StatusData.DisplayMode() == 'edit' &amp;&amp; StatusData.IsAbstractVisible()" data-test-id="dc9ce439-43f8-4c6d-b4b0-9a5029073edd" data-entityfield="abstract-edit">
+          <span class="form-field-label-zone" data-bind="'visible':StatusData.DisplayMode() == 'edit' &amp;&amp; StatusData.IsAbstractVisible(), 'css' : { errorText : !CountryObject().StatusData.isAbstractValid() }" data-test-id="label_dc9ce439-43f8-4c6d-b4b0-9a5029073edd">
+            <label class="form-field-label">Abstract</label>
+          </span>
+          <span class="form-field-control-container" data-bind="'enable' : !StatusData.IsAbstractReadOnly(), 'css' : { errorControl : !CountryObject().StatusData.isAbstractValid() }">
+            <div class="text-field multiline">
+              <textarea rows="10" class="form-field-text multiline" data-bind="value: CountryObject().Data.Abstract, 'enable' : !StatusData.IsAbstractReadOnly(), 'css' : { 'errorControl' : !CountryObject().StatusData.isAbstractValid() }" data-test-id="edit_dc9ce439-43f8-4c6d-b4b0-9a5029073edd" />
+              <span class="errorDescription" data-bind="'visible' : !CountryObject().StatusData.isAbstractValid(), text : CountryObject().StatusData.abstractErrorMessage"></span>
+            </div>
+          </span>
         </div>
       </div>
     </div>
