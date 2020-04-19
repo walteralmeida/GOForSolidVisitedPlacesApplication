@@ -229,12 +229,12 @@
 					var objectToDelete = self.selectedObject();
 					var configuration = {};
 					configuration.contextId = self.contextId;
-					configuration.pks = { Id: objectToDelete.Data.Id() };
+					configuration.pks = { Id: objectToDelete.Data.Id(), UserProfileUri: objectToDelete.Data.UserProfileUri() };
 
 					configuration.successHandler =  self.onCurrentDeleted;
 					configuration.errorHandler = self.ShowError;
 
-					GO.log("VisitedPlaceGrid", "Deletion confirmed, sending query to server", { Id: objectToDelete.Data.Id() });
+					GO.log("VisitedPlaceGrid", "Deletion confirmed, sending query to server", { Id: objectToDelete.Data.Id(), UserProfileUri: objectToDelete.Data.UserProfileUri() });
 					self.DataStore.DeleteObject(configuration);
 				}
                 else {
