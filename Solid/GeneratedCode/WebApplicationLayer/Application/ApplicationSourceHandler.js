@@ -29,17 +29,7 @@
 					"/Model/DataObjects/CountryObject.js", 
 					"/Model/DataObjectValidators/CountryObjectValidator.js", 
 					"/Model/DataSets/CountryDataSet.js", 
-					"/Model/DataObjects/LocationObject.js", 
-					"/Model/DataObjectValidators/LocationObjectValidator.js", 
-					"/Model/DataSets/LocationDataSet.js", 
-					"/Model/DataObjects/PlaceObject.js", 
-					"/Model/DataObjectValidators/PlaceObjectValidator.js", 
-					"/Model/DataSets/PlaceDataSet.js", 
 					"/ViewModels/Country/CountryFormViewModel.js", 
-					"/ViewModels/Location/LocationGridViewModel.js", 
-					"/ViewModels/Location/Filters/LocationFilterViewModel.js", 
-					"/ViewModels/Place/PlaceGridViewModel.js", 
-					"/ViewModels/Place/Filters/PlaceFilterViewModel.js", 
 					"/Controllers/CountryPageController.js" 
 				], 
 				"LocationItemsPage-Page": [
@@ -106,17 +96,7 @@
 					"/Model/DataObjects/CountryObject.js", 
 					"/Model/DataObjectValidators/CountryObjectValidator.js", 
 					"/Model/DataSets/CountryDataSet.js", 
-					"/Model/DataObjects/LocationObject.js", 
-					"/Model/DataObjectValidators/LocationObjectValidator.js", 
-					"/Model/DataSets/LocationDataSet.js", 
-					"/Model/DataObjects/PlaceObject.js", 
-					"/Model/DataObjectValidators/PlaceObjectValidator.js", 
-					"/Model/DataSets/PlaceDataSet.js", 
-					"/ViewModels/Country/CountryFormViewModel.js", 
-					"/ViewModels/Location/LocationGridViewModel.js", 
-					"/ViewModels/Location/Filters/LocationFilterViewModel.js", 
-					"/ViewModels/Place/PlaceGridViewModel.js", 
-					"/ViewModels/Place/Filters/PlaceFilterViewModel.js" 
+					"/ViewModels/Country/CountryFormViewModel.js" 
 				], 
 				"LocationForm-Form": [
 					"/Model/DataObjects/LocationObject.js", 

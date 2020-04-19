@@ -33,28 +33,10 @@
 		this.CountryObject().ObjectsDataSet = this.controller.ObjectsDataSet;
 		this.CurrentObject = ko.pureComputed(function () { return this.CountryObject() }, this);
 
-		// Sub-grids ViewModels
-		this.LocationItemsGridViewModel = new Solid.Web.ViewModels.LocationGridViewModel(self.controller, null, sDataBindRoot +  "LocationItemsGridViewModel", $popupContainer, self.contextId);
-		this.LocationItemsGridViewModel.getSourceCollection = function () { return self.CountryObject().getLocationItems(); };		
-		this.LocationItemsGridViewModel.CreateNewCommandInitActions.push ( 
-			function (newobject) {
-				newobject.setCountry(self.CurrentObject());; 
-		});				
-		this.PlaceItemsGridViewModel = new Solid.Web.ViewModels.PlaceGridViewModel(self.controller, null, sDataBindRoot +  "PlaceItemsGridViewModel", $popupContainer, self.contextId);
-		this.PlaceItemsGridViewModel.getSourceCollection = function () { return self.CountryObject().getPlaceItems(); };		
-		this.PlaceItemsGridViewModel.CreateNewCommandInitActions.push ( 
-			function (newobject) {
-				newobject.setCountry(self.CurrentObject());; 
-		});				
  
 		// Form status data
         this.StatusData = {
 			IsUIDirty : ko.observable (false),
-			CurrentTabIndex: ko.observable(1),
-			// Visibility rules for Tabs.
-			IsMainTabVisible : ko.observable(true),
-			IsLocationTabVisible : ko.observable(true),
-			IsPlaceTabVisible : ko.observable(true),
             // Control properties         
 			IsBusy: ko.observable(false),
             IsEnabled: ko.observable(true),
@@ -86,39 +68,6 @@
 			return self.alternateTitle || 'Country Details'; 
 		});
 
-		this.StatusData.MainTabTitle = ko.pureComputed(function() { 
-			if (self.customViewModel !== undefined && self.customViewModel.MainTabTitle !== undefined) {
-				return self.customViewModel.MainTabTitle();
-			}	
-			
-			if(!self.CountryObject())
-				return;
-							
-			return 'Main'; 
-		});
-
-		this.StatusData.LocationTabTitle = ko.pureComputed(function() { 
-			if (self.customViewModel !== undefined && self.customViewModel.LocationTabTitle !== undefined) {
-				return self.customViewModel.LocationTabTitle();
-			}	
-			
-			if(!self.CountryObject())
-				return;
-							
-			return 'Location Items Items'; 
-		});
-
-		this.StatusData.PlaceTabTitle = ko.pureComputed(function() { 
-			if (self.customViewModel !== undefined && self.customViewModel.PlaceTabTitle !== undefined) {
-				return self.customViewModel.PlaceTabTitle();
-			}	
-			
-			if(!self.CountryObject())
-				return;
-							
-			return 'Place Items Items'; 
-		});
-
 		this.runValidation = function() {
 			self.CountryObject().runValidation();
 
@@ -146,36 +95,6 @@
 
 		this.controller.ObjectsDataSet.AddContextIdsStatusChangeHandler(self.onContextIdsStatusChanged);
 
-
-		this.StatusData.IsLocationItemsVisible = ko.pureComputed( function () {
-			if (self.customViewModel !== undefined && self.customViewModel.IsLocationItemsVisible !== undefined) {
-				return self.customViewModel.IsLocationItemsVisible();
-			}
-			
-			return true;
-		});
-
-		this.StatusData.IsLocationItemsReadOnly = ko.pureComputed( function () {
-			if (self.customViewModel !== undefined && self.customViewModel.IsLocationItemsReadOnly !== undefined) {
-				return self.customViewModel.IsLocationItemsReadOnly();
-			}
-			return false;
-        });
-
-		this.StatusData.IsPlaceItemsVisible = ko.pureComputed( function () {
-			if (self.customViewModel !== undefined && self.customViewModel.IsPlaceItemsVisible !== undefined) {
-				return self.customViewModel.IsPlaceItemsVisible();
-			}
-			
-			return true;
-		});
-
-		this.StatusData.IsPlaceItemsReadOnly = ko.pureComputed( function () {
-			if (self.customViewModel !== undefined && self.customViewModel.IsPlaceItemsReadOnly !== undefined) {
-				return self.customViewModel.IsPlaceItemsReadOnly();
-			}
-			return false;
-        });
 
 		this.StatusData.IsURIVisible = ko.pureComputed( function () {
 			if (self.customViewModel !== undefined && self.customViewModel.IsURIVisible !== undefined) {
@@ -267,11 +186,6 @@
 			return false;
         });
 
-		// Propagate Display Mode change to subgrids
-        this.subscriptions.push(this.StatusData.DisplayMode.subscribe (function(newValue) {
-			self.LocationItemsGridViewModel.StatusData.DisplayMode(newValue);	
-			self.PlaceItemsGridViewModel.StatusData.DisplayMode(newValue);	
-		}));
 		// Form events data
 		this.Events = {
             CountryLoaded: ko.observable(false),
@@ -487,68 +401,6 @@
 		};
 
 		this.onCountryObjectChanged = function() {
-			
-			// Reload all sub-grids data
-			if (self.CountryObject().Data.IsNew()) {
-				self.LocationItemsGridViewModel.StatusData.IsFilterVisible(false);
- 
-				var theCollection = self.CountryObject().Data.LocationItems();
-                self.LocationItemsGridViewModel.SetLocationObjectCollection( theCollection );
-				self.LocationItemsGridViewModel.isMemoryOnlyCollection = true;
-	            self.LocationItemsGridViewModel.totalCollection(theCollection !== null ? theCollection.length : 0);
-				self.LocationItemsGridViewModel.pageNumber(0);	            
-				self.LocationItemsGridViewModel.totalPageNumber(0);
-	        } else {
-
-				self.LocationItemsGridViewModel.StatusData.IsFilterVisible(true);
-
-				self.LocationItemsGridViewModel.isMemoryOnlyCollection = false;
-				
-				// Resetting filters
-                self.LocationItemsGridViewModel.baseFilterPredicate = 'CountryURI == "' + self.CountryObject().Data.URI() + '"';
-				
-				// Taking into account current filter values if any
-			    var filterPredicate = self.LocationItemsGridViewModel.LocationFilterViewModel.getFilterPredicate();
-			    if(filterPredicate !== "" && filterPredicate !== null) {
-			        self.LocationItemsGridViewModel.filterPredicate = self.LocationItemsGridViewModel.baseFilterPredicate + ' && (' + filterPredicate + ')';
-			    } else {
-			        self.LocationItemsGridViewModel.filterPredicate = self.LocationItemsGridViewModel.baseFilterPredicate;
-			    }
-				
-				// Rebinding subgrid
-                self.LocationItemsGridViewModel.LoadLocationObjectCollection();
-            }
-
-			if (self.CountryObject().Data.IsNew()) {
-				self.PlaceItemsGridViewModel.StatusData.IsFilterVisible(false);
- 
-				var theCollection = self.CountryObject().Data.PlaceItems();
-                self.PlaceItemsGridViewModel.SetPlaceObjectCollection( theCollection );
-				self.PlaceItemsGridViewModel.isMemoryOnlyCollection = true;
-	            self.PlaceItemsGridViewModel.totalCollection(theCollection !== null ? theCollection.length : 0);
-				self.PlaceItemsGridViewModel.pageNumber(0);	            
-				self.PlaceItemsGridViewModel.totalPageNumber(0);
-	        } else {
-
-				self.PlaceItemsGridViewModel.StatusData.IsFilterVisible(true);
-
-				self.PlaceItemsGridViewModel.isMemoryOnlyCollection = false;
-				
-				// Resetting filters
-                self.PlaceItemsGridViewModel.baseFilterPredicate = 'CountryURI == "' + self.CountryObject().Data.URI() + '"';
-				
-				// Taking into account current filter values if any
-			    var filterPredicate = self.PlaceItemsGridViewModel.PlaceFilterViewModel.getFilterPredicate();
-			    if(filterPredicate !== "" && filterPredicate !== null) {
-			        self.PlaceItemsGridViewModel.filterPredicate = self.PlaceItemsGridViewModel.baseFilterPredicate + ' && (' + filterPredicate + ')';
-			    } else {
-			        self.PlaceItemsGridViewModel.filterPredicate = self.PlaceItemsGridViewModel.baseFilterPredicate;
-			    }
-				
-				// Rebinding subgrid
-                self.PlaceItemsGridViewModel.LoadPlaceObjectCollection();
-            }
-
  			
 			self.StatusData.IsUIDirty(self.controller.ObjectsDataSet.isContextIdDirty(self.contextId));			
 		};
@@ -638,10 +490,6 @@
 
         this.Modify = function () {
 			GO.log("CountryForm", "Entering modification of CountryObject");
-			
-			// propagate to Sub-Grids
-			self.LocationItemsGridViewModel.isMemoryOnlyCollection = true;	
-			self.PlaceItemsGridViewModel.isMemoryOnlyCollection = true;	
 	        self.SavedData = new Solid.Web.Model.DataObjects.CountryObject();
 			self.SavedData.CopyValuesFrom(self.CountryObject());
 
@@ -813,12 +661,6 @@
 				self.subscriptions[i].dispose();
 			}
 			self.subscriptions = [];
- 		
-			// Sub-grids ViewModels
-			self.LocationItemsGridViewModel.release();
-			self.LocationItemsGridViewModel = null;
-			self.PlaceItemsGridViewModel.release();
-			self.PlaceItemsGridViewModel = null;
 			// Cleaning the context if data has been saved already
 			if (!self.isMemoryOnly) {
 				self.controller.ObjectsDataSet.cleanContext(self.contextId);
@@ -829,20 +671,6 @@
 		};
 
 
-		this.getCurrentTabIndex = function () {
-		    return self.StatusData.CurrentTabIndex();
-		};		
-
-		this.selectTabIndex = function(tabid) {
-			  self.StatusData.CurrentTabIndex(tabid);
-		};
-
-		this.TabChangedMethod = function (tabid) {
-			if(tabid != self.StatusData.CurrentTabIndex()) 
-				self.StatusData.CurrentTabIndex(tabid);
-		    if (self.StatusData.isPopup())
-		        self.controller.applicationController.centerPopup();
-		}
  
         this.ShowError = function (errorMessage, title) {
 			self.isOpenInEditMode = false;
