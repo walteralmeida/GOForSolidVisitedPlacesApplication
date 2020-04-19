@@ -345,14 +345,28 @@ namespace Solid.Data.DataProviders.Database
 		{
 			switch (entity.GetType().Name)
 			{
+			case "GORoleDataObject":
+				return ApplicationSettings.Container.Resolve<IDataProvider<GORoleDataObject>>();
+			case "VisitedPlaceDataObject":
+				return ApplicationSettings.Container.Resolve<IDataProvider<VisitedPlaceDataObject>>();
 			case "GOGroupRoleDataObject":
 				return ApplicationSettings.Container.Resolve<IDataProvider<GOGroupRoleDataObject>>();
+			case "PlaceDataObject":
+				return ApplicationSettings.Container.Resolve<IDataProvider<PlaceDataObject>>();
+			case "UserProfileDataObject":
+				return ApplicationSettings.Container.Resolve<IDataProvider<UserProfileDataObject>>();
+			case "LocationDataObject":
+				return ApplicationSettings.Container.Resolve<IDataProvider<LocationDataObject>>();
+			case "PlaceToLocationDataObject":
+				return ApplicationSettings.Container.Resolve<IDataProvider<PlaceToLocationDataObject>>();
 			case "GOUserDataObject":
 				return ApplicationSettings.Container.Resolve<IDataProvider<GOUserDataObject>>();
 			case "GOGroupDataObject":
 				return ApplicationSettings.Container.Resolve<IDataProvider<GOGroupDataObject>>();
 			case "GOUserRoleDataObject":
 				return ApplicationSettings.Container.Resolve<IDataProvider<GOUserRoleDataObject>>();
+			case "CountryDataObject":
+				return ApplicationSettings.Container.Resolve<IDataProvider<CountryDataObject>>();
 			case "GOUserGroupDataObject":
 				return ApplicationSettings.Container.Resolve<IDataProvider<GOUserGroupDataObject>>();
 			case "GOLoginHistoryDataObject":
