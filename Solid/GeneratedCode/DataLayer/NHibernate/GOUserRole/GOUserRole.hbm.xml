@@ -14,8 +14,8 @@
 
 		<composite-id name="CompositeIdentity">
 			<key-property name="GORoleName" column="`GORoleName`" /> 
-			<key-property name="GOUserId" column="`GOUserId`" /> 
-		</composite-id> 
+			<key-many-to-one name="User" column="`GOUserId`" />
+		</composite-id>
 
 
 		
@@ -24,6 +24,9 @@
 		<many-to-one name="User" update="false" insert="false" > 
 			<column name="`GOUserId`" sql-type="uniqueidentifier" not-null="true"/>
 		</many-to-one> 
+		
+		<!-- many-to-one Role -->
+		<property name="GORoleName" type="System.String" not-null="true" formula = "[GORoleName]"></property>  
  
 
 
