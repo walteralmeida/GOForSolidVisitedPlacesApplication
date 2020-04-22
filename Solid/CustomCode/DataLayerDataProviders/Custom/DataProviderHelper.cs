@@ -25,7 +25,7 @@ namespace Solid.Data.DataProviders.Custom
             var authentication = ApplicationSettings.Container.Resolve<IAuthentication>();
             return $"Bearer {(authentication.GetCurrentUserClaims() as AppUserClaims).SolidToken}";
         }
-        /*
+        
         public static string DownloadFile(string remoteUri, string extension = null)
         {
             // Create a new WebClient instance.
@@ -49,7 +49,7 @@ namespace Solid.Data.DataProviders.Custom
 
             return tempFile;
         }
-        */
+        
         public static HttpStatusCode SendPatch(string url, string payload, string token)
         {
             var request = (HttpWebRequest)WebRequest.Create(url);

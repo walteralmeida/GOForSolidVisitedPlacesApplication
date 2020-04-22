@@ -44,13 +44,14 @@
             self.securityProviderProxy.Authenticate(configuration);
         };
 
-        async function popupLogin() {
+        this.popupLogin = async function () {
             let session = await solid.auth.currentSession();
-            let popupUri = 'https://solid.community/common/popup.html';
+            let popupUri = './solid-popup.html';
+            //let popupUri = 'https://solid.community/common/popup.html';
             if (!session)
                 session = await solid.auth.popupLogin({ popupUri });
 
-            var token = await solid.auth.issueToken('https://walteralmeida.inrupt.net', session);
+            var token = await solid.auth.issueToken(session.webId, session);
 
             var configuration = {};
             configuration.username = session.webId;
@@ -65,7 +66,7 @@
         }
 
         this.loginSolid = function () {
-            popupLogin();
+            this.popupLogin();
 
             solid.auth.trackSession(session => {
                 if (session) {

@@ -37,7 +37,10 @@ namespace Solid.Data.DataProviders.Custom
         {
             var userProfileUri = entity.Uri.Replace("||", "://").Replace("|","/").Replace("$","#");
 
+            //var tempfile = DataProviderHelper.DownloadFile(userProfileUri, ".ttl");
+
             var g = new Graph();
+            //g.LoadFromFile(tempfile);
             UriLoader.Load(g, new Uri(userProfileUri));
 
             var query = @"SELECT ?Name ?Role ?OrganizationName WHERE 

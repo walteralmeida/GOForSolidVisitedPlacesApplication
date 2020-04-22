@@ -312,6 +312,7 @@
     <Content Include="Membership\ResetPasswordPageViewModel.js">
       <GeneratedBy>Fenomen</GeneratedBy>
     </Content>
+    <Content Include="Membership\solid-popup.html" />
     <Content Include="Membership\ValidateRegistration.html">
       <GeneratedBy>Fenomen</GeneratedBy>
     </Content>
