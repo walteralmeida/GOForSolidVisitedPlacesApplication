@@ -240,25 +240,6 @@ ALTER TABLE [GOSecurity].[GOUserRole]
 		[Id] 
 	) ON UPDATE NO ACTION ON DELETE NO ACTION 
 GO 
-		
- 
--- ----------------------------------------------------------------------------------------------------------------
--- Default Admin user
--- ----------------------------------------------------------------------------------------------------------------
-DECLARE @AdminIdTable table(Id uniqueidentifier NOT NULL);
-INSERT INTO GOSecurity.GOUser (Id, UserName, FullName, Password, EmailAddress, EmailValidated, UserValidated, Blocked, Unregistered) OUTPUT Inserted.ID INTO @AdminIdTable VALUES (NEWID(), 'Admin', 'Admin', 'e3afed0047b08059d0fada10f400c1e5', 'admin@generativeobjects.com', 'True', 'True', 'False', 'False')
-INSERT INTO GOSecurity.GOUserRole (GOUserId, GORoleName) VALUES ((SELECT TOP (1) Id From @AdminIdTable), 'Administrator')
-GO
--- ----------------------------------------------------------------------------------------------------------------
--- Add special group for guest (anonymous) access
--- ----------------------------------------------------------------------------------------------------------------
-INSERT INTO GOSecurity.GOGroup(IsSpecialGroup, SpecialGroup, Name, DisplayName, Description) VALUES(1, 1, 'AnonymousUsers', 'Anonymous Users', NULL)
-GO
--- ----------------------------------------------------------------------------------------------------------------
--- Assign Anonymous Users the Guest role
--- ----------------------------------------------------------------------------------------------------------------
-INSERT INTO GOSecurity.GOGroupRole(GORoleName,GOGroupName) VALUES('Guest', 'AnonymousUsers')
-GO
 -- ----------------------------------------------------------------------------------------------------------------
 -- LiveUpdate Model Sync
 -- ----------------------------------------------------------------------------------------------------------------

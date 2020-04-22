@@ -23,31 +23,19 @@
             login: function () {
                 self.login();
             },
-            loginSolid: function () {
-                self.loginSolid();
-            },
 			loginText: ko.observable(Solid.Web.Messages.connection),
 			loginEnabled: ko.observable(true)
         };
 
         this.login = function () {
             $(':input').trigger('change');
-			var configuration = {};
-            configuration.username = self.data.username();
-            configuration.password = self.data.password();
-            configuration.useCookies = true;
-            configuration.successHandler = self.onLoginSucceeded;
-            configuration.errorHandler = self.onLoginError;
-		
-			self.commands.loginText(Solid.Web.Messages.connecting);
-			self.commands.loginEnabled("false");
-            self.securityProviderProxy.Authenticate(configuration);
+          this.popupSolidLogin();
+ 
         };
 
-        this.popupLogin = async function () {
+	    this.popupSolidLogin = async function() {
             let session = await solid.auth.currentSession();
-            let popupUri = './solid-popup.html';
-            //let popupUri = 'https://solid.community/common/popup.html';
+            let popupUri = './solid-popup.html'; /*'https://solid.community/common/popup.html';*/
             if (!session)
                 session = await solid.auth.popupLogin({ popupUri });
 
@@ -64,18 +52,7 @@
             self.commands.loginEnabled("false");
             self.securityProviderProxy.Authenticate(configuration);
         }
-
-        this.loginSolid = function () {
-            this.popupLogin();
-
-            solid.auth.trackSession(session => {
-                if (session) {
-                    var s = session.webId;
-                }
-            });
-        }
-
-
+ 
 
         this.onLoginSucceeded = function (token) {
             var queryParams = new GO.QueryParams();

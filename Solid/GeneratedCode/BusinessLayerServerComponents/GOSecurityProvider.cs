@@ -133,16 +133,15 @@ namespace Solid.BusinessLayer.Components.Server
             return sBuilder.ToString();
         }
 
-        public string Authenticate(string username, string password, bool useCookies)
-        {
-            if (username.StartsWith("https://"))
-                return SolidAuthenticate(username, password, useCookies);
-            else
-                return ApplicationAuthenticate(username, password, useCookies);
-        }
-
-        public string SolidAuthenticate(string username, string password, bool useCookies)
-        {
+        /// <summary>
+        /// Authenticate Method
+		/// </summary>
+		/// <param name="username"></param>
+		/// <param name="password"></param>
+        /// <returns></returns>		
+ 
+		public string Authenticate(string username, string password, bool useCookies) 
+		{
             Logger techLogger = LogManager.GetCurrentClassLogger();
 
             var includes = new List<string>
@@ -190,76 +189,12 @@ namespace Solid.BusinessLayer.Components.Server
             techLogger.Info($"SOLID - OK - connection user {currentUser.EmailAddress} ({currentUser.FullName})");
 
             return token;
-        }
-
-        /// <summary>
-        /// Authenticate Method
-        /// </summary>
-        /// <param name="username"></param>
-        /// <param name="password"></param>
-        /// <returns></returns>		
-        public string ApplicationAuthenticate(string username, string password, bool useCookies) 
-		{
-			// Get user data object. Include Roles because we'll need them to apply any password policy.
-			var includes = new List<string>
-            {
-                "UserRoleItems.Role", "UserGroupItems.Group.GroupRoleItems"
-            };
-			
-            var existingUser = DataFacade.GOUserDataProvider.GetCollection(null, String.Format("(UserName == \"{0}\" || EmailAddress == \"{0}\") && Password == \"{1}\"", username, GetMD5Hash(password)), null, null, 0, 0, includes, skipSecurity : true).SingleOrDefault();
-
-            if (existingUser == null)
-            {
-				RecordLogInAttempt(username, false);
-				throw new GOServerException<UnknownUsernameOrPassword>();
-            }
-
-			if (existingUser.Blocked || existingUser.Unregistered)
-				throw new GOServerException<UserAccountDisabled>();
-
-			if (IsEmailVerificationRequired && !existingUser.EmailValidated)
-            {
-				// For now (first version / simplicity) re-send the registration email here. 
-				// Eventually, could prompt user to request re-send instead
-				try
-				{
-					SendRegistrationEmail(existingUser);
-				}
-				catch (GOServerException)
-				{
-					throw new GOServerException<EmailNotVerified>();
-				}
-
-				throw new GOServerException<EmailNotVerifiedAndEmailResent>();
-			}
-			else if (IsAdminApprovalRequired && !existingUser.UserValidated)
-            {
-                throw new GOServerException<AdminApprovalPending>();
-            }
-
-			// Check password policy before authenticating user, because a change of password may be reauired (in which case we don't authenticate until ChangePassword succeeds)
-			if (PasswordPolicy.RequirePasswordChange(existingUser))
-			{
-				RecordLogInAttempt(username, false, "Password change required");
-
-				// Trigger client redirect to change password change. 
-				// Originally we were sending htppStatusCode.TemporaryRedirect (307) here but IE11 doesn't play nice with ajax redirects for reasons not fully understood.
-				HttpContext context = HttpContext.Current;
-				context.Response.StatusCode = (int)HttpStatusCode.Forbidden;
-				return "passwordHasExpired=" + username;
-            }
-
-			var token = SetAuthenticationToken(existingUser, useCookies);
-
-			RecordLogInAttempt(username, true, user: existingUser);
-
-			return token;
-        }
-
+		}			
+ 
 		/// <summary>
         /// SetAuthenticationToken Method
 		/// </summary>	
-		private string SetAuthenticationToken(GOUserDataObject user, bool useCookies, string solidToken = null)
+		private string SetAuthenticationToken(GOUserDataObject user, bool useCookies, string solidToken)
 		{
 			var authentication = ApplicationSettings.Container.Resolve<IAuthentication>();
 
@@ -276,14 +211,10 @@ namespace Solid.BusinessLayer.Components.Server
 				new Claim(ClaimTypes.Name, user.FirstName ?? user.FullName ?? user.UserName ),
                 new Claim(ClaimTypes.Surname, user.LastName ?? ""),
 				new Claim(ClaimTypes.Role, String.Join(",", roles.Distinct())),
+				new Claim("SolidToken", solidToken),
 			};
 
-            if(!String.IsNullOrEmpty (solidToken))
-            {
-                claims.Add(new Claim("SolidToken", solidToken));
-            }
-
-            var additionalUserClaims = AppUserClaims.GetExtraUserClaims(user);
+			var additionalUserClaims = AppUserClaims.GetExtraUserClaims(user);
 			claims.AddRange(additionalUserClaims);
 
  			var tokenString = authentication.CreateToken(claims);

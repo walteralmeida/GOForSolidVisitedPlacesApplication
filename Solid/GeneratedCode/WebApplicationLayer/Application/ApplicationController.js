@@ -494,7 +494,7 @@
 
 			// Configuration de la hauteur
 			if(!popupMaxHeight){
-				popupMaxHeight = $(window).height() * 0.9;
+				popupMaxHeight = $(window).height() * 0.7;
 			}
 			$("#popupContainer").css("max-height", popupMaxHeight);
 			$popupContainer.css("max-height", popupMaxHeight);
