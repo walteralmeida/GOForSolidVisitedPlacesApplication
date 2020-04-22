@@ -1,1 +1,0 @@
-    13>GOSecurityProvider.cs(490,4): error CS7036: There is no argument given that corresponds to the required formal parameter 'solidToken' of 'GOSecurityProvider.SetAuthenticationToken(GOUserDataObject, bool, string)' [G:\Projects\GOForSolid\Solid\GeneratedCode\BusinessLayerServerComponents\Solid.BusinessLayer.Components.Server.csproj]
