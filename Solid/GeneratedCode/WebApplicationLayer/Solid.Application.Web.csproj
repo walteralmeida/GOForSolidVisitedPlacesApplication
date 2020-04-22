@@ -312,7 +312,6 @@
     <Content Include="Membership\ResetPasswordPageViewModel.js">
       <GeneratedBy>Fenomen</GeneratedBy>
     </Content>
-    <Content Include="Membership\solid-popup.html" />
     <Content Include="Membership\ValidateRegistration.html">
       <GeneratedBy>Fenomen</GeneratedBy>
     </Content>
@@ -661,7 +660,6 @@
     <Content Include="Scripts\sidr.min.js">
       <GeneratedBy>Fenomen</GeneratedBy>
     </Content>
-    <Content Include="Scripts\solid-auth-client.bundle.js" />
     <Content Include="Scripts\underscore.1.3.3.js">
       <GeneratedBy>Fenomen</GeneratedBy>
     </Content>
