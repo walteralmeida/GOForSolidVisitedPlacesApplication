@@ -194,7 +194,7 @@ namespace Solid.BusinessLayer.Components.Server
 		/// <summary>
         /// SetAuthenticationToken Method
 		/// </summary>	
-		private string SetAuthenticationToken(GOUserDataObject user, bool useCookies, string solidToken)
+		private string SetAuthenticationToken(GOUserDataObject user, bool useCookies, string solidToken = null)
 		{
 			var authentication = ApplicationSettings.Container.Resolve<IAuthentication>();
 

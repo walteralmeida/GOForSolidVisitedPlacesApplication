@@ -6,72 +6,72 @@
     <meta http-equiv="X-UA-Compatible" content="IE=Edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Solid Project</title>
-    <link href="styles/20/reset.css" rel="stylesheet" />
-    <link href="styles/20/jquery-ui-1.10.1.custom.css" rel="stylesheet" />
-    <link href="styles/20/jquery.alerts.css" rel="stylesheet" />
-    <link href="styles/20/myapplication.css" rel="stylesheet" />
-    <link href="styles/20/widget-grid.css" rel="stylesheet" />
-    <link href="styles/20/jquery.jgrowl.css" rel="stylesheet" />
-    <link href="styles/20/jquery.mCustomScrollbar.css" rel="stylesheet" />
-    <link href="styles/20/jquery.custom.GO.css" rel="stylesheet" />
-    <link href="styles/20/Reports.css" rel="stylesheet" />
-    <link href="styles/20/layout.css" rel="stylesheet" />
-    <link href="styles/20/Reports.css" rel="stylesheet" />
-    <link href="styles/20/ui-elements.css" rel="stylesheet" />
-    <link href="styles/20/LoginPage.css" rel="stylesheet" />
-    <link href="styles/20/BreadCrumb.css" rel="stylesheet" />
-    <link href="styles/20/Grid-Widget.css" rel="stylesheet" />
-    <link href="styles/20/documentation.css" rel="stylesheet" />
-    <link href="styles/20/JqueryMenu.css" rel="stylesheet" />
-    <link href="styles/20/MobileLayout.css" rel="stylesheet" />
-    <link href="styles/20/sidr.css" rel="stylesheet" />
+    <link href="styles/21/reset.css" rel="stylesheet" />
+    <link href="styles/21/jquery-ui-1.10.1.custom.css" rel="stylesheet" />
+    <link href="styles/21/jquery.alerts.css" rel="stylesheet" />
+    <link href="styles/21/myapplication.css" rel="stylesheet" />
+    <link href="styles/21/widget-grid.css" rel="stylesheet" />
+    <link href="styles/21/jquery.jgrowl.css" rel="stylesheet" />
+    <link href="styles/21/jquery.mCustomScrollbar.css" rel="stylesheet" />
+    <link href="styles/21/jquery.custom.GO.css" rel="stylesheet" />
+    <link href="styles/21/Reports.css" rel="stylesheet" />
+    <link href="styles/21/layout.css" rel="stylesheet" />
+    <link href="styles/21/Reports.css" rel="stylesheet" />
+    <link href="styles/21/ui-elements.css" rel="stylesheet" />
+    <link href="styles/21/LoginPage.css" rel="stylesheet" />
+    <link href="styles/21/BreadCrumb.css" rel="stylesheet" />
+    <link href="styles/21/Grid-Widget.css" rel="stylesheet" />
+    <link href="styles/21/documentation.css" rel="stylesheet" />
+    <link href="styles/21/JqueryMenu.css" rel="stylesheet" />
+    <link href="styles/21/MobileLayout.css" rel="stylesheet" />
+    <link href="styles/21/sidr.css" rel="stylesheet" />
     <link rel="shortcut icon" type="image/x-icon" href="styles/images/favicon.ico" />
     <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons" />
-    <script src="20/scripts/json2.min.js"></script>
-    <script src="20/scripts/knockout-3.4.js"></script>
-    <script src="20/scripts/jquery-1.12.1.min.js"></script>
-    <script src="20/scripts/jquery.cookie.js"></script>
-    <script src="20/scripts/jquery.alerts.js"></script>
-    <script src="20/scripts/jquery-ui-1.10.2.custom.min.js"></script>
-    <script src="20/scripts/jquery.custom.GO.js"></script>
-    <script src="20/scripts/jquery.metadata.js"></script>
-    <script src="20/scripts/mersenne-twister.js"></script>
-    <script src="20/scripts/jquery.hoverIntent.js"></script>
-    <script src="20/scripts/jquery.mousewheel.min.js"></script>
-    <script src="20/scripts/jquery.mCustomScrollbar.js"></script>
-    <script src="20/scripts/jquery.cycle.all.js"></script>
-    <script src="20/scripts/knockoutbindings.js"></script>
-    <script src="20/scripts/knockout.postbox.js"></script>
-    <script src="20/scripts/base64.js"></script>
-    <script src="20/scripts/generativeobjects.js"></script>
-    <script src="20/scripts/jquery.jgrowl.js"></script>
-    <script src="20/scripts/sammy-min.js"></script>
-    <script src="20/scripts/sidr.min.js"></script>
-    <script src="20/namespaces.js"></script>
-    <script src="20/Application/Application.js"></script>
-    <script src="20/Application/ApplicationMessages.js"></script>
-    <script src="20/Application/ApplicationSettings.js"></script>
-    <script src="20/Views/ViewLoader.js"></script>
+    <script src="21/scripts/json2.min.js"></script>
+    <script src="21/scripts/knockout-3.4.js"></script>
+    <script src="21/scripts/jquery-1.12.1.min.js"></script>
+    <script src="21/scripts/jquery.cookie.js"></script>
+    <script src="21/scripts/jquery.alerts.js"></script>
+    <script src="21/scripts/jquery-ui-1.10.2.custom.min.js"></script>
+    <script src="21/scripts/jquery.custom.GO.js"></script>
+    <script src="21/scripts/jquery.metadata.js"></script>
+    <script src="21/scripts/mersenne-twister.js"></script>
+    <script src="21/scripts/jquery.hoverIntent.js"></script>
+    <script src="21/scripts/jquery.mousewheel.min.js"></script>
+    <script src="21/scripts/jquery.mCustomScrollbar.js"></script>
+    <script src="21/scripts/jquery.cycle.all.js"></script>
+    <script src="21/scripts/knockoutbindings.js"></script>
+    <script src="21/scripts/knockout.postbox.js"></script>
+    <script src="21/scripts/base64.js"></script>
+    <script src="21/scripts/generativeobjects.js"></script>
+    <script src="21/scripts/jquery.jgrowl.js"></script>
+    <script src="21/scripts/sammy-min.js"></script>
+    <script src="21/scripts/sidr.min.js"></script>
+    <script src="21/namespaces.js"></script>
+    <script src="21/Application/Application.js"></script>
+    <script src="21/Application/ApplicationMessages.js"></script>
+    <script src="21/Application/ApplicationSettings.js"></script>
+    <script src="21/Views/ViewLoader.js"></script>
     <script></script>
-    <script src="20/Application/ApplicationSourceHandler.js"></script>
-    <script src="20/Application/ApplicationController.js"></script>
-    <script src="20/Custom/Application/SourceHandler.custom.js"></script>
-    <script src="20/Custom/Application/Routes.custom.js"></script>
-    <script src="20/Custom/Application/ApplicationViewModel.custom.js"></script>
-    <script src="20/Custom/ViewModels.js"></script>
-    <script src="20/Custom/PageControllers.js"></script>
-    <script src="20/Custom/EntityFactories.js"></script>
-    <script src="20/Custom/EntityValidators.js"></script>
-    <script src="20/Model/DataStores/DataMapper.js"></script>
-    <script src="20/Application/ApplicationViewModel.js"></script>
-    <script src="20/Model/DataStores/DataStore.js"></script>
-    <script src="20/Model/DataSets/ObjectsDataSet.js"></script>
-    <script src="20/ViewModels/Common/NoticeBoxViewModel.js"></script>
-    <script src="20/ViewModels/Common/DialogPopupViewModel.js"></script>
-    <script src="20/Widgets/datagrid.js"></script>
-    <script src="20/Widgets/paginator.js"></script>
-    <script src="20/Custom/CustomFields.js"></script>
-    <script src="20/ViewModels/Common/ImagePopupViewModel.js"></script>
+    <script src="21/Application/ApplicationSourceHandler.js"></script>
+    <script src="21/Application/ApplicationController.js"></script>
+    <script src="21/Custom/Application/SourceHandler.custom.js"></script>
+    <script src="21/Custom/Application/Routes.custom.js"></script>
+    <script src="21/Custom/Application/ApplicationViewModel.custom.js"></script>
+    <script src="21/Custom/ViewModels.js"></script>
+    <script src="21/Custom/PageControllers.js"></script>
+    <script src="21/Custom/EntityFactories.js"></script>
+    <script src="21/Custom/EntityValidators.js"></script>
+    <script src="21/Model/DataStores/DataMapper.js"></script>
+    <script src="21/Application/ApplicationViewModel.js"></script>
+    <script src="21/Model/DataStores/DataStore.js"></script>
+    <script src="21/Model/DataSets/ObjectsDataSet.js"></script>
+    <script src="21/ViewModels/Common/NoticeBoxViewModel.js"></script>
+    <script src="21/ViewModels/Common/DialogPopupViewModel.js"></script>
+    <script src="21/Widgets/datagrid.js"></script>
+    <script src="21/Widgets/paginator.js"></script>
+    <script src="21/Custom/CustomFields.js"></script>
+    <script src="21/ViewModels/Common/ImagePopupViewModel.js"></script>
   </head>
   <body onunload="">
     <div id="form"></div>
