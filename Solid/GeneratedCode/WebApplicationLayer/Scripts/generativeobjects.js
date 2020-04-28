@@ -1302,15 +1302,15 @@ GO.Encoding = GO.Encoding || {};
             urlpart = urlpart.replace('://', '||').replace(/\//g, '|').replace('#', '$');
         }
 
-        return UrlEncode(urlpart);
+        return urlpart;
     };
 
     GO.Encoding.UrlDecode = function (urlpart) {
-        var toReturn = UrlDecode(urlpart);
+        var toReturn = urlpart;
 
         if (toReturn.toLowerCase().startsWith("http||") || toReturn.toLowerCase().startsWith("https||")) {
             // case we have an uri, we should replace all that could lead to a double escape character
-            toReturn = toReturn.replace('||', '://').replace(/|/g, '/').replace('$', '#');
+            toReturn = toReturn.replace('||', '://').replace(/\|/g, '/').replace('$', '#');
         }
 
         return toReturn;

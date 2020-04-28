@@ -30,7 +30,7 @@
         for(var prop in configuration.pks)
 		{
 			pkUrl += "/";
-			pkUrl += encodeURIComponent(GenerativeObjects.Web.DataToJSON(configuration.pks[prop]));
+			pkUrl += encodeURIComponent(GenerativeObjects.Web.DataToJSON(GO.Encoding.UrlEncode(configuration.pks[prop])));
 		}
 
         $.ajax({
@@ -69,7 +69,7 @@
         for(var prop in configuration.pks)
 		{
 			pkUrl += "/";
-			pkUrl += encodeURIComponent(GenerativeObjects.Web.DataToJSON(configuration.pks[prop]));
+			pkUrl += encodeURIComponent(GenerativeObjects.Web.DataToJSON(GO.Encoding.UrlEncode(configuration.pks[prop])));
 		}
 
         this.loadRequest = $.ajax({
