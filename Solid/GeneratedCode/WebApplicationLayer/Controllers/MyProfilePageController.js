@@ -53,7 +53,7 @@
 				var hash = window.location.hash;
 				var allPksValid = true;
 				lasttagindex = hash.lastIndexOf('/');
-				var pk1 = hash.substring(lasttagindex + 1).split(new RegExp("#", "g"))[0];
+				var pk1 = GO.Encoding.UrlDecode(hash.substring(lasttagindex + 1).split(new RegExp("#", "g"))[0]);
 				
 				if(allPksValid) {
 					var objectToLoad = new Solid.Web.Model.DataObjects.UserProfileObject();

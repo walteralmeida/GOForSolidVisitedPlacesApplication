@@ -505,7 +505,8 @@ width: 100%;
 padding-left: 0;
 border-collapse: separate;
 table-layout: fixed;
-word-break: break-all;
+word-break: normal;
+overflow-wrap: break-word;
 border: 1px solid #eee;
 }
 .data-grid thead {

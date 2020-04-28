@@ -439,6 +439,7 @@
 
 		this.getCountryPKValuesForCountry = function (data) {
 			var uRIValue = data.getCountry() === null ? null : data.getCountry().Data.URI();
+			uRIValue = GO.Encoding.UrlEncode(uRIValue);
 			return uRIValue;
 		}
 

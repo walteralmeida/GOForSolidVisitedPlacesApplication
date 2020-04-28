@@ -15,6 +15,7 @@
       <div data-bind="'visible': {DATABINDROOT}StatusData.IsFilterVisible()">{#false,CountryFilter,Filter,,Country\Filters\CountryFilterPartialView.html#}</div>
       <div class="no-data-message">
         <span data-bind="'visible' : {DATABINDROOT}StatusData.IsEmpty()">No Country data available</span>
+        <span data-bind="'visible' : {DATABINDROOT}StatusData.IsBusy()">Loading ...</span>
       </div>
       <div class="uiContainer">
         <div class="blocking-element ui-widget-overlay"></div>
@@ -31,10 +32,10 @@
               </thead>
               <tbody data-bind="foreach: {DATABINDROOT}CountryObjectCollection()">
                 <tr class="pointer" data-bind="attr: {'data-id': Data.InternalObjectId}, click: {PARENTDATABINDROOT}onLineClicked, event: {dblclick: {PARENTDATABINDROOT}onLineDblClicked}, css: {'currenttr': {PARENTDATABINDROOT}selectedId() == Data.InternalObjectId()}">
-                  <td data-bind="jqStopBubble: 'a'">
+                  <td data-bind="jqStopBubble: 'a'" class=" multiline">
                     <a data-bind="attr: { href: '#!' + ApplicationController.getRootHashTag('CountryDetails') + 'Countries/CountryDetails/' + Data.URI(), title: Data.Name }, html: Data.Name"></a>
                   </td>
-                  <td data-bind="html: Data.LongName"></td>
+                  <td data-bind="html: Data.LongName" class=" multiline"></td>
                   <td data-bind="html: Data.PopulationTotal"></td>
                   <td data-bind="html: Data.PopulationDensity"></td>
                 </tr>
