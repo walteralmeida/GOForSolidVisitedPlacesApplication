@@ -123,8 +123,8 @@
 		});
         
         this.onLogOut = function (data, reason) {		
-            solid.auth.logout();
-			$.removeCookie("BearerToken");
+			solid.auth.logout();
+ 			$.removeCookie("BearerToken");
 			self.security.jwtToken(null);
 			self.security.currentUserClaims(null);
 			self.security.isLoggedIn(false);
@@ -248,16 +248,13 @@
 			if (self.viewModelCustom !== undefined && self.viewModelCustom.initialize !== undefined) {
 			    self.viewModelCustom.initialize();
 			}
-
-            solid.auth.trackSession(session => {
+			solid.auth.trackSession(session => {
                 if (!session) {
-                    console.log('The user is not logged in')
                     self.security.logOut();
                 }
             });
-
-            self.navigation.updateMenu();
-
+            
+			self.navigation.updateMenu();
 		};
 
         this.release = function () {
