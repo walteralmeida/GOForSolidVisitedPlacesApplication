@@ -123,7 +123,8 @@
 		});
         
         this.onLogOut = function (data, reason) {		
-			$.removeCookie("BearerToken");
+			solid.auth.logout();
+ 			$.removeCookie("BearerToken");
 			self.security.jwtToken(null);
 			self.security.currentUserClaims(null);
 			self.security.isLoggedIn(false);
@@ -247,7 +248,12 @@
 			if (self.viewModelCustom !== undefined && self.viewModelCustom.initialize !== undefined) {
 			    self.viewModelCustom.initialize();
 			}
-
+			solid.auth.trackSession(session => {
+                if (!session) {
+                    self.security.logOut();
+                }
+            });
+            
 			self.navigation.updateMenu();
 		};
 
