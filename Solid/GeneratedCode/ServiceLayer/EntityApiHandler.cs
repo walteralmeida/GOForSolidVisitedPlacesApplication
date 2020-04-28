@@ -8,6 +8,7 @@ using GenerativeObjects.Practices.ExceptionHandling;
 using GenerativeObjects.Practices.LayerSupportClasses;
 using GenerativeObjects.Practices.LayerSupportClasses.DataLayer;
 using GenerativeObjects.Practices.ORMSupportClasses;
+using GenerativeObjects.Practices;
 using GenerativeObjects.Practices.LayerSupportClasses.ServiceLayer.Http;
 using GenerativeObjects.Practices.LayerSupportClasses.ServiceLayer.Extensions;
 using GenerativeObjects.Practices.LayerSupportClasses.Features.Storage.Common;
@@ -170,7 +171,7 @@ namespace Solid.ServiceLayer.WebHandlers
 			// Notify extensions
             Extensions.OnRequestAction(new ApiExtensionResponseData { action = "BYID", context = "BEFORE_BYID", data = null });
 			
-			var pks = request.QueryParts.Skip(2).Select(pk => HttpUtility.UrlDecode(pk));
+			var pks = request.QueryParts.Skip(2).Select(pk => HttpUtilities.UrlDecode(pk));
             var dataObject = DataObjectFactory.CreateDataObject(pks);
             var result = DataProvider.Get(dataObject, null, request.IncludeList);
 			
@@ -211,7 +212,7 @@ namespace Solid.ServiceLayer.WebHandlers
 				DataObjectFactory.CreateDataObject(
 					request.QueryParts.Skip(2)
 						.Take(request.QueryParts.Length - 3)
-						.Select(pk => HttpUtility.UrlDecode(pk))
+						.Select(pk => HttpUtilities.UrlDecode(pk))
 				),
 				parameters: new Parameters { { "GetFileContext", true } }
 			);
@@ -341,7 +342,7 @@ namespace Solid.ServiceLayer.WebHandlers
 			// Does the request contain the entity PK(s)?
 			if (request.QueryParts != null && request.QueryParts.Length > 1)
 			{
-				var pks = request.QueryParts.Skip(1).Select(pk => HttpUtility.UrlDecode(pk));
+				var pks = request.QueryParts.Skip(1).Select(pk => HttpUtilities.UrlDecode(pk));
 				if (pks != null && pks.Any())
 				{
 					objectToDelete = DataObjectFactory.CreateDataObject(pks);
