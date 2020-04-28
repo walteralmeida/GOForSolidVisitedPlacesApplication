@@ -35,7 +35,7 @@ namespace Solid.Data.DataProviders.Custom
 
         protected override UserProfileDataObject DoGet(UserProfileDataObject entity, LambdaExpression securityFilterExpression, List<string> includes, IObjectsDataSet context, Dictionary<string, object> parameters)
         {
-            var userProfileUri = entity.Uri.Replace("||", "://").Replace("|","/").Replace("$","#");
+            var userProfileUri = entity.Uri;
 
             //var tempfile = DataProviderHelper.DownloadFile(userProfileUri, ".ttl");
 

@@ -50,6 +50,18 @@ namespace Solid.Data.DataProviders.Custom
             return tempFile;
         }
         
+        public static string GetWebIdRootURL(string webid)
+        {
+            if (webid.StartsWith("https"))
+            {
+                return webid.Substring(0, webid.IndexOf("/", "https://".Length));
+            }
+            else
+            {
+                return webid.Substring(0, webid.IndexOf("/", "http://".Length));
+            }
+        }
+
         public static HttpStatusCode SendPatch(string url, string payload, string token)
         {
             var request = (HttpWebRequest)WebRequest.Create(url);
