@@ -72,6 +72,7 @@
     <script src="21/Widgets/paginator.js"></script>
     <script src="21/Custom/CustomFields.js"></script>
     <script src="21/ViewModels/Common/ImagePopupViewModel.js"></script>
+    <script src="21/scripts/solid-auth-client.bundle.js"></script>
   </head>
   <body onunload="">
     <div id="form"></div>

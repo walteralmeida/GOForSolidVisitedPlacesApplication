@@ -5,6 +5,7 @@ GO.Web.Url = GO.Web.Url || {};
 GO.Filter = GO.Filter || {};
 GO.Array = GO.Array || {};
 GO.Regex = GO.Regex || {};
+GO.Encoding = GO.Encoding || {};
 
 (function (global) {
 	//constant
@@ -1279,19 +1280,40 @@ GO.Regex = GO.Regex || {};
 	*  Distinct
 	* - Removes duplicates from an array
 	*/
-	GO.Array.Distinct = function (array) {
-		var seen = {};
-		var out = [];
-		var len = array.length;
-		var j = 0;
-		for (var i = 0; i < len; i++) {
-			var item = array[i];
-			if (seen[item] !== 1) {
-				seen[item] = 1;
-				out[j++] = item;
-			}
-		}
-		return out;
-	}
+    GO.Array.Distinct = function (array) {
+        var seen = {};
+        var out = [];
+        var len = array.length;
+        var j = 0;
+        for (var i = 0; i < len; i++) {
+            var item = array[i];
+            if (seen[item] !== 1) {
+                seen[item] = 1;
+                out[j++] = item;
+            }
+        }
+        return out;
+    };
+
+    GO.Encoding.UrlEncode = function (urlpart) {
+        if (urlpart.toLowerCase().startsWith("http://") || urlpart.toLowerCase().startsWith("https://")) {
+            // case we have an uri, we should replace all that could lead to a double escape character
+            urlpart = urlpart.replace('://', '||').replace('/', '|').replace('#', '$');
+        }
+
+        return UrlEncode(urlpart);
+    };
+
+    GO.Encoding.UrlDecode = function (urlpart) {
+        var toReturn = UrlDecode(urlpart);
+
+        if (toReturn.toLowerCase().startsWith("http||") || toReturn.toLowerCase().startsWith("https||")) {
+            // case we have an uri, we should replace all that could lead to a double escape character
+            toReturn = toReturn.replace('||', '://').replace('|', '/').replace('$', '#');
+        }
+
+        return toReturn;
+    };
+
 
 })(this);

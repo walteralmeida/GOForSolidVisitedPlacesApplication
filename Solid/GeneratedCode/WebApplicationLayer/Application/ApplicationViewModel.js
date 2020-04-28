@@ -123,6 +123,7 @@
 		});
         
         this.onLogOut = function (data, reason) {		
+            solid.auth.logout();
 			$.removeCookie("BearerToken");
 			self.security.jwtToken(null);
 			self.security.currentUserClaims(null);
@@ -248,7 +249,15 @@
 			    self.viewModelCustom.initialize();
 			}
 
-			self.navigation.updateMenu();
+            solid.auth.trackSession(session => {
+                if (!session) {
+                    console.log('The user is not logged in')
+                    self.security.logOut();
+                }
+            });
+
+            self.navigation.updateMenu();
+
 		};
 
         this.release = function () {

@@ -183,12 +183,12 @@ namespace Solid.Data.DataProviders.Custom
             if (status != HttpStatusCode.OK)
             {
                 // create the document file otherwise
-                string payload = @"@prefix : <#>.
+/*              string payload = @"@prefix : <#>.
                                         @prefix schem: <http://schema.org/>.
                                         @prefix XML: <http://www.w3.org/2001/XMLSchema#>.
                                         @prefix go: <http://generativeobjects.com/apps#>.";
-
-                status = DataProviderHelper.SendPost($"{userUri}/public/", registrationLocation, payload, token);
+*/
+                status = DataProviderHelper.SendPost($"{userUri}/public/", registrationLocation, null, token);
 
                 if (status != HttpStatusCode.OK)
                 {

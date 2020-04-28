@@ -11,7 +11,7 @@
 
             // if mon compte without UserName => add UserName to load the profil data
             if (navigation.params.part1 == 'MyProfile' && !navigation.params.part2) {
-                hash = "#!/MyProfile/" + Solid.Web.Common.Security.UserName();
+                hash = "#!/MyProfile/" + GO.Encoding.UrlEncode(Solid.Web.Common.Security.UserName());
                 window.location.hash = hash;
             }
             else if (navigation.params.part1 == 'MyProfile' && navigation.params.part2)
@@ -64,12 +64,12 @@
         UserName: function () {
             var id = null;
             if (ApplicationController && ApplicationController.viewModel) {
-                id = decodeURIComponent(ApplicationController.viewModel.security.currentUserClaims().GivenName).replace('https://', 'https||').replace(/\//g, '|').replace('#','$');
+                id = decodeURIComponent(ApplicationController.viewModel.security.currentUserClaims().GivenName);
             } else {
                 var token = $.cookie("BearerToken");
                 if (token) {
                     var currentUserClaims = GO.deconstructJWT(token);
-                    id = decodeURIComponent(currentUserClaims.GivenName).replace('https://', 'https||').replace(/\//g, '|').replace('#', '$');
+                    id = decodeURIComponent(currentUserClaims.GivenName);
                 }
             }
             return id;
