@@ -192,4 +192,9 @@ display: block;
 }
 .hasSinglePopup .overlayBack  {
 display: none;
-}                   
+}             
+
+.multiline {
+    white-space : pre-line;
+}
+      

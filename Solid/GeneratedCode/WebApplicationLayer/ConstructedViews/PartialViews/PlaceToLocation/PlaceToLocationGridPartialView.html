@@ -50,6 +50,7 @@
 </div>
       <div class="no-data-message">
         <span data-bind="'visible' : StatusData.IsEmpty()">No Place To Location data available</span>
+        <span data-bind="'visible' : StatusData.IsBusy()">Loading ...</span>
       </div>
       <div class="uiContainer">
         <div class="blocking-element ui-widget-overlay"></div>

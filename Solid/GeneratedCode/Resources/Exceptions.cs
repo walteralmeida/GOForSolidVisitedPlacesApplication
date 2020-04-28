@@ -2,6 +2,11 @@
 
 namespace Solid.Data.Resources.Exceptions
 {
+	public class MandatoryUsernameAndPassword : GOServerExceptionInfoProvider
+	{
+		public override string Message => "MISSING_TRANSLATION___MEMBERSHIP_MANDATORY_USERNAME_AND_PASSWORD '{0}'";
+	}
+
 	public class UserNotFound : GOServerExceptionInfoProvider
 	{
 		public override string Message => "Sorry - No account could be found matching email address '{0}'";

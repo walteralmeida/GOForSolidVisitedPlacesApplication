@@ -7,6 +7,7 @@ GO.Array = GO.Array || {};
 GO.Regex = GO.Regex || {};
 GO.Encoding = GO.Encoding || {};
 
+
 (function (global) {
 	//constant
 	GenerativeObjects.Web.DB_KEY = "dbKey";
@@ -1298,7 +1299,7 @@ GO.Encoding = GO.Encoding || {};
     GO.Encoding.UrlEncode = function (urlpart) {
         if (urlpart.toLowerCase().startsWith("http://") || urlpart.toLowerCase().startsWith("https://")) {
             // case we have an uri, we should replace all that could lead to a double escape character
-            urlpart = urlpart.replace('://', '||').replace('/', '|').replace('#', '$');
+            urlpart = urlpart.replace('://', '||').replace(/\//g, '|').replace('#', '$');
         }
 
         return UrlEncode(urlpart);
@@ -1309,7 +1310,7 @@ GO.Encoding = GO.Encoding || {};
 
         if (toReturn.toLowerCase().startsWith("http||") || toReturn.toLowerCase().startsWith("https||")) {
             // case we have an uri, we should replace all that could lead to a double escape character
-            toReturn = toReturn.replace('||', '://').replace('|', '/').replace('$', '#');
+            toReturn = toReturn.replace('||', '://').replace(/|/g, '/').replace('$', '#');
         }
 
         return toReturn;

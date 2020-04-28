@@ -14,6 +14,7 @@
       </div>
       <div class="no-data-message">
         <span data-bind="'visible' : {DATABINDROOT}StatusData.IsEmpty()">No visited place</span>
+        <span data-bind="'visible' : {DATABINDROOT}StatusData.IsBusy()">Loading ...</span>
       </div>
       <div class="uiContainer">
         <div class="blocking-element ui-widget-overlay"></div>
@@ -29,11 +30,11 @@
               </thead>
               <tbody data-bind="foreach: {DATABINDROOT}VisitedPlaceObjectCollection()">
                 <tr class="pointer" data-bind="attr: {'data-id': Data.InternalObjectId}, click: {PARENTDATABINDROOT}onLineClicked, event: {dblclick: {PARENTDATABINDROOT}onLineDblClicked}, css: {'currenttr': {PARENTDATABINDROOT}selectedId() == Data.InternalObjectId()}">
-                  <td data-bind="jqStopBubble: 'a'">
+                  <td data-bind="jqStopBubble: 'a'" class=" multiline">
                     <a data-bind="attr: { href: '#!' + ApplicationController.getRootHashTag('CountryDetails') + 'Countries/CountryDetails/' + $parent.{DATABINDROOT}getCountryPKValuesForCountry($data), title: $parent.{DATABINDROOT}getCountry_NameValue($data) }, html: $parent.{DATABINDROOT}getCountry_NameValue($data)"></a>
                   </td>
                   <td data-bind="html: Data.Date_DisplayString"></td>
-                  <td data-bind="html: Data.Description"></td>
+                  <td data-bind="html: Data.Description" class=" multiline"></td>
                 </tr>
               </tbody>
             </table>

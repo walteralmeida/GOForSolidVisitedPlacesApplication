@@ -126,6 +126,7 @@
       </div>
       <div class="no-data-message">
         <span data-bind="'visible' : VisitedPlaceItemsGridViewModel.StatusData.IsEmpty()">No visited place</span>
+        <span data-bind="'visible' : VisitedPlaceItemsGridViewModel.StatusData.IsBusy()">Loading ...</span>
       </div>
       <div class="uiContainer">
         <div class="blocking-element ui-widget-overlay"></div>
@@ -141,11 +142,11 @@
               </thead>
               <tbody data-bind="foreach: VisitedPlaceItemsGridViewModel.VisitedPlaceObjectCollection()">
                 <tr class="pointer" data-bind="attr: {'data-id': Data.InternalObjectId}, click: $parent.VisitedPlaceItemsGridViewModel.onLineClicked, event: {dblclick: $parent.VisitedPlaceItemsGridViewModel.onLineDblClicked}, css: {'currenttr': $parent.VisitedPlaceItemsGridViewModel.selectedId() == Data.InternalObjectId()}">
-                  <td data-bind="jqStopBubble: 'a'">
+                  <td data-bind="jqStopBubble: 'a'" class=" multiline">
                     <a data-bind="attr: { href: '#!' + ApplicationController.getRootHashTag('CountryDetails') + 'Countries/CountryDetails/' + $parent.VisitedPlaceItemsGridViewModel.getCountryPKValuesForCountry($data), title: $parent.VisitedPlaceItemsGridViewModel.getCountry_NameValue($data) }, html: $parent.VisitedPlaceItemsGridViewModel.getCountry_NameValue($data)"></a>
                   </td>
                   <td data-bind="html: Data.Date_DisplayString"></td>
-                  <td data-bind="html: Data.Description"></td>
+                  <td data-bind="html: Data.Description" class=" multiline"></td>
                 </tr>
               </tbody>
             </table>

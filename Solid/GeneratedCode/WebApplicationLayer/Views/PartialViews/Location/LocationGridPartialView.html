@@ -15,6 +15,7 @@
       <div data-bind="'visible': {DATABINDROOT}StatusData.IsFilterVisible()">{#false,LocationFilter,Filter,,Location\Filters\LocationFilterPartialView.html#}</div>
       <div class="no-data-message">
         <span data-bind="'visible' : {DATABINDROOT}StatusData.IsEmpty()">No Location data available</span>
+        <span data-bind="'visible' : {DATABINDROOT}StatusData.IsBusy()">Loading ...</span>
       </div>
       <div class="uiContainer">
         <div class="blocking-element ui-widget-overlay"></div>
@@ -30,11 +31,11 @@
               </thead>
               <tbody data-bind="foreach: {DATABINDROOT}LocationObjectCollection()">
                 <tr class="pointer" data-bind="attr: {'data-id': Data.InternalObjectId}, click: {PARENTDATABINDROOT}onLineClicked, event: {dblclick: {PARENTDATABINDROOT}onLineDblClicked}, css: {'currenttr': {PARENTDATABINDROOT}selectedId() == Data.InternalObjectId()}">
-                  <td data-bind="html: Data.Abstract"></td>
-                  <td data-bind="jqStopBubble: 'a'">
+                  <td data-bind="html: Data.Abstract" class=" multiline"></td>
+                  <td data-bind="jqStopBubble: 'a'" class=" multiline">
                     <a data-bind="attr: { href: '#!' + ApplicationController.getRootHashTag('LocationDetails') + 'Locations/LocationDetails/' + Data.URI(), title: Data.Name }, html: Data.Name"></a>
                   </td>
-                  <td data-bind="html: Data.URI"></td>
+                  <td data-bind="html: Data.URI" class=" multiline"></td>
                 </tr>
               </tbody>
             </table>

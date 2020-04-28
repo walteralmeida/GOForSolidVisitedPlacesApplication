@@ -874,6 +874,7 @@ namespace Solid.BusinessLayer.Components.Server
 			content = ExpandTemplatePlaceholders(content, user);
 
 			content = content.Replace("%LINK%", link);
+            content = content.Replace("%EMAIL%", user.EmailAddress);
 
 			content = AddEmailTemplate(content);
 		}
