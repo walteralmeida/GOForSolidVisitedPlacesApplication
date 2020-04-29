@@ -45,6 +45,9 @@
 		<property name="Unregistered">
             <column name="`Unregistered`" sql-type="bit" not-null="true" />
         </property> 
+		<property name="UserName">
+            <column name="`UserName`" sql-type="nvarchar (150) COLLATE SQL_Latin1_General_CP1_CI_AS" not-null="true" />
+        </property> 
 		<property name="UserValidated">
             <column name="`UserValidated`" sql-type="bit" not-null="true" />
         </property> 
@@ -52,7 +55,6 @@
  
 
 
-		<property name="UserName" type="System.String" not-null = "true" formula = "[UserName]"></property>
 
 		<bag
 			name = "UserGroupItems"
