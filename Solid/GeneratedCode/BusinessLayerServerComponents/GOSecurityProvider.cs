@@ -154,7 +154,6 @@ namespace Solid.BusinessLayer.Components.Server
             var existingUser = DataFacade.GOUserDataProvider.GetCollection(filterPredicate: $"UserName == \"{username}\"",
                                                                            includes: includes,
                                                                            skipSecurity: true).SingleOrDefault();
-
             GOUserDataObject currentUser;
 
             if (existingUser == null)
@@ -162,26 +161,11 @@ namespace Solid.BusinessLayer.Components.Server
                 techLogger.Debug($"User with username={username} doen't exist => create a new One.");
                 // new user provided by SOLID : create it
                 currentUser = CreateNewUser(username, null, null, username, Guid.NewGuid().ToString(), true, true);
+                techLogger.Info($"SOLID - connect: Creation new user {currentUser.EmailAddress} ({currentUser.FullName})");
             }
             else
             {
                 currentUser = existingUser;
-            }
-
-            if (currentUser.IsNew || currentUser.IsDirty)
-            {
-                DataFacade.GOUserDataProvider.Save(currentUser, skipSecurity: true);
-
-                if (currentUser.IsNew)
-                {
-                    techLogger.Info($"SOLID - connect: Creation new user {currentUser.EmailAddress} ({currentUser.FullName})");
-                }
-                else
-                {
-                    techLogger.Warn($"SOLID - connect: user isDirty but not new - {currentUser.EmailAddress} ({currentUser.FullName}). Weird, should not.");
-                }
-
-                currentUser = DataFacade.GOUserDataProvider.Get(currentUser, includes: includes, skipSecurity: true);
             }
 
             var token = SetAuthenticationToken(currentUser, useCookies : true, solidToken : password);
@@ -795,7 +779,12 @@ namespace Solid.BusinessLayer.Components.Server
 			newUser.Password = password;
 			newUser.PasswordExpiry = passwordExpiry;
 
-			return DataFacade.GOUserDataProvider.Save(newUser, null, skipSecurity: true);
+			var includes = new List<string>
+            {
+                "UserRoleItems.Role", "UserGroupItems.Group.GroupRoleItems"
+            };
+			
+			return DataFacade.GOUserDataProvider.Save(newUser, null, includes : includes skipSecurity: true);
 		}
 
 		private void NotifyAdministratorsUserApprovalPending(GOUserDataObject user)
