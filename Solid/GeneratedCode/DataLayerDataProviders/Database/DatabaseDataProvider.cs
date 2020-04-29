@@ -102,7 +102,8 @@ namespace Solid.Data.DataProviders.Database
 					var saveList = ApplicationSettings.Resolve<ISaveDependencyResolver>().Sort(entity.ObjectsDataSet);
 					foreach (var obj in saveList)
 					{
-						newPK = SaveOrUpdateThroughORM(session, obj, isMainEntity: ReferenceEquals(obj, entity));
+						var resultPk = SaveOrUpdateThroughORM(session, obj, isMainEntity: ReferenceEquals(obj, entity));
+						newPK = newPK ?? resultPk;
 					}
 				}
 				else
