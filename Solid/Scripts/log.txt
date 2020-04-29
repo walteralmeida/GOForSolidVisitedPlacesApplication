@@ -1,0 +1,1 @@
+    13>GOSecurityProvider.cs(787,81): error CS1003: Syntax error, ',' expected [G:\Projects\GOForSolid\Solid\GeneratedCode\BusinessLayerServerComponents\Solid.BusinessLayer.Components.Server.csproj]

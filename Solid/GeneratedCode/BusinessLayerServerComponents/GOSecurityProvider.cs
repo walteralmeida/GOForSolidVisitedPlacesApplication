@@ -784,7 +784,7 @@ namespace Solid.BusinessLayer.Components.Server
                 "UserRoleItems.Role", "UserGroupItems.Group.GroupRoleItems"
             };
 			
-			return DataFacade.GOUserDataProvider.Save(newUser, null, includes : includes skipSecurity: true);
+			return DataFacade.GOUserDataProvider.Save(newUser, null, includes : includes, skipSecurity: true);
 		}
 
 		private void NotifyAdministratorsUserApprovalPending(GOUserDataObject user)
