@@ -15,7 +15,7 @@
                 window.location.hash = hash;
             }
             else if (navigation.params.part1 == 'MyProfile' && navigation.params.part2)
-                return false;
+                return true;
         };
 
     };
