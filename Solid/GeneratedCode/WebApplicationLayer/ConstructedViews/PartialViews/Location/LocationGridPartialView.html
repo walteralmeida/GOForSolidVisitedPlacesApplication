@@ -79,7 +79,7 @@
               <tbody data-bind="foreach: LocationObjectCollection()">
                 <tr class="pointer" data-bind="attr: {'data-id': Data.InternalObjectId}, click: $parent.onLineClicked, event: {dblclick: $parent.onLineDblClicked}, css: {'currenttr': $parent.selectedId() == Data.InternalObjectId()}">
                   <td data-bind="html: Data.Abstract" class=" multiline"></td>
-                  <td data-bind="jqStopBubble: 'a'" class=" multiline">
+                  <td data-bind="jqStopBubble: 'a'">
                     <a data-bind="attr: { href: '#!' + ApplicationController.getRootHashTag('LocationDetails') + 'Locations/LocationDetails/' + Data.URI(), title: Data.Name }, html: Data.Name"></a>
                   </td>
                   <td data-bind="html: Data.URI" class=" multiline"></td>

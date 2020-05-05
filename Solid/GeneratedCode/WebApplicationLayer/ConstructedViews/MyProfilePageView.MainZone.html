@@ -143,7 +143,7 @@
               </thead>
               <tbody data-bind="foreach: VisitedPlaceItemsGridViewModel.VisitedPlaceObjectCollection()">
                 <tr class="pointer" data-bind="attr: {'data-id': Data.InternalObjectId}, click: $parent.VisitedPlaceItemsGridViewModel.onLineClicked, event: {dblclick: $parent.VisitedPlaceItemsGridViewModel.onLineDblClicked}, css: {'currenttr': $parent.VisitedPlaceItemsGridViewModel.selectedId() == Data.InternalObjectId()}">
-                  <td data-bind="jqStopBubble: 'a'" class=" multiline">
+                  <td data-bind="jqStopBubble: 'a'">
                     <a data-bind="attr: { href: '#!' + ApplicationController.getRootHashTag('CountryDetails') + 'Countries/CountryDetails/' + $parent.VisitedPlaceItemsGridViewModel.getCountryPKValuesForCountry($data), title: $parent.VisitedPlaceItemsGridViewModel.getCountry_NameValue($data) }, html: $parent.VisitedPlaceItemsGridViewModel.getCountry_NameValue($data)"></a>
                   </td>
                   <td data-bind="html: Data.Date_DisplayString"></td>
