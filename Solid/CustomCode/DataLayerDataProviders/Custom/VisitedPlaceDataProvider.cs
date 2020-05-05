@@ -62,22 +62,35 @@ namespace Solid.Data.DataProviders.Custom
             DataProviderHelper.EnsurePublicTypeRegistration(userUri, "goapp-visitedplaces", "http://schema.org/TextDigitalDocument", visitedPlaceDocumentName);
 
             string visitedPlaceDocumentUri = $"{userUri}/public/{visitedPlaceDocumentName}";
+            string tempfile = null;
 
-            var g = new Graph();
-            UriLoader.Load(g, new Uri(visitedPlaceDocumentUri));
 
-            var query = new SparqlParameterizedString();
-            query.Namespaces.AddNamespace("go", new Uri("http://generativeobjects.com/apps#"));
-            query.Namespaces.AddNamespace("schem", new Uri("http://schema.org"));
+            try
+            {
+                tempfile = DataProviderHelper.DownloadFile(visitedPlaceDocumentUri, ".ttl");
 
-            query.CommandText = "SELECT count(?visitedplace) AS ?count WHERE { ?visitedplace a go:VisitedPlace } ";
+                var g = new Graph();
+                g.LoadFromFile(tempfile);
+                //UriLoader.Load(g, new Uri(visitedPlaceDocumentUri)); // NOT WORKING ... ??? SOMEHOW SHOULD WORK
 
-            var results = (SparqlResultSet)g.ExecuteQuery(query);
+                var query = new SparqlParameterizedString();
+                query.Namespaces.AddNamespace("go", new Uri("http://generativeobjects.com/apps#"));
+                query.Namespaces.AddNamespace("schem", new Uri("http://schema.org"));
 
-            var res = results.Single();
-            var count = Convert.ToInt32((res.Single().Value as BaseLiteralNode).Value);
+                query.CommandText = "SELECT count(?visitedplace) AS ?count WHERE { ?visitedplace a go:VisitedPlace } ";
 
-            return count;
+                var results = (SparqlResultSet)g.ExecuteQuery(query);
+
+                var res = results.Single();
+                var count = Convert.ToInt32((res.Single().Value as BaseLiteralNode).Value);
+
+                return count;
+            }
+            finally
+            {
+                if (File.Exists(tempfile))
+                    File.Delete(tempfile);
+            }
         }
 
         protected override void DoDelete(VisitedPlaceDataObject entity, LambdaExpression securityFilterExpression, IObjectsDataSet context, Dictionary<string, object> parameters)
@@ -125,15 +138,21 @@ namespace Solid.Data.DataProviders.Custom
             DataProviderHelper.EnsurePublicTypeRegistration(userUri, "goapp-visitedplaces", "http://schema.org/TextDigitalDocument", visitedPlaceDocumentName);
 
             string visitedPlacesDocumentUri = $"{userUri}/public/{visitedPlaceDocumentName}";
-            string visitedPlaceUri = $"{visitedPlacesDocumentUri}#{entity.Id}";
+            
+            //string visitedPlaceUri = $"{visitedPlacesDocumentUri}#{entity.Id}"; // to be used with UriLoader.Load
+            string tempfile = null;
 
-            var g = new Graph();
+            try
+            {
+                tempfile = DataProviderHelper.DownloadFile(visitedPlacesDocumentUri, ".ttl");
 
-            UriLoader.Load(g, new Uri(visitedPlacesDocumentUri));
+                var g = new Graph();
+                g.LoadFromFile(tempfile);
+                //UriLoader.Load(g, new Uri(visitedPlaceDocumentUri)); // NOT WORKING ... ??? SOMEHOW SHOULD WORK
 
-            var query = new SparqlParameterizedString();
+                var query = new SparqlParameterizedString();
 
-            query.CommandText = @"SELECT ?Date ?Description ?CountryURI
+                query.CommandText = @"SELECT ?Date ?Description ?CountryURI
                                       WHERE 
                                         {     
                                             @VisitedPlace   <http://schema.org/startDate> ?Date ;                                          
@@ -141,23 +160,30 @@ namespace Solid.Data.DataProviders.Custom
                                                             <http://dbpedia.org/class/yago/WikicatMemberStatesOfTheUnitedNations> ?CountryURI .
                                         }";
 
-            query.SetUri("VisitedPlace", new Uri(visitedPlaceUri));
+                string visitedPlaceLocalFileUri = $"file://////{tempfile}#{entity.Id}";
+                query.SetUri("VisitedPlace", new Uri(visitedPlaceLocalFileUri));
 
-            var results = (SparqlResultSet)g.ExecuteQuery(query);
+                var results = (SparqlResultSet)g.ExecuteQuery(query);
 
-            var result = results.SingleOrDefault();
+                var result = results.SingleOrDefault();
 
-            if (result == null)
-                throw new GOServerException("Cannot load the VisitedPlace");
+                if (result == null)
+                    throw new GOServerException("Cannot load the VisitedPlace");
 
-            var visitedPlace = MapSparqlResultToVisitedPlace(result, mapId : false);
-            visitedPlace.Id = entity.Id;
-            visitedPlace.UserProfileUri = entity.UserProfileUri; 
+                var visitedPlace = MapSparqlResultToVisitedPlace(result, mapId: false);
+                visitedPlace.Id = entity.Id;
+                visitedPlace.UserProfileUri = entity.UserProfileUri;
 
-            var dataset = ApplicationSettings.Container.Resolve<IObjectsDataSet>();
-            dataset.AddObject(visitedPlace);
+                var dataset = ApplicationSettings.Container.Resolve<IObjectsDataSet>();
+                dataset.AddObject(visitedPlace);
 
-            return visitedPlace;
+                return visitedPlace;
+            }
+            finally
+            {
+                if (File.Exists(tempfile))
+                    File.Delete(tempfile);
+            }
         }
 
         protected override DataObjectCollection<VisitedPlaceDataObject> DoGetCollection(LambdaExpression securityFilterExpression, string filterPredicate, object[] filterArguments, string orderByPredicate, int pageNumber, int pageSize, List<string> includes, IObjectsDataSet context, Dictionary<string, object> parameters)
@@ -168,14 +194,20 @@ namespace Solid.Data.DataProviders.Custom
             DataProviderHelper.EnsurePublicTypeRegistration(userUri, "goapp-visitedplaces", "http://schema.org/TextDigitalDocument", visitedPlaceDocumentName);
 
             string visitedPlaceDocumentUri = $"{userUri}/public/{visitedPlaceDocumentName}";
+            string tempfile = null;
 
-            var g = new Graph();
-            UriLoader.Load(g, new Uri(visitedPlaceDocumentUri));
+            try
+            {
+                tempfile = DataProviderHelper.DownloadFile(visitedPlaceDocumentUri, ".ttl");
+
+                var g = new Graph();
+                g.LoadFromFile(tempfile);
+                //UriLoader.Load(g, new Uri(visitedPlaceDocumentUri)); // NOT WORKING ... ??? SOMEHOW SHOULD WORK
 
 
-            var query = new SparqlParameterizedString();
+                var query = new SparqlParameterizedString();
 
-            query.CommandText = @"SELECT ?VisitedPlace ?Date ?Description ?CountryURI
+                query.CommandText = @"SELECT ?VisitedPlace ?Date ?Description ?CountryURI
                                       WHERE 
                                         { 
                                             ?VisitedPlace a <http://generativeobjects.com/apps#VisitedPlace> ; 
@@ -184,24 +216,30 @@ namespace Solid.Data.DataProviders.Custom
                                             <http://dbpedia.org/class/yago/WikicatMemberStatesOfTheUnitedNations> ?CountryURI .
                                         } ";
 
-            if (pageNumber != 0 || pageSize != 0)
-            {
-                query.CommandText += $"LIMIT {pageSize} OFFSET {(pageNumber - 1) * pageSize}";
+                if (pageNumber != 0 || pageSize != 0)
+                {
+                    query.CommandText += $"LIMIT {pageSize} OFFSET {(pageNumber - 1) * pageSize}";
+                }
+
+                var results = (SparqlResultSet)g.ExecuteQuery(query);
+
+                var toReturn = new DataObjectCollection<VisitedPlaceDataObject>();
+                toReturn.ObjectsDataSet = ApplicationSettings.Container.Resolve<IObjectsDataSet>();
+
+                foreach (var result in results)
+                {
+                    var visitedPlace = MapSparqlResultToVisitedPlace(result);
+                    visitedPlace.UserProfileUri = GetOriginalUserProfileUriFromFilter(filterPredicate);
+                    toReturn.Add(visitedPlace);
+                }
+
+                return toReturn;
             }
-
-            var results = (SparqlResultSet)g.ExecuteQuery(query);
-
-            var toReturn = new DataObjectCollection<VisitedPlaceDataObject>();
-            toReturn.ObjectsDataSet = ApplicationSettings.Container.Resolve<IObjectsDataSet>();
-
-            foreach (var result in results)
+            finally
             {
-                var visitedPlace = MapSparqlResultToVisitedPlace(result);
-                visitedPlace.UserProfileUri = GetOriginalUserProfileUriFromFilter(filterPredicate);
-                toReturn.Add(visitedPlace);
+                if (File.Exists(tempfile))
+                    File.Delete(tempfile);
             }
-
-            return toReturn;
         }
 
         private VisitedPlaceDataObject MapSparqlResultToVisitedPlace(SparqlResult result, bool mapId  = true)

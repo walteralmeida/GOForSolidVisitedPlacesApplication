@@ -44,13 +44,18 @@ namespace Solid.Data.DataProviders.Custom
             var dataset = ApplicationSettings.Container.Resolve<IObjectsDataSet>();
             dataset.AddObject(result);
 
-            //var tempfile = DataProviderHelper.DownloadFile(userProfileUri, ".ttl");
+            string tempfile = null;
 
-            var g = new Graph();
-            //g.LoadFromFile(tempfile);
-            UriLoader.Load(g, new Uri(userProfileUri));
+            try
+            {
+                tempfile = DataProviderHelper.DownloadFile(userProfileUri, ".ttl");
 
-            var query = @"SELECT ?Name ?Role ?OrganizationName WHERE 
+                var g = new Graph();
+
+                g.LoadFromFile(tempfile);
+                //UriLoader.Load(g, new Uri(userProfileUri));  // NOT WORKING ... ??? SOMEHOW SHOULD WORK
+
+                var query = @"SELECT ?Name ?Role ?OrganizationName WHERE 
                                 { ?me a <http://xmlns.com/foaf/0.1/Person> .
                                   OPTIONAL 
                                         {
@@ -61,19 +66,25 @@ namespace Solid.Data.DataProviders.Custom
                                 }";
 
 
-            var returned = ((SparqlResultSet)g.ExecuteQuery(query)).SingleOrDefault();
+                var returned = ((SparqlResultSet)g.ExecuteQuery(query)).SingleOrDefault();
 
-            if (returned == null)
-                return null;
+                if (returned == null)
+                    return null;
 
-            result.Role = returned.HasValue("Role") ? returned["Role"].ToString() : null;
-            result.OrganizationName = returned.HasValue("OrganizationName") ? returned["OrganizationName"].ToString() : null;
-            result.Name = returned.HasValue("Name") ? returned["Name"].ToString() : null;
+                result.Role = returned.HasValue("Role") ? returned["Role"].ToString() : null;
+                result.OrganizationName = returned.HasValue("OrganizationName") ? returned["OrganizationName"].ToString() : null;
+                result.Name = returned.HasValue("Name") ? returned["Name"].ToString() : null;
 
-            result.IsNew = false;
-            result.IsDirty = false;
+                result.IsNew = false;
+                result.IsDirty = false;
 
-            return result;
+                return result;
+            }
+            finally
+            {
+                if (File.Exists(tempfile))
+                    File.Delete(tempfile);
+            }
         }
 
         protected override DataObjectCollection<UserProfileDataObject> DoGetCollection(LambdaExpression securityFilterExpression, string filterPredicate, object[] filterArguments, string orderByPredicate, int pageNumber, int pageSize, List<string> includes, IObjectsDataSet context, Dictionary<string, object> parameters)
