@@ -92,6 +92,21 @@
 					"/ViewModels/PlaceToLocation/Filters/PlaceToLocationFilterViewModel.js", 
 					"/Controllers/PlacePageController.js" 
 				], 
+				"UsersPage-Page": [
+					"/Model/DataObjects/UserProfileObject.js", 
+					"/Model/DataObjectValidators/UserProfileObjectValidator.js", 
+					"/Model/DataSets/UserProfileDataSet.js", 
+					"/Model/DataObjects/VisitedPlaceObject.js", 
+					"/Model/DataObjectValidators/VisitedPlaceObjectValidator.js", 
+					"/Model/DataSets/VisitedPlaceDataSet.js", 
+					"/Model/DataObjects/CountryObject.js", 
+					"/Model/DataObjectValidators/CountryObjectValidator.js", 
+					"/Model/DataSets/CountryDataSet.js", 
+					"/ViewModels/UserProfile/UserProfileFormViewModel.js", 
+					"/ViewModels/VisitedPlace/VisitedPlaceGridViewModel.js", 
+					"/ViewModels/UserProfile/UserProfileGridViewModel.js", 
+					"/Controllers/UsersPageController.js" 
+				], 
 				"CountryForm-Form": [
 					"/Model/DataObjects/CountryObject.js", 
 					"/Model/DataObjectValidators/CountryObjectValidator.js", 

@@ -100,6 +100,9 @@
     <Content Include="Controllers\PlacePageController.js">
       <GeneratedBy>Fenomen</GeneratedBy>
     </Content>
+    <Content Include="Controllers\UsersPageController.js">
+      <GeneratedBy>Fenomen</GeneratedBy>
+    </Content>
     <Compile Include="dummy.cs">
       <GeneratedBy>Fenomen</GeneratedBy>
     </Compile>
@@ -966,6 +969,9 @@
     <Content Include="ViewModels\UserProfile\UserProfileFormViewModel.js">
       <GeneratedBy>Fenomen</GeneratedBy>
     </Content>
+    <Content Include="ViewModels\UserProfile\UserProfileGridViewModel.js">
+      <GeneratedBy>Fenomen</GeneratedBy>
+    </Content>
     <Content Include="ViewModels\VisitedPlace\VisitedPlaceFormViewModel.js">
       <GeneratedBy>Fenomen</GeneratedBy>
     </Content>
@@ -1070,6 +1076,9 @@
     <Content Include="Views\PartialViews\UserProfile\UserProfileFormPartialView.html">
       <GeneratedBy>Fenomen</GeneratedBy>
     </Content>
+    <Content Include="Views\PartialViews\UserProfile\UserProfileGridPartialView.html">
+      <GeneratedBy>Fenomen</GeneratedBy>
+    </Content>
     <Content Include="Views\PartialViews\VisitedPlace\VisitedPlaceFormControlPartialView.html">
       <GeneratedBy>Fenomen</GeneratedBy>
     </Content>
@@ -1083,6 +1092,9 @@
       <GeneratedBy>Fenomen</GeneratedBy>
     </Content>
     <Content Include="Views\PlacePageView.html">
+      <GeneratedBy>Fenomen</GeneratedBy>
+    </Content>
+    <Content Include="Views\UsersPageView.html">
       <GeneratedBy>Fenomen</GeneratedBy>
     </Content>
     <Content Include="Views\ViewLoader.js">
