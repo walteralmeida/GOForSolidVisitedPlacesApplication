@@ -42,6 +42,9 @@
 				case 'Locations':
 					pageName = 'LocationItemsPage';
 					break;
+				case 'Users':
+					pageName = 'UsersPage';
+					break;
 				case 'MyProfile':
 					pageName = 'MyProfilePage';
 					break;
@@ -80,6 +83,8 @@
 				return root + 'Countries/CountryDetails';
 			case 'Locations':
 				return root + 'Locations';
+			case 'Users':
+				return root + 'Users';
 			case 'MyProfile':
 				return root + 'MyProfile';
 			case 'Places':
@@ -128,6 +133,15 @@
 					if (window.masterPageId !== 'e71bc82d-442d-41a6-831e-eae563c45cb6') {
 						window.masterPageId = 'e71bc82d-442d-41a6-831e-eae563c45cb6';
 						self.viewLoader.loadView({ viewName: 'Applicatione71bc82d-442d-41a6-831e-eae563c45cb6Layout', successHandler: self.onMasterPageReady, errorHandler: self.onLoadViewError, context: nodeName });
+					}
+					else {
+						self.onMasterPageReady(null, nodeName, null);
+					}
+					break;
+				case "UsersPage":
+					if (window.masterPageId !== '30599230-22bb-4108-a6c2-ec314d5f1b04') {
+						window.masterPageId = '30599230-22bb-4108-a6c2-ec314d5f1b04';
+						self.viewLoader.loadView({ viewName: 'Application30599230-22bb-4108-a6c2-ec314d5f1b04Layout', successHandler: self.onMasterPageReady, errorHandler: self.onLoadViewError, context: nodeName });
 					}
 					else {
 						self.onMasterPageReady(null, nodeName, null);
@@ -614,6 +628,14 @@
 						breadCrumbs.push({ text: 'Locations', url: Solid.Web.Application.BaseURL + '#' + root + 'Locations', hash: root + 'Locations', currentpage: true, isactive: false });
 					}
 					break;
+				case 'Users':
+					if (self.customRouting && self.customRouting.overridenBreadCrumbs && self.customRouting.overridenBreadCrumbs.Users) {
+						breadCrumbs = self.customRouting.overridenBreadCrumbs.Users();
+					}
+					else {
+						breadCrumbs.push({ text: 'Users', url: Solid.Web.Application.BaseURL + '#' + root + 'Users', hash: root + 'Users', currentpage: true, isactive: false });
+					}
+					break;
 				case 'MyProfile':
 					if (self.customRouting && self.customRouting.overridenBreadCrumbs && self.customRouting.overridenBreadCrumbs.MyProfile) {
 						breadCrumbs = self.customRouting.overridenBreadCrumbs.MyProfile();
@@ -689,6 +711,9 @@
 					}
 					if (this.params.part1.split(new RegExp("#", "g"))[0] == 'Locations') {
 						self.internalNavigateTo('Locations');
+					}
+					else if (this.params.part1.split(new RegExp("#", "g"))[0] == 'Users') {
+						self.internalNavigateTo('Users');
 					}
 					else if (this.params.part1.split(new RegExp("#", "g"))[0] == 'MyProfile') {
 						self.internalNavigateTo('MyProfile');
