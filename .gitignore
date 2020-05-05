@@ -37,7 +37,7 @@ ApplicationPackage/*
 GenerativeObjectsPackage/*
 Solid/GeneratedCode/ServiceLayer/web.custom.config
 Solid/GeneratedCode/ServiceLayer/web.config
-Solid/GeneratedCode/TestLayer/Tests/Api/app.config
+Solid/GeneratedCode/TestLayer/Tests/Api/App.config
 *node_module*
 Application/Model/T4 Templates/GenerativeObjects/PresentationLayer/SilverLight/CSharp/FormLookupFieldControlInclude (Restaur�) 12-12-2011 14.14.tt
 #Ignore VS2015 upgrade files
