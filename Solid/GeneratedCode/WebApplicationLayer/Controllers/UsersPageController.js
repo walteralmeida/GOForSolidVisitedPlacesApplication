@@ -27,28 +27,29 @@
 
 		// Initialize View Models and Data Stores
 		
-			this.UserProfileFormViewModel = new Solid.Web.ViewModels.UserProfileFormViewModel(this, $("#UserProfileFormControl"), null, null, this.contextId);		
+			this.GOUserFormViewModel = new Solid.Web.ViewModels.GOUserFormViewModel(this, $("#GOUserFormControl"), null, null, this.contextId);		
 			
 			this.UserProfileGridViewModel = new Solid.Web.ViewModels.UserProfileGridViewModel(this, $("#UserProfileGrid"), null, null, this.contextId);		
-	
+			this.UserProfileGridViewModel.include = "UserProfile";	
+
 		// Attach to view models events
-		this.subscriptions.push(this.UserProfileFormViewModel.StatusData.IsBusy.subscribe( function (newValue) { self.OnUserProfileFormViewModelIsBusyChanged(newValue); }));
+		this.subscriptions.push(this.GOUserFormViewModel.StatusData.IsBusy.subscribe( function (newValue) { self.OnGOUserFormViewModelIsBusyChanged(newValue); }));
 		this.subscriptions.push(this.UserProfileGridViewModel.StatusData.IsBusy.subscribe( function (newValue) { self.OnUserProfileGridViewModelIsBusyChanged(newValue); }));
 		
 		this.IsInEditMode = function() {
 
-			return  (self.UserProfileFormViewModel.StatusData.DisplayMode && self.UserProfileFormViewModel.StatusData.DisplayMode() == 'edit') ||  (self.UserProfileGridViewModel.StatusData.DisplayMode && self.UserProfileGridViewModel.StatusData.DisplayMode() == 'edit');
+			return  (self.GOUserFormViewModel.StatusData.DisplayMode && self.GOUserFormViewModel.StatusData.DisplayMode() == 'edit') ||  (self.UserProfileGridViewModel.StatusData.DisplayMode && self.UserProfileGridViewModel.StatusData.DisplayMode() == 'edit');
 		};
 
 
 		// Events Handlers
-      this.OnUserProfileGridUserProfileCollectionLoaded = function() {
+      this.OnUserProfileGridGOUserCollectionLoaded = function() {
             // If form is a active, try to find relevand object in grid and select it
-            if (self.UserProfileGridViewModel.UserProfileObjectCollection().length > 0 && self.UserProfileFormViewModel.StatusData.IsEmpty() === false) {
+            if (self.UserProfileGridViewModel.GOUserObjectCollection().length > 0 && self.GOUserFormViewModel.StatusData.IsEmpty() === false) {
                 var found = null;
-                for (var i = 0; i < self.UserProfileGridViewModel.UserProfileObjectCollection().length; i++) {
-                    if (self.UserProfileGridViewModel.UserProfileObjectCollection()[i].Data.Uri() === self.UserProfileFormViewModel.UserProfileObject().Data.Uri()) {
-                        found = self.UserProfileGridViewModel.UserProfileObjectCollection()[i].Data.InternalObjectId();
+                for (var i = 0; i < self.UserProfileGridViewModel.GOUserObjectCollection().length; i++) {
+                    if (self.UserProfileGridViewModel.GOUserObjectCollection()[i].Data.Id() === self.GOUserFormViewModel.GOUserObject().Data.Id()) {
+                        found = self.UserProfileGridViewModel.GOUserObjectCollection()[i].Data.InternalObjectId();
                         break;
                     }
                 }
@@ -57,12 +58,12 @@
                     self.UserProfileGridViewModel.selectedObjectId(found);
                 }
                 else {
-                    self.UserProfileGridViewModel.selectedObjectId(self.UserProfileGridViewModel.UserProfileObjectCollection()[0].Data.InternalObjectId());
+                    self.UserProfileGridViewModel.selectedObjectId(self.UserProfileGridViewModel.GOUserObjectCollection()[0].Data.InternalObjectId());
                 }
             }
-            else if (self.UserProfileGridViewModel.UserProfileObjectCollection().length > 0 && self.UserProfileFormViewModel.StatusData.IsEmpty() === true) {
+            else if (self.UserProfileGridViewModel.GOUserObjectCollection().length > 0 && self.GOUserFormViewModel.StatusData.IsEmpty() === true) {
 				if (GenerativeObjects.Web.GetEnvironment().isMobile === false) {
-					self.UserProfileGridViewModel.selectedObjectId(self.UserProfileGridViewModel.UserProfileObjectCollection()[0].Data.InternalObjectId()); 
+					self.UserProfileGridViewModel.selectedObjectId(self.UserProfileGridViewModel.GOUserObjectCollection()[0].Data.InternalObjectId()); 
 				}
             }
 			
@@ -74,50 +75,50 @@
                 return;
 
 				var selectedObject = self.UserProfileGridViewModel.selectedObject();
-				if (selectedObject && (self.UserProfileFormViewModel.StatusData.IsEmpty() || (self.UserProfileFormViewModel.UserProfileObject === null || selectedObject.Data.Uri() !== self.UserProfileFormViewModel.UserProfileObject().Data.Uri()))) {
-					self.UserProfileFormViewModel.LoadUserProfile(selectedObject);
+				if (selectedObject && (self.GOUserFormViewModel.StatusData.IsEmpty() || (self.GOUserFormViewModel.GOUserObject === null || selectedObject.Data.Id() !== self.GOUserFormViewModel.GOUserObject().Data.Id()))) {
+					self.GOUserFormViewModel.LoadGOUser(selectedObject);
 			}
 			// If count > 0 and no selection, means the collection is just being reloaded
 			// So wait until new selection is made
-			else if (self.UserProfileGridViewModel.UserProfileObjectCollection().length == 0) {
-				self.UserProfileFormViewModel.SetUserProfileObject(null);
+			else if (self.UserProfileGridViewModel.GOUserObjectCollection().length == 0) {
+				self.GOUserFormViewModel.SetGOUserObject(null);
 			}
 			
 		};
-        this.OnUserProfileFormViewModelStartEdit = function () {
+        this.OnGOUserFormViewModelStartEdit = function () {
  			self.UserProfileGridViewModel.StatusData.IsEnabled(false);				
 		};
 
-		this.OnUserProfileFormViewModelEndEdit = function () {
-			self.UserProfileGridViewModel.LoadUserProfileObjectCollection();
+		this.OnGOUserFormViewModelEndEdit = function () {
+			self.UserProfileGridViewModel.LoadGOUserObjectCollection();
  			self.UserProfileGridViewModel.StatusData.IsEnabled(true);				
 		};
 
-		this.OnUserProfileFormViewModelCancelEdit = function () {
+		this.OnGOUserFormViewModelCancelEdit = function () {
  			self.UserProfileGridViewModel.StatusData.IsEnabled(true);
 		};
 			
-		this.OnUserProfileFormViewModelIsBusyChanged = function (newValue) {
+		this.OnGOUserFormViewModelIsBusyChanged = function (newValue) {
 		};
 
 		this.OnUserProfileGridViewModelIsBusyChanged = function (newValue) {
 			if (newValue === true) {
-				self.UserProfileFormViewModel.StatusData.IsEnabled(false);
+				self.GOUserFormViewModel.StatusData.IsEnabled(false);
 			}
 			else {
-				self.UserProfileFormViewModel.StatusData.IsEnabled(true);
+				self.GOUserFormViewModel.StatusData.IsEnabled(true);
 			}
 		};
 
 		this.initialize = function() {
 			self.subscriptions.push(this.UserProfileGridViewModel.selectedObject.subscribe(function (newValue) { self.OnUserProfileGridViewModelSelectionChanged(); }));
-			self.subscriptions.push(this.UserProfileGridViewModel.Events.UserProfileCollectionLoaded.subscribe(function (newValue) { self.OnUserProfileGridUserProfileCollectionLoaded(); }));
-			self.subscriptions.push(this.UserProfileFormViewModel.Events.StartEdit.subscribe(function (newValue) { self.OnUserProfileFormViewModelStartEdit(); }));				
-			self.subscriptions.push(this.UserProfileFormViewModel.Events.CancelEdit.subscribe(function (newValue) { self.OnUserProfileFormViewModelCancelEdit(); }));			
-			self.subscriptions.push(this.UserProfileFormViewModel.Events.EndEdit.subscribe(function (newValue) { self.OnUserProfileFormViewModelEndEdit(); }));				
-			self.subscriptions.push(this.UserProfileFormViewModel.Events.CancelEdit.subscribe(function (newValue) { self.OnUserProfileFormViewModelCancelEdit(); }));			
-			self.subscriptions.push(this.UserProfileFormViewModel.Events.UserProfileSaved.subscribe(function (newValue) { self.OnUserProfileFormViewModelEndEdit(); }));				
-			self.subscriptions.push(this.UserProfileFormViewModel.Events.UserProfileDeleted.subscribe(function (newValue) { self.OnUserProfileFormViewModelEndEdit(); }));
+			self.subscriptions.push(this.UserProfileGridViewModel.Events.GOUserCollectionLoaded.subscribe(function (newValue) { self.OnUserProfileGridGOUserCollectionLoaded(); }));
+			self.subscriptions.push(this.GOUserFormViewModel.Events.StartEdit.subscribe(function (newValue) { self.OnGOUserFormViewModelStartEdit(); }));				
+			self.subscriptions.push(this.GOUserFormViewModel.Events.CancelEdit.subscribe(function (newValue) { self.OnGOUserFormViewModelCancelEdit(); }));			
+			self.subscriptions.push(this.GOUserFormViewModel.Events.EndEdit.subscribe(function (newValue) { self.OnGOUserFormViewModelEndEdit(); }));				
+			self.subscriptions.push(this.GOUserFormViewModel.Events.CancelEdit.subscribe(function (newValue) { self.OnGOUserFormViewModelCancelEdit(); }));			
+			self.subscriptions.push(this.GOUserFormViewModel.Events.GOUserSaved.subscribe(function (newValue) { self.OnGOUserFormViewModelEndEdit(); }));				
+			self.subscriptions.push(this.GOUserFormViewModel.Events.GOUserDeleted.subscribe(function (newValue) { self.OnGOUserFormViewModelEndEdit(); }));
 
 			if (Solid.Web.Controllers.Custom && Solid.Web.Controllers.Custom.getPageTitle) {
 				self.pageTitle(Solid.Web.Controllers.Custom.getPageTitle(self));
@@ -130,7 +131,7 @@
 			}
 		// Initial data load for all source elements (no dependencies)
 			if (!GO.Filter.hasUrlFilter(self.UserProfileGridViewModel.FILTER_NAME, self.UserProfileGridViewModel)) {
-				self.UserProfileGridViewModel.LoadUserProfileObjectCollection();
+				self.UserProfileGridViewModel.LoadGOUserObjectCollection();
 			}
 		};
 		this.initialize();
@@ -145,8 +146,8 @@
 			self.subscriptions = [];
 			self.ObjectsDataSet.cleanContext(self.contextId);
 			
-			self.UserProfileFormViewModel.release();
-			self.UserProfileFormViewModel = null;
+			self.GOUserFormViewModel.release();
+			self.GOUserFormViewModel = null;
 			self.UserProfileGridViewModel.release();
 			self.UserProfileGridViewModel = null;
 		};

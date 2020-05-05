@@ -6,7 +6,7 @@
 
 (function () {
 	// 
-	Solid.Web.ViewModels.UserProfileFormViewModel = function(controller, $formContainer, sDataBindRoot, $popupContainer, parentContextId, options) {
+	Solid.Web.ViewModels.GOUserFormViewModel = function(controller, $formContainer, sDataBindRoot, $popupContainer, parentContextId, options) {
 		var self = this;
 		this.controller = controller;
 		this.subscriptions = [];
@@ -22,23 +22,40 @@
 		this.popupWidth = options && options.popupWidth;
 		this.alternateTitle = options && options.alternateTitle;
 
-		this.DataStore = new Solid.Web.Model.DataStores.DataStore(controller.applicationController.ObjectsDataSet, 'userprofile');
+		this.DataStore = new Solid.Web.Model.DataStores.DataStore(controller.applicationController.ObjectsDataSet, 'gouser');
 		// Related Data Stores
 
  
 		this.isMemoryOnly = false;
 
 		// Object data
-		this.UserProfileObject = ko.observable(new Solid.Web.Model.DataObjects.UserProfileObject());
-		this.UserProfileObject().ObjectsDataSet = this.controller.ObjectsDataSet;
-		this.CurrentObject = ko.pureComputed(function () { return this.UserProfileObject() }, this);
+		this.GOUserObject = ko.observable(new Solid.Web.Model.DataObjects.GOUserObject());
+		this.GOUserObject().ObjectsDataSet = this.controller.ObjectsDataSet;
+		this.CurrentObject = ko.pureComputed(function () { return this.GOUserObject() }, this);
+
+		// Define sub-fields
+		this.GOUserObject.UserProfile_Uri = ko.pureComputed( function() {
+			return self.GOUserObject().getUserProfile() === null ? null : self.GOUserObject().getUserProfile().Data.Uri();
+		} , this);	
+
+		this.GOUserObject.UserProfile_Name = ko.pureComputed( function() {
+			return self.GOUserObject().getUserProfile() === null ? null : self.GOUserObject().getUserProfile().Data.Name();
+		} , this);	
+
+		this.GOUserObject.UserProfile_OrganizationName = ko.pureComputed( function() {
+			return self.GOUserObject().getUserProfile() === null ? null : self.GOUserObject().getUserProfile().Data.OrganizationName();
+		} , this);	
+
+		this.GOUserObject.UserProfile_VisitedPlaceItems =  function() {
+			return self.GOUserObject().getUserProfile() === null ? null : self.GOUserObject().getUserProfile().Data.VisitedPlaceItems();
+		};	
 
 		// Sub-grids ViewModels
 		this.VisitedPlaceItemsGridViewModel = new Solid.Web.ViewModels.VisitedPlaceGridViewModel(self.controller, null, sDataBindRoot +  "VisitedPlaceItemsGridViewModel", $popupContainer, self.contextId);
-		this.VisitedPlaceItemsGridViewModel.getSourceCollection = function () { return self.UserProfileObject().getVisitedPlaceItems(); };		
+		this.VisitedPlaceItemsGridViewModel.getSourceCollection = function () { return self.GOUserObject.UserProfile_VisitedPlaceItems(); };		
 		this.VisitedPlaceItemsGridViewModel.NewvisitedplaceCommandInitActions.push ( 
 			function (newobject) {
-				newobject.setUserProfile(self.CurrentObject());; 
+				newobject.setUserProfile(self.CurrentObject().getUserProfile());; 
 		});				
  
 		// Form status data
@@ -60,8 +77,8 @@
 
  
 		// Integrate custom code if any
-		if (Solid.Web.ViewModels.UserProfileFormViewModelCustom !== undefined) {
-		    this.customViewModel = new Solid.Web.ViewModels.UserProfileFormViewModelCustom(self);
+		if (Solid.Web.ViewModels.GOUserFormViewModelCustom !== undefined) {
+		    this.customViewModel = new Solid.Web.ViewModels.GOUserFormViewModelCustom(self);
 		};
 
 		this.StatusData.Title = ko.pureComputed(function() { 
@@ -69,19 +86,19 @@
 				return self.customViewModel.Title();
 			}	
 			
-			if(!self.UserProfileObject())
+			if(!self.GOUserObject())
 				return;
 							
-			return self.alternateTitle || 'My Profile'; 
+			return self.alternateTitle || 'User information'; 
 		});
 
 		this.runValidation = function() {
-			self.UserProfileObject().runValidation();
+			self.GOUserObject().runValidation();
 
-			var isValid = self.UserProfileObject().StatusData.isValid();
+			var isValid = self.GOUserObject().StatusData.isValid();
 			self.StatusData.errorSummary.removeAll();
-			for (var i=0; i < self.UserProfileObject().StatusData.errorSummary().length; i++) {
-				self.StatusData.errorSummary.push(self.UserProfileObject().StatusData.errorSummary()[i]);
+			for (var i=0; i < self.GOUserObject().StatusData.errorSummary().length; i++) {
+				self.StatusData.errorSummary.push(self.GOUserObject().StatusData.errorSummary()[i]);
 			}
 
 			// Remove duplicates
@@ -91,7 +108,7 @@
 		};
 
 		this.resetValidation = function () {
-			self.UserProfileObject().resetValidation();
+			self.GOUserObject().resetValidation();
 			self.StatusData.isValid(true);
 			self.StatusData.errorSummary.removeAll();
 		};
@@ -103,77 +120,62 @@
 		this.controller.ObjectsDataSet.AddContextIdsStatusChangeHandler(self.onContextIdsStatusChanged);
 
 
-		this.StatusData.IsUriVisible = ko.pureComputed( function () {
-			if (self.customViewModel !== undefined && self.customViewModel.IsUriVisible !== undefined) {
-				return self.customViewModel.IsUriVisible();
+		this.StatusData.IsUserProfile_UriVisible = ko.pureComputed( function () {
+			if (self.customViewModel !== undefined && self.customViewModel.IsUserProfile_UriVisible !== undefined) {
+				return self.customViewModel.IsUserProfile_UriVisible();
 			}
 			
 			return true;
 		});
 
-		this.StatusData.IsUriReadOnly = ko.pureComputed( function () {
-			if (self.customViewModel !== undefined && self.customViewModel.IsUriReadOnly !== undefined) {
-				return self.customViewModel.IsUriReadOnly();
+		this.StatusData.IsUserProfile_UriReadOnly = ko.pureComputed( function () {
+			if (self.customViewModel !== undefined && self.customViewModel.IsUserProfile_UriReadOnly !== undefined) {
+				return self.customViewModel.IsUserProfile_UriReadOnly();
 			}
 			return false;
         });
 
-		this.StatusData.IsNameVisible = ko.pureComputed( function () {
-			if (self.customViewModel !== undefined && self.customViewModel.IsNameVisible !== undefined) {
-				return self.customViewModel.IsNameVisible();
+		this.StatusData.IsUserProfile_NameVisible = ko.pureComputed( function () {
+			if (self.customViewModel !== undefined && self.customViewModel.IsUserProfile_NameVisible !== undefined) {
+				return self.customViewModel.IsUserProfile_NameVisible();
 			}
 			
 			return true;
 		});
 
-		this.StatusData.IsNameReadOnly = ko.pureComputed( function () {
-			if (self.customViewModel !== undefined && self.customViewModel.IsNameReadOnly !== undefined) {
-				return self.customViewModel.IsNameReadOnly();
+		this.StatusData.IsUserProfile_NameReadOnly = ko.pureComputed( function () {
+			if (self.customViewModel !== undefined && self.customViewModel.IsUserProfile_NameReadOnly !== undefined) {
+				return self.customViewModel.IsUserProfile_NameReadOnly();
 			}
 			return false;
         });
 
-		this.StatusData.IsOrganizationNameVisible = ko.pureComputed( function () {
-			if (self.customViewModel !== undefined && self.customViewModel.IsOrganizationNameVisible !== undefined) {
-				return self.customViewModel.IsOrganizationNameVisible();
+		this.StatusData.IsUserProfile_OrganizationNameVisible = ko.pureComputed( function () {
+			if (self.customViewModel !== undefined && self.customViewModel.IsUserProfile_OrganizationNameVisible !== undefined) {
+				return self.customViewModel.IsUserProfile_OrganizationNameVisible();
 			}
 			
 			return true;
 		});
 
-		this.StatusData.IsOrganizationNameReadOnly = ko.pureComputed( function () {
-			if (self.customViewModel !== undefined && self.customViewModel.IsOrganizationNameReadOnly !== undefined) {
-				return self.customViewModel.IsOrganizationNameReadOnly();
+		this.StatusData.IsUserProfile_OrganizationNameReadOnly = ko.pureComputed( function () {
+			if (self.customViewModel !== undefined && self.customViewModel.IsUserProfile_OrganizationNameReadOnly !== undefined) {
+				return self.customViewModel.IsUserProfile_OrganizationNameReadOnly();
 			}
 			return false;
         });
 
-		this.StatusData.IsRoleVisible = ko.pureComputed( function () {
-			if (self.customViewModel !== undefined && self.customViewModel.IsRoleVisible !== undefined) {
-				return self.customViewModel.IsRoleVisible();
+		this.StatusData.IsUserProfile_VisitedPlaceItemsVisible = ko.pureComputed( function () {
+			if (self.customViewModel !== undefined && self.customViewModel.IsUserProfile_VisitedPlaceItemsVisible !== undefined) {
+				return self.customViewModel.IsUserProfile_VisitedPlaceItemsVisible();
 			}
 			
 			return true;
 		});
 
-		this.StatusData.IsRoleReadOnly = ko.pureComputed( function () {
-			if (self.customViewModel !== undefined && self.customViewModel.IsRoleReadOnly !== undefined) {
-				return self.customViewModel.IsRoleReadOnly();
-			}
-			return false;
-        });
-
-		this.StatusData.IsVisitedPlaceItemsVisible = ko.pureComputed( function () {
-			if (self.customViewModel !== undefined && self.customViewModel.IsVisitedPlaceItemsVisible !== undefined) {
-				return self.customViewModel.IsVisitedPlaceItemsVisible();
-			}
-			
-			return true;
-		});
-
-		this.StatusData.IsVisitedPlaceItemsReadOnly = ko.pureComputed( function () {
-			if (self.customViewModel !== undefined && self.customViewModel.IsVisitedPlaceItemsReadOnly !== undefined) {
-				return self.customViewModel.IsVisitedPlaceItemsReadOnly();
+		this.StatusData.IsUserProfile_VisitedPlaceItemsReadOnly = ko.pureComputed( function () {
+			if (self.customViewModel !== undefined && self.customViewModel.IsUserProfile_VisitedPlaceItemsReadOnly !== undefined) {
+				return self.customViewModel.IsUserProfile_VisitedPlaceItemsReadOnly();
 			}
 			return false;
         });
@@ -184,10 +186,10 @@
 		}));
 		// Form events data
 		this.Events = {
-            UserProfileLoaded: ko.observable(false),
-            UserProfileSaved: ko.observable(false),
-            UserProfileDeleted: ko.observable(false),
-			UserProfileSetInMemory: ko.observable(false),
+            GOUserLoaded: ko.observable(false),
+            GOUserSaved: ko.observable(false),
+            GOUserDeleted: ko.observable(false),
+			GOUserSetInMemory: ko.observable(false),
             StartEdit: ko.observable(false),
             CancelEdit: ko.observable(false),
             EndEdit: ko.observable(false)
@@ -213,20 +215,21 @@
       };
 
 		// Form computed command data
-      this.Commands.IsCreateNewCommandVisible = ko.pureComputed(function () {
-			if (self.customViewModel !== undefined && self.customViewModel.IsCreateNewCommandVisible !== undefined) {
-				return self.customViewModel.IsCreateNewCommandVisible();
+      this.Commands.IsSaveCommandVisible = ko.pureComputed(function () {
+			if (self.customViewModel !== undefined && self.customViewModel.IsSaveCommandVisible !== undefined) {
+				return self.customViewModel.IsSaveCommandVisible();
 			}
 
-            return (self.StatusData.DisplayMode() == 'view' && !self.StatusData.isPopup() && self.DataStore && self.DataStore.CheckAuthorizationForEntityAndMethod('save')); 
+            return (self.StatusData.DisplayMode() == 'edit' && self.DataStore &&  self.DataStore.CheckAuthorizationForEntityAndMethod('save')); 
         });
 
-        this.Commands.IsCreateNewCommandEnabled = ko.pureComputed(function () {
-			if (self.customViewModel !== undefined && self.customViewModel.IsCreateNewCommandEnabled !== undefined) {
-				return self.customViewModel.IsCreateNewCommandEnabled();
+        this.Commands.IsSaveCommandEnabled = ko.pureComputed(function () {
+			if (self.customViewModel !== undefined && self.customViewModel.IsSaveCommandEnabled !== undefined) {
+				return self.customViewModel.IsSaveCommandEnabled();
 			}
 
-            return (self.StatusData.DisplayMode() == 'view' && !self.StatusData.isPopup());
+            return (self.StatusData.DisplayMode() == 'edit');
+            //return (self.StatusData.DisplayMode() == 'edit' && self.StatusData.IsUIDirty() === true);
         });
 
       this.Commands.IsEditCommandVisible = ko.pureComputed(function () {
@@ -247,22 +250,6 @@
         });
         this.Commands.IsModifyCommandEnabled = this.Commands.IsEditCommandEnabled;
 
-		this.Commands.IsCancelEditCommandVisible = ko.pureComputed(function () {
-			if (self.customViewModel !== undefined && self.customViewModel.IsCancelEditCommandVisible !== undefined) {
-				return self.customViewModel.IsCancelEditCommandVisible();
-			}
-
-            return  (self.StatusData.DisplayMode() == 'edit'); 
-        });
-
-        this.Commands.IsCancelEditCommandEnabled = ko.pureComputed(function () {
-			if (self.customViewModel !== undefined && self.customViewModel.IsCancelEditCommandEnabled !== undefined) {
-				return self.customViewModel.IsCancelEditCommandEnabled();
-			}
-
-            return (self.StatusData.DisplayMode() == 'edit');
-        });
-
       this.Commands.IsDeleteCommandVisible = ko.pureComputed(function () {
 			if (self.customViewModel !== undefined && self.customViewModel.IsDeleteCommandVisible !== undefined) {
 				return self.customViewModel.IsDeleteCommandVisible();
@@ -279,27 +266,42 @@
             return (self.StatusData.DisplayMode() == 'view');
         });
 
-      this.Commands.IsSaveCommandVisible = ko.pureComputed(function () {
-			if (self.customViewModel !== undefined && self.customViewModel.IsSaveCommandVisible !== undefined) {
-				return self.customViewModel.IsSaveCommandVisible();
+		this.Commands.IsCancelEditCommandVisible = ko.pureComputed(function () {
+			if (self.customViewModel !== undefined && self.customViewModel.IsCancelEditCommandVisible !== undefined) {
+				return self.customViewModel.IsCancelEditCommandVisible();
 			}
 
-            return (self.StatusData.DisplayMode() == 'edit' && self.DataStore &&  self.DataStore.CheckAuthorizationForEntityAndMethod('save')); 
+            return  (self.StatusData.DisplayMode() == 'edit'); 
         });
 
-        this.Commands.IsSaveCommandEnabled = ko.pureComputed(function () {
-			if (self.customViewModel !== undefined && self.customViewModel.IsSaveCommandEnabled !== undefined) {
-				return self.customViewModel.IsSaveCommandEnabled();
+        this.Commands.IsCancelEditCommandEnabled = ko.pureComputed(function () {
+			if (self.customViewModel !== undefined && self.customViewModel.IsCancelEditCommandEnabled !== undefined) {
+				return self.customViewModel.IsCancelEditCommandEnabled();
 			}
 
             return (self.StatusData.DisplayMode() == 'edit');
-            //return (self.StatusData.DisplayMode() == 'edit' && self.StatusData.IsUIDirty() === true);
+        });
+
+      this.Commands.IsCreateNewCommandVisible = ko.pureComputed(function () {
+			if (self.customViewModel !== undefined && self.customViewModel.IsCreateNewCommandVisible !== undefined) {
+				return self.customViewModel.IsCreateNewCommandVisible();
+			}
+
+            return (self.StatusData.DisplayMode() == 'view' && !self.StatusData.isPopup() && self.DataStore && self.DataStore.CheckAuthorizationForEntityAndMethod('save')); 
+        });
+
+        this.Commands.IsCreateNewCommandEnabled = ko.pureComputed(function () {
+			if (self.customViewModel !== undefined && self.customViewModel.IsCreateNewCommandEnabled !== undefined) {
+				return self.customViewModel.IsCreateNewCommandEnabled();
+			}
+
+            return (self.StatusData.DisplayMode() == 'view' && !self.StatusData.isPopup());
         });
 
 
-		// var generatedIncludes = "";
+		// var generatedIncludes = "UserProfile.VisitedPlaceItems";
 		// The server auto-maps the include path if we send the following auto-include-id
-		this.include = "auto-include-id-004328d0-bf8e-4d33-8f30-341cb5fac456";
+		this.include = "auto-include-id-82f1c87c-c5f4-413a-a709-be3a3205015a";
 		// Popups management
         // this.viewLoader = new Solid.Web.Views.viewLoader();
 		this.viewLoader = controller.applicationController.viewLoader;
@@ -322,13 +324,13 @@
 		this.showAsEditPopup = function(caller, objectToEdit) {
         // Dynamically load the required view
 			self.StatusData.IsBusy(true);
-            self.viewLoader.loadView( { viewName : "PartialViews/UserProfile/UserProfileFormControlPartialView", parentName : ($popupContainer ? $popupContainer.get(0).id : null), successHandler : self.onViewLoaded } ); 
+            self.viewLoader.loadView( { viewName : "PartialViews/GOUser/GOUserFormControlPartialView", parentName : ($popupContainer ? $popupContainer.get(0).id : null), successHandler : self.onViewLoaded } ); 
             self.popupCaller = caller;
             if (self.isMemoryOnly) {
-                    self.SetUserProfileObject(objectToEdit);
+                    self.SetGOUserObject(objectToEdit);
             }
             else {
-                    self.LoadUserProfile(objectToEdit);
+                    self.LoadGOUser(objectToEdit);
             }
             self.StatusData.isPopup(true);
         };
@@ -336,11 +338,11 @@
 		this.showAsCreateNewPopup = function(caller, defaultObject) {
              // Dynamically load the required view
             self.StatusData.IsBusy(true);
-            self.viewLoader.loadView( { viewName : "PartialViews/UserProfile/UserProfileFormControlPartialView", parentName : ($popupContainer ? $popupContainer.get(0).id : null), successHandler : self.onViewLoaded } ); 
+            self.viewLoader.loadView( { viewName : "PartialViews/GOUser/GOUserFormControlPartialView", parentName : ($popupContainer ? $popupContainer.get(0).id : null), successHandler : self.onViewLoaded } ); 
             self.popupCaller = caller;
 
-            self.SetUserProfileObject(defaultObject);
-			self.controller.ObjectsDataSet.AddOrReplaceObject(self.UserProfileObject());
+            self.SetGOUserObject(defaultObject);
+			self.controller.ObjectsDataSet.AddOrReplaceObject(self.GOUserObject());
 
             self.StatusData.isPopup(true);
             self.Modify();
@@ -361,31 +363,31 @@
         };
 
 
-        this.SetUserProfileObject = function (objectToSet) {
+        this.SetGOUserObject = function (objectToSet) {
             			
-			if (objectToSet && (objectToSet === self.UserProfileObject()))
+			if (objectToSet && (objectToSet === self.GOUserObject()))
 				return;
 
 			if (objectToSet && objectToSet.contextIds)
 			    objectToSet.contextIds.push(self.contextId);
 			
-			if (self.UserProfileObject().Data.IsNew() === true) {
+			if (self.GOUserObject().Data.IsNew() === true) {
 				// If the old dataobject has not been saved => not used anymore, remove it from dataset
-				self.controller.ObjectsDataSet.RemoveObject(self.UserProfileObject());
+				self.controller.ObjectsDataSet.RemoveObject(self.GOUserObject());
 			}
 			
 			
 			if (objectToSet) {
 				var objectFromDataset = self.controller.ObjectsDataSet.GetObject(objectToSet);						
-				self.UserProfileObject(objectFromDataset);
+				self.GOUserObject(objectFromDataset);
                 self.StatusData.IsEmpty(false);
             }
             else {
                 self.StatusData.IsEmpty(true);
             }
 			
-			self.onUserProfileObjectChanged();
-			self.Events.UserProfileSetInMemory(!self.Events.UserProfileSetInMemory());
+			self.onGOUserObjectChanged();
+			self.Events.GOUserSetInMemory(!self.Events.GOUserSetInMemory());
 						
 			if (self.StatusData.isPopup()) 
 				ApplicationController.centerPopup();	
@@ -396,24 +398,24 @@
 			}
 		};
 
-		this.onUserProfileObjectChanged = function() {
+		this.onGOUserObjectChanged = function() {
 			
 			// Reload all sub-grids data
-			if (self.UserProfileObject().Data.IsNew()) {
+			if (self.GOUserObject().Data.IsNew()) {
 				 
-				var theCollection = self.UserProfileObject().Data.VisitedPlaceItems();
+				var theCollection = self.GOUserObject().getUserProfile() === null ? null : self.GOUserObject().getUserProfile().Data.VisitedPlaceItems();
                 self.VisitedPlaceItemsGridViewModel.SetVisitedPlaceObjectCollection( theCollection );
 				self.VisitedPlaceItemsGridViewModel.isMemoryOnlyCollection = true;
 	            self.VisitedPlaceItemsGridViewModel.totalCollection(theCollection !== null ? theCollection.length : 0);
 				self.VisitedPlaceItemsGridViewModel.pageNumber(0);	            
 				self.VisitedPlaceItemsGridViewModel.totalPageNumber(0);
-	        } else {
+	        } else if(self.GOUserObject().getUserProfile() !== null) {
 
 				
 				self.VisitedPlaceItemsGridViewModel.isMemoryOnlyCollection = false;
 				
 				// Resetting filters
-                self.VisitedPlaceItemsGridViewModel.baseFilterPredicate = 'UserProfileUri == "' + self.UserProfileObject().Data.Uri() + '"';
+                self.VisitedPlaceItemsGridViewModel.baseFilterPredicate = 'UserProfileUri == "' + self.GOUserObject().getUserProfile().Data.Uri() + '"';
 			        self.VisitedPlaceItemsGridViewModel.filterPredicate = self.VisitedPlaceItemsGridViewModel.baseFilterPredicate;
 			    				
 				// Rebinding subgrid
@@ -426,11 +428,11 @@
 
  
 		
-        this.GetUserProfileObject = function () {
-            return self.UserProfileObject();
+        this.GetGOUserObject = function () {
+            return self.GOUserObject();
         };
 
-        this.LoadUserProfile = function (objectToLoad) {
+        this.LoadGOUser = function (objectToLoad) {
 			
 			self.StatusData.IsBusy(true);
 			var configuration = {};			
@@ -439,30 +441,30 @@
 			   
 
 			configuration.pks = {
-				Uri : objectToLoad.Data.Uri()
+				Id : objectToLoad.Data.Id()
 			};          
 
-			configuration.successHandler =  self.OnUserProfileLoaded;
+			configuration.successHandler =  self.OnGOUserLoaded;
 			configuration.errorHandler = self.ShowError;
 			self.DataStore.LoadObject(configuration);
         };
 
         this.Rebind = function() {
 			if(self.isMemoryOnly === false) { 
-				if(!self.UserProfileObject().Data.IsNew()) {
-					self.LoadUserProfile(self.UserProfileObject());
+				if(!self.GOUserObject().Data.IsNew()) {
+					self.LoadGOUser(self.GOUserObject());
 				}
 			}
         };
 
         // Define the load completed functions
-        this.OnUserProfileLoaded = function (objectLoaded) {
+        this.OnGOUserLoaded = function (objectLoaded) {
 			// if we do next line : delete all related entities
 			//self.controller.ObjectsDataSet.cleanContext(self.contextId);	
-            self.SetUserProfileObject(objectLoaded);
+            self.SetGOUserObject(objectLoaded);
             self.StatusData.IsBusy(false);
             // the next line is to force notification of change: this way we emulate event handling
-            self.Events.UserProfileLoaded(!self.Events.UserProfileLoaded());
+            self.Events.GOUserLoaded(!self.Events.GOUserLoaded());
 
 			// Centers the popup div in case the content made it shift toward the page's bottom
 			self.controller.applicationController.centerPopup();
@@ -473,9 +475,9 @@
 			}
 		};
 
-        this.OnUserProfileSaved = function (objectSaved) {
-			GO.log("UserProfileForm", "UserProfileObject saved with success");
-			self.SetUserProfileObject(objectSaved);
+        this.OnGOUserSaved = function (objectSaved) {
+			GO.log("GOUserForm", "GOUserObject saved with success");
+			self.SetGOUserObject(objectSaved);
 			self.EndEdit();
 			if (self.StatusData.isPopup()) {
 				var preventRebind = false;
@@ -491,13 +493,13 @@
 			
 
 
-        this.OnUserProfileDeleted = function () {
-			GO.log("UserProfileForm", "UserProfileObject deleted with success");
+        this.OnGOUserDeleted = function () {
+			GO.log("GOUserForm", "GOUserObject deleted with success");
             self.controller.ObjectsDataSet.cleanContext(self.contextId);	
-			self.SetUserProfileObject(null);
+			self.SetGOUserObject(null);
             self.StatusData.IsBusy(false);
             // the next line is to force notification of change: this way we emulate event handling
-            self.Events.UserProfileDeleted(!self.Events.UserProfileDeleted());
+            self.Events.GOUserDeleted(!self.Events.GOUserDeleted());
  
 			self.closePopup(true);
         };
@@ -508,15 +510,13 @@
 		this.Edit = function () { self.Modify(); }
 
         this.Modify = function () {
-			GO.log("UserProfileForm", "Entering modification of UserProfileObject");
+			GO.log("GOUserForm", "Entering modification of GOUserObject");
 			
 			// propagate to Sub-Grids
 			self.VisitedPlaceItemsGridViewModel.isMemoryOnlyCollection = true;	
-	        self.SavedData = new Solid.Web.Model.DataObjects.UserProfileObject();
-			self.SavedData.CopyValuesFrom(self.UserProfileObject());
+	        self.SavedData = new Solid.Web.Model.DataObjects.GOUserObject();
+			self.SavedData.CopyValuesFrom(self.GOUserObject());
 
-			// remember the original GOUser 
-			self.SavedData.relatedGOUser = self.CurrentObject().getGOUser();
  
             self.StatusData.DisplayMode('edit');
             self.StatusData.PreviousIsEmpty = self.StatusData.IsEmpty();
@@ -530,32 +530,22 @@
         };
 
         this.CancelEdit = function (isCommandCall) {
-			GO.log("UserProfileForm", "CancelEdit of UserProfileObject");
+			GO.log("GOUserForm", "CancelEdit of GOUserObject");
 
 
             self.StatusData.DisplayMode('view');
 
-			// For PK to FK one-to-one lookups, remove the linked related FK side instance and the last linked instance to ensure we don't leave any 'dangerous'
-			// stale data behind. Any intermediate instances cna only have null FKs anyway (so long as we filter pk to fk side lookups for unlinked entities, which we do)
-			if (self.SavedData.relatedGOUser != self.CurrentObject().getGOUser()) {
-				if (self.SavedData.relatedGOUser != null) {
-					self.controller.ObjectsDataSet.RemoveObject(self.SavedData.relatedGOUser);
-				}
-				if (self.CurrentObject().getGOUser() != null) {
-					self.controller.ObjectsDataSet.RemoveObject(self.CurrentObject().getGOUser());
-				}
-			}
  
-			if (self.UserProfileObject().Data.IsNew() === true) {
+			if (self.GOUserObject().Data.IsNew() === true) {
 				// If the old dataobject has not been saved => not used anymore, remove it from dataset
-				self.controller.ObjectsDataSet.RemoveObject(self.UserProfileObject());
+				self.controller.ObjectsDataSet.RemoveObject(self.GOUserObject());
 			}
 
-            self.UserProfileObject().CopyValuesFrom(self.SavedData);
+            self.GOUserObject().CopyValuesFrom(self.SavedData);
 			self.SavedData = null;
             self.StatusData.IsEmpty(self.StatusData.PreviousIsEmpty);
 
-			self.onUserProfileObjectChanged();
+			self.onGOUserObjectChanged();
             // notify listeners
             self.Events.CancelEdit(!self.Events.CancelEdit());
 
@@ -572,25 +562,25 @@
         };
 
         this.EndEdit = function () {
-			GO.log("UserProfileForm", "EndEdit on UserProfileObject");
+			GO.log("GOUserForm", "EndEdit on GOUserObject");
 
             self.SavedData = null;
 			self.StatusData.DisplayMode('view');
             self.StatusData.IsBusy(false);
 
             // notify listeners
-			self.UserProfileObject().StatusData.lastEditedTime(new Date().getTime());
+			self.GOUserObject().StatusData.lastEditedTime(new Date().getTime());
             self.Events.EndEdit(!self.Events.EndEdit());
         };
 
         this.CreateNew = function () {
-			GO.log("UserProfileForm", "Creating new UserProfileObject");
-            self.SavedData = new Solid.Web.Model.DataObjects.UserProfileObject();
-			self.SavedData.CopyValuesFrom(self.UserProfileObject());
+			GO.log("GOUserForm", "Creating new GOUserObject");
+            self.SavedData = new Solid.Web.Model.DataObjects.GOUserObject();
+			self.SavedData.CopyValuesFrom(self.GOUserObject());
             self.StatusData.PreviousIsEmpty = self.StatusData.IsEmpty();
 			self.controller.ObjectsDataSet.cleanContext(self.contextId);
-	        var objectToAdd = Solid.Web.Model.DataObjects.UserProfileObjectFactory.createNew(self.controller.ObjectsDataSet, self.contextId);
-			self.SetUserProfileObject(objectToAdd);
+	        var objectToAdd = Solid.Web.Model.DataObjects.GOUserObjectFactory.createNew(self.controller.ObjectsDataSet, self.contextId);
+			self.SetGOUserObject(objectToAdd);
 
 
 			
@@ -603,8 +593,8 @@
         };
 
 		this.OnBeforeSave = function() {
-			var diff = GO.compareEntities(self.SavedData, self.UserProfileObject());
-		    GO.log("UserProfileForm", "Before Saving (diff)", diff);
+			var diff = GO.compareEntities(self.SavedData, self.GOUserObject());
+		    GO.log("GOUserForm", "Before Saving (diff)", diff);
 
 			return true;
 		};
@@ -630,16 +620,16 @@
 				self.StatusData.IsBusy(true);
 
 				if (self.isMemoryOnly) {
-					self.OnUserProfileSaved(self.UserProfileObject());
+					self.OnGOUserSaved(self.GOUserObject());
 				}
 				else {
 					var configuration = {};			
 					configuration.contextId = self.contextId;
 					configuration.include = this.include;
-					configuration.objectToSave = self.GetUserProfileObject();
-					configuration.successHandler =  self.OnUserProfileSaved;
+					configuration.objectToSave = self.GetGOUserObject();
+					configuration.successHandler =  self.OnGOUserSaved;
 					configuration.errorHandler = self.ShowError;		
-					GO.log("UserProfileForm", "Sending payload to UserProfileObject DataStore");
+					GO.log("GOUserForm", "Sending payload to GOUserObject DataStore");
 					self.DataStore.SaveObject(configuration);
 				}
 			}
@@ -651,14 +641,14 @@
 
 		this.onConfirmDelete = function (confirm) {
             if (confirm === true) {
-				var objectToDelete = self.GetUserProfileObject()
+				var objectToDelete = self.GetGOUserObject()
 				var configuration = {};			
 				configuration.contextId = self.contextId;
 				configuration.pks = {
-					Uri : objectToDelete.Data.Uri()
+					Id : objectToDelete.Data.Id()
 			};          
 
-				configuration.successHandler =  self.OnUserProfileDeleted;
+				configuration.successHandler =  self.OnGOUserDeleted;
 				configuration.errorHandler = self.ShowError;
 
 				self.DataStore.DeleteObject(configuration);
@@ -670,7 +660,7 @@
 
         this.Delete = function () {
             self.StatusData.IsBusy(true);
-			self.controller.applicationController.showConfirmPopup(self, Solid.Web.Messages.confirmDeleteMessage.replace(/%ENTITY%/g, "UserProfile"), Solid.Web.Messages.confirmDeletePopupTitle, self.onConfirmDelete, self.contextId);
+			self.controller.applicationController.showConfirmPopup(self, Solid.Web.Messages.confirmDeleteMessage.replace(/%ENTITY%/g, "GOUser"), Solid.Web.Messages.confirmDeletePopupTitle, self.onConfirmDelete, self.contextId);
         };
 
 
@@ -740,5 +730,5 @@
 	};		
 
 	if (window.ApplicationSourceHandler)
-		window.ApplicationSourceHandler.onSourceLoaded("/ViewModels/UserProfile/UserProfileFormViewModel.js");
+		window.ApplicationSourceHandler.onSourceLoaded("/ViewModels/GOUser/GOUserFormViewModel.js");
 } ());
