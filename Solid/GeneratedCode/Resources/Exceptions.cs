@@ -4,7 +4,7 @@ namespace Solid.Data.Resources.Exceptions
 {
 	public class MandatoryUsernameAndPassword : GOServerExceptionInfoProvider
 	{
-		public override string Message => "Please enter a login and password '{0}'";
+		public override string Message => "Please enter a login and password";
 	}
 
 	public class UserNotFound : GOServerExceptionInfoProvider
