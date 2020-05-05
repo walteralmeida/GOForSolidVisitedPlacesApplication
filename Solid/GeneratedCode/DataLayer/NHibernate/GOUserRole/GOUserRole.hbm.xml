@@ -16,6 +16,7 @@
 			<key-property name="GORoleName" column="`GORoleName`" /> 
 			<key-property name="GOUserId" column="`GOUserId`" /> 
 		</composite-id> 
+		<property name="GORoleName" type="System.String" not-null = "true" formula = "[GORoleName]"></property>
 
 
 		

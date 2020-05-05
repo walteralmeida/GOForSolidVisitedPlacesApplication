@@ -1297,6 +1297,9 @@ GO.Encoding = GO.Encoding || {};
     };
 
     GO.Encoding.UrlEncode = function (urlpart) {
+        if (!urlpart)
+            return urlpart;
+
         if (urlpart.toLowerCase().startsWith("http://") || urlpart.toLowerCase().startsWith("https://")) {
             // case we have an uri, we should replace all that could lead to a double escape character
             urlpart = urlpart.replace('://', '||').replace(/\//g, '|').replace('#', '$');
@@ -1306,6 +1309,9 @@ GO.Encoding = GO.Encoding || {};
     };
 
     GO.Encoding.UrlDecode = function (urlpart) {
+        if (!urlpart)
+            return urlpart;
+
         var toReturn = urlpart;
 
         if (toReturn.toLowerCase().startsWith("http||") || toReturn.toLowerCase().startsWith("https||")) {

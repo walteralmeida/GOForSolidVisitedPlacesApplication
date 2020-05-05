@@ -377,6 +377,9 @@ namespace Solid.BusinessLayer.Components.Server
  
 		public bool LostPassword(string email)
 		{
+            if (String.IsNullOrEmpty(email))
+                throw new GOServerException<EmailRequired>();
+
 			if (!IsValidEmailAddress(email))
 				throw new GOServerException<InvalidEmail>();
 
@@ -391,6 +394,9 @@ namespace Solid.BusinessLayer.Components.Server
 
 		public bool ResetPassword(string newPassword, string key)
 		{
+            if (String.IsNullOrEmpty(newPassword))
+                throw new GOServerException<PasswordRequired>();
+
 			if (String.IsNullOrEmpty(key))
 				throw new GOServerException<TokenExpired>();
 
