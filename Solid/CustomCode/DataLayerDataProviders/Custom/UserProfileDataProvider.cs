@@ -16,6 +16,8 @@ using VDS.RDF.Writing;
 using System.Net;
 using System.IO;
 using System.Linq;
+using GenerativeObjects.Practices.LayerSupportClasses;
+using Unity;
 
 namespace Solid.Data.DataProviders.Custom
 {
@@ -37,6 +39,11 @@ namespace Solid.Data.DataProviders.Custom
         {
             var userProfileUri = entity.Uri;
 
+            var result = new UserProfileDataObject();
+            result.Uri = entity.Uri;
+            var dataset = ApplicationSettings.Container.Resolve<IObjectsDataSet>();
+            dataset.AddObject(result);
+
             //var tempfile = DataProviderHelper.DownloadFile(userProfileUri, ".ttl");
 
             var g = new Graph();
@@ -55,24 +62,36 @@ namespace Solid.Data.DataProviders.Custom
 
 
 
-            var result = ((SparqlResultSet)g.ExecuteQuery(query)).SingleOrDefault();
+            var returned = ((SparqlResultSet)g.ExecuteQuery(query)).SingleOrDefault();
 
-            if (result == null)
+            if (returned == null)
                 return null;
 
-            entity.Role = result["Role"].ToString();
-            entity.OrganizationName = result["OrganizationName"].ToString();
-            entity.Name = result["Name"].ToString();
+            result.Role = returned["Role"].ToString();
+            result.OrganizationName = returned["OrganizationName"].ToString();
+            result.Name = returned["Name"].ToString();
 
-            entity.IsNew = false;
-            entity.IsDirty = false;
+            result.IsNew = false;
+            result.IsDirty = false;
 
-            return entity;
+            return result;
         }
 
         protected override DataObjectCollection<UserProfileDataObject> DoGetCollection(LambdaExpression securityFilterExpression, string filterPredicate, object[] filterArguments, string orderByPredicate, int pageNumber, int pageSize, List<string> includes, IObjectsDataSet context, Dictionary<string, object> parameters)
         {
-            throw new NotImplementedException();
+            DataObjectCollection<UserProfileDataObject> result = new DataObjectCollection<UserProfileDataObject>();
+            result.ObjectsDataSet = ApplicationSettings.Container.Resolve<IObjectsDataSet>();
+
+            foreach (var argument in filterArguments)
+            {
+                var uri = (argument as string[])[0];
+                var userprofile = DoGet(new UserProfileDataObject(uri), null, null, context, parameters);
+
+                result.Add(userprofile);
+            }
+
+
+            return result;
         }
 
         protected override UserProfileDataObject DoSave(UserProfileDataObject entity, LambdaExpression securityFilterExpression, List<string> includes, IObjectsDataSet context, Dictionary<string, object> parameters)
