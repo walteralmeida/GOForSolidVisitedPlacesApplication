@@ -30,7 +30,7 @@
               </thead>
               <tbody data-bind="foreach: {DATABINDROOT}VisitedPlaceObjectCollection()">
                 <tr class="pointer" data-bind="attr: {'data-id': Data.InternalObjectId}, click: {PARENTDATABINDROOT}onLineClicked, event: {dblclick: {PARENTDATABINDROOT}onLineDblClicked}, css: {'currenttr': {PARENTDATABINDROOT}selectedId() == Data.InternalObjectId()}">
-                  <td data-bind="jqStopBubble: 'a'" class=" multiline">
+                  <td data-bind="jqStopBubble: 'a'">
                     <a data-bind="attr: { href: '#!' + ApplicationController.getRootHashTag('CountryDetails') + 'Countries/CountryDetails/' + $parent.{DATABINDROOT}getCountryPKValuesForCountry($data), title: $parent.{DATABINDROOT}getCountry_NameValue($data) }, html: $parent.{DATABINDROOT}getCountry_NameValue($data)"></a>
                   </td>
                   <td data-bind="html: Data.Date_DisplayString"></td>
