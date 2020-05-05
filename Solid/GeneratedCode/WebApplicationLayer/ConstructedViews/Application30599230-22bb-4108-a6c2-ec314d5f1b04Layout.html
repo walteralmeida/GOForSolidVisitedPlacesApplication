@@ -19,6 +19,9 @@
         </div>
         <div class="navigation-menu">
           <ul id="horizontal-menu">
+            <li data-bind="'enable' : navigation.isUsersEnabled(), 'visible' : navigation.isUsersVisible()" class="desktop-node menu-root">
+              <a href="#" data-bind="'click' : function(data,event) { commands.navigateTo('Users') }" data-test-id="0871964e-17da-4a4a-a764-666a81bd54f6">Users</a>
+            </li>
             <li data-bind="'enable' : navigation.isCountriesEnabled(), 'visible' : navigation.isCountriesVisible()" class="desktop-node menu-root">
               <a href="#" data-bind="'click' : function(data,event) { commands.navigateTo('Countries') }" data-test-id="361f22a0-0d00-4823-9bdb-fa50bae046d4">Countries</a>
             </li>
