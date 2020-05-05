@@ -939,6 +939,12 @@
     <Content Include="ViewModels\Country\Filters\CountryFilterViewModel.js">
       <GeneratedBy>Fenomen</GeneratedBy>
     </Content>
+    <Content Include="ViewModels\GOUser\GOUserFormViewModel.js">
+      <GeneratedBy>Fenomen</GeneratedBy>
+    </Content>
+    <Content Include="ViewModels\GOUser\UserProfileGridViewModel.js">
+      <GeneratedBy>Fenomen</GeneratedBy>
+    </Content>
     <Content Include="ViewModels\Location\Filters\LocationFilterViewModel.js">
       <GeneratedBy>Fenomen</GeneratedBy>
     </Content>
@@ -967,9 +973,6 @@
       <GeneratedBy>Fenomen</GeneratedBy>
     </Content>
     <Content Include="ViewModels\UserProfile\UserProfileFormViewModel.js">
-      <GeneratedBy>Fenomen</GeneratedBy>
-    </Content>
-    <Content Include="ViewModels\UserProfile\UserProfileGridViewModel.js">
       <GeneratedBy>Fenomen</GeneratedBy>
     </Content>
     <Content Include="ViewModels\VisitedPlace\VisitedPlaceFormViewModel.js">
@@ -1034,6 +1037,15 @@
     <Content Include="Views\PartialViews\Country\Filters\CountryFilterPartialView.html">
       <GeneratedBy>Fenomen</GeneratedBy>
     </Content>
+    <Content Include="Views\PartialViews\GOUser\GOUserFormControlPartialView.html">
+      <GeneratedBy>Fenomen</GeneratedBy>
+    </Content>
+    <Content Include="Views\PartialViews\GOUser\GOUserFormPartialView.html">
+      <GeneratedBy>Fenomen</GeneratedBy>
+    </Content>
+    <Content Include="Views\PartialViews\GOUser\UserProfileGridPartialView.html">
+      <GeneratedBy>Fenomen</GeneratedBy>
+    </Content>
     <Content Include="Views\PartialViews\Location\Filters\LocationFilterPartialView.html">
       <GeneratedBy>Fenomen</GeneratedBy>
     </Content>
@@ -1074,9 +1086,6 @@
       <GeneratedBy>Fenomen</GeneratedBy>
     </Content>
     <Content Include="Views\PartialViews\UserProfile\UserProfileFormPartialView.html">
-      <GeneratedBy>Fenomen</GeneratedBy>
-    </Content>
-    <Content Include="Views\PartialViews\UserProfile\UserProfileGridPartialView.html">
       <GeneratedBy>Fenomen</GeneratedBy>
     </Content>
     <Content Include="Views\PartialViews\VisitedPlace\VisitedPlaceFormControlPartialView.html">
