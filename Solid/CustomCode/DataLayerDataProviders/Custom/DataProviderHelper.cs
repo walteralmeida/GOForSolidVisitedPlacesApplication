@@ -50,6 +50,18 @@ namespace Solid.Data.DataProviders.Custom
             return tempFile;
         }
         
+        public static string GetWebIdRootURL(string webid)
+        {
+            if (webid.StartsWith("https"))
+            {
+                return webid.Substring(0, webid.IndexOf("/", "https://".Length));
+            }
+            else
+            {
+                return webid.Substring(0, webid.IndexOf("/", "http://".Length));
+            }
+        }
+
         public static HttpStatusCode SendPatch(string url, string payload, string token)
         {
             var request = (HttpWebRequest)WebRequest.Create(url);
@@ -183,12 +195,12 @@ namespace Solid.Data.DataProviders.Custom
             if (status != HttpStatusCode.OK)
             {
                 // create the document file otherwise
-                string payload = @"@prefix : <#>.
+/*              string payload = @"@prefix : <#>.
                                         @prefix schem: <http://schema.org/>.
                                         @prefix XML: <http://www.w3.org/2001/XMLSchema#>.
                                         @prefix go: <http://generativeobjects.com/apps#>.";
-
-                status = DataProviderHelper.SendPost($"{userUri}/public/", registrationLocation, payload, token);
+*/
+                status = DataProviderHelper.SendPost($"{userUri}/public/", registrationLocation, null, token);
 
                 if (status != HttpStatusCode.OK)
                 {

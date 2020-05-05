@@ -16,6 +16,8 @@ using VDS.RDF.Writing;
 using System.Net;
 using System.IO;
 using System.Linq;
+using GenerativeObjects.Practices.LayerSupportClasses;
+using Unity;
 
 namespace Solid.Data.DataProviders.Custom
 {
@@ -35,44 +37,71 @@ namespace Solid.Data.DataProviders.Custom
 
         protected override UserProfileDataObject DoGet(UserProfileDataObject entity, LambdaExpression securityFilterExpression, List<string> includes, IObjectsDataSet context, Dictionary<string, object> parameters)
         {
-            var userProfileUri = entity.Uri.Replace("||", "://").Replace("|","/").Replace("$","#");
+            var userProfileUri = entity.Uri;
 
-            //var tempfile = DataProviderHelper.DownloadFile(userProfileUri, ".ttl");
+            var result = new UserProfileDataObject();
+            result.Uri = entity.Uri;
+            var dataset = ApplicationSettings.Container.Resolve<IObjectsDataSet>();
+            dataset.AddObject(result);
 
-            var g = new Graph();
-            //g.LoadFromFile(tempfile);
-            UriLoader.Load(g, new Uri(userProfileUri));
+            string tempfile = null;
 
-            var query = @"SELECT ?Name ?Role ?OrganizationName WHERE 
+            try
+            {
+                tempfile = DataProviderHelper.DownloadFile(userProfileUri, ".ttl");
+
+                var g = new Graph();
+
+                g.LoadFromFile(tempfile);
+                //UriLoader.Load(g, new Uri(userProfileUri));  // NOT WORKING ... ??? SOMEHOW SHOULD WORK
+
+                var query = @"SELECT ?Name ?Role ?OrganizationName WHERE 
                                 { ?me a <http://xmlns.com/foaf/0.1/Person> .
-                                  ?me <http://www.w3.org/2006/vcard/ns#fn> ?Name .
-                                        OPTIONAL 
+                                  OPTIONAL 
                                         {
+                                          ?me <http://www.w3.org/2006/vcard/ns#fn> ?Name .
                                           ?me <http://www.w3.org/2006/vcard/ns#organization-name> ?OrganizationName .
                                           ?me <http://www.w3.org/2006/vcard/ns#role> ?Role .
                                         }
                                 }";
 
 
+                var returned = ((SparqlResultSet)g.ExecuteQuery(query)).SingleOrDefault();
 
-            var result = ((SparqlResultSet)g.ExecuteQuery(query)).SingleOrDefault();
+                if (returned == null)
+                    return null;
 
-            if (result == null)
-                return null;
+                result.Role = returned.HasValue("Role") ? returned["Role"].ToString() : null;
+                result.OrganizationName = returned.HasValue("OrganizationName") ? returned["OrganizationName"].ToString() : null;
+                result.Name = returned.HasValue("Name") ? returned["Name"].ToString() : null;
 
-            entity.Role = result["Role"].ToString();
-            entity.OrganizationName = result["OrganizationName"].ToString();
-            entity.Name = result["Name"].ToString();
+                result.IsNew = false;
+                result.IsDirty = false;
 
-            entity.IsNew = false;
-            entity.IsDirty = false;
-
-            return entity;
+                return result;
+            }
+            finally
+            {
+                if (File.Exists(tempfile))
+                    File.Delete(tempfile);
+            }
         }
 
         protected override DataObjectCollection<UserProfileDataObject> DoGetCollection(LambdaExpression securityFilterExpression, string filterPredicate, object[] filterArguments, string orderByPredicate, int pageNumber, int pageSize, List<string> includes, IObjectsDataSet context, Dictionary<string, object> parameters)
         {
-            throw new NotImplementedException();
+            DataObjectCollection<UserProfileDataObject> result = new DataObjectCollection<UserProfileDataObject>();
+            result.ObjectsDataSet = ApplicationSettings.Container.Resolve<IObjectsDataSet>();
+
+            foreach (var argument in filterArguments)
+            {
+                var uri = (argument as string[])[0];
+                var userprofile = DoGet(new UserProfileDataObject(uri), null, null, context, parameters);
+
+                result.Add(userprofile);
+            }
+
+
+            return result;
         }
 
         protected override UserProfileDataObject DoSave(UserProfileDataObject entity, LambdaExpression securityFilterExpression, List<string> includes, IObjectsDataSet context, Dictionary<string, object> parameters)

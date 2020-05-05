@@ -44,7 +44,7 @@ namespace Solid.Data.DataProviders.Custom
 
         protected override CountryDataObject DoGet(CountryDataObject entity, LambdaExpression securityFilterExpression, List<string> includes, IObjectsDataSet context, Dictionary<string, object> parameters)
         {
-            var uri = entity.URI.Replace("||", "://").Replace("|", "/");
+            var uri = entity.URI;
 
             SparqlRemoteEndpoint endpoint = new SparqlRemoteEndpoint(new Uri("http://dbpedia.org/sparql"), "http://dbpedia.org");
 
@@ -129,7 +129,7 @@ namespace Solid.Data.DataProviders.Custom
             {
                 var country = new CountryDataObject();
 
-                country.URI = (result.Where(r => r.Key == "country").Single().Value as UriNode).Uri.ToString().Replace("://", "||").Replace("/", "|");
+                country.URI = (result.Where(r => r.Key == "country").Single().Value as UriNode).Uri.ToString();
                 country.Name = (result.Where(r => r.Key == "countryName").Single().Value as BaseLiteralNode).Value;
                 country.LongName = (result.Where(r => r.Key == "longName").Single().Value as BaseLiteralNode)?.Value;
                 country.Abstract = (result.Where(r => r.Key == "abstract").Single().Value as BaseLiteralNode)?.Value;
