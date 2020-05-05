@@ -13,9 +13,13 @@
             if (navigation.params.part1 == 'MyProfile' && !navigation.params.part2) {
                 hash = "#!/MyProfile/" + GO.Encoding.UrlEncode(Solid.Web.Common.Security.UserName());
                 window.location.hash = hash;
+                return true;
             }
             else if (navigation.params.part1 == 'MyProfile' && navigation.params.part2)
-                return true;
+            {
+                return false;
+            }
+                
         };
 
     };

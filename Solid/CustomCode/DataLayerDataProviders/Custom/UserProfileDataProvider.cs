@@ -52,14 +52,13 @@ namespace Solid.Data.DataProviders.Custom
 
             var query = @"SELECT ?Name ?Role ?OrganizationName WHERE 
                                 { ?me a <http://xmlns.com/foaf/0.1/Person> .
-                                  ?me <http://www.w3.org/2006/vcard/ns#fn> ?Name .
-                                        OPTIONAL 
+                                  OPTIONAL 
                                         {
+                                          ?me <http://www.w3.org/2006/vcard/ns#fn> ?Name .
                                           ?me <http://www.w3.org/2006/vcard/ns#organization-name> ?OrganizationName .
                                           ?me <http://www.w3.org/2006/vcard/ns#role> ?Role .
                                         }
                                 }";
-
 
 
             var returned = ((SparqlResultSet)g.ExecuteQuery(query)).SingleOrDefault();
@@ -67,9 +66,9 @@ namespace Solid.Data.DataProviders.Custom
             if (returned == null)
                 return null;
 
-            result.Role = returned["Role"].ToString();
-            result.OrganizationName = returned["OrganizationName"].ToString();
-            result.Name = returned["Name"].ToString();
+            result.Role = returned.HasValue("Role") ? returned["Role"].ToString() : null;
+            result.OrganizationName = returned.HasValue("OrganizationName") ? returned["OrganizationName"].ToString() : null;
+            result.Name = returned.HasValue("Name") ? returned["Name"].ToString() : null;
 
             result.IsNew = false;
             result.IsDirty = false;
