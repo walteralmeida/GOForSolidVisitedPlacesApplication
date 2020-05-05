@@ -36,6 +36,7 @@ _ReSharper*/
 ApplicationPackage/*
 GenerativeObjectsPackage/*
 Application/ServiceLayer/web.custom.config
+Application/ServiceLayer/web.config
 *node_module*
 Application/Model/T4 Templates/GenerativeObjects/PresentationLayer/SilverLight/CSharp/FormLookupFieldControlInclude (Restaur�) 12-12-2011 14.14.tt
 #Ignore VS2015 upgrade files
