@@ -33,7 +33,7 @@
               <tbody data-bind="foreach: {DATABINDROOT}CountryObjectCollection()">
                 <tr class="pointer" data-bind="attr: {'data-id': Data.InternalObjectId}, click: {PARENTDATABINDROOT}onLineClicked, event: {dblclick: {PARENTDATABINDROOT}onLineDblClicked}, css: {'currenttr': {PARENTDATABINDROOT}selectedId() == Data.InternalObjectId()}">
                   <td data-bind="jqStopBubble: 'a'">
-                    <a data-bind="attr: { href: '#!' + ApplicationController.getRootHashTag('CountryDetails') + 'Countries/CountryDetails/' + Data.URI(), title: Data.Name }, html: Data.Name"></a>
+                    <a data-bind="attr: { href: '#!' + ApplicationController.getRootHashTag('CountryDetails') + 'Countries/CountryDetails/' + GO.Encoding.UrlEncode(Data.URI()), title: Data.Name }, html: Data.Name"></a>
                   </td>
                   <td data-bind="html: Data.LongName" class=" multiline"></td>
                   <td data-bind="html: Data.PopulationTotal"></td>
