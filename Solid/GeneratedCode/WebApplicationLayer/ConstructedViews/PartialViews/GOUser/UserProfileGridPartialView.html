@@ -23,12 +23,12 @@
             <table data-placeholder="gridTable" class="data-grid">
               <thead class="gridControl">
                 <tr>
-                  <th scope="col" data-bind="html: 'Use full name', click: function(data, event){ onHeaderClicked('UserProfile.Name') }, css: { 'ui-grid-sort-s':((sortOrder() == 'desc') &amp;&amp; (sortColumnName() == 'UserProfile.Name')), 'ui-grid-sort-n':((sortOrder() == 'asc') &amp;&amp; (sortColumnName() == 'UserProfile.Name')), 'ui-grid-sort-n-s':(sortColumnName() != 'UserProfile.Name') }" class="ui-grid-header-container pointer sortableCol"></th>
+                  <th scope="col" data-bind="html: 'User WebId', click: function(data, event){ onHeaderClicked('UserName') }, css: { 'ui-grid-sort-s':((sortOrder() == 'desc') &amp;&amp; (sortColumnName() == 'UserName')), 'ui-grid-sort-n':((sortOrder() == 'asc') &amp;&amp; (sortColumnName() == 'UserName')), 'ui-grid-sort-n-s':(sortColumnName() != 'UserName') }" class="ui-grid-header-container pointer sortableCol"></th>
                 </tr>
               </thead>
               <tbody data-bind="foreach: GOUserObjectCollection()">
                 <tr class="pointer" data-bind="attr: {'data-id': Data.InternalObjectId}, click: $parent.onLineClicked, event: {dblclick: $parent.onLineDblClicked}, css: {'currenttr': $parent.selectedId() == Data.InternalObjectId()}">
-                  <td data-bind="html: $parent.getUserProfile_NameValue($data)" class=" multiline"></td>
+                  <td data-bind="html: Data.UserName" class=" multiline"></td>
                 </tr>
               </tbody>
             </table>
