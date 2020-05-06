@@ -30,18 +30,6 @@
                   <input type="text" data-bind="value: filterData.fields.Name" data-test-id="e0ca007c-0f99-416e-8331-4e16ec7bf69c" />
                 </label>
               </span>
-              <span class="filterFieldSelection filterTextField" data-bind="visible: statusData.isURIVisible">
-                <label>
-                  <span>URI</span>
-                  <input type="text" data-bind="value: filterData.fields.URI" data-test-id="8c8af6b5-8fb5-4794-8034-e2afe7ce74d2" />
-                </label>
-              </span>
-              <span class="filterFieldSelection filterTextField" data-bind="visible: statusData.isAbstractVisible">
-                <label>
-                  <span>Abstract</span>
-                  <input type="text" data-bind="value: filterData.fields.Abstract" data-test-id="496eceb0-5401-43c8-a527-44f33c53ca9a" />
-                </label>
-              </span>
             </div>
           </div>
           <div class="searchCommandsContainer">
@@ -111,13 +99,7 @@
             <span data-bind="text: GO.FormatNumberWithSpaces(totalCollection())"></span>
           </div>
           <div class="horizontalList">
-            <button data-bind="'click': commands.showCreateNewPopupCommand, 'visible': commands.isShowCreateNewPopupCommandVisible(), 'enable': commands.isShowCreateNewPopupCommandEnabled(),'css' : { 'command-button' : commands.isShowCreateNewPopupCommandEnabled(), 'command-button-disabled' : !commands.isShowCreateNewPopupCommandEnabled() }" data-test-id="d75073fa-b263-4d0a-9384-456c728d9127" class="command-button">Add</button>
-          </div>
-          <div class="horizontalList">
             <button data-action="click" class="command-button" data-bind="'click': commands.NavigateToDetailsCommand, 'visible': commands.IsNavigateToDetailsCommandVisible(), 'enable': commands.IsNavigateToDetailsCommandEnabled()">View</button>
-          </div>
-          <div class="horizontalList">
-            <button data-bind="'click': commands.deleteCommand, 'visible': commands.isDeleteCommandVisible(), 'enable': commands.isDeleteCommandEnabled(),'css' : { 'command-button' : commands.isDeleteCommandEnabled(), 'command-button-disabled' : !commands.isDeleteCommandEnabled() }" data-test-id="0d717def-c593-4d01-a300-e9cd4ab18a7c" class="command-button">Delete</button>
           </div>
         </div>
       </div>
