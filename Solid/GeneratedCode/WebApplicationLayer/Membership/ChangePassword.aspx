@@ -4,57 +4,57 @@
     <meta http-equiv="X-UA-Compatible" content="IE=Edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Password Change</title>
-    <link href="../styles/45/reset.css" rel="stylesheet" />
-    <link href="../styles/45/jquery-ui-1.10.1.custom.css" rel="stylesheet" />
-    <link href="../styles/45/jquery.alerts.css" rel="stylesheet" />
-    <link href="../styles/45/myapplication.css" rel="stylesheet" />
-    <link href="../styles/45/widget-grid.css" rel="stylesheet" />
-    <link href="../styles/45/jquery.jgrowl.css" rel="stylesheet" />
-    <link href="../styles/45/jquery.mCustomScrollbar.css" rel="stylesheet" />
-    <link href="../styles/45/jquery.custom.GO.css" rel="stylesheet" />
-    <link href="../styles/45/Reports.css" rel="stylesheet" />
-    <link href="../styles/45/layout.css" rel="stylesheet" />
-    <link href="../styles/45/Reports.css" rel="stylesheet" />
-    <link href="../styles/45/ui-elements.css" rel="stylesheet" />
-    <link href="../styles/45/LoginPage.css" rel="stylesheet" />
-    <link href="../styles/45/BreadCrumb.css" rel="stylesheet" />
-    <link href="../styles/45/Grid-Widget.css" rel="stylesheet" />
-    <link href="../styles/45/documentation.css" rel="stylesheet" />
-    <link href="../styles/45/JqueryMenu.css" rel="stylesheet" />
-    <link href="../styles/45/MobileLayout.css" rel="stylesheet" />
-    <link href="../styles/45/sidr.css" rel="stylesheet" />
+    <link href="../styles/46/reset.css" rel="stylesheet" />
+    <link href="../styles/46/jquery-ui-1.10.1.custom.css" rel="stylesheet" />
+    <link href="../styles/46/jquery.alerts.css" rel="stylesheet" />
+    <link href="../styles/46/myapplication.css" rel="stylesheet" />
+    <link href="../styles/46/widget-grid.css" rel="stylesheet" />
+    <link href="../styles/46/jquery.jgrowl.css" rel="stylesheet" />
+    <link href="../styles/46/jquery.mCustomScrollbar.css" rel="stylesheet" />
+    <link href="../styles/46/jquery.custom.GO.css" rel="stylesheet" />
+    <link href="../styles/46/Reports.css" rel="stylesheet" />
+    <link href="../styles/46/layout.css" rel="stylesheet" />
+    <link href="../styles/46/Reports.css" rel="stylesheet" />
+    <link href="../styles/46/ui-elements.css" rel="stylesheet" />
+    <link href="../styles/46/LoginPage.css" rel="stylesheet" />
+    <link href="../styles/46/BreadCrumb.css" rel="stylesheet" />
+    <link href="../styles/46/Grid-Widget.css" rel="stylesheet" />
+    <link href="../styles/46/documentation.css" rel="stylesheet" />
+    <link href="../styles/46/JqueryMenu.css" rel="stylesheet" />
+    <link href="../styles/46/MobileLayout.css" rel="stylesheet" />
+    <link href="../styles/46/sidr.css" rel="stylesheet" />
     <link rel="shortcut icon" type="image/x-icon" href="../styles/images/favicon.ico" />
     <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons" />
-    <script src="../45/scripts/jquery-1.12.1.min.js"></script>
+    <script src="../46/scripts/jquery-1.12.1.min.js"></script>
     <script src="../scripts/jquery.cookie.js"></script>
-    <script src="../45/scripts/jquery.alerts.js"></script>
-    <script src="../45/scripts/json2.min.js"></script>
-    <script src="../45/scripts/knockout-3.4.js"></script>
-    <script src="../45/scripts/jquery.alerts.js"></script>
-    <script src="../45/scripts/jquery-ui-1.10.2.custom.min.js"></script>
-    <script src="../45/scripts/jquery.custom.GO.js"></script>
-    <script src="../45/scripts/jquery.metadata.js"></script>
-    <script src="../45/scripts/jquery.hoverIntent.js"></script>
-    <script src="../45/scripts/jquery.mousewheel.min.js"></script>
-    <script src="../45/scripts/jquery.mCustomScrollbar.js"></script>
-    <script src="../45/scripts/jquery.cycle.all.js"></script>
-    <script src="../45/scripts/knockoutbindings.js"></script>
-    <script src="../45/scripts/knockout.postbox.js"></script>
-    <script src="../45/scripts/mersenne-twister.js"></script>
-    <script src="../45/scripts/base64.js"></script>
-    <script src="../45/scripts/generativeobjects.js"></script>
-    <script src="../45/scripts/jquery.jgrowl.js"></script>
-    <script src="../45/scripts/sammy-min.js"></script>
-    <script src="../45/scripts/solid-auth-client.bundle.js"></script>
+    <script src="../46/scripts/jquery.alerts.js"></script>
+    <script src="../46/scripts/json2.min.js"></script>
+    <script src="../46/scripts/knockout-3.4.js"></script>
+    <script src="../46/scripts/jquery.alerts.js"></script>
+    <script src="../46/scripts/jquery-ui-1.10.2.custom.min.js"></script>
+    <script src="../46/scripts/jquery.custom.GO.js"></script>
+    <script src="../46/scripts/jquery.metadata.js"></script>
+    <script src="../46/scripts/jquery.hoverIntent.js"></script>
+    <script src="../46/scripts/jquery.mousewheel.min.js"></script>
+    <script src="../46/scripts/jquery.mCustomScrollbar.js"></script>
+    <script src="../46/scripts/jquery.cycle.all.js"></script>
+    <script src="../46/scripts/knockoutbindings.js"></script>
+    <script src="../46/scripts/knockout.postbox.js"></script>
+    <script src="../46/scripts/mersenne-twister.js"></script>
+    <script src="../46/scripts/base64.js"></script>
+    <script src="../46/scripts/generativeobjects.js"></script>
+    <script src="../46/scripts/jquery.jgrowl.js"></script>
+    <script src="../46/scripts/sammy-min.js"></script>
+    <script src="../46/scripts/solid-auth-client.bundle.js"></script>
     <script src="../namespaces.js"></script>
-    <script src="../45/Application/Application.js"></script>
-    <script src="../45/Application/ApplicationMessages.js"></script>
-    <script src="../45/Application/ApplicationSettings.js"></script>
-    <script src="../45/model/components/GOSecurityProviderProxy.js"></script>
-    <script src="../45/Views/ViewLoader.js"></script>
-    <script src="../45/Application/ApplicationSourceHandler.js"></script>
-    <script src="../45/Application/ApplicationController.js"></script>
-    <script src="../45/Model/DataSets/ObjectsDataSet.js"></script>
+    <script src="../46/Application/Application.js"></script>
+    <script src="../46/Application/ApplicationMessages.js"></script>
+    <script src="../46/Application/ApplicationSettings.js"></script>
+    <script src="../46/model/components/GOSecurityProviderProxy.js"></script>
+    <script src="../46/Views/ViewLoader.js"></script>
+    <script src="../46/Application/ApplicationSourceHandler.js"></script>
+    <script src="../46/Application/ApplicationController.js"></script>
+    <script src="../46/Model/DataSets/ObjectsDataSet.js"></script>
     <script src="ChangePasswordPageViewModel.js"></script>
   </head>
   <body>
