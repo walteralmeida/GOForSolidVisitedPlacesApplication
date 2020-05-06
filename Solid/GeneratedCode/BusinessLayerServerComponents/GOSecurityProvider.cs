@@ -30,7 +30,6 @@ using GenerativeObjects.Practices.LayerSupportClasses.Features.Security.Common;
 using GenerativeObjects.Practices.LayerSupportClasses.ServiceLayer;
 using GenerativeObjects.Practices.LayerSupportClasses.Features.Threading;
 using GenerativeObjects.Practices.LayerSupportClasses.ServiceLayer.Http;
-using Solid.Data.DataProviders.Custom;
 using System.IO;
 using NLog;
 
@@ -172,9 +171,6 @@ namespace Solid.BusinessLayer.Components.Server
             var token = SetAuthenticationToken(currentUser, useCookies : true, solidToken : password);
 
             techLogger.Info($"SOLID - OK - connection user {currentUser.EmailAddress} ({currentUser.FullName})");
-
-            var userUri = DataProviderHelper.GetWebIdRootURL(username);
-            DataProviderHelper.EnsurePublicTypeRegistration(userUri, "goapp-visitedplaces", "http://schema.org/TextDigitalDocument", "myvisitedplaces.ttl");
 
             return token;
 		}			
