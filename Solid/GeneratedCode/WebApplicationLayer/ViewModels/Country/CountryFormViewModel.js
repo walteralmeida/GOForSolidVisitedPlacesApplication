@@ -65,7 +65,8 @@
 			if(!self.CountryObject())
 				return;
 							
-			return self.alternateTitle || 'Country Details'; 
+			var myName = self.CountryObject().Data.Name();
+			return self.alternateTitle || 'Country : ' + (myName ? myName : '') + ''; 
 		});
 
 		this.runValidation = function() {
@@ -107,21 +108,6 @@
 		this.StatusData.IsURILinkReadOnly = ko.pureComputed( function () {
 			if (self.customViewModel !== undefined && self.customViewModel.IsURILinkReadOnly !== undefined) {
 				return self.customViewModel.IsURILinkReadOnly();
-			}
-			return false;
-        });
-
-		this.StatusData.IsNameVisible = ko.pureComputed( function () {
-			if (self.customViewModel !== undefined && self.customViewModel.IsNameVisible !== undefined) {
-				return self.customViewModel.IsNameVisible();
-			}
-			
-			return true;
-		});
-
-		this.StatusData.IsNameReadOnly = ko.pureComputed( function () {
-			if (self.customViewModel !== undefined && self.customViewModel.IsNameReadOnly !== undefined) {
-				return self.customViewModel.IsNameReadOnly();
 			}
 			return false;
         });
@@ -199,107 +185,9 @@
 				
 		// Form commands data
 		this.Commands = {
-			CreateNewCommand: function() {
-				self.CreateNew(true);
-			}, 
-			EditCommand: function() {
-				self.Edit(true);
-			}, 
-			DeleteCommand: function() {
-				self.Delete(true);
-			}, 
-			SaveCommand: function() {
-				self.Save(true);
-			}, 
-			CancelEditCommand: function() {
-				self.CancelEdit(true);
-			} 
       };
 
 		// Form computed command data
-      this.Commands.IsSaveCommandVisible = ko.pureComputed(function () {
-			if (self.customViewModel !== undefined && self.customViewModel.IsSaveCommandVisible !== undefined) {
-				return self.customViewModel.IsSaveCommandVisible();
-			}
-
-            return (self.StatusData.DisplayMode() == 'edit' && self.DataStore &&  self.DataStore.CheckAuthorizationForEntityAndMethod('save')); 
-        });
-
-        this.Commands.IsSaveCommandEnabled = ko.pureComputed(function () {
-			if (self.customViewModel !== undefined && self.customViewModel.IsSaveCommandEnabled !== undefined) {
-				return self.customViewModel.IsSaveCommandEnabled();
-			}
-
-            return (self.StatusData.DisplayMode() == 'edit');
-            //return (self.StatusData.DisplayMode() == 'edit' && self.StatusData.IsUIDirty() === true);
-        });
-
-      this.Commands.IsEditCommandVisible = ko.pureComputed(function () {
-			if (self.customViewModel !== undefined && self.customViewModel.IsModifyCommandVisible !== undefined) {
-				return self.customViewModel.IsModifyCommandVisible();
-			}
-
-            return (self.StatusData.DisplayMode() == 'view' && !self.StatusData.IsEmpty() && self.DataStore && self.DataStore.CheckAuthorizationForEntityAndMethod('save')); 
-        });
-        this.Commands.IsModifyCommandVisible = this.Commands.IsEditCommandVisible;
-
-        this.Commands.IsEditCommandEnabled = ko.pureComputed(function () {
-			if (self.customViewModel !== undefined && self.customViewModel.IsModifyCommandEnabled !== undefined) {
-				return self.customViewModel.IsModifyCommandEnabled();
-			}
-
-            return (self.StatusData.DisplayMode() == 'view');
-        });
-        this.Commands.IsModifyCommandEnabled = this.Commands.IsEditCommandEnabled;
-
-      this.Commands.IsDeleteCommandVisible = ko.pureComputed(function () {
-			if (self.customViewModel !== undefined && self.customViewModel.IsDeleteCommandVisible !== undefined) {
-				return self.customViewModel.IsDeleteCommandVisible();
-			}
-			
-			return (self.StatusData.DisplayMode() == 'view' && !self.StatusData.IsEmpty()  && self.DataStore &&  self.DataStore.CheckAuthorizationForEntityAndMethod('delete')); 
-
-        });
-
-        this.Commands.IsDeleteCommandEnabled = ko.pureComputed(function () {
-			if(self.customViewModel !== undefined && self.customViewModel.IsDeleteCommandEnabled !== undefined) {
-				return self.customViewModel.IsDeleteCommandEnabled();
-			}
-            return (self.StatusData.DisplayMode() == 'view');
-        });
-
-		this.Commands.IsCancelEditCommandVisible = ko.pureComputed(function () {
-			if (self.customViewModel !== undefined && self.customViewModel.IsCancelEditCommandVisible !== undefined) {
-				return self.customViewModel.IsCancelEditCommandVisible();
-			}
-
-            return  (self.StatusData.DisplayMode() == 'edit'); 
-        });
-
-        this.Commands.IsCancelEditCommandEnabled = ko.pureComputed(function () {
-			if (self.customViewModel !== undefined && self.customViewModel.IsCancelEditCommandEnabled !== undefined) {
-				return self.customViewModel.IsCancelEditCommandEnabled();
-			}
-
-            return (self.StatusData.DisplayMode() == 'edit');
-        });
-
-      this.Commands.IsCreateNewCommandVisible = ko.pureComputed(function () {
-			if (self.customViewModel !== undefined && self.customViewModel.IsCreateNewCommandVisible !== undefined) {
-				return self.customViewModel.IsCreateNewCommandVisible();
-			}
-
-            return (self.StatusData.DisplayMode() == 'view' && !self.StatusData.isPopup() && self.DataStore && self.DataStore.CheckAuthorizationForEntityAndMethod('save')); 
-        });
-
-        this.Commands.IsCreateNewCommandEnabled = ko.pureComputed(function () {
-			if (self.customViewModel !== undefined && self.customViewModel.IsCreateNewCommandEnabled !== undefined) {
-				return self.customViewModel.IsCreateNewCommandEnabled();
-			}
-
-            return (self.StatusData.DisplayMode() == 'view' && !self.StatusData.isPopup());
-        });
-
 
 		// var generatedIncludes = "";
 		// The server auto-maps the include path if we send the following auto-include-id
@@ -466,7 +354,6 @@
 				}
                 self.closePopup(!preventRebind);
 			}
- 
         };
 
 			
@@ -479,7 +366,6 @@
             self.StatusData.IsBusy(false);
             // the next line is to force notification of change: this way we emulate event handling
             self.Events.CountryDeleted(!self.Events.CountryDeleted());
- 
 			self.closePopup(true);
         };
 
@@ -529,10 +415,6 @@
 			self.controller.ObjectsDataSet.resetContextIdDirty(self.contextId);
 			self.resetValidation();
 
-			if (isCommandCall)
-			{
- 
-			}			
             if (self.StatusData.isPopup())
                 self.closePopup(false);
         };

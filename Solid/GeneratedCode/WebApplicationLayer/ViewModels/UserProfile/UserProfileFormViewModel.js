@@ -195,14 +195,8 @@
 				
 		// Form commands data
 		this.Commands = {
-			CreateNewCommand: function() {
-				self.CreateNew(true);
-			}, 
 			EditCommand: function() {
 				self.Edit(true);
-			}, 
-			DeleteCommand: function() {
-				self.Delete(true);
 			}, 
 			SaveCommand: function() {
 				self.Save(true);
@@ -213,22 +207,6 @@
       };
 
 		// Form computed command data
-      this.Commands.IsCreateNewCommandVisible = ko.pureComputed(function () {
-			if (self.customViewModel !== undefined && self.customViewModel.IsCreateNewCommandVisible !== undefined) {
-				return self.customViewModel.IsCreateNewCommandVisible();
-			}
-
-            return (self.StatusData.DisplayMode() == 'view' && !self.StatusData.isPopup() && self.DataStore && self.DataStore.CheckAuthorizationForEntityAndMethod('save')); 
-        });
-
-        this.Commands.IsCreateNewCommandEnabled = ko.pureComputed(function () {
-			if (self.customViewModel !== undefined && self.customViewModel.IsCreateNewCommandEnabled !== undefined) {
-				return self.customViewModel.IsCreateNewCommandEnabled();
-			}
-
-            return (self.StatusData.DisplayMode() == 'view' && !self.StatusData.isPopup());
-        });
-
       this.Commands.IsEditCommandVisible = ko.pureComputed(function () {
 			if (self.customViewModel !== undefined && self.customViewModel.IsModifyCommandVisible !== undefined) {
 				return self.customViewModel.IsModifyCommandVisible();
@@ -261,22 +239,6 @@
 			}
 
             return (self.StatusData.DisplayMode() == 'edit');
-        });
-
-      this.Commands.IsDeleteCommandVisible = ko.pureComputed(function () {
-			if (self.customViewModel !== undefined && self.customViewModel.IsDeleteCommandVisible !== undefined) {
-				return self.customViewModel.IsDeleteCommandVisible();
-			}
-			
-			return (self.StatusData.DisplayMode() == 'view' && !self.StatusData.IsEmpty()  && self.DataStore &&  self.DataStore.CheckAuthorizationForEntityAndMethod('delete')); 
-
-        });
-
-        this.Commands.IsDeleteCommandEnabled = ko.pureComputed(function () {
-			if(self.customViewModel !== undefined && self.customViewModel.IsDeleteCommandEnabled !== undefined) {
-				return self.customViewModel.IsDeleteCommandEnabled();
-			}
-            return (self.StatusData.DisplayMode() == 'view');
         });
 
       this.Commands.IsSaveCommandVisible = ko.pureComputed(function () {
@@ -498,7 +460,6 @@
             self.StatusData.IsBusy(false);
             // the next line is to force notification of change: this way we emulate event handling
             self.Events.UserProfileDeleted(!self.Events.UserProfileDeleted());
- 
 			self.closePopup(true);
         };
 

@@ -102,71 +102,6 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="ApplicationSettingsHandler.cs">
-      <GeneratedBy>Fenomen</GeneratedBy>
-    </Compile>
-    <Compile Include="AutoInclude.cs">
-      <GeneratedBy>Fenomen</GeneratedBy>
-    </Compile>
-    <Compile Include="ConstructedViewsHandler.cs">
-      <GeneratedBy>Fenomen</GeneratedBy>
-    </Compile>
-    <Compile Include="Container.cs">
-      <GeneratedBy>Fenomen</GeneratedBy>
-    </Compile>
-    <Compile Include="Container.custom.cs">
-      <GeneratedBy>Fenomen</GeneratedBy>
-    </Compile>
-    <Compile Include="DataApiHandler.cs">
-      <GeneratedBy>Fenomen</GeneratedBy>
-    </Compile>
-    <Compile Include="EntityApiHandler.cs">
-      <GeneratedBy>Fenomen</GeneratedBy>
-    </Compile>
-    <None Include="Global.asax">
-      <GeneratedBy>Fenomen</GeneratedBy>
-    </None>
-    <Compile Include="Global.asax.cs">
-      <GeneratedBy>Fenomen</GeneratedBy>
-      <DependentUpon>Global.asax</DependentUpon>
-    </Compile>
-    <Compile Include="IEntityApiHandler.cs">
-      <GeneratedBy>Fenomen</GeneratedBy>
-    </Compile>
-    <Compile Include="JsonGOFileUploaderService.cs">
-      <GeneratedBy>Fenomen</GeneratedBy>
-    </Compile>
-    <Compile Include="JsonGOFileUploaderServiceHandler.cs">
-      <GeneratedBy>Fenomen</GeneratedBy>
-    </Compile>
-    <Compile Include="JsonGOReportsHelperService.cs">
-      <GeneratedBy>Fenomen</GeneratedBy>
-    </Compile>
-    <Compile Include="JsonGOReportsHelperServiceHandler.cs">
-      <GeneratedBy>Fenomen</GeneratedBy>
-    </Compile>
-    <Compile Include="JsonGOSecurityProviderService.cs">
-      <GeneratedBy>Fenomen</GeneratedBy>
-    </Compile>
-    <Compile Include="JsonGOSecurityProviderServiceHandler.cs">
-      <GeneratedBy>Fenomen</GeneratedBy>
-    </Compile>
-    <Compile Include="MetaDataHandler.cs">
-      <GeneratedBy>Fenomen</GeneratedBy>
-    </Compile>
-    <Content Include="NLog.config">
-      <GeneratedBy>Fenomen</GeneratedBy>
-    </Content>
-    <Compile Include="ViewsHandler.cs">
-      <GeneratedBy>Fenomen</GeneratedBy>
-    </Compile>
-    <Content Include="web.config">
-      <GeneratedBy>Fenomen</GeneratedBy>
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
-    <Content Include="web.custom.config">
-      <GeneratedBy>Fenomen</GeneratedBy>
-    </Content>
   </ItemGroup>
   <ItemGroup>
     <Reference Include="GenerativeObjects.Practices, Version=1.0.0.0">
@@ -277,4 +212,71 @@
     <PostBuildEvent>
     </PostBuildEvent>
   </PropertyGroup>
+  <ItemGroup>
+    <Compile Include="ApplicationSettingsHandler.cs">
+      <GeneratedBy>Fenomen</GeneratedBy>
+    </Compile>
+    <Compile Include="AutoInclude.cs">
+      <GeneratedBy>Fenomen</GeneratedBy>
+    </Compile>
+    <Compile Include="ConstructedViewsHandler.cs">
+      <GeneratedBy>Fenomen</GeneratedBy>
+    </Compile>
+    <Compile Include="Container.cs">
+      <GeneratedBy>Fenomen</GeneratedBy>
+    </Compile>
+    <Compile Include="Container.custom.cs">
+      <GeneratedBy>Fenomen</GeneratedBy>
+    </Compile>
+    <Compile Include="DataApiHandler.cs">
+      <GeneratedBy>Fenomen</GeneratedBy>
+    </Compile>
+    <Compile Include="EntityApiHandler.cs">
+      <GeneratedBy>Fenomen</GeneratedBy>
+    </Compile>
+    <None Include="Global.asax">
+      <GeneratedBy>Fenomen</GeneratedBy>
+    </None>
+    <Compile Include="Global.asax.cs">
+      <GeneratedBy>Fenomen</GeneratedBy>
+      <DependentUpon>Global.asax</DependentUpon>
+    </Compile>
+    <Compile Include="IEntityApiHandler.cs">
+      <GeneratedBy>Fenomen</GeneratedBy>
+    </Compile>
+    <Compile Include="JsonGOFileUploaderService.cs">
+      <GeneratedBy>Fenomen</GeneratedBy>
+    </Compile>
+    <Compile Include="JsonGOFileUploaderServiceHandler.cs">
+      <GeneratedBy>Fenomen</GeneratedBy>
+    </Compile>
+    <Compile Include="JsonGOReportsHelperService.cs">
+      <GeneratedBy>Fenomen</GeneratedBy>
+    </Compile>
+    <Compile Include="JsonGOReportsHelperServiceHandler.cs">
+      <GeneratedBy>Fenomen</GeneratedBy>
+    </Compile>
+    <Compile Include="JsonGOSecurityProviderService.cs">
+      <GeneratedBy>Fenomen</GeneratedBy>
+    </Compile>
+    <Compile Include="JsonGOSecurityProviderServiceHandler.cs">
+      <GeneratedBy>Fenomen</GeneratedBy>
+    </Compile>
+    <Compile Include="MetaDataHandler.cs">
+      <GeneratedBy>Fenomen</GeneratedBy>
+    </Compile>
+    <Content Include="NLog.config">
+      <GeneratedBy>Fenomen</GeneratedBy>
+    </Content>
+    <Compile Include="ViewsHandler.cs">
+      <GeneratedBy>Fenomen</GeneratedBy>
+    </Compile>
+    <Content Include="web.config">
+      <GeneratedBy>Fenomen</GeneratedBy>
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="web.custom.config">
+      <GeneratedBy>Fenomen</GeneratedBy>
+    </Content>
+  </ItemGroup>
 </Project>

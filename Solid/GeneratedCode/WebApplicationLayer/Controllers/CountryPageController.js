@@ -61,10 +61,6 @@
 					self.CountryViewModel.LoadCountry(objectToLoad);	
 				}
 			}
-			else {
-					self.CountryViewModel.CreateNew();
-			}
-				
 	
 			// Call custom initialize if defined
 			if (self.customController !== undefined && self.customController.initialize !== undefined) {
