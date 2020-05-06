@@ -9,7 +9,13 @@ using System.Linq.Expressions;
 using GenerativeObjects.Practices.LayerSupportClasses.DataLayer;
 using GenerativeObjects.Practices.ORMSupportClasses;
 using Solid.Data.DataObjects;
- 
+using VDS.RDF.Parsing;
+using VDS.RDF.Query;
+using VDS.RDF;
+using System.Linq;
+using GenerativeObjects.Practices.LayerSupportClasses;
+using Unity;
+
 
 namespace Solid.Data.DataProviders.Custom
 {
@@ -17,7 +23,17 @@ namespace Solid.Data.DataProviders.Custom
     {
         protected override int DoCount(LambdaExpression securityFilterExpression, string filterPredicate, object[] filterArguments, IObjectsDataSet context, Dictionary<string, object> parameters)
         {
-            throw new NotImplementedException();
+            int count;
+
+            SparqlRemoteEndpoint endpoint = new SparqlRemoteEndpoint(new Uri("http://dbpedia.org/sparql"), "http://dbpedia.org");
+
+            //Make a SELECT query against the Endpoint
+            SparqlResultSet results = endpoint.QueryWithResultSet("SELECT count(?place) WHERE { ?place a <http://dbpedia.org/ontology/Place> }");
+
+            var res = results.Single();
+            count = Convert.ToInt32((res.Single().Value as BaseLiteralNode).Value);
+
+            return count;
         }
 
         protected override void DoDelete(PlaceDataObject entity, LambdaExpression securityFilterExpression, IObjectsDataSet context, Dictionary<string, object> parameters)
@@ -27,12 +43,80 @@ namespace Solid.Data.DataProviders.Custom
 
         protected override PlaceDataObject DoGet(PlaceDataObject entity, LambdaExpression securityFilterExpression, List<string> includes, IObjectsDataSet context, Dictionary<string, object> parameters)
         {
-            throw new NotImplementedException();
+            var uri = entity.URI;
+
+            SparqlRemoteEndpoint endpoint = new SparqlRemoteEndpoint(new Uri("http://dbpedia.org/sparql"), "http://dbpedia.org");
+
+            string queryString = @"SELECT ?name, ?abstract
+                  WHERE {
+                            ?place rdfs:label ?name .
+                            ?place dbo:abstract ?abstract .
+
+                            FILTER langMatches(lang(?name), 'en')
+                            FILTER langMatches(lang(?abstract), 'en')}";
+
+            queryString = queryString.Replace("?place ", $"<{uri}> ");
+
+            //Make a SELECT query against the Endpoint
+            SparqlResultSet results = endpoint.QueryWithResultSet(queryString);
+
+            var result = results.Single();
+
+            var place = new PlaceDataObject();
+            var dataset = ApplicationSettings.Container.Resolve<IObjectsDataSet>();
+            dataset.AddObject(place);
+
+            place.URI = entity.URI;
+            place.Name = (result.Where(r => r.Key == "name").Single().Value as BaseLiteralNode).Value;
+            place.Abstract = (result.Where(r => r.Key == "abstract").Single().Value as BaseLiteralNode)?.Value;
+            place.IsNew = false;
+            place.IsDirty = false;
+
+            return place;
         }
 
         protected override DataObjectCollection<PlaceDataObject> DoGetCollection(LambdaExpression securityFilterExpression, string filterPredicate, object[] filterArguments, string orderByPredicate, int pageNumber, int pageSize, List<string> includes, IObjectsDataSet context, Dictionary<string, object> parameters)
         {
-            throw new NotImplementedException();
+            SparqlRemoteEndpoint endpoint = new SparqlRemoteEndpoint(new Uri("http://dbpedia.org/sparql"), "http://dbpedia.org");
+
+
+            string query = @"SELECT distinct(?place), ?name, ?abstract
+                                WHERE {
+                                ?place a <http://dbpedia.org/ontology/Place> .
+                                ?place rdfs:label ?name .
+                                ?place dbo:abstract ?abstract .
+
+                                FILTER langMatches(lang(?name), 'en')
+                                FILTER langMatches(lang(?abstract), 'en')
+
+                                } 
+                                ";
+
+            if (pageNumber != 0 || pageSize != 0)
+            {
+                query += $"LIMIT {pageSize} OFFSET {(pageNumber - 1) * pageSize}";
+            }
+
+            //Make a SELECT query against the Endpoint
+            SparqlResultSet results = endpoint.QueryWithResultSet(query);
+
+            var toReturn = new DataObjectCollection<PlaceDataObject>();
+            toReturn.ObjectsDataSet = ApplicationSettings.Container.Resolve<IObjectsDataSet>();
+
+            foreach (var result in results)
+            {
+                var place = new PlaceDataObject();
+
+                place.URI = (result.Where(r => r.Key == "place").Single().Value as UriNode).Uri.ToString();
+                place.Name = (result.Where(r => r.Key == "name").Single().Value as BaseLiteralNode).Value;
+                place.Abstract = (result.Where(r => r.Key == "abstract").Single().Value as BaseLiteralNode)?.Value;
+                place.IsNew = false;
+                place.IsDirty = false;
+
+                toReturn.Add(place);
+            }
+
+            return toReturn;
         }
 
         protected override PlaceDataObject DoSave(PlaceDataObject entity, LambdaExpression securityFilterExpression, List<string> includes, IObjectsDataSet context, Dictionary<string, object> parameters)
