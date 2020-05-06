@@ -23,7 +23,8 @@
             <table data-placeholder="gridTable" class="data-grid">
               <thead class="gridControl">
                 <tr>
-                  <th scope="col" data-bind="html: 'Name'" class="ui-grid-header-container pointer"></th>
+                  <th scope="col" data-bind="html: 'Country'" class="ui-grid-header-container pointer"></th>
+                  <th scope="col" data-bind="html: 'Place', click: function(data, event){ {DATABINDROOT}onHeaderClicked('Place.Name') }, css: { 'ui-grid-sort-s':(({DATABINDROOT}sortOrder() == 'desc') &amp;&amp; ({DATABINDROOT}sortColumnName() == 'Place.Name')), 'ui-grid-sort-n':(({DATABINDROOT}sortOrder() == 'asc') &amp;&amp; ({DATABINDROOT}sortColumnName() == 'Place.Name')), 'ui-grid-sort-n-s':({DATABINDROOT}sortColumnName() != 'Place.Name') }" class="ui-grid-header-container pointer sortableCol"></th>
                   <th scope="col" data-bind="html: 'Date', click: function(data, event){ {DATABINDROOT}onHeaderClicked('Date') }, css: { 'ui-grid-sort-s':(({DATABINDROOT}sortOrder() == 'desc') &amp;&amp; ({DATABINDROOT}sortColumnName() == 'Date')), 'ui-grid-sort-n':(({DATABINDROOT}sortOrder() == 'asc') &amp;&amp; ({DATABINDROOT}sortColumnName() == 'Date')), 'ui-grid-sort-n-s':({DATABINDROOT}sortColumnName() != 'Date') }" class="ui-grid-header-container pointer sortableCol"></th>
                   <th scope="col" data-bind="html: 'Description', click: function(data, event){ {DATABINDROOT}onHeaderClicked('Description') }, css: { 'ui-grid-sort-s':(({DATABINDROOT}sortOrder() == 'desc') &amp;&amp; ({DATABINDROOT}sortColumnName() == 'Description')), 'ui-grid-sort-n':(({DATABINDROOT}sortOrder() == 'asc') &amp;&amp; ({DATABINDROOT}sortColumnName() == 'Description')), 'ui-grid-sort-n-s':({DATABINDROOT}sortColumnName() != 'Description') }" class="ui-grid-header-container pointer sortableCol"></th>
                 </tr>
@@ -31,7 +32,10 @@
               <tbody data-bind="foreach: {DATABINDROOT}VisitedPlaceObjectCollection()">
                 <tr class="pointer" data-bind="attr: {'data-id': Data.InternalObjectId}, click: {PARENTDATABINDROOT}onLineClicked, event: {dblclick: {PARENTDATABINDROOT}onLineDblClicked}, css: {'currenttr': {PARENTDATABINDROOT}selectedId() == Data.InternalObjectId()}">
                   <td data-bind="jqStopBubble: 'a'">
-                    <a data-bind="attr: { href: '#!' + ApplicationController.getRootHashTag('VisitedPlace') + 'VisitedPlaces/VisitedPlace/' + GO.Encoding.UrlEncode(Data.Id()), title: Data.VisitedPlaceName }, html: Data.VisitedPlaceName"></a>
+                    <a data-bind="attr: { href: '#!' + ApplicationController.getRootHashTag('CountryDetails') + 'Countries/CountryDetails/' + $parent.{DATABINDROOT}getCountryPKValuesForCountry($data), title: $parent.{DATABINDROOT}getCountry_NameValue($data) }, html: $parent.{DATABINDROOT}getCountry_NameValue($data)"></a>
+                  </td>
+                  <td data-bind="jqStopBubble: 'a'">
+                    <a data-bind="attr: { href: '#!' + ApplicationController.getRootHashTag('PlaceDetails') + 'Places/PlaceDetails/' + $parent.{DATABINDROOT}getPlacePKValuesForPlace($data), title: $parent.{DATABINDROOT}getPlace_NameValue($data) }, html: $parent.{DATABINDROOT}getPlace_NameValue($data)"></a>
                   </td>
                   <td data-bind="html: Data.Date_DisplayString"></td>
                   <td data-bind="html: Data.Description" class=" multiline"></td>

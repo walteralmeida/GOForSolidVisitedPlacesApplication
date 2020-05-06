@@ -43,7 +43,7 @@
 	    this.filterParameters = null;
 
 
-		this.include = "Country,Place";
+		this.include = "Place,Country";
 		this.sortColumnName = ko.observable(null); // rather bind to the oSort object
         this.sortOrder = ko.observable(null); // rather bind to the oSort object
 		this.multiSortOrderBy = "";
@@ -432,6 +432,26 @@
 			if(self.$popupContainer)
 				ApplicationController.centerPopup();
         };
+
+		this.getPlace_NameValue = function (data) {
+			return data.getPlace() === null ? null : data.getPlace().Data.Name();
+		};
+
+		this.getCountry_NameValue = function (data) {
+			return data.getCountry() === null ? null : data.getCountry().Data.Name();
+		};
+
+		this.getPlacePKValuesForPlace = function (data) {
+			var uRIValue = data.getPlace() === null ? null : data.getPlace().Data.URI();
+			uRIValue = GO.Encoding.UrlEncode(uRIValue);
+			return uRIValue;
+		}
+
+		this.getCountryPKValuesForCountry = function (data) {
+			var uRIValue = data.getCountry() === null ? null : data.getCountry().Data.URI();
+			uRIValue = GO.Encoding.UrlEncode(uRIValue);
+			return uRIValue;
+		}
 
 
 		this.selectedId = ko.observable(null);

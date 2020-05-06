@@ -42,7 +42,9 @@
           </span>
           <span class="form-field-control-container" data-bind="'css' : { errorControl : !{DATABINDROOT}VisitedPlaceObject().StatusData.isCountryValid() }">
             <div class="lookup-field">
-              <span data-bind="'text': {DATABINDROOT}Country_Name, 'css':{ 'errorControl':  !{DATABINDROOT}VisitedPlaceObject().StatusData.isCountryValid()}" data-test-id="view_8aebf247-3ce8-43f2-a4ff-c19562ef14c8" />
+              <span>
+                <a href="#" data-bind="'text': {DATABINDROOT}Country_Name, 'css':{ 'errorControl':  !{DATABINDROOT}VisitedPlaceObject().StatusData.isCountryValid()}, 'click' : {DATABINDROOT}showEditCountryPopup" data-test-id="view_8aebf247-3ce8-43f2-a4ff-c19562ef14c8" />
+              </span>
             </div>
           </span>
         </div>
@@ -52,9 +54,14 @@
           </span>
           <span class="form-field-control-container" data-bind="'enable' : !{DATABINDROOT}StatusData.IsCountryReadOnly(), 'css' : { errorControl : !{DATABINDROOT}VisitedPlaceObject().StatusData.isCountryValid() }">
             <div class="lookup-field">
-              <div class="formEditLookupFieldControl">
+              <div class="formEditLookupFieldControl formEditLookupFieldControl-withbutton">
                 <input class="formEditLookupFieldControl" data-bind="'value': {DATABINDROOT}Country_Name, 'css':{ 'busy': {DATABINDROOT}isGetCountryCollectionBusy, 'errorControl':  !{DATABINDROOT}VisitedPlaceObject().StatusData.isCountryValid()}, 'jqComboBox' : {'datasource': {DATABINDROOT}getCountryCollectionOneLevel, 'onselectionchanged': {DATABINDROOT}onLookupCountryChanged, 'currentItem': {DATABINDROOT}Country_lookupItem, 'minLength': 0, 'lazyLoadCallback': null, 'fitToInput': true}, 'enable' : !{DATABINDROOT}StatusData.IsCountryReadOnly()" data-test-id="edit_8aebf247-3ce8-43f2-a4ff-c19562ef14c8" />
-                <div class="formEditLookupFieldControl-button" />
+                <div class="hideElt" />
+                <div class="formEditLookupFieldControl-button formEditLookupFieldControl-button-first">
+                  <button data-bind="'click': {DATABINDROOT}showEditCountryPopup, 'css' : { 'command-button' :  {DATABINDROOT}isShowEditCountryPopupEnabled(), 'visible' : {DATABINDROOT}isShowEditCountryPopupVisible(), enable : {DATABINDROOT}isShowEditCountryPopupEnabled(), 'command-button-disabled' : !{DATABINDROOT}isShowEditCountryPopupEnabled() }" class="command-button-disabled" data-test-id="lookup_edit_button">
+                    <img src="styles/images/magnifying14x14.png" />
+                  </button>
+                </div>
               </div>
               <span class="errorDescription" data-bind="'visible' : !{DATABINDROOT}VisitedPlaceObject().StatusData.isCountryValid(), text : {DATABINDROOT}VisitedPlaceObject().StatusData.countryErrorMessage"></span>
             </div>
@@ -66,7 +73,9 @@
           </span>
           <span class="form-field-control-container" data-bind="'css' : { errorControl : !{DATABINDROOT}VisitedPlaceObject().StatusData.isPlaceValid() }">
             <div class="lookup-field">
-              <span data-bind="'text': {DATABINDROOT}Place_Name, 'css':{ 'errorControl':  !{DATABINDROOT}VisitedPlaceObject().StatusData.isPlaceValid()}" data-test-id="view_82c38de8-f0f5-4d87-b154-4d03d9b61763" />
+              <span>
+                <a href="#" data-bind="'text': {DATABINDROOT}Place_Name, 'css':{ 'errorControl':  !{DATABINDROOT}VisitedPlaceObject().StatusData.isPlaceValid()}, 'click' : {DATABINDROOT}showEditPlacePopup" data-test-id="view_82c38de8-f0f5-4d87-b154-4d03d9b61763" />
+              </span>
             </div>
           </span>
         </div>
@@ -76,9 +85,14 @@
           </span>
           <span class="form-field-control-container" data-bind="'enable' : !{DATABINDROOT}StatusData.IsPlaceReadOnly(), 'css' : { errorControl : !{DATABINDROOT}VisitedPlaceObject().StatusData.isPlaceValid() }">
             <div class="lookup-field">
-              <div class="formEditLookupFieldControl">
+              <div class="formEditLookupFieldControl formEditLookupFieldControl-withbutton">
                 <input class="formEditLookupFieldControl" data-bind="'value': {DATABINDROOT}Place_Name, 'css':{ 'busy': {DATABINDROOT}isGetPlaceCollectionBusy, 'errorControl':  !{DATABINDROOT}VisitedPlaceObject().StatusData.isPlaceValid()}, 'jqComboBox' : {'datasource': {DATABINDROOT}getPlaceForLookupAutomatic, 'onselectionchanged': {DATABINDROOT}onLookupPlaceChanged, 'currentItem': {DATABINDROOT}Place_lookupItem, 'minLength': {DATABINDROOT}Place_lookupMinLength(), 'lazyLoadCallback': null, 'fitToInput': true}, 'enable' : !{DATABINDROOT}StatusData.IsPlaceReadOnly()" data-test-id="edit_82c38de8-f0f5-4d87-b154-4d03d9b61763" />
-                <div class="formEditLookupFieldControl-button" />
+                <div class="hideElt" />
+                <div class="formEditLookupFieldControl-button formEditLookupFieldControl-button-first">
+                  <button data-bind="'click': {DATABINDROOT}showEditPlacePopup, 'css' : { 'command-button' :  {DATABINDROOT}isShowEditPlacePopupEnabled(), 'visible' : {DATABINDROOT}isShowEditPlacePopupVisible(), enable : {DATABINDROOT}isShowEditPlacePopupEnabled(), 'command-button-disabled' : !{DATABINDROOT}isShowEditPlacePopupEnabled() }" class="command-button-disabled" data-test-id="lookup_edit_button">
+                    <img src="styles/images/magnifying14x14.png" />
+                  </button>
+                </div>
               </div>
               <span class="errorDescription" data-bind="'visible' : !{DATABINDROOT}VisitedPlaceObject().StatusData.isPlaceValid(), text : {DATABINDROOT}VisitedPlaceObject().StatusData.placeErrorMessage"></span>
             </div>
