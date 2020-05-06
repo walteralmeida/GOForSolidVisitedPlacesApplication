@@ -33,21 +33,10 @@
 		this.LocationObject().ObjectsDataSet = this.controller.ObjectsDataSet;
 		this.CurrentObject = ko.pureComputed(function () { return this.LocationObject() }, this);
 
-		// Sub-grids ViewModels
-		this.PlaceToLocationItemsGridViewModel = new Solid.Web.ViewModels.PlaceToLocationGridViewModel(self.controller, null, sDataBindRoot +  "PlaceToLocationItemsGridViewModel", $popupContainer, self.contextId);
-		this.PlaceToLocationItemsGridViewModel.getSourceCollection = function () { return self.LocationObject().getPlaceToLocationItems(); };		
-		this.PlaceToLocationItemsGridViewModel.CreateNewCommandInitActions.push ( 
-			function (newobject) {
-				newobject.setLocation(self.CurrentObject());; 
-		});				
  
 		// Form status data
         this.StatusData = {
 			IsUIDirty : ko.observable (false),
-			CurrentTabIndex: ko.observable(1),
-			// Visibility rules for Tabs.
-			IsMainTabVisible : ko.observable(true),
-			IsPlaceToLocationTabVisible : ko.observable(true),
             // Control properties         
 			IsBusy: ko.observable(false),
             IsEnabled: ko.observable(true),
@@ -79,28 +68,6 @@
 			return self.alternateTitle || 'Location Details'; 
 		});
 
-		this.StatusData.MainTabTitle = ko.pureComputed(function() { 
-			if (self.customViewModel !== undefined && self.customViewModel.MainTabTitle !== undefined) {
-				return self.customViewModel.MainTabTitle();
-			}	
-			
-			if(!self.LocationObject())
-				return;
-							
-			return 'Main'; 
-		});
-
-		this.StatusData.PlaceToLocationTabTitle = ko.pureComputed(function() { 
-			if (self.customViewModel !== undefined && self.customViewModel.PlaceToLocationTabTitle !== undefined) {
-				return self.customViewModel.PlaceToLocationTabTitle();
-			}	
-			
-			if(!self.LocationObject())
-				return;
-							
-			return 'Place To Location Items Items'; 
-		});
-
 		this.runValidation = function() {
 			self.LocationObject().runValidation();
 
@@ -129,21 +96,6 @@
 		this.controller.ObjectsDataSet.AddContextIdsStatusChangeHandler(self.onContextIdsStatusChanged);
 
 
-		this.StatusData.IsPlaceToLocationItemsVisible = ko.pureComputed( function () {
-			if (self.customViewModel !== undefined && self.customViewModel.IsPlaceToLocationItemsVisible !== undefined) {
-				return self.customViewModel.IsPlaceToLocationItemsVisible();
-			}
-			
-			return true;
-		});
-
-		this.StatusData.IsPlaceToLocationItemsReadOnly = ko.pureComputed( function () {
-			if (self.customViewModel !== undefined && self.customViewModel.IsPlaceToLocationItemsReadOnly !== undefined) {
-				return self.customViewModel.IsPlaceToLocationItemsReadOnly();
-			}
-			return false;
-        });
-
 		this.StatusData.IsNameVisible = ko.pureComputed( function () {
 			if (self.customViewModel !== undefined && self.customViewModel.IsNameVisible !== undefined) {
 				return self.customViewModel.IsNameVisible();
@@ -159,17 +111,17 @@
 			return false;
         });
 
-		this.StatusData.IsURIVisible = ko.pureComputed( function () {
-			if (self.customViewModel !== undefined && self.customViewModel.IsURIVisible !== undefined) {
-				return self.customViewModel.IsURIVisible();
+		this.StatusData.IsURILinkVisible = ko.pureComputed( function () {
+			if (self.customViewModel !== undefined && self.customViewModel.IsURILinkVisible !== undefined) {
+				return self.customViewModel.IsURILinkVisible();
 			}
 			
 			return true;
 		});
 
-		this.StatusData.IsURIReadOnly = ko.pureComputed( function () {
-			if (self.customViewModel !== undefined && self.customViewModel.IsURIReadOnly !== undefined) {
-				return self.customViewModel.IsURIReadOnly();
+		this.StatusData.IsURILinkReadOnly = ko.pureComputed( function () {
+			if (self.customViewModel !== undefined && self.customViewModel.IsURILinkReadOnly !== undefined) {
+				return self.customViewModel.IsURILinkReadOnly();
 			}
 			return false;
         });
@@ -189,10 +141,6 @@
 			return false;
         });
 
-		// Propagate Display Mode change to subgrids
-        this.subscriptions.push(this.StatusData.DisplayMode.subscribe (function(newValue) {
-			self.PlaceToLocationItemsGridViewModel.StatusData.DisplayMode(newValue);	
-		}));
 		// Form events data
 		this.Events = {
             LocationLoaded: ko.observable(false),
@@ -408,38 +356,6 @@
 		};
 
 		this.onLocationObjectChanged = function() {
-			
-			// Reload all sub-grids data
-			if (self.LocationObject().Data.IsNew()) {
-				self.PlaceToLocationItemsGridViewModel.StatusData.IsFilterVisible(false);
- 
-				var theCollection = self.LocationObject().Data.PlaceToLocationItems();
-                self.PlaceToLocationItemsGridViewModel.SetPlaceToLocationObjectCollection( theCollection );
-				self.PlaceToLocationItemsGridViewModel.isMemoryOnlyCollection = true;
-	            self.PlaceToLocationItemsGridViewModel.totalCollection(theCollection !== null ? theCollection.length : 0);
-				self.PlaceToLocationItemsGridViewModel.pageNumber(0);	            
-				self.PlaceToLocationItemsGridViewModel.totalPageNumber(0);
-	        } else {
-
-				self.PlaceToLocationItemsGridViewModel.StatusData.IsFilterVisible(true);
-
-				self.PlaceToLocationItemsGridViewModel.isMemoryOnlyCollection = false;
-				
-				// Resetting filters
-                self.PlaceToLocationItemsGridViewModel.baseFilterPredicate = 'LocationURI == "' + self.LocationObject().Data.URI() + '"';
-				
-				// Taking into account current filter values if any
-			    var filterPredicate = self.PlaceToLocationItemsGridViewModel.PlaceToLocationFilterViewModel.getFilterPredicate();
-			    if(filterPredicate !== "" && filterPredicate !== null) {
-			        self.PlaceToLocationItemsGridViewModel.filterPredicate = self.PlaceToLocationItemsGridViewModel.baseFilterPredicate + ' && (' + filterPredicate + ')';
-			    } else {
-			        self.PlaceToLocationItemsGridViewModel.filterPredicate = self.PlaceToLocationItemsGridViewModel.baseFilterPredicate;
-			    }
-				
-				// Rebinding subgrid
-                self.PlaceToLocationItemsGridViewModel.LoadPlaceToLocationObjectCollection();
-            }
-
  			
 			self.StatusData.IsUIDirty(self.controller.ObjectsDataSet.isContextIdDirty(self.contextId));			
 		};
@@ -529,9 +445,6 @@
 
         this.Modify = function () {
 			GO.log("LocationForm", "Entering modification of LocationObject");
-			
-			// propagate to Sub-Grids
-			self.PlaceToLocationItemsGridViewModel.isMemoryOnlyCollection = true;	
 	        self.SavedData = new Solid.Web.Model.DataObjects.LocationObject();
 			self.SavedData.CopyValuesFrom(self.LocationObject());
 
@@ -703,10 +616,6 @@
 				self.subscriptions[i].dispose();
 			}
 			self.subscriptions = [];
- 		
-			// Sub-grids ViewModels
-			self.PlaceToLocationItemsGridViewModel.release();
-			self.PlaceToLocationItemsGridViewModel = null;
 			// Cleaning the context if data has been saved already
 			if (!self.isMemoryOnly) {
 				self.controller.ObjectsDataSet.cleanContext(self.contextId);
@@ -717,20 +626,6 @@
 		};
 
 
-		this.getCurrentTabIndex = function () {
-		    return self.StatusData.CurrentTabIndex();
-		};		
-
-		this.selectTabIndex = function(tabid) {
-			  self.StatusData.CurrentTabIndex(tabid);
-		};
-
-		this.TabChangedMethod = function (tabid) {
-			if(tabid != self.StatusData.CurrentTabIndex()) 
-				self.StatusData.CurrentTabIndex(tabid);
-		    if (self.StatusData.isPopup())
-		        self.controller.applicationController.centerPopup();
-		}
  
         this.ShowError = function (errorMessage, title) {
 			self.isOpenInEditMode = false;

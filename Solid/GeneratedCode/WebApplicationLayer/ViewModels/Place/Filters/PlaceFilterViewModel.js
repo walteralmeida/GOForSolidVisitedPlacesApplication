@@ -23,9 +23,7 @@
 
 		this.filterData = {
 			fields: {
-				Abstract: ko.observable(''), 
-				Name: ko.observable(''), 
-				URI: ko.observable('') 
+				Name: ko.observable('') 
 			},
 			groups: {
 			}			
@@ -36,21 +34,9 @@
         this.statusData = {
             filterCollectionLoaded: ko.observable(true),
             countFilterCollectionsLoaded: ko.observable(0),
-	        isURIVisible: ko.pureComputed(function() {
-				if (self.customViewModel && self.customViewModel.isURIVisible) {
-					return self.customViewModel.isURIVisible();
-				}
-				return true;
-			}),
 	        isNameVisible: ko.pureComputed(function() {
 				if (self.customViewModel && self.customViewModel.isNameVisible) {
 					return self.customViewModel.isNameVisible();
-				}
-				return true;
-			}),
-	        isAbstractVisible: ko.pureComputed(function() {
-				if (self.customViewModel && self.customViewModel.isAbstractVisible) {
-					return self.customViewModel.isAbstractVisible();
 				}
 				return true;
 			}),
@@ -79,9 +65,7 @@
         };
         
         this.clearFilterDataOnly = function() {
-			self.filterData.fields.Abstract('');
 			self.filterData.fields.Name('');
-			self.filterData.fields.URI('');
         };
 
         this.issearchCommandEnabled = ko.pureComputed(function () {
@@ -112,25 +96,11 @@
         this.getFilterPredicate = function () {
             var filterPredicate = "";
 
-			// Abstract filter field
-			if (self.filterData.fields.Abstract() !== '' && self.filterData.fields.Abstract() !== undefined && self.filterData.fields.Abstract() !== null) {
-                if (filterPredicate !== "") 
-					filterPredicate += " && ";
-              filterPredicate += 'Abstract.Contains("' + self.filterData.fields.Abstract() + '")';
-            }
-				
 			// Name filter field
 			if (self.filterData.fields.Name() !== '' && self.filterData.fields.Name() !== undefined && self.filterData.fields.Name() !== null) {
                 if (filterPredicate !== "") 
 					filterPredicate += " && ";
               filterPredicate += 'Name.Contains("' + self.filterData.fields.Name() + '")';
-            }
-				
-			// URI filter field
-			if (self.filterData.fields.URI() !== '' && self.filterData.fields.URI() !== undefined && self.filterData.fields.URI() !== null) {
-                if (filterPredicate !== "") 
-					filterPredicate += " && ";
-              filterPredicate += 'URI.Contains("' + self.filterData.fields.URI() + '")';
             }
 				
 			// Give custom implementations opportunity to extend the filter predicate

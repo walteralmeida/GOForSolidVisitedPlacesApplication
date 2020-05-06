@@ -24,22 +24,10 @@
         <div class="filterFieldSetContent">
           <div class="filterContentContainer">
             <div class="filterGroupContainer">
-              <span class="filterFieldSelection filterTextField" data-bind="visible: statusData.isAbstractVisible">
-                <label>
-                  <span>Abstract</span>
-                  <input type="text" data-bind="value: filterData.fields.Abstract" data-test-id="574e76b0-e809-4e0c-a35b-ff534b8097a7" />
-                </label>
-              </span>
               <span class="filterFieldSelection filterTextField" data-bind="visible: statusData.isNameVisible">
                 <label>
                   <span>Name</span>
                   <input type="text" data-bind="value: filterData.fields.Name" data-test-id="894da5f2-582f-4161-8697-b16f2efcdd0f" />
-                </label>
-              </span>
-              <span class="filterFieldSelection filterTextField" data-bind="visible: statusData.isURIVisible">
-                <label>
-                  <span>URI</span>
-                  <input type="text" data-bind="value: filterData.fields.URI" data-test-id="bb866317-7f90-45d4-b7c6-42d66cf3de60" />
                 </label>
               </span>
             </div>
@@ -65,9 +53,9 @@
             <table data-placeholder="gridTable" class="data-grid">
               <thead class="gridControl">
                 <tr>
-                  <th scope="col" data-bind="html: 'Name', click: function(data, event){ onHeaderClicked('Name') }, css: { 'ui-grid-sort-s':((sortOrder() == 'desc') &amp;&amp; (sortColumnName() == 'Name')), 'ui-grid-sort-n':((sortOrder() == 'asc') &amp;&amp; (sortColumnName() == 'Name')), 'ui-grid-sort-n-s':(sortColumnName() != 'Name') }" class="ui-grid-header-container pointer sortableCol"></th>
-                  <th scope="col" data-bind="html: 'Abstract', click: function(data, event){ onHeaderClicked('Abstract') }, css: { 'ui-grid-sort-s':((sortOrder() == 'desc') &amp;&amp; (sortColumnName() == 'Abstract')), 'ui-grid-sort-n':((sortOrder() == 'asc') &amp;&amp; (sortColumnName() == 'Abstract')), 'ui-grid-sort-n-s':(sortColumnName() != 'Abstract') }" class="ui-grid-header-container pointer sortableCol"></th>
-                  <th scope="col" data-bind="html: 'URI', click: function(data, event){ onHeaderClicked('URI') }, css: { 'ui-grid-sort-s':((sortOrder() == 'desc') &amp;&amp; (sortColumnName() == 'URI')), 'ui-grid-sort-n':((sortOrder() == 'asc') &amp;&amp; (sortColumnName() == 'URI')), 'ui-grid-sort-n-s':(sortColumnName() != 'URI') }" class="ui-grid-header-container pointer sortableCol"></th>
+                  <th scope="col" data-bind="html: 'Name'" class="ui-grid-header-container pointer"></th>
+                  <th scope="col" data-bind="html: 'Abstract'" class="ui-grid-header-container pointer"></th>
+                  <th scope="col" data-bind="html: 'URI'" class="ui-grid-header-container pointer"></th>
                 </tr>
               </thead>
               <tbody data-bind="foreach: PlaceObjectCollection()">
@@ -76,7 +64,7 @@
                     <a data-bind="attr: { href: '#!' + ApplicationController.getRootHashTag('PlaceDetails') + 'Places/PlaceDetails/' + GO.Encoding.UrlEncode(Data.URI()), title: Data.Name }, html: Data.Name"></a>
                   </td>
                   <td data-bind="html: Data.Abstract, attr: {title: Data.Abstract}, toggleCssClass: 'ellipsis'" class=" ellipsis"></td>
-                  <td data-bind="html: Data.URI, jqStopBubble: 'a'"></td>
+                  <td data-bind="html: Data.URILink, jqStopBubble: 'a'"></td>
                 </tr>
               </tbody>
             </table>

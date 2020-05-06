@@ -86,7 +86,7 @@
 		self.subscriptions.push(this.PlaceToLocationFilterViewModel.events.onSearch.subscribe(function (newValue) { self.onPlaceToLocationFilterViewModelSearch(); }));
 		self.subscriptions.push(this.PlaceToLocationFilterViewModel.events.onClear.subscribe(function (newValue) { self.onPlaceToLocationFilterViewModelClear(); }));
 
-		this.include = null;
+		this.include = "Location";
 		this.sortColumnName = ko.observable(null); // rather bind to the oSort object
         this.sortOrder = ko.observable(null); // rather bind to the oSort object
 		this.multiSortOrderBy = "";
@@ -163,7 +163,7 @@
 			if (self.customViewModel && self.customViewModel.Title !== undefined) {
 				return self.customViewModel.Title();
 			}
-			return self.alternateTitle || "Place To Location Items";
+			return self.alternateTitle || "Locations";
 		});
 
 		self.subscriptions.push(this.StatusData.IsEnabled.subscribe(function (newValue) {
@@ -449,6 +449,16 @@
 			if(self.$popupContainer)
 				ApplicationController.centerPopup();
         };
+
+		this.getLocation_NameValue = function (data) {
+			return data.getLocation() === null ? null : data.getLocation().Data.Name();
+		};
+
+		this.getLocationPKValuesForLocation = function (data) {
+			var uRIValue = data.getLocation() === null ? null : data.getLocation().Data.URI();
+			uRIValue = GO.Encoding.UrlEncode(uRIValue);
+			return uRIValue;
+		}
 
 
 		this.selectedId = ko.observable(null);

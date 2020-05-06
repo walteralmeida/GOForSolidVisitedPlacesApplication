@@ -516,6 +516,20 @@ namespace Solid.Data.DataObjects
 				SetURIValue(value);
 			}
 		}		
+			
+		
+		/// <summary> The URI Link property of the Country DataObject</summary>
+        public virtual System.String URILink 
+		{
+			get	
+			{ 
+				if (!AreCalculationsEnabled)
+					return default(System.String);
+
+				return ("<a href=\"" + URI + "\" target=\"_blank\">" + URI + "</a>");				
+			}
+			
+		}		
 		#endregion
 		
 		#region Business rules implementation
@@ -531,6 +545,11 @@ namespace Solid.Data.DataObjects
 			
             if (!notifyChanges)
                 return;
+
+			if (propertyName == "URI")
+			{
+				OnPropertyChanged("URILink", true, dirtyHandlerOn);
+			}
 
 			
 			// Push the notification to related objects

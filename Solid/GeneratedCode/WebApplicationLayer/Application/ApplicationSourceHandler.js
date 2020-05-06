@@ -44,12 +44,7 @@
 					"/Model/DataObjects/LocationObject.js", 
 					"/Model/DataObjectValidators/LocationObjectValidator.js", 
 					"/Model/DataSets/LocationDataSet.js", 
-					"/Model/DataObjects/PlaceToLocationObject.js", 
-					"/Model/DataObjectValidators/PlaceToLocationObjectValidator.js", 
-					"/Model/DataSets/PlaceToLocationDataSet.js", 
 					"/ViewModels/Location/LocationFormViewModel.js", 
-					"/ViewModels/PlaceToLocation/PlaceToLocationGridViewModel.js", 
-					"/ViewModels/PlaceToLocation/Filters/PlaceToLocationFilterViewModel.js", 
 					"/Controllers/LocationPageController.js" 
 				], 
 				"MyProfilePage-Page": [
@@ -81,6 +76,9 @@
 					"/Model/DataObjects/PlaceToLocationObject.js", 
 					"/Model/DataObjectValidators/PlaceToLocationObjectValidator.js", 
 					"/Model/DataSets/PlaceToLocationDataSet.js", 
+					"/Model/DataObjects/LocationObject.js", 
+					"/Model/DataObjectValidators/LocationObjectValidator.js", 
+					"/Model/DataSets/LocationDataSet.js", 
 					"/ViewModels/Place/PlaceFormViewModel.js", 
 					"/ViewModels/PlaceToLocation/PlaceToLocationGridViewModel.js", 
 					"/ViewModels/PlaceToLocation/Filters/PlaceToLocationFilterViewModel.js", 
@@ -130,12 +128,7 @@
 					"/Model/DataObjects/LocationObject.js", 
 					"/Model/DataObjectValidators/LocationObjectValidator.js", 
 					"/Model/DataSets/LocationDataSet.js", 
-					"/Model/DataObjects/PlaceToLocationObject.js", 
-					"/Model/DataObjectValidators/PlaceToLocationObjectValidator.js", 
-					"/Model/DataSets/PlaceToLocationDataSet.js", 
-					"/ViewModels/Location/LocationFormViewModel.js", 
-					"/ViewModels/PlaceToLocation/PlaceToLocationGridViewModel.js", 
-					"/ViewModels/PlaceToLocation/Filters/PlaceToLocationFilterViewModel.js" 
+					"/ViewModels/Location/LocationFormViewModel.js" 
 				], 
 				"PlaceForm-Form": [
 					"/Model/DataObjects/PlaceObject.js", 
@@ -144,6 +137,9 @@
 					"/Model/DataObjects/PlaceToLocationObject.js", 
 					"/Model/DataObjectValidators/PlaceToLocationObjectValidator.js", 
 					"/Model/DataSets/PlaceToLocationDataSet.js", 
+					"/Model/DataObjects/LocationObject.js", 
+					"/Model/DataObjectValidators/LocationObjectValidator.js", 
+					"/Model/DataSets/LocationDataSet.js", 
 					"/ViewModels/Place/PlaceFormViewModel.js", 
 					"/ViewModels/PlaceToLocation/PlaceToLocationGridViewModel.js", 
 					"/ViewModels/PlaceToLocation/Filters/PlaceToLocationFilterViewModel.js" 
@@ -152,9 +148,6 @@
 					"/Model/DataObjects/PlaceToLocationObject.js", 
 					"/Model/DataObjectValidators/PlaceToLocationObjectValidator.js", 
 					"/Model/DataSets/PlaceToLocationDataSet.js", 
-					"/Model/DataObjects/PlaceObject.js", 
-					"/Model/DataObjectValidators/PlaceObjectValidator.js", 
-					"/Model/DataSets/PlaceDataSet.js", 
 					"/Model/DataObjects/LocationObject.js", 
 					"/Model/DataObjectValidators/LocationObjectValidator.js", 
 					"/Model/DataSets/LocationDataSet.js", 

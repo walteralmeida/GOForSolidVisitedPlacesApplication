@@ -65,18 +65,18 @@
             <table data-placeholder="gridTable" class="data-grid">
               <thead class="gridControl">
                 <tr>
-                  <th scope="col" data-bind="html: 'Abstract', click: function(data, event){ onHeaderClicked('Abstract') }, css: { 'ui-grid-sort-s':((sortOrder() == 'desc') &amp;&amp; (sortColumnName() == 'Abstract')), 'ui-grid-sort-n':((sortOrder() == 'asc') &amp;&amp; (sortColumnName() == 'Abstract')), 'ui-grid-sort-n-s':(sortColumnName() != 'Abstract') }" class="ui-grid-header-container pointer sortableCol"></th>
-                  <th scope="col" data-bind="html: 'Name', click: function(data, event){ onHeaderClicked('Name') }, css: { 'ui-grid-sort-s':((sortOrder() == 'desc') &amp;&amp; (sortColumnName() == 'Name')), 'ui-grid-sort-n':((sortOrder() == 'asc') &amp;&amp; (sortColumnName() == 'Name')), 'ui-grid-sort-n-s':(sortColumnName() != 'Name') }" class="ui-grid-header-container pointer sortableCol"></th>
-                  <th scope="col" data-bind="html: 'URI', click: function(data, event){ onHeaderClicked('URI') }, css: { 'ui-grid-sort-s':((sortOrder() == 'desc') &amp;&amp; (sortColumnName() == 'URI')), 'ui-grid-sort-n':((sortOrder() == 'asc') &amp;&amp; (sortColumnName() == 'URI')), 'ui-grid-sort-n-s':(sortColumnName() != 'URI') }" class="ui-grid-header-container pointer sortableCol"></th>
+                  <th scope="col" data-bind="html: 'Name'" class="ui-grid-header-container pointer"></th>
+                  <th scope="col" data-bind="html: 'Abstract'" class="ui-grid-header-container pointer"></th>
+                  <th scope="col" data-bind="html: 'URI'" class="ui-grid-header-container pointer"></th>
                 </tr>
               </thead>
               <tbody data-bind="foreach: LocationObjectCollection()">
                 <tr class="pointer" data-bind="attr: {'data-id': Data.InternalObjectId}, click: $parent.onLineClicked, event: {dblclick: $parent.onLineDblClicked}, css: {'currenttr': $parent.selectedId() == Data.InternalObjectId()}">
-                  <td data-bind="html: Data.Abstract" class=" multiline"></td>
                   <td data-bind="jqStopBubble: 'a'">
                     <a data-bind="attr: { href: '#!' + ApplicationController.getRootHashTag('LocationDetails') + 'Locations/LocationDetails/' + GO.Encoding.UrlEncode(Data.URI()), title: Data.Name }, html: Data.Name"></a>
                   </td>
-                  <td data-bind="html: Data.URI" class=" multiline"></td>
+                  <td data-bind="html: Data.Abstract, attr: {title: Data.Abstract}, toggleCssClass: 'ellipsis'" class=" ellipsis"></td>
+                  <td data-bind="html: Data.URILink, jqStopBubble: 'a'"></td>
                 </tr>
               </tbody>
             </table>
