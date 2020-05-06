@@ -195,69 +195,9 @@
 				
 		// Form commands data
 		this.Commands = {
-			EditCommand: function() {
-				self.Edit(true);
-			}, 
-			SaveCommand: function() {
-				self.Save(true);
-			}, 
-			CancelEditCommand: function() {
-				self.CancelEdit(true);
-			} 
       };
 
 		// Form computed command data
-      this.Commands.IsEditCommandVisible = ko.pureComputed(function () {
-			if (self.customViewModel !== undefined && self.customViewModel.IsModifyCommandVisible !== undefined) {
-				return self.customViewModel.IsModifyCommandVisible();
-			}
-
-            return (self.StatusData.DisplayMode() == 'view' && !self.StatusData.IsEmpty() && self.DataStore && self.DataStore.CheckAuthorizationForEntityAndMethod('save')); 
-        });
-        this.Commands.IsModifyCommandVisible = this.Commands.IsEditCommandVisible;
-
-        this.Commands.IsEditCommandEnabled = ko.pureComputed(function () {
-			if (self.customViewModel !== undefined && self.customViewModel.IsModifyCommandEnabled !== undefined) {
-				return self.customViewModel.IsModifyCommandEnabled();
-			}
-
-            return (self.StatusData.DisplayMode() == 'view');
-        });
-        this.Commands.IsModifyCommandEnabled = this.Commands.IsEditCommandEnabled;
-
-		this.Commands.IsCancelEditCommandVisible = ko.pureComputed(function () {
-			if (self.customViewModel !== undefined && self.customViewModel.IsCancelEditCommandVisible !== undefined) {
-				return self.customViewModel.IsCancelEditCommandVisible();
-			}
-
-            return  (self.StatusData.DisplayMode() == 'edit'); 
-        });
-
-        this.Commands.IsCancelEditCommandEnabled = ko.pureComputed(function () {
-			if (self.customViewModel !== undefined && self.customViewModel.IsCancelEditCommandEnabled !== undefined) {
-				return self.customViewModel.IsCancelEditCommandEnabled();
-			}
-
-            return (self.StatusData.DisplayMode() == 'edit');
-        });
-
-      this.Commands.IsSaveCommandVisible = ko.pureComputed(function () {
-			if (self.customViewModel !== undefined && self.customViewModel.IsSaveCommandVisible !== undefined) {
-				return self.customViewModel.IsSaveCommandVisible();
-			}
-
-            return (self.StatusData.DisplayMode() == 'edit' && self.DataStore &&  self.DataStore.CheckAuthorizationForEntityAndMethod('save')); 
-        });
-
-        this.Commands.IsSaveCommandEnabled = ko.pureComputed(function () {
-			if (self.customViewModel !== undefined && self.customViewModel.IsSaveCommandEnabled !== undefined) {
-				return self.customViewModel.IsSaveCommandEnabled();
-			}
-
-            return (self.StatusData.DisplayMode() == 'edit');
-            //return (self.StatusData.DisplayMode() == 'edit' && self.StatusData.IsUIDirty() === true);
-        });
-
 
 		// var generatedIncludes = "";
 		// The server auto-maps the include path if we send the following auto-include-id
@@ -447,7 +387,6 @@
 				}
                 self.closePopup(!preventRebind);
 			}
- 
         };
 
 			
@@ -524,10 +463,6 @@
 			self.controller.ObjectsDataSet.resetContextIdDirty(self.contextId);
 			self.resetValidation();
 
-			if (isCommandCall)
-			{
- 
-			}			
             if (self.StatusData.isPopup())
                 self.closePopup(false);
         };

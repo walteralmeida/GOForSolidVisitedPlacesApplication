@@ -30,8 +30,7 @@
 			this.GOUserFormViewModel = new Solid.Web.ViewModels.GOUserFormViewModel(this, $("#GOUserFormControl"), null, null, this.contextId);		
 			
 			this.UserProfileGridViewModel = new Solid.Web.ViewModels.UserProfileGridViewModel(this, $("#UserProfileGrid"), null, null, this.contextId);		
-			this.UserProfileGridViewModel.include = "UserProfile";	
-
+	
 		// Attach to view models events
 		this.subscriptions.push(this.GOUserFormViewModel.StatusData.IsBusy.subscribe( function (newValue) { self.OnGOUserFormViewModelIsBusyChanged(newValue); }));
 		this.subscriptions.push(this.UserProfileGridViewModel.StatusData.IsBusy.subscribe( function (newValue) { self.OnUserProfileGridViewModelIsBusyChanged(newValue); }));
