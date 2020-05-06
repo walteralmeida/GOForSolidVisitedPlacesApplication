@@ -26,14 +26,19 @@ using Unity;
 using System.Globalization;
 using GenerativeObjects.Practices.LayerSupportClasses.Features.Security.Common;
 using Solid.Feature.Security.Common;
+using Solid.BusinessLayer.ORMSupportClasses;
+using Unity.Attributes;
 
 namespace Solid.Data.DataProviders.Custom
 {
     public class VisitedPlaceDataProvider : DataProvider<VisitedPlaceDataObject>
     {
-        private string GetOriginalUserProfileUriFromFilter(string filterpredicate)
+        [Dependency]
+        public IDataFacade DataFacade { get; set; }
+
+        private string GetPropertyFromFilter(string filterpredicate, string property)
         {
-            var regexp = new Regex("UserProfileUri == \"(.*)\"");
+            var regexp = new Regex($"{property} == \"(.*)\"");
 
             var match = regexp.Match(filterpredicate);
 
@@ -47,7 +52,7 @@ namespace Solid.Data.DataProviders.Custom
 
         private string GetUserBaseUriFromFilter(string filterpredicate)
         {
-            var uri = GetOriginalUserProfileUriFromFilter(filterpredicate);
+            var uri = GetPropertyFromFilter(filterpredicate, "UserProfileUri");
             uri = DataProviderHelper.GetWebIdRootURL(uri);
 
             return uri;
@@ -57,10 +62,28 @@ namespace Solid.Data.DataProviders.Custom
         protected override int DoCount(LambdaExpression securityFilterExpression, string filterPredicate, object[] filterArguments, IObjectsDataSet context, Dictionary<string, object> parameters)
         {
             var userUri = GetUserBaseUriFromFilter(filterPredicate);
+
+            if (userUri == null)
+            {
+                // search all the users registered in application
+                var userNames = DataFacade.GOUserDataProvider.GetCollection(null).Select(u => u.UserName);
+                int count = 0;
+
+                foreach (var userName in userNames)
+                {
+                    var userfilter = $"UserProfileUri == \"{userName}\" && {filterPredicate}";
+                    count += DoCount(securityFilterExpression, userfilter, filterArguments, context, parameters);    
+                }
+
+                return count;
+            }
+
             string visitedPlaceDocumentName = "myvisitedplaces.ttl";
             string visitedPlaceDocumentUri = $"{userUri}/public/{visitedPlaceDocumentName}";
             string tempfile = null;
 
+            var placeUriFilter = GetPropertyFromFilter(filterPredicate, "PlaceURI");
+            var countryUriFilter = GetPropertyFromFilter(filterPredicate, "CountryURI");
 
             try
             {
@@ -74,7 +97,33 @@ namespace Solid.Data.DataProviders.Custom
                 query.Namespaces.AddNamespace("go", new Uri("http://generativeobjects.com/apps#"));
                 query.Namespaces.AddNamespace("schem", new Uri("http://schema.org"));
 
-                query.CommandText = "SELECT count(?visitedplace) AS ?count WHERE { ?visitedplace a go:VisitedPlace } ";
+                if (placeUriFilter == null && countryUriFilter == null)
+                {
+                    query.CommandText = @"SELECT count(?visitedplace) AS ?count 
+                                        WHERE { 
+                                            ?visitedplace a go:VisitedPlace 
+                                        } ";
+                }
+                else if (placeUriFilter != null)
+                {
+                    query.CommandText = @"SELECT count(?visitedplace) AS ?count 
+                                        WHERE { 
+                                            ?visitedplace a go:VisitedPlace  ;
+                                            <http://dbpedia.org/ontology/Place> @PlaceUri .
+                                        } ";
+
+                    query.SetUri("@PlaceUri", new Uri(placeUriFilter));
+                }
+                else
+                {
+                    query.CommandText = @"SELECT count(?visitedplace) AS ?count 
+                                        WHERE { 
+                                            ?visitedplace a go:VisitedPlace  ;
+                                            <http://dbpedia.org/class/yago/WikicatMemberStatesOfTheUnitedNations> @CountryURI .
+                                        } ";
+
+                    query.SetUri("@CountryURI", new Uri(countryUriFilter));
+                }
 
                 var results = (SparqlResultSet)g.ExecuteQuery(query);
 
@@ -201,9 +250,35 @@ namespace Solid.Data.DataProviders.Custom
         protected override DataObjectCollection<VisitedPlaceDataObject> DoGetCollection(LambdaExpression securityFilterExpression, string filterPredicate, object[] filterArguments, string orderByPredicate, int pageNumber, int pageSize, List<string> includes, IObjectsDataSet context, Dictionary<string, object> parameters)
         {
             var userUri = GetUserBaseUriFromFilter(filterPredicate);
+
+            if (userUri == null)
+            {
+                // search all the users registered in application
+                var userNames = DataFacade.GOUserDataProvider.GetCollection(null).Select(u => u.UserName);
+                var toReturn = new DataObjectCollection<VisitedPlaceDataObject>();
+                toReturn.ObjectsDataSet = ApplicationSettings.Container.Resolve<IObjectsDataSet>();
+
+                foreach (var userName in userNames)
+                {
+                    var userfilter = $"UserProfileUri == \"{userName}\" && {filterPredicate}";
+                    var subvisitedplaces = DoGetCollection(securityFilterExpression, userfilter, filterArguments, orderByPredicate, 0, 0, includes, context, parameters);
+
+                    foreach(var subvisitedplace in subvisitedplaces)
+                    {
+                        toReturn.Add(subvisitedplace);
+                    }
+                }
+
+                return toReturn;
+            }
+
+
             string visitedPlaceDocumentName = "myvisitedplaces.ttl";
             string visitedPlaceDocumentUri = $"{userUri}/public/{visitedPlaceDocumentName}";
             string tempfile = null;
+
+            var placeUriFilter = GetPropertyFromFilter(filterPredicate, "PlaceURI");
+            var countryUriFilter = GetPropertyFromFilter(filterPredicate, "CountryURI");
 
             try
             {
@@ -216,7 +291,9 @@ namespace Solid.Data.DataProviders.Custom
 
                 var query = new SparqlParameterizedString();
 
-                query.CommandText = @"SELECT *
+                if (placeUriFilter == null && countryUriFilter == null)
+                {
+                    query.CommandText = @"SELECT *
                                       WHERE 
                                         { 
                                             ?VisitedPlace a <http://generativeobjects.com/apps#VisitedPlace> ; 
@@ -232,10 +309,45 @@ namespace Solid.Data.DataProviders.Custom
                                                 ?VisitedPlace <http://dbpedia.org/class/yago/WikicatMemberStatesOfTheUnitedNations> ?CountryURI .
                                            }
                                         } ";
-                ////<http://dbpedia.org/class/yago/WikicatMemberStatesOfTheUnitedNations> ?CountryURI ;
-                if (pageNumber != 0 || pageSize != 0)
+                    ////<http://dbpedia.org/class/yago/WikicatMemberStatesOfTheUnitedNations> ?CountryURI ;
+                    if (pageNumber != 0 || pageSize != 0)
+                    {
+                        query.CommandText += $"LIMIT {pageSize} OFFSET {(pageNumber - 1) * pageSize}";
+                    }
+                }
+                else if (placeUriFilter != null)
                 {
-                    query.CommandText += $"LIMIT {pageSize} OFFSET {(pageNumber - 1) * pageSize}";
+                    query.CommandText = @"SELECT *
+                                      WHERE 
+                                        { 
+                                            ?VisitedPlace a <http://generativeobjects.com/apps#VisitedPlace> ; 
+                                            <http://dbpedia.org/ontology/Place> @PlaceUri ;
+                                            <http://schema.org/startDate> ?Date;
+                                            <http://schema.org/description> ?Description .
+                                            
+                                            OPTIONAL {
+                                                ?VisitedPlace <http://generativeobjects.com/apps#VisitedPlaceType> ?PlaceOrCountry .
+                                            }
+                                        } ";
+
+                    query.SetUri("@PlaceUri", new Uri(placeUriFilter));
+                }
+                else
+                {
+                    query.CommandText = @"SELECT *
+                                      WHERE 
+                                        { 
+                                            ?VisitedPlace a <http://generativeobjects.com/apps#VisitedPlace> ; 
+                                            <http://dbpedia.org/class/yago/WikicatMemberStatesOfTheUnitedNations> @CountryURI ;
+                                            <http://schema.org/startDate> ?Date;
+                                            <http://schema.org/description> ?Description .
+
+                                            OPTIONAL {
+                                                ?VisitedPlace <http://generativeobjects.com/apps#VisitedPlaceType> ?PlaceOrCountry .
+                                            }
+                                        } ";
+
+                    query.SetUri("@CountryURI", new Uri(countryUriFilter));
                 }
 
                 var results = (SparqlResultSet)g.ExecuteQuery(query);
@@ -246,7 +358,7 @@ namespace Solid.Data.DataProviders.Custom
                 foreach (var result in results)
                 {
                     var visitedPlace = MapSparqlResultToVisitedPlace(result);
-                    visitedPlace.UserProfileUri = GetOriginalUserProfileUriFromFilter(filterPredicate);
+                    visitedPlace.UserProfileUri = GetPropertyFromFilter(filterPredicate, "UserProfileUri");
                     toReturn.Add(visitedPlace);
                 }
 

@@ -52,6 +52,11 @@ namespace Solid.Data.DataProviders.Custom
         
         public static string GetWebIdRootURL(string webid)
         {
+            if (webid == null)
+            {
+                return null;
+            }
+
             if (webid.StartsWith("https"))
             {
                 return webid.Substring(0, webid.IndexOf("/", "https://".Length));

@@ -117,6 +117,10 @@
     </Compile>
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\..\..\GeneratedCode\BusinessLayer\Solid.BusinessLayer.ORMSupportClasses.csproj">
+      <Project>{70E37A60-34C4-4282-ABCC-76C6EE28B92A}</Project>
+      <Name>Solid.BusinessLayer.ORMSupportClasses</Name>
+    </ProjectReference>
     <ProjectReference Include="..\..\..\GeneratedCode\DataLayer\Solid.Data.DataObjects.csproj">
       <Project>{627B81F1-9A5E-4CAB-B153-EDC596BA83F0}</Project>
       <Name>Solid.Data.DataObjects</Name>

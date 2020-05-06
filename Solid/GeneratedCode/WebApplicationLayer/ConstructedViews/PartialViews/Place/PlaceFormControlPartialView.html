@@ -20,48 +20,153 @@
   <div class="no-data-message" data-bind="'visible' : StatusData.IsEmpty()">No Place data available</div>
   <div class="uiContainer" data-bind="'visible' : !StatusData.IsEmpty()" id="PlaceFormData">
     <div class="blocking-element ui-widget-overlay"></div>
-    <div>
-      <div class="basicForm" data-placeholder="formFieldsZone">
-        <div class="form-field view" data-bind="'visible':StatusData.DisplayMode() == 'view' &amp;&amp; StatusData.IsURILinkVisible()" data-test-id="8f8822de-f6f5-4844-92a2-fab501092fde" data-entityfield="urilink-view">
-          <span class="form-field-label-zone" data-bind="'visible':StatusData.DisplayMode() == 'view' &amp;&amp; StatusData.IsURILinkVisible()" data-test-id="label_8f8822de-f6f5-4844-92a2-fab501092fde">
-            <label class="form-field-label">URI</label>
-          </span>
-          <span class="form-field-control-container">
-            <div class="text-field">
-              <span class="form-field-text" data-bind="html: PlaceObject().Data.URILink" data-test-id="view_8f8822de-f6f5-4844-92a2-fab501092fde" />
+    <div class="tabwrapper" id="PlaceForm-tabs" data-bind="jqTab : {onChangeMethod: TabChangedMethod, TabIndex: StatusData.CurrentTabIndex }">
+      <ul class="tabs PlaceForm-tabs">
+        <li data-bind="'visible' : StatusData.IsInformationTabVisible()" data-test-id="tab_link_648150be-cc5d-4ea5-a1d0-4e0728e5c369">
+          <a data-id="PlaceForm-tabs-1" data-bind="html: StatusData.InformationTabTitle()">Information</a>
+        </li>
+        <li data-bind="'visible' : StatusData.IsWhovisitedthisplaceTabVisible()" data-test-id="tab_link_61b510fe-2ae4-416d-98c9-cda47a0aa724">
+          <a data-id="PlaceForm-tabs-2" data-bind="html: StatusData.WhovisitedthisplaceTabTitle()">Who visited this place ?</a>
+        </li>
+      </ul>
+      <div class="clear"></div>
+      <div class="tabs-container">
+        <div class="PlaceForm-tabs-contenu PlaceForm-tabs-1" data-test-id="648150be-cc5d-4ea5-a1d0-4e0728e5c369">
+          <div>
+            <div class="basicForm" data-placeholder="formFieldsZone">
+              <div class="form-field view" data-bind="'visible':StatusData.DisplayMode() == 'view' &amp;&amp; StatusData.IsURILinkVisible()" data-test-id="8f8822de-f6f5-4844-92a2-fab501092fde" data-entityfield="urilink-view">
+                <span class="form-field-label-zone" data-bind="'visible':StatusData.DisplayMode() == 'view' &amp;&amp; StatusData.IsURILinkVisible()" data-test-id="label_8f8822de-f6f5-4844-92a2-fab501092fde">
+                  <label class="form-field-label">URI</label>
+                </span>
+                <span class="form-field-control-container">
+                  <div class="text-field">
+                    <span class="form-field-text" data-bind="html: PlaceObject().Data.URILink" data-test-id="view_8f8822de-f6f5-4844-92a2-fab501092fde" />
+                  </div>
+                </span>
+              </div>
+              <div class="form-field edit" data-bind="'visible':StatusData.DisplayMode() == 'edit' &amp;&amp; StatusData.IsURILinkVisible()" data-test-id="8f8822de-f6f5-4844-92a2-fab501092fde" data-entityfield="urilink-edit">
+                <span class="form-field-label-zone" data-bind="'visible':StatusData.DisplayMode() == 'edit' &amp;&amp; StatusData.IsURILinkVisible()" data-test-id="label_8f8822de-f6f5-4844-92a2-fab501092fde">
+                  <label class="form-field-label">URI</label>
+                </span>
+                <span class="form-field-control-container" data-bind="'enable' : false">
+                  <div class="text-field">
+                    <span class="form-field-text" data-bind="html: PlaceObject().Data.URILink, 'enable' : false" data-test-id="edit_8f8822de-f6f5-4844-92a2-fab501092fde" />
+                  </div>
+                </span>
+              </div>
+              <div class="form-field view optionalField" data-bind="'visible':StatusData.DisplayMode() == 'view' &amp;&amp; StatusData.IsAbstractVisible()" data-test-id="fa11dd6f-7676-4f2d-9934-5de897ece268" data-entityfield="abstract-view">
+                <span class="form-field-label-zone" data-bind="'visible':StatusData.DisplayMode() == 'view' &amp;&amp; StatusData.IsAbstractVisible(), 'css' : { errorText : !PlaceObject().StatusData.isAbstractValid() }" data-test-id="label_fa11dd6f-7676-4f2d-9934-5de897ece268">
+                  <label class="form-field-label">Abstract</label>
+                </span>
+                <span class="form-field-control-container" data-bind="'css' : { errorControl : !PlaceObject().StatusData.isAbstractValid() }">
+                  <div class="text-field multiline">
+                    <textarea class="form-field-text multiline" rows="3" disabled="disabled" data-bind="text: PlaceObject().Data.Abstract, 'css' : { 'errorControl' : !PlaceObject().StatusData.isAbstractValid() }" data-test-id="view_fa11dd6f-7676-4f2d-9934-5de897ece268"></textarea>
+                  </div>
+                </span>
+              </div>
+              <div class="form-field edit optionalField" data-bind="'visible':StatusData.DisplayMode() == 'edit' &amp;&amp; StatusData.IsAbstractVisible()" data-test-id="fa11dd6f-7676-4f2d-9934-5de897ece268" data-entityfield="abstract-edit">
+                <span class="form-field-label-zone" data-bind="'visible':StatusData.DisplayMode() == 'edit' &amp;&amp; StatusData.IsAbstractVisible(), 'css' : { errorText : !PlaceObject().StatusData.isAbstractValid() }" data-test-id="label_fa11dd6f-7676-4f2d-9934-5de897ece268">
+                  <label class="form-field-label">Abstract</label>
+                </span>
+                <span class="form-field-control-container" data-bind="'enable' : !StatusData.IsAbstractReadOnly(), 'css' : { errorControl : !PlaceObject().StatusData.isAbstractValid() }">
+                  <div class="text-field multiline">
+                    <textarea rows="3" class="form-field-text multiline" data-bind="value: PlaceObject().Data.Abstract, 'enable' : !StatusData.IsAbstractReadOnly(), 'css' : { 'errorControl' : !PlaceObject().StatusData.isAbstractValid() }" data-test-id="edit_fa11dd6f-7676-4f2d-9934-5de897ece268" />
+                    <span class="errorDescription" data-bind="'visible' : !PlaceObject().StatusData.isAbstractValid(), text : PlaceObject().StatusData.abstractErrorMessage"></span>
+                  </div>
+                </span>
+              </div>
             </div>
-          </span>
+          </div>
         </div>
-        <div class="form-field edit" data-bind="'visible':StatusData.DisplayMode() == 'edit' &amp;&amp; StatusData.IsURILinkVisible()" data-test-id="8f8822de-f6f5-4844-92a2-fab501092fde" data-entityfield="urilink-edit">
-          <span class="form-field-label-zone" data-bind="'visible':StatusData.DisplayMode() == 'edit' &amp;&amp; StatusData.IsURILinkVisible()" data-test-id="label_8f8822de-f6f5-4844-92a2-fab501092fde">
-            <label class="form-field-label">URI</label>
-          </span>
-          <span class="form-field-control-container" data-bind="'enable' : false">
-            <div class="text-field">
-              <span class="form-field-text" data-bind="html: PlaceObject().Data.URILink, 'enable' : false" data-test-id="edit_8f8822de-f6f5-4844-92a2-fab501092fde" />
-            </div>
-          </span>
+        <div class="PlaceForm-tabs-contenu PlaceForm-tabs-2" data-test-id="61b510fe-2ae4-416d-98c9-cda47a0aa724">
+          <div>
+            <div class="basicForm" data-placeholder="formFieldsZone">
+              <div data-bind="'visible':StatusData.IsVisitedPlaceItemsVisible()" data-test-id="7ce83c72-ccad-469c-80a7-05264f73da19" data-entityfield="visitedplaceitems-view" class="requiredField">
+                <span data-bind="'css' : { errorControl : !PlaceObject().StatusData.isVisitedPlaceItemsValid() }">
+                  <div>
+                    <div class="subgrid-field" data-test-id="view_7ce83c72-ccad-469c-80a7-05264f73da19">
+                      <div><!--
+// This is Generated Code
+// You should not modify this code as it may be overwritten
+// Generated By Generative Objects 
+--> 
+<root>
+  <div class="uiContainer loadingElement" id="PlaceForm-VisitedPlaceItemsGrid" data-test-id="92a90f99-6dd9-4502-ad95-3a392a8f47bf" data-bind="'css': { 'loadingElement': false, 'busy': VisitedPlaceItemsGridViewModel.StatusData.IsBusy(), 'disabled': !VisitedPlaceItemsGridViewModel.StatusData.IsEnabled() }, 'visible': VisitedPlaceItemsGridViewModel.StatusData.IsVisible()">
+    <div class="hideElt" data-bind="css: { hideElt : false }">
+      <div class="busyLine" style="display: none; " data-bind="'visible' : VisitedPlaceItemsGridViewModel.StatusData.IsBusy()">
+        <h2 title=" " data-bind="visible: VisitedPlaceItemsGridViewModel.StatusData.ShowTitle(), html: VisitedPlaceItemsGridViewModel.StatusData.Title()"></h2>
+      </div>
+      <div style="display: none; " data-bind="'visible' : !VisitedPlaceItemsGridViewModel.StatusData.IsBusy()">
+        <h2 title=" " data-bind="visible: VisitedPlaceItemsGridViewModel.StatusData.ShowTitle(), html: VisitedPlaceItemsGridViewModel.StatusData.Title()"></h2>
+      </div>
+      <div class="no-data-message">
+        <span data-bind="'visible' : VisitedPlaceItemsGridViewModel.StatusData.IsEmpty()">No visitor</span>
+        <span data-bind="'visible' : VisitedPlaceItemsGridViewModel.StatusData.IsBusy()">Loading ...</span>
+      </div>
+      <div class="uiContainer">
+        <div class="blocking-element ui-widget-overlay"></div>
+        <div data-bind="'visible' : !VisitedPlaceItemsGridViewModel.StatusData.IsEmpty(),gridWidgetInitializer: VisitedPlaceItemsGridViewModel.gridConfiguration" id="{PARENT}-VisitedPlaceItemsGridViewModel-grid-widget-VisitedPlaceGrid2-">
+          <div class="data-grid-container">
+            <table data-placeholder="gridTable" class="data-grid">
+              <thead class="gridControl">
+                <tr>
+                  <th scope="col" data-bind="html: 'Visitor'" class="ui-grid-header-container pointer"></th>
+                  <th scope="col" data-bind="html: 'Date', click: function(data, event){ VisitedPlaceItemsGridViewModel.onHeaderClicked('Date') }, css: { 'ui-grid-sort-s':((VisitedPlaceItemsGridViewModel.sortOrder() == 'desc') &amp;&amp; (VisitedPlaceItemsGridViewModel.sortColumnName() == 'Date')), 'ui-grid-sort-n':((VisitedPlaceItemsGridViewModel.sortOrder() == 'asc') &amp;&amp; (VisitedPlaceItemsGridViewModel.sortColumnName() == 'Date')), 'ui-grid-sort-n-s':(VisitedPlaceItemsGridViewModel.sortColumnName() != 'Date') }" class="ui-grid-header-container pointer sortableCol"></th>
+                  <th scope="col" data-bind="html: 'Description'" class="ui-grid-header-container pointer"></th>
+                </tr>
+              </thead>
+              <tbody data-bind="foreach: VisitedPlaceItemsGridViewModel.VisitedPlaceObjectCollection()">
+                <tr class="pointer" data-bind="attr: {'data-id': Data.InternalObjectId}, click: $parent.VisitedPlaceItemsGridViewModel.onLineClicked, event: {dblclick: $parent.VisitedPlaceItemsGridViewModel.onLineDblClicked}, css: {'currenttr': $parent.VisitedPlaceItemsGridViewModel.selectedId() == Data.InternalObjectId()}">
+                  <td data-bind="jqStopBubble: 'a'">
+                    <a data-bind="attr: { href: '#!' + ApplicationController.getRootHashTag('UserProfile') + 'Users/UserProfile/' + $parent.VisitedPlaceItemsGridViewModel.getUserProfilePKValuesForUserProfile($data), title: $parent.VisitedPlaceItemsGridViewModel.getUserProfile_NameValue($data) }, html: $parent.VisitedPlaceItemsGridViewModel.getUserProfile_NameValue($data)"></a>
+                  </td>
+                  <td data-bind="html: Data.Date_DisplayString"></td>
+                  <td data-bind="html: Data.Description" class=" multiline"></td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
         </div>
-        <div class="form-field view optionalField" data-bind="'visible':StatusData.DisplayMode() == 'view' &amp;&amp; StatusData.IsAbstractVisible()" data-test-id="fa11dd6f-7676-4f2d-9934-5de897ece268" data-entityfield="abstract-view">
-          <span class="form-field-label-zone" data-bind="'visible':StatusData.DisplayMode() == 'view' &amp;&amp; StatusData.IsAbstractVisible(), 'css' : { errorText : !PlaceObject().StatusData.isAbstractValid() }" data-test-id="label_fa11dd6f-7676-4f2d-9934-5de897ece268">
-            <label class="form-field-label">Abstract</label>
-          </span>
-          <span class="form-field-control-container" data-bind="'css' : { errorControl : !PlaceObject().StatusData.isAbstractValid() }">
-            <div class="text-field multiline">
-              <textarea class="form-field-text multiline" rows="3" disabled="disabled" data-bind="text: PlaceObject().Data.Abstract, 'css' : { 'errorControl' : !PlaceObject().StatusData.isAbstractValid() }" data-test-id="view_fa11dd6f-7676-4f2d-9934-5de897ece268"></textarea>
+      </div>
+      <div class="gridCommandContainer">
+        <div>
+          <div class="horizontalList" data-bind="'visible': !VisitedPlaceItemsGridViewModel.StatusData.IsEmpty() &amp;&amp; VisitedPlaceItemsGridViewModel.StatusData.IsEnabled() &amp;&amp; VisitedPlaceItemsGridViewModel.totalPageNumber() &gt; 1">
+            <div id="{PARENT}-VisitedPlaceItemsGridViewModel-grid-paginator-widget-">
+              <ul class="grid-pagination">
+                <li class="page-numbers page-controls" data-bind="attr: { 'data-pagenumber': 0 }, css: { 'invisible': (VisitedPlaceItemsGridViewModel.pageNumber() &lt; 1 + 2) }, click: function(data, event){VisitedPlaceItemsGridViewModel.gridSettings.methods.paginationClickHandler(data, event)}">
+                  <span class="ui-icon ui-icon-seek-first page-arrows"></span>
+                </li>
+                <li class="page-numbers page-controls" data-bind="attr: { 'data-pagenumber': VisitedPlaceItemsGridViewModel.pageNumber() - 1 }, css: { 'invisible': VisitedPlaceItemsGridViewModel.pageNumber() &lt; 1 }, click: function(data, event){VisitedPlaceItemsGridViewModel.gridSettings.methods.paginationClickHandler(data, event)}">
+                  <span class="ui-icon ui-icon-seek-prev page-arrows"></span>
+                </li>
+                <div data-bind="foreach: VisitedPlaceItemsGridViewModel.pageItems()">
+                  <li data-bind="attr: { 'data-pagenumber': pagenumber }, css: { currentPage: domClass == true }, text: text, click: function(data, event){$parent.VisitedPlaceItemsGridViewModel.gridSettings.methods.paginationClickHandler(data, event)}" class="page-numbers"></li>
+                </div>
+                <li class="page-numbers page-controls" data-bind="attr: { 'data-pagenumber': parseInt(VisitedPlaceItemsGridViewModel.pageNumber(), 10) + parseInt(1, 10) }, css: { 'invisible': VisitedPlaceItemsGridViewModel.pageNumber() &gt;= (VisitedPlaceItemsGridViewModel.totalPageNumber() - 1) }, click: function(data, event){VisitedPlaceItemsGridViewModel.gridSettings.methods.paginationClickHandler(data, event)} ">
+                  <span class="ui-icon ui-icon-seek-next page-arrows"></span>
+                </li>
+                <li class="page-numbers page-controls" data-bind="attr: { 'data-pagenumber': VisitedPlaceItemsGridViewModel.totalPageNumber() - 1 }, css: { 'invisible': VisitedPlaceItemsGridViewModel.pageNumber() &gt;= (VisitedPlaceItemsGridViewModel.totalPageNumber() - (1 + 2)) }, click: function(data, event){VisitedPlaceItemsGridViewModel.gridSettings.methods.paginationClickHandler(data, event)}">
+                  <span class="ui-icon ui-icon-seek-end page-arrows"></span>
+                </li>
+              </ul>
             </div>
-          </span>
+          </div>
+          <div class="grid-count-label" data-bind="'visible' : !VisitedPlaceItemsGridViewModel.StatusData.IsEmpty()">
+            <span class="titleText">Items: </span>
+            <span data-bind="text: GO.FormatNumberWithSpaces(VisitedPlaceItemsGridViewModel.totalCollection())"></span>
+          </div>
         </div>
-        <div class="form-field edit optionalField" data-bind="'visible':StatusData.DisplayMode() == 'edit' &amp;&amp; StatusData.IsAbstractVisible()" data-test-id="fa11dd6f-7676-4f2d-9934-5de897ece268" data-entityfield="abstract-edit">
-          <span class="form-field-label-zone" data-bind="'visible':StatusData.DisplayMode() == 'edit' &amp;&amp; StatusData.IsAbstractVisible(), 'css' : { errorText : !PlaceObject().StatusData.isAbstractValid() }" data-test-id="label_fa11dd6f-7676-4f2d-9934-5de897ece268">
-            <label class="form-field-label">Abstract</label>
-          </span>
-          <span class="form-field-control-container" data-bind="'enable' : !StatusData.IsAbstractReadOnly(), 'css' : { errorControl : !PlaceObject().StatusData.isAbstractValid() }">
-            <div class="text-field multiline">
-              <textarea rows="3" class="form-field-text multiline" data-bind="value: PlaceObject().Data.Abstract, 'enable' : !StatusData.IsAbstractReadOnly(), 'css' : { 'errorControl' : !PlaceObject().StatusData.isAbstractValid() }" data-test-id="edit_fa11dd6f-7676-4f2d-9934-5de897ece268" />
-              <span class="errorDescription" data-bind="'visible' : !PlaceObject().StatusData.isAbstractValid(), text : PlaceObject().StatusData.abstractErrorMessage"></span>
+      </div>
+    </div>
+  </div>
+</root> 
+</div>
+                    </div>
+                  </div>
+                </span>
+              </div>
             </div>
-          </span>
+          </div>
         </div>
       </div>
     </div>
