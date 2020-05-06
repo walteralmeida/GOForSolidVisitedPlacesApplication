@@ -33,6 +33,9 @@
 		this.CountryObject().ObjectsDataSet = this.controller.ObjectsDataSet;
 		this.CurrentObject = ko.pureComputed(function () { return this.CountryObject() }, this);
 
+		// Sub-grids ViewModels
+		this.VisitedPlaceItemsGridViewModel = new Solid.Web.ViewModels.VisitedPlaceGrid1ViewModel(self.controller, null, sDataBindRoot +  "VisitedPlaceItemsGridViewModel", $popupContainer, self.contextId);
+		this.VisitedPlaceItemsGridViewModel.getSourceCollection = function () { return self.CountryObject().getVisitedPlaceItems(); };		
  
 		// Form status data
         this.StatusData = {
@@ -138,6 +141,21 @@
 			return false;
         });
 
+		this.StatusData.IsVisitedPlaceItemsVisible = ko.pureComputed( function () {
+			if (self.customViewModel !== undefined && self.customViewModel.IsVisitedPlaceItemsVisible !== undefined) {
+				return self.customViewModel.IsVisitedPlaceItemsVisible();
+			}
+			
+			return true;
+		});
+
+		this.StatusData.IsVisitedPlaceItemsReadOnly = ko.pureComputed( function () {
+			if (self.customViewModel !== undefined && self.customViewModel.IsVisitedPlaceItemsReadOnly !== undefined) {
+				return self.customViewModel.IsVisitedPlaceItemsReadOnly();
+			}
+			return false;
+        });
+
 		this.StatusData.IsLongNameVisible = ko.pureComputed( function () {
 			if (self.customViewModel !== undefined && self.customViewModel.IsLongNameVisible !== undefined) {
 				return self.customViewModel.IsLongNameVisible();
@@ -198,6 +216,10 @@
 			return false;
         });
 
+		// Propagate Display Mode change to subgrids
+        this.subscriptions.push(this.StatusData.DisplayMode.subscribe (function(newValue) {
+			self.VisitedPlaceItemsGridViewModel.StatusData.DisplayMode(newValue);	
+		}));
 		// Form events data
 		this.Events = {
             CountryLoaded: ko.observable(false),
@@ -315,6 +337,29 @@
 		};
 
 		this.onCountryObjectChanged = function() {
+			
+			// Reload all sub-grids data
+			if (self.CountryObject().Data.IsNew()) {
+				 
+				var theCollection = self.CountryObject().Data.VisitedPlaceItems();
+                self.VisitedPlaceItemsGridViewModel.SetVisitedPlaceObjectCollection( theCollection );
+				self.VisitedPlaceItemsGridViewModel.isMemoryOnlyCollection = true;
+	            self.VisitedPlaceItemsGridViewModel.totalCollection(theCollection !== null ? theCollection.length : 0);
+				self.VisitedPlaceItemsGridViewModel.pageNumber(0);	            
+				self.VisitedPlaceItemsGridViewModel.totalPageNumber(0);
+	        } else {
+
+				
+				self.VisitedPlaceItemsGridViewModel.isMemoryOnlyCollection = false;
+				
+				// Resetting filters
+                self.VisitedPlaceItemsGridViewModel.baseFilterPredicate = 'CountryURI == "' + self.CountryObject().Data.URI() + '"';
+			        self.VisitedPlaceItemsGridViewModel.filterPredicate = self.VisitedPlaceItemsGridViewModel.baseFilterPredicate;
+			    				
+				// Rebinding subgrid
+                self.VisitedPlaceItemsGridViewModel.LoadVisitedPlaceObjectCollection();
+            }
+
  			
 			self.StatusData.IsUIDirty(self.controller.ObjectsDataSet.isContextIdDirty(self.contextId));			
 		};
@@ -402,6 +447,9 @@
 
         this.Modify = function () {
 			GO.log("CountryForm", "Entering modification of CountryObject");
+			
+			// propagate to Sub-Grids
+			self.VisitedPlaceItemsGridViewModel.isMemoryOnlyCollection = true;	
 	        self.SavedData = new Solid.Web.Model.DataObjects.CountryObject();
 			self.SavedData.CopyValuesFrom(self.CountryObject());
 
@@ -569,6 +617,10 @@
 				self.subscriptions[i].dispose();
 			}
 			self.subscriptions = [];
+ 		
+			// Sub-grids ViewModels
+			self.VisitedPlaceItemsGridViewModel.release();
+			self.VisitedPlaceItemsGridViewModel = null;
 			// Cleaning the context if data has been saved already
 			if (!self.isMemoryOnly) {
 				self.controller.ObjectsDataSet.cleanContext(self.contextId);

@@ -6,7 +6,7 @@
 (function (global) {
 	Solid.Web.Application = {
 		contextId : null,
-		buildNumber : 54 
+		buildNumber : 55 
 	};
 } (window));
 

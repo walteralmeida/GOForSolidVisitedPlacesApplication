@@ -73,7 +73,17 @@
         </div>
         <div class="{VIEWNAME}-tabs-contenu {VIEWNAME}-tabs-2" data-test-id="61b510fe-2ae4-416d-98c9-cda47a0aa724">
           <div>
-            <div class="basicForm" data-placeholder="formFieldsZone"></div>
+            <div class="basicForm" data-placeholder="formFieldsZone">
+              <div data-bind="'visible':{DATABINDROOT}StatusData.IsVisitedPlaceItemsVisible()" data-test-id="7ce83c72-ccad-469c-80a7-05264f73da19" data-entityfield="visitedplaceitems-view" class="requiredField">
+                <span data-bind="'css' : { errorControl : !{DATABINDROOT}PlaceObject().StatusData.isVisitedPlaceItemsValid() }">
+                  <div>
+                    <div class="subgrid-field" data-test-id="view_7ce83c72-ccad-469c-80a7-05264f73da19">
+                      <div>{#false,VisitedPlaceItemsGrid,Grid,,VisitedPlace\VisitedPlaceGrid2PartialView.html#}</div>
+                    </div>
+                  </div>
+                </span>
+              </div>
+            </div>
           </div>
         </div>
       </div>

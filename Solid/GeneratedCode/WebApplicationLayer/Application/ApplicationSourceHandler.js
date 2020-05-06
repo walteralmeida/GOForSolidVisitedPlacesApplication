@@ -29,7 +29,15 @@
 					"/Model/DataObjects/CountryObject.js", 
 					"/Model/DataObjectValidators/CountryObjectValidator.js", 
 					"/Model/DataSets/CountryDataSet.js", 
+					"/Model/DataObjects/VisitedPlaceObject.js", 
+					"/Model/DataObjectValidators/VisitedPlaceObjectValidator.js", 
+					"/Model/DataSets/VisitedPlaceDataSet.js", 
+					"/Model/DataObjects/UserProfileObject.js", 
+					"/Model/DataObjectValidators/UserProfileObjectValidator.js", 
+					"/Model/DataSets/UserProfileDataSet.js", 
+					"/Model/DataObjects/PlaceTypesEnum.js", 
 					"/ViewModels/Country/CountryFormViewModel.js", 
+					"/ViewModels/VisitedPlace/VisitedPlaceGrid1ViewModel.js", 
 					"/Controllers/CountryPageController.js" 
 				], 
 				"LocationItemsPage-Page": [
@@ -77,7 +85,15 @@
 					"/Model/DataObjects/PlaceObject.js", 
 					"/Model/DataObjectValidators/PlaceObjectValidator.js", 
 					"/Model/DataSets/PlaceDataSet.js", 
+					"/Model/DataObjects/VisitedPlaceObject.js", 
+					"/Model/DataObjectValidators/VisitedPlaceObjectValidator.js", 
+					"/Model/DataSets/VisitedPlaceDataSet.js", 
+					"/Model/DataObjects/UserProfileObject.js", 
+					"/Model/DataObjectValidators/UserProfileObjectValidator.js", 
+					"/Model/DataSets/UserProfileDataSet.js", 
+					"/Model/DataObjects/PlaceTypesEnum.js", 
 					"/ViewModels/Place/PlaceFormViewModel.js", 
+					"/ViewModels/VisitedPlace/VisitedPlaceGrid2ViewModel.js", 
 					"/Controllers/PlacePageController.js" 
 				], 
 				"UserProfilePage-Page": [
@@ -138,7 +154,15 @@
 					"/Model/DataObjects/CountryObject.js", 
 					"/Model/DataObjectValidators/CountryObjectValidator.js", 
 					"/Model/DataSets/CountryDataSet.js", 
-					"/ViewModels/Country/CountryFormViewModel.js" 
+					"/Model/DataObjects/VisitedPlaceObject.js", 
+					"/Model/DataObjectValidators/VisitedPlaceObjectValidator.js", 
+					"/Model/DataSets/VisitedPlaceDataSet.js", 
+					"/Model/DataObjects/UserProfileObject.js", 
+					"/Model/DataObjectValidators/UserProfileObjectValidator.js", 
+					"/Model/DataSets/UserProfileDataSet.js", 
+					"/Model/DataObjects/PlaceTypesEnum.js", 
+					"/ViewModels/Country/CountryFormViewModel.js", 
+					"/ViewModels/VisitedPlace/VisitedPlaceGrid1ViewModel.js" 
 				], 
 				"GOUserForm-Form": [
 					"/Model/DataObjects/GOUserObject.js", 
@@ -170,7 +194,15 @@
 					"/Model/DataObjects/PlaceObject.js", 
 					"/Model/DataObjectValidators/PlaceObjectValidator.js", 
 					"/Model/DataSets/PlaceDataSet.js", 
-					"/ViewModels/Place/PlaceFormViewModel.js" 
+					"/Model/DataObjects/VisitedPlaceObject.js", 
+					"/Model/DataObjectValidators/VisitedPlaceObjectValidator.js", 
+					"/Model/DataSets/VisitedPlaceDataSet.js", 
+					"/Model/DataObjects/UserProfileObject.js", 
+					"/Model/DataObjectValidators/UserProfileObjectValidator.js", 
+					"/Model/DataSets/UserProfileDataSet.js", 
+					"/Model/DataObjects/PlaceTypesEnum.js", 
+					"/ViewModels/Place/PlaceFormViewModel.js", 
+					"/ViewModels/VisitedPlace/VisitedPlaceGrid2ViewModel.js" 
 				], 
 				"PlaceToLocationForm-Form": [
 					"/Model/DataObjects/PlaceToLocationObject.js", 
