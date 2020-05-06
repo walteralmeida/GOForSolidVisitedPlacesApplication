@@ -83,6 +83,8 @@ namespace Solid.Data.DataObjects
 		
  
 		
+ 
+		
 		#endregion
 		
 		#region initialization
@@ -128,6 +130,7 @@ namespace Solid.Data.DataObjects
 					completed = clone.PlaceObjectInternalIds.TryAdd(keyValue.Key, keyValue.Value);
 				}
 			}
+
 
 
 			
@@ -242,6 +245,7 @@ namespace Solid.Data.DataObjects
 			}
 
 	 
+	 
 		
 		}
 
@@ -289,6 +293,7 @@ namespace Solid.Data.DataObjects
 				}
 				
 		 
+		 
 			}		
 		}
 
@@ -331,6 +336,7 @@ namespace Solid.Data.DataObjects
         }
 
 		 
+		 
 
         public override DataObjectCollection<TDataObject> GetRelatedObjects<TDataObject>(IDataObject rootObject, string relationName)
         {
@@ -338,6 +344,28 @@ namespace Solid.Data.DataObjects
             {
 				IEnumerable< PlaceToLocationDataObject> relatedObjects;					
 				relatedObjects = _rootObjectDataSet.PlaceToLocationObjectsDataSet.GetPlaceToLocationItemsForPlace(rootObject as PlaceDataObject);
+				
+				var result = new DataObjectCollection<TDataObject>();
+				
+				if (relatedObjects != null)
+				{
+                    result.NotifyChanges = false;
+
+					foreach(var relatedObject in relatedObjects)
+						result.Add(relatedObject as TDataObject);
+
+                    result.NotifyChanges = true;
+				}	
+				
+                result.ObjectsDataSet = this._rootObjectDataSet;
+
+				return result;
+			}
+ 
+			if (relationName == "VisitedPlaceItems")
+            {
+				IEnumerable< VisitedPlaceDataObject> relatedObjects;					
+				relatedObjects = _rootObjectDataSet.VisitedPlaceObjectsDataSet.GetVisitedPlaceItemsForPlace(rootObject as PlaceDataObject);
 				
 				var result = new DataObjectCollection<TDataObject>();
 				
@@ -412,6 +440,7 @@ namespace Solid.Data.DataObjects
 
 		public override void ReconstructIndexes()
 		{
+		 
 		 
 		}
 

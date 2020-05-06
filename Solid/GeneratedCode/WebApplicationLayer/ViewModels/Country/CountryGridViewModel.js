@@ -163,7 +163,7 @@
 			if (self.customViewModel && self.customViewModel.Title !== undefined) {
 				return self.customViewModel.Title();
 			}
-			return self.alternateTitle || "Country Items";
+			return self.alternateTitle || "Countries";
 		});
 
 		self.subscriptions.push(this.StatusData.IsEnabled.subscribe(function (newValue) {

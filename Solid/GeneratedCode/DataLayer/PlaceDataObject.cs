@@ -48,6 +48,7 @@ namespace Solid.Data.DataObjects
 	
 		// fields to store relation Ids when relating to new objects (with no PK set yet)
 
+
 		#endregion
 		
 		#region initialization
@@ -76,6 +77,7 @@ namespace Solid.Data.DataObjects
 			this.SetAbstractValue(template.Abstract, false, false);
 			this.SetNameValue(template.Name, false, false);
 			this.SetURIValue(template.URI, false, false);
+ 
  
  
 			this.SetIsNewValue(template.IsNew, false, false);
@@ -116,6 +118,7 @@ namespace Solid.Data.DataObjects
 			this.SetNameValue(placeSource.Name, false, false);
 			this.SetURIValue(placeSource.URI, false, false);
 
+
 			if (deepCopy)
 			{
 				this.ObjectsDataSet = placeSource.ObjectsDataSet.Clone();
@@ -154,6 +157,7 @@ namespace Solid.Data.DataObjects
 
 		public override void UpdateRelatedInternalIds(ConcurrentDictionary<int, int> datasetMergingInternalIdMapping)
         {
+
 
 		}
 
@@ -253,9 +257,102 @@ namespace Solid.Data.DataObjects
             }            
         }
 
+
+		public virtual DataObjectCollection<VisitedPlaceDataObject> LoadVisitedPlaceItems(bool skipSecurity = false)
+		{
+			return LoadVisitedPlaceItems(CurrentTransactionParameters ?? new Parameters(), skipSecurity);
+		}
+
+		public virtual DataObjectCollection<VisitedPlaceDataObject> LoadVisitedPlaceItems(Parameters parameters, bool skipSecurity = false)
+		{
+			// load the collection if not yet loaded
+            if (!__visitedPlaceItemsAlreadyLazyLoaded)
+            {
+				__visitedPlaceItemsAlreadyLazyLoaded = true;
+                var filterPredicate = "PlaceURI == @0";
+                var filterArguments = new object[] { (System.String)this.URI };
+				var result = ApplicationSettings.Container.Resolve<IDataProvider<VisitedPlaceDataObject>>().GetCollection(null, filterPredicate, filterArguments, parameters : parameters, skipSecurity: skipSecurity);
+                // Reference Links are not serialized => should reconstruct them now
+                if (result != null && result.ObjectsDataSet != null) 
+                { 
+                    Merge(result.ObjectsDataSet);
+                }
+            }
+
+			return GetVisitedPlaceItems(false);
+		}
+		
+		private bool __visitedPlaceItemsAlreadyLazyLoaded = false;
+		[JsonProperty]
+		public virtual DataObjectCollection<VisitedPlaceDataObject> VisitedPlaceItems 
+		{
+			get
+			{			
+				return GetVisitedPlaceItems(true);
+			}
+		}
+		
+		public virtual bool ShouldSerializeVisitedPlaceItems()
+		{
+			return ObjectsDataSet != null && ObjectsDataSet.RelationsToInclude != null && ObjectsDataSet.RelationsToInclude.ContainsKey("PlaceDataObject") && ObjectsDataSet.RelationsToInclude["PlaceDataObject"].Contains("VisitedPlaceItems");
+		}
+
+		public virtual DataObjectCollection<VisitedPlaceDataObject> GetVisitedPlaceItems(bool allowLazyLoading)
+		{
+			if (ObjectsDataSet == null)
+				return null;
+
+			// Lazy loading enabled and collection not yet loaded => load the collection
+			if (allowLazyLoading && LazyLoadingEnabled && !__visitedPlaceItemsAlreadyLazyLoaded)
+			{
+				LoadVisitedPlaceItems();
+			}
+			var visitedPlaceItems = ObjectsDataSet.GetRelatedObjects<VisitedPlaceDataObject>(this, "VisitedPlaceItems");							
+			visitedPlaceItems.CollectionChanged += new NotifyCollectionChangedEventHandler(VisitedPlaceItems_CollectionChanged);
+				
+			return visitedPlaceItems;
+		}
+
+        private void VisitedPlaceItems_CollectionChanged(object sender, NotifyCollectionChangedEventArgs e)
+        {
+            switch (e.Action)
+            {
+                case NotifyCollectionChangedAction.Add:
+                    foreach (var item in e.NewItems)
+                    {
+						var relatedObj = item as VisitedPlaceDataObject;
+						if (relatedObj == null)
+						{
+							_logEngine.LogError("Add Event throw an Exception", "Unable to get value of expected related Object : VisitedPlace", "PlaceDataObject.VisitedPlaceItems_CollectionChanged", null);
+							throw new PulpException("Unexpected Error : The Add Event of PlaceDataObject throw an exception while trying to add VisitedPlaceDataObject : NullReference occured");
+						}
+
+						if (this.IsNew)
+						{
+							relatedObj._place_NewObjectId = this.InternalObjectId;
+						}
+						else
+						{
+							relatedObj.PlaceURI = this.URI;
+						}
+ 
+						if (relatedObj.IsNew && relatedObj.PlaceURI == default(System.String))
+							relatedObj.PlaceURI = this.URI;
+                    }
+                    break;
+                case NotifyCollectionChangedAction.Remove:
+                    // foreach (var item in e.OldItems)
+                    // {
+                        //(item as VisitedPlaceDataObject).Place = null;
+                    // }
+                    break;
+            }            
+        }
+
 		public override void ClearLazyLoadFlags()
 		{
 			__placeToLocationItemsAlreadyLazyLoaded = false;
+			__visitedPlaceItemsAlreadyLazyLoaded = false;
 		}
 
 		public override IEnumerable<IDataObject> GetAllRelatedReferencedObjects()
@@ -269,6 +366,8 @@ namespace Solid.Data.DataObjects
 			var result = new List<IDataObject>();
 			if (LoadPlaceToLocationItems() != null)
 				result.AddRange(PlaceToLocationItems);
+			if (LoadVisitedPlaceItems() != null)
+				result.AddRange(VisitedPlaceItems);
 			return result;
 		}
 
@@ -428,6 +527,14 @@ namespace Solid.Data.DataObjects
 			if (GetPlaceToLocationItems(false) != null)
             {
                 foreach (var item in GetPlaceToLocationItems(false))
+                {
+                    item.NotifyPropertyChanged(String.Concat("Place.", propertyName), callers);                    
+                }
+            }
+
+			if (GetVisitedPlaceItems(false) != null)
+            {
+                foreach (var item in GetVisitedPlaceItems(false))
                 {
                     item.NotifyPropertyChanged(String.Concat("Place.", propertyName), callers);                    
                 }

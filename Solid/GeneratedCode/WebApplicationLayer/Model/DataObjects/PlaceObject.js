@@ -29,6 +29,7 @@
 			
 			// Relation	fields (navigators + FK temporary keys observable if needed)
 			PlaceToLocationItems: function () { return self.getPlaceToLocationItems(); },
+ 			VisitedPlaceItems: function () { return self.getVisitedPlaceItems(); },
  		
 			// Other fields
 			Abstract: ko.observable(null),
@@ -64,6 +65,8 @@
 			placeToLocationItemsErrorMessage: ko.observable(null), 
 			isURIValid: ko.observable(true),
 			uRIErrorMessage: ko.observable(null), 
+			isVisitedPlaceItemsValid: ko.observable(true),
+			visitedPlaceItemsErrorMessage: ko.observable(null), 
 			
 			// Used for Custom Validation Rules
 			isPlaceEntityValid: ko.observable(true),
@@ -169,6 +172,14 @@
 			}
 		}
 
+		var visitedPlaceItemsItems = this.Data.VisitedPlaceItems();
+
+		if (visitedPlaceItemsItems !== null && visitedPlaceItemsItems) {
+			for (var i=0; i < visitedPlaceItemsItems.length; i++) {
+				visitedPlaceItemsItems[i].onPropertyChanged("Place." + localPropertyName, callers);
+			}
+		}
+
 		for (var i = 0; i < this.onPropertyChangedHandlers.length; i++) {
 			this.onPropertyChangedHandlers[i](localPropertyName);
 		}
@@ -188,6 +199,38 @@
 
 		
 	Solid.Web.Model.DataObjects.PlaceObject.prototype.onPlaceToLocationItemsChanged = function (change, newitems, olditems, dirtyhandlerOn) {
+        if (change === "add") {
+            for (var i = 0 ; i < newitems.length ;  i++) {
+                if (this.Data.IsNew() === true) {
+                    newitems[i].Data._place_NewObjectId(this.Data.InternalObjectId());
+                } else {
+					newitems[i].Data.PlaceURI(this.Data.URI());
+              }
+            }
+
+			if (newitems.length > 0 && dirtyhandlerOn === true)
+				this.Data.IsDirty(true);
+        }
+        else if (change === "remove") {
+            for (var i = 0 ; i < olditems.length ;  i++) {
+                if ( olditems[i].Data.IsNew() === true) {
+					this.ObjectsDataSet.RemoveObject(olditems[i]);
+                }
+            }
+
+			if (olditems.length > 0 && dirtyhandlerOn === true)
+				this.Data.IsDirty(true);
+        }            
+    };		
+	Solid.Web.Model.DataObjects.PlaceObject.prototype.getVisitedPlaceItems = function () {
+		if (!this.ObjectsDataSet)
+            return null;
+
+		return this.ObjectsDataSet.GetRelatedObjects(this, "VisitedPlaceItems");							
+	};
+
+		
+	Solid.Web.Model.DataObjects.PlaceObject.prototype.onVisitedPlaceItemsChanged = function (change, newitems, olditems, dirtyhandlerOn) {
         if (change === "add") {
             for (var i = 0 ; i < newitems.length ;  i++) {
                 if (this.Data.IsNew() === true) {
@@ -266,7 +309,7 @@
 			// Copy all fields
 			this.Data.URI_OldValue(sourceObject.Data.URI_OldValue());
 			this.Data.URI(sourceObject.Data.URI());
-				this.Data.Abstract(sourceObject.Data.Abstract());
+					this.Data.Abstract(sourceObject.Data.Abstract());
 			this.Data.Name(sourceObject.Data.Name());
 			this.contextIds = sourceObject.contextIds;
 
@@ -419,6 +462,9 @@
 			this.onPropertyChanged("URILink");
 		}
     }
+
+ 
+
 
  
 

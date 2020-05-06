@@ -48,6 +48,10 @@ namespace Solid.Data.DataObjects
 		protected System.String _description;
 		[JsonProperty ("Id")]
 		protected System.Guid _id = Guid.NewGuid();
+		[JsonProperty ("PlaceURI")]
+		protected System.String _placeURI;
+		[JsonProperty ("Typeofplace")]
+		protected PlaceTypesEnum _typeofplace;
 		[JsonProperty ("UserProfileUri")]
 		protected System.String _userProfileUri;
 	
@@ -57,6 +61,15 @@ namespace Solid.Data.DataObjects
 		protected internal virtual int? _country_NewObjectId { get; set; }
         
 		public virtual bool ShouldSerialize_country_NewObjectId()
+        {
+            return ObjectsDataSet != null && ObjectsDataSet.SerializeTechnicalProperties;
+        }
+
+
+		[JsonProperty(DefaultValueHandling = DefaultValueHandling.Ignore)]
+		protected internal virtual int? _place_NewObjectId { get; set; }
+        
+		public virtual bool ShouldSerialize_place_NewObjectId()
         {
             return ObjectsDataSet != null && ObjectsDataSet.SerializeTechnicalProperties;
         }
@@ -101,9 +114,13 @@ namespace Solid.Data.DataObjects
 			this.SetCountryURIValue(template.CountryURI, false, false);
 			this.SetDescriptionValue(template.Description, false, false);
 			this.SetIdValue(template.Id, false, false);
+			this.SetPlaceURIValue(template.PlaceURI, false, false);
+			this.SetTypeofplaceValue(template.Typeofplace, false, false);
 			this.SetUserProfileUriValue(template.UserProfileUri, false, false);
  
 			this._country_NewObjectId = template._country_NewObjectId;
+ 
+			this._place_NewObjectId = template._place_NewObjectId;
  
 			this._userProfile_NewObjectId = template._userProfile_NewObjectId;
  
@@ -145,8 +162,12 @@ namespace Solid.Data.DataObjects
 			this.SetDateValue(visitedPlaceSource.Date, false, false);
 			this.SetDescriptionValue(visitedPlaceSource.Description, false, false);
 			this.SetIdValue(visitedPlaceSource.Id, false, false);
+			this.SetPlaceURIValue(visitedPlaceSource.PlaceURI, false, false);
+			this.SetTypeofplaceValue(visitedPlaceSource.Typeofplace, false, false);
 			this.SetUserProfileUriValue(visitedPlaceSource.UserProfileUri, false, false);
 			this._country_NewObjectId = (sourceObject as VisitedPlaceDataObject)._country_NewObjectId;
+
+			this._place_NewObjectId = (sourceObject as VisitedPlaceDataObject)._place_NewObjectId;
 
 			this._userProfile_NewObjectId = (sourceObject as VisitedPlaceDataObject)._userProfile_NewObjectId;
 
@@ -200,6 +221,18 @@ namespace Solid.Data.DataObjects
 				}
 			}
 
+			if (this._place_NewObjectId != null)
+			{
+				if (!datasetMergingInternalIdMapping.ContainsKey((int) this._place_NewObjectId))
+				{
+                    this._place_NewObjectId = null;
+				}
+                else
+				{
+					this._place_NewObjectId = datasetMergingInternalIdMapping[(int) this._place_NewObjectId];
+				}
+			}
+
 			if (this._userProfile_NewObjectId != null)
 			{
 				if (!datasetMergingInternalIdMapping.ContainsKey((int) this._userProfile_NewObjectId))
@@ -230,12 +263,17 @@ namespace Solid.Data.DataObjects
 
 			if ( !(this.CountryURI == null || ObjectsDataSet == null))
 			{
-				var key = this._country_NewObjectId == null ? new CountryDataObject(this.CountryURI) { IsNew = false } : new CountryDataObject() { IsNew = true, InternalObjectId = this._country_NewObjectId };			
+				var key = this._country_NewObjectId == null ? new CountryDataObject((System.String)this.CountryURI) { IsNew = false } : new CountryDataObject() { IsNew = true, InternalObjectId = this._country_NewObjectId };			
 				existing_country = (CountryDataObject)ObjectsDataSet.GetObject(key);
 			}
 				
 			if (ReferenceEquals(existing_country ,valueToSet))
             {
+                if (valueToSet == null)
+                {
+					_country_NewObjectId = null;
+					_countryURI = null;
+				}
 				return;
             }
 			// Give opportunity to change value before set
@@ -274,7 +312,9 @@ namespace Solid.Data.DataObjects
 			}
 			else
 			{
-				_countryURI = null;
+					_country_NewObjectId = null;
+					_countryURI = null;
+					
 				OnPropertyChanged("CountryURI",notifyChanges, dirtyHandlerOn);
 			}
 			if (!ReferenceEquals(existing_country ,valueToSet))
@@ -293,13 +333,15 @@ namespace Solid.Data.DataObjects
 			if (country != null)
 				return country;
 
+			if (this.CountryURI == null)
+				return null;
 			
-			country = (CountryDataObject)ObjectsDataSet.GetObject(new CountryDataObject(this.CountryURI) { IsNew = false });
+			country = (CountryDataObject)ObjectsDataSet.GetObject(new CountryDataObject((System.String)this.CountryURI) { IsNew = false });
 
             if (country == null && !__countryCurrentLoading)
             {
 				__countryCurrentLoading = true;
-                country = ApplicationSettings.Container.Resolve<IDataProvider<CountryDataObject>>().Get(new CountryDataObject(this.CountryURI), parameters : parameters, skipSecurity: skipSecurity);
+                country = ApplicationSettings.Container.Resolve<IDataProvider<CountryDataObject>>().Get(new CountryDataObject((System.String)this.CountryURI), parameters : parameters, skipSecurity: skipSecurity);
                 SetCountryValue(country, false, false);
 				__countryCurrentLoading = false;
             }
@@ -340,10 +382,12 @@ namespace Solid.Data.DataObjects
 			}
 			else
 			{
+				if (this.CountryURI == null)
+					return null;
 				if (CountryURI == null)
 					country = null;
 				else
-				country = (CountryDataObject)ObjectsDataSet.GetObject(new CountryDataObject(this.CountryURI) { IsNew = false });
+				country = (CountryDataObject)ObjectsDataSet.GetObject(new CountryDataObject((System.String)this.CountryURI) { IsNew = false });
 				
 				if (allowLazyLoading && country == null && LazyLoadingEnabled)
 				{
@@ -360,6 +404,164 @@ namespace Solid.Data.DataObjects
 			set 
 			{	
 				CountryURI = value;
+			}
+			
+		}
+		
+
+      public virtual void SetPlaceValue(PlaceDataObject valueToSet)
+		{
+			SetPlaceValue(valueToSet, true, true);
+		}
+
+        public virtual void SetPlaceValue(PlaceDataObject valueToSet, bool notifyChanges, bool dirtyHandlerOn)
+		{	
+		
+			PlaceDataObject existing_place = null ;
+
+			if ( !(this.PlaceURI == null || ObjectsDataSet == null))
+			{
+				var key = this._place_NewObjectId == null ? new PlaceDataObject((System.String)this.PlaceURI) { IsNew = false } : new PlaceDataObject() { IsNew = true, InternalObjectId = this._place_NewObjectId };			
+				existing_place = (PlaceDataObject)ObjectsDataSet.GetObject(key);
+			}
+				
+			if (ReferenceEquals(existing_place ,valueToSet))
+            {
+                if (valueToSet == null)
+                {
+					_place_NewObjectId = null;
+					_placeURI = null;
+				}
+				return;
+            }
+			// Give opportunity to change value before set
+			OnBeforeSetRelationField("Place", valueToSet);
+					
+			// Setting the navigator desync the FK. The FK should be resync
+			if (!ReferenceEquals(null, valueToSet))
+			{
+				if(ObjectsDataSet == null)
+				{
+					_logEngine.LogError("Unable to set Relation Field", "Unable to set Relation Field, your entity doesn't have a DataSet.", "VisitedPlaceDataObject", null);
+					throw new PulpException("Unable to set Relation fields, your entity doesn't have a DataSet");
+				}
+
+                ObjectsDataSet.AddObjectIfDoesNotExist(valueToSet);
+				
+				if (valueToSet.IsNew)
+				{
+					if (_place_NewObjectId != valueToSet.InternalObjectId)
+					{
+						_place_NewObjectId = valueToSet.InternalObjectId;
+						_placeURI = valueToSet.URI;
+						OnPropertyChanged("PlaceURI",notifyChanges, dirtyHandlerOn);
+					}
+				}
+				else
+				{
+					if (_placeURI != valueToSet.URI)
+					{
+						_place_NewObjectId = null;
+
+						_placeURI = valueToSet.URI;
+						OnPropertyChanged("PlaceURI",notifyChanges, dirtyHandlerOn);
+					}
+				}
+			}
+			else
+			{
+					_place_NewObjectId = null;
+					_placeURI = null;
+					
+				OnPropertyChanged("PlaceURI",notifyChanges, dirtyHandlerOn);
+			}
+			if (!ReferenceEquals(existing_place ,valueToSet))
+				OnPropertyChanged("Place", notifyChanges, dirtyHandlerOn);
+		}
+
+		private bool __placeCurrentLoading = false;
+		public virtual PlaceDataObject LoadPlace(bool skipSecurity = false)
+		{
+			return LoadPlace(CurrentTransactionParameters ?? new Parameters(), skipSecurity);
+		}
+
+		public virtual PlaceDataObject LoadPlace(Parameters parameters, bool skipSecurity = false)
+		{
+			var place = GetPlace(allowLazyLoading: false); 
+			if (place != null)
+				return place;
+
+			if (this.PlaceURI == null)
+				return null;
+			
+			place = (PlaceDataObject)ObjectsDataSet.GetObject(new PlaceDataObject((System.String)this.PlaceURI) { IsNew = false });
+
+            if (place == null && !__placeCurrentLoading)
+            {
+				__placeCurrentLoading = true;
+                place = ApplicationSettings.Container.Resolve<IDataProvider<PlaceDataObject>>().Get(new PlaceDataObject((System.String)this.PlaceURI), parameters : parameters, skipSecurity: skipSecurity);
+                SetPlaceValue(place, false, false);
+				__placeCurrentLoading = false;
+            }
+
+			// Return the object was added to our dataset, not the 'temporary' instance that was loaded via the Get()
+            return place == null ? null : ObjectsDataSet.GetObject(place);
+		}
+		
+		[JsonProperty]
+		public virtual PlaceDataObject Place 
+		{
+			get
+			{			
+				return GetPlace(true);
+			}
+			set
+			{
+				SetPlaceValue(value);
+			}
+		}
+		
+		public virtual bool ShouldSerializePlace()
+		{
+			return ObjectsDataSet != null && ObjectsDataSet.RelationsToInclude != null && ObjectsDataSet.RelationsToInclude.ContainsKey("VisitedPlaceDataObject") && ObjectsDataSet.RelationsToInclude["VisitedPlaceDataObject"].Contains("Place");
+		}
+
+		public virtual PlaceDataObject GetPlace(bool allowLazyLoading)
+		{
+			if (ObjectsDataSet == null)
+				return null;
+
+			PlaceDataObject place;
+
+				
+			if (_place_NewObjectId != null)
+			{
+				place = (PlaceDataObject)ObjectsDataSet.GetObject(new PlaceDataObject() { IsNew = true, InternalObjectId = _place_NewObjectId });
+			}
+			else
+			{
+				if (this.PlaceURI == null)
+					return null;
+				if (PlaceURI == null)
+					place = null;
+				else
+				place = (PlaceDataObject)ObjectsDataSet.GetObject(new PlaceDataObject((System.String)this.PlaceURI) { IsNew = false });
+				
+				if (allowLazyLoading && place == null && LazyLoadingEnabled)
+				{
+					place = LoadPlace();
+				}
+			}
+				
+			return place;
+		}
+
+		public virtual System.String PlaceForeignKey
+		{
+			get { return PlaceURI; }
+			set 
+			{	
+				PlaceURI = value;
 			}
 			
 		}
@@ -521,6 +723,8 @@ namespace Solid.Data.DataObjects
 			var result = new List<IDataObject>();
 			if (LoadCountry() != null)
 				result.Add(Country);
+			if (LoadPlace() != null)
+				result.Add(Place);
 			if (LoadUserProfile() != null)
 				result.Add(UserProfile);
 			return result;
@@ -540,6 +744,8 @@ namespace Solid.Data.DataObjects
 			return
 				UserProfile == other ||
 				(other is UserProfileDataObject && (UserProfileUri != default(System.String)) && (UserProfileUri == (other as UserProfileDataObject).Uri)) || 
+				Place == other ||
+				(other is PlaceDataObject && (PlaceURI != default(System.String)) && (PlaceURI == (other as PlaceDataObject).URI)) || 
 				Country == other ||
 				(other is CountryDataObject && (CountryURI != default(System.String)) && (CountryURI == (other as CountryDataObject).URI)); 
 		}
@@ -585,7 +791,7 @@ namespace Solid.Data.DataObjects
 		/// <summary> The CountryURI property of the VisitedPlace DataObject</summary>
         public virtual System.String CountryURI 
 		{
-			get	{ return _countryURI; }
+			get	{ return String.IsNullOrEmpty(_countryURI) ? null : _countryURI; }
 			
 			
 			set
@@ -700,6 +906,81 @@ namespace Solid.Data.DataObjects
 		}		
 			
 			
+		public virtual void SetPlaceURIValue(System.String valueToSet)
+		{
+			SetPlaceURIValue(valueToSet, true, true);
+		}
+
+		public virtual void SetPlaceURIValue(System.String valueToSet, bool notifyChanges, bool dirtyHandlerOn)
+		{
+			if (_placeURI != valueToSet)
+			{
+				_placeURI = valueToSet;
+
+				// PlaceURI is a FK. Setting its value should result in a event
+				OnPropertyChanged("Place", notifyChanges, dirtyHandlerOn);
+				OnPropertyChanged("PlaceURI", notifyChanges, dirtyHandlerOn);
+			}
+		}
+		
+		/// <summary> The PlaceURI property of the VisitedPlace DataObject</summary>
+        public virtual System.String PlaceURI 
+		{
+			get	{ return String.IsNullOrEmpty(_placeURI) ? null : _placeURI; }
+			
+			
+			set
+			{
+				SetPlaceURIValue(value);
+			}
+		}		
+			
+			
+		public virtual void SetTypeofplaceValue(PlaceTypesEnum valueToSet)
+		{
+			SetTypeofplaceValue(valueToSet, true, true);
+		}
+
+		public virtual void SetTypeofplaceValue(PlaceTypesEnum valueToSet, bool notifyChanges, bool dirtyHandlerOn)
+		{
+			if (_typeofplace != valueToSet)
+			{
+				_typeofplace = valueToSet;
+
+				OnPropertyChanged("Typeofplace", notifyChanges, dirtyHandlerOn);
+				OnPropertyChanged("TypeofplaceDisplayString", notifyChanges, dirtyHandlerOn);
+			}
+		}
+		
+		/// <summary> The Type of place property of the VisitedPlace DataObject</summary>
+        public virtual PlaceTypesEnum Typeofplace 
+		{
+			get	{ return _typeofplace;}
+			
+			
+			set
+			{
+				SetTypeofplaceValue(value);
+			}
+		}		
+      public virtual string TypeofplaceDisplayString
+		{
+			get
+			{
+				return TypeofplaceEnumDisplayNameCollection.Where(v => v.Value == Typeofplace).Single().DisplayString;            
+			}
+		}
+
+	    public virtual List<EnumDisplayString<PlaceTypesEnum>> TypeofplaceEnumDisplayNameCollection
+	    {
+	        get
+	        {
+                return PlaceTypesEnumDisplayNames.Items;
+	        }
+	    }
+		
+			
+			
 		public virtual void SetUserProfileUriValue(System.String valueToSet)
 		{
 			SetUserProfileUriValue(valueToSet, true, true);
@@ -726,6 +1007,20 @@ namespace Solid.Data.DataObjects
 				SetUserProfileUriValue(value);
 			}
 		}		
+			
+		
+		/// <summary> The Visited Place Name property of the VisitedPlace DataObject</summary>
+        public virtual System.String VisitedPlaceName 
+		{
+			get	
+			{ 
+				if (!AreCalculationsEnabled)
+					return default(System.String);
+
+				return ((Typeofplace == Solid.Data.DataObjects.PlaceTypesEnum.Country) ? (Country != null ? Country.Name : "") : (Place != null ? Place.Name : ""));				
+			}
+			
+		}		
 		#endregion
 		
 		#region Business rules implementation
@@ -742,8 +1037,34 @@ namespace Solid.Data.DataObjects
             if (!notifyChanges)
                 return;
 
+			if (propertyName == "Typeofplace")
+			{
+				OnPropertyChanged("VisitedPlaceName", true, dirtyHandlerOn);
+			}
+
+			if (propertyName == "Country.Name")
+			{
+				OnPropertyChanged("VisitedPlaceName", true, dirtyHandlerOn);
+			}
+
+			if (propertyName == "Place.Name")
+			{
+				OnPropertyChanged("VisitedPlaceName", true, dirtyHandlerOn);
+			}
+
+			if (propertyName == "Country")
+			{
+				OnPropertyChanged("VisitedPlaceName", true, dirtyHandlerOn);
+			}
+
+			if (propertyName == "Place")
+			{
+				OnPropertyChanged("VisitedPlaceName", true, dirtyHandlerOn);
+			}
+
 			
 			// Push the notification to related objects
+
 
 
         }		
@@ -772,9 +1093,11 @@ namespace Solid.Data.DataObjects
 			var fieldsComparison = true;
 			fieldsComparison &= this.Id == p.Id;
 			fieldsComparison &= this.UserProfileUri == p.UserProfileUri;
+			fieldsComparison &= this.PlaceURI == p.PlaceURI;
 			fieldsComparison &= this.Description == p.Description;
 			fieldsComparison &= this.CountryURI == p.CountryURI;
 			fieldsComparison &= this.Date == p.Date;
+			fieldsComparison &= this.Typeofplace == p.Typeofplace;
 			return fieldsComparison;
 		}
 

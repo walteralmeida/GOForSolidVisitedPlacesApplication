@@ -72,6 +72,8 @@ namespace Solid.Tests.Api.Tests
 			currentEntity.CountryURI = testData["CountryURI"]?.ToString().Trim() != null ? testData["CountryURI"]?.ToString().Trim().ToString() : null;
 			currentEntity.Date = Convert.ToDateTime(testData["Date"]?.ToString().Trim());
 			currentEntity.Description = testData["Description"]?.ToString().Trim() != null ? testData["Description"]?.ToString().Trim().ToString() : null;
+			currentEntity.PlaceURI = testData["PlaceURI"]?.ToString().Trim() != null ? testData["PlaceURI"]?.ToString().Trim().ToString() : null;
+			currentEntity.Typeofplace = (PlaceTypesEnum) Convert.ToInt32(testData["Type of place"]?.ToString().Trim());
 			currentEntity.UserProfileUri = testData["UserProfileUri"]?.ToString().Trim() != null ? testData["UserProfileUri"]?.ToString().Trim().ToString() : null;
 			var expected_result = ConvertToStatusCode(testData["Result"]);
 			

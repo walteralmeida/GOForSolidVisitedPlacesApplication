@@ -15,7 +15,28 @@
     <div class="blocking-element ui-widget-overlay"></div>
     <div>
       <div class="basicForm" data-placeholder="formFieldsZone">
-        <div class="form-field view requiredField" data-bind="'visible':{DATABINDROOT}StatusData.DisplayMode() == 'view' &amp;&amp; {DATABINDROOT}StatusData.IsCountryVisible()" data-test-id="8aebf247-3ce8-43f2-a4ff-c19562ef14c8" data-entityfield="country-view">
+        <div class="form-field view requiredField" data-bind="'visible':{DATABINDROOT}StatusData.DisplayMode() == 'view' &amp;&amp; {DATABINDROOT}StatusData.IsTypeofplaceVisible()" data-test-id="83bfeb88-53d9-4451-8fee-ca6c14d2f060" data-entityfield="typeofplace-view">
+          <span class="form-field-label-zone" data-bind="'visible':{DATABINDROOT}StatusData.DisplayMode() == 'view' &amp;&amp; {DATABINDROOT}StatusData.IsTypeofplaceVisible(), 'css' : { errorText : !{DATABINDROOT}VisitedPlaceObject().StatusData.isTypeofplaceValid() }" data-test-id="label_83bfeb88-53d9-4451-8fee-ca6c14d2f060">
+            <label class="form-field-label">Type of place</label>
+          </span>
+          <span class="form-field-control-container" data-bind="'css' : { errorControl : !{DATABINDROOT}VisitedPlaceObject().StatusData.isTypeofplaceValid() }">
+            <div class="enum-field">
+              <span data-bind="'text':  {DATABINDROOT}VisitedPlaceObject().Data.TypeofplaceDisplayString, 'css' : { 'errorControl' : !{DATABINDROOT}VisitedPlaceObject().StatusData.isTypeofplaceValid() }" data-test-id="view_83bfeb88-53d9-4451-8fee-ca6c14d2f060" />
+            </div>
+          </span>
+        </div>
+        <div class="form-field edit requiredField" data-bind="'visible':{DATABINDROOT}StatusData.DisplayMode() == 'edit' &amp;&amp; {DATABINDROOT}StatusData.IsTypeofplaceVisible()" data-test-id="83bfeb88-53d9-4451-8fee-ca6c14d2f060" data-entityfield="typeofplace-edit">
+          <span class="form-field-label-zone" data-bind="'visible':{DATABINDROOT}StatusData.DisplayMode() == 'edit' &amp;&amp; {DATABINDROOT}StatusData.IsTypeofplaceVisible(), 'css' : { errorText : !{DATABINDROOT}VisitedPlaceObject().StatusData.isTypeofplaceValid() }" data-test-id="label_83bfeb88-53d9-4451-8fee-ca6c14d2f060">
+            <label class="form-field-label">Type of place</label>
+          </span>
+          <span class="form-field-control-container" data-bind="'enable' : !{DATABINDROOT}StatusData.IsTypeofplaceReadOnly(), 'css' : { errorControl : !{DATABINDROOT}VisitedPlaceObject().StatusData.isTypeofplaceValid() }">
+            <div class="enum-field">
+              <select data-bind="'options': {DATABINDROOT}VisitedPlaceObject().Data.TypeofplaceValues, optionsText: function(item) { return Solid.Web.Model.DataObjects.PlaceTypesEnum[item.selectvalue] }, optionsValue : 'selectvalue', optionsAfterRender : {DATABINDROOT}VisitedPlaceObject().TypeofplaceOptionsAfterRender  , value:  {DATABINDROOT}VisitedPlaceObject().Data.Typeofplace, 'enable' : !{DATABINDROOT}StatusData.IsTypeofplaceReadOnly(), 'css' : { 'errorControl' : !{DATABINDROOT}VisitedPlaceObject().StatusData.isTypeofplaceValid() }" data-test-id="edit_83bfeb88-53d9-4451-8fee-ca6c14d2f060" />
+              <span class="errorDescription" data-bind="'visible' : !{DATABINDROOT}VisitedPlaceObject().StatusData.isTypeofplaceValid(), text : {DATABINDROOT}VisitedPlaceObject().StatusData.typeofplaceErrorMessage"></span>
+            </div>
+          </span>
+        </div>
+        <div class="form-field view optionalField" data-bind="'visible':{DATABINDROOT}StatusData.DisplayMode() == 'view' &amp;&amp; {DATABINDROOT}StatusData.IsCountryVisible()" data-test-id="8aebf247-3ce8-43f2-a4ff-c19562ef14c8" data-entityfield="country-view">
           <span class="form-field-label-zone" data-bind="'visible':{DATABINDROOT}StatusData.DisplayMode() == 'view' &amp;&amp; {DATABINDROOT}StatusData.IsCountryVisible(), 'css' : { errorText : !{DATABINDROOT}VisitedPlaceObject().StatusData.isCountryValid() }" data-test-id="label_8aebf247-3ce8-43f2-a4ff-c19562ef14c8">
             <label class="form-field-label">Country</label>
           </span>
@@ -25,7 +46,7 @@
             </div>
           </span>
         </div>
-        <div class="form-field edit requiredField" data-bind="'visible':{DATABINDROOT}StatusData.DisplayMode() == 'edit' &amp;&amp; {DATABINDROOT}StatusData.IsCountryVisible()" data-test-id="8aebf247-3ce8-43f2-a4ff-c19562ef14c8" data-entityfield="country-edit">
+        <div class="form-field edit optionalField" data-bind="'visible':{DATABINDROOT}StatusData.DisplayMode() == 'edit' &amp;&amp; {DATABINDROOT}StatusData.IsCountryVisible()" data-test-id="8aebf247-3ce8-43f2-a4ff-c19562ef14c8" data-entityfield="country-edit">
           <span class="form-field-label-zone" data-bind="'visible':{DATABINDROOT}StatusData.DisplayMode() == 'edit' &amp;&amp; {DATABINDROOT}StatusData.IsCountryVisible(), 'css' : { errorText : !{DATABINDROOT}VisitedPlaceObject().StatusData.isCountryValid() }" data-test-id="label_8aebf247-3ce8-43f2-a4ff-c19562ef14c8">
             <label class="form-field-label">Country</label>
           </span>
@@ -36,6 +57,30 @@
                 <div class="formEditLookupFieldControl-button" />
               </div>
               <span class="errorDescription" data-bind="'visible' : !{DATABINDROOT}VisitedPlaceObject().StatusData.isCountryValid(), text : {DATABINDROOT}VisitedPlaceObject().StatusData.countryErrorMessage"></span>
+            </div>
+          </span>
+        </div>
+        <div class="form-field view optionalField" data-bind="'visible':{DATABINDROOT}StatusData.DisplayMode() == 'view' &amp;&amp; {DATABINDROOT}StatusData.IsPlaceVisible()" data-test-id="82c38de8-f0f5-4d87-b154-4d03d9b61763" data-entityfield="place-view">
+          <span class="form-field-label-zone" data-bind="'visible':{DATABINDROOT}StatusData.DisplayMode() == 'view' &amp;&amp; {DATABINDROOT}StatusData.IsPlaceVisible(), 'css' : { errorText : !{DATABINDROOT}VisitedPlaceObject().StatusData.isPlaceValid() }" data-test-id="label_82c38de8-f0f5-4d87-b154-4d03d9b61763">
+            <label class="form-field-label">Place</label>
+          </span>
+          <span class="form-field-control-container" data-bind="'css' : { errorControl : !{DATABINDROOT}VisitedPlaceObject().StatusData.isPlaceValid() }">
+            <div class="lookup-field">
+              <span data-bind="'text': {DATABINDROOT}Place_Name, 'css':{ 'errorControl':  !{DATABINDROOT}VisitedPlaceObject().StatusData.isPlaceValid()}" data-test-id="view_82c38de8-f0f5-4d87-b154-4d03d9b61763" />
+            </div>
+          </span>
+        </div>
+        <div class="form-field edit optionalField" data-bind="'visible':{DATABINDROOT}StatusData.DisplayMode() == 'edit' &amp;&amp; {DATABINDROOT}StatusData.IsPlaceVisible()" data-test-id="82c38de8-f0f5-4d87-b154-4d03d9b61763" data-entityfield="place-edit">
+          <span class="form-field-label-zone" data-bind="'visible':{DATABINDROOT}StatusData.DisplayMode() == 'edit' &amp;&amp; {DATABINDROOT}StatusData.IsPlaceVisible(), 'css' : { errorText : !{DATABINDROOT}VisitedPlaceObject().StatusData.isPlaceValid() }" data-test-id="label_82c38de8-f0f5-4d87-b154-4d03d9b61763">
+            <label class="form-field-label">Place</label>
+          </span>
+          <span class="form-field-control-container" data-bind="'enable' : !{DATABINDROOT}StatusData.IsPlaceReadOnly(), 'css' : { errorControl : !{DATABINDROOT}VisitedPlaceObject().StatusData.isPlaceValid() }">
+            <div class="lookup-field">
+              <div class="formEditLookupFieldControl">
+                <input class="formEditLookupFieldControl" data-bind="'value': {DATABINDROOT}Place_Name, 'css':{ 'busy': {DATABINDROOT}isGetPlaceCollectionBusy, 'errorControl':  !{DATABINDROOT}VisitedPlaceObject().StatusData.isPlaceValid()}, 'jqComboBox' : {'datasource': {DATABINDROOT}getPlaceForLookupAutomatic, 'onselectionchanged': {DATABINDROOT}onLookupPlaceChanged, 'currentItem': {DATABINDROOT}Place_lookupItem, 'minLength': {DATABINDROOT}Place_lookupMinLength(), 'lazyLoadCallback': null, 'fitToInput': true}, 'enable' : !{DATABINDROOT}StatusData.IsPlaceReadOnly()" data-test-id="edit_82c38de8-f0f5-4d87-b154-4d03d9b61763" />
+                <div class="formEditLookupFieldControl-button" />
+              </div>
+              <span class="errorDescription" data-bind="'visible' : !{DATABINDROOT}VisitedPlaceObject().StatusData.isPlaceValid(), text : {DATABINDROOT}VisitedPlaceObject().StatusData.placeErrorMessage"></span>
             </div>
           </span>
         </div>

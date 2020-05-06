@@ -84,6 +84,10 @@ namespace Solid.Data.DataObjects
 		public ConcurrentDictionary<System.String, List<int>> Country_FKIndex = new ConcurrentDictionary<System.String, List<int>>();
 		
  
+		// Index to quickly find all VisitedPlace with a given place foreign key
+		public ConcurrentDictionary<System.String, List<int>> Place_FKIndex = new ConcurrentDictionary<System.String, List<int>>();
+		
+ 
 		// Index to quickly find all VisitedPlace with a given userProfile foreign key
 		public ConcurrentDictionary<System.String, List<int>> UserProfile_FKIndex = new ConcurrentDictionary<System.String, List<int>>();
 		
@@ -147,6 +151,21 @@ namespace Solid.Data.DataObjects
 				foreach (var pk in fkKeyValue.Value)
 				{
 					clone.Country_FKIndex[fkKeyValue.Key].Add(pk);
+				}
+			}
+
+			foreach(var fkKeyValue in this.Place_FKIndex)
+			{
+				var iscompleted = false;
+				var count2 = 0;
+				while (!iscompleted && count2++ < 15)
+				{
+					iscompleted = clone.Place_FKIndex.TryAdd(fkKeyValue.Key, new List<int>());
+				}
+
+				foreach (var pk in fkKeyValue.Value)
+				{
+					clone.Place_FKIndex[fkKeyValue.Key].Add(pk);
 				}
 			}
 
@@ -279,33 +298,64 @@ namespace Solid.Data.DataObjects
 			// Update the Country FK Index 
 			if ((objectToAdd as VisitedPlaceDataObject).CountryURI != null)
 			{
-			if (!Country_FKIndex.ContainsKey((objectToAdd as VisitedPlaceDataObject).CountryURI))
-			{
-				var iscompleted = false;
-				var count2 = 0;
-				while (!iscompleted && count2++ < 15)
+				if (!Country_FKIndex.ContainsKey((System.String)(objectToAdd as VisitedPlaceDataObject).CountryURI))
 				{
-					iscompleted = Country_FKIndex.TryAdd((objectToAdd as VisitedPlaceDataObject).CountryURI, new List<int>());
+					var iscompleted = false;
+					var count2 = 0;
+					while (!iscompleted && count2++ < 15)
+					{
+						iscompleted = Country_FKIndex.TryAdd((System.String)(objectToAdd as VisitedPlaceDataObject).CountryURI, new List<int>());
+					}
 				}
-			}
 				
-			if (!Country_FKIndex[(objectToAdd as VisitedPlaceDataObject).CountryURI].Contains(newInternalId))
-				Country_FKIndex[(objectToAdd as VisitedPlaceDataObject).CountryURI].Add(newInternalId);
+				if (!Country_FKIndex[(System.String)(objectToAdd as VisitedPlaceDataObject).CountryURI].Contains(newInternalId))	
+					Country_FKIndex[(System.String)(objectToAdd as VisitedPlaceDataObject).CountryURI].Add(newInternalId);
 
-            CountryDataObject relatedCountry;
-            if ((objectToAdd as VisitedPlaceDataObject)._country_NewObjectId != null)
-            {
-                relatedCountry = _rootObjectDataSet.GetObject(new CountryDataObject() { IsNew = true, InternalObjectId = (objectToAdd as VisitedPlaceDataObject)._country_NewObjectId });
-            }
-            else
-            {
-                relatedCountry = _rootObjectDataSet.GetObject(new CountryDataObject((objectToAdd as VisitedPlaceDataObject).CountryURI) { IsNew = false });
-            }
+	            CountryDataObject relatedCountry;
+	            if ((objectToAdd as VisitedPlaceDataObject)._country_NewObjectId != null)
+	            {
+	                relatedCountry = _rootObjectDataSet.GetObject(new CountryDataObject() { IsNew = true, InternalObjectId = (objectToAdd as VisitedPlaceDataObject)._country_NewObjectId });
+	            }
+	            else
+	            {
+	                relatedCountry = _rootObjectDataSet.GetObject(new CountryDataObject((System.String)(objectToAdd as VisitedPlaceDataObject).CountryURI) { IsNew = false });
+	            }
 
-			if (relatedCountry != null && this.RootObjectDataSet.NotifyChanges)
-                relatedCountry.NotifyPropertyChanged("VisitedPlaceItems", new SeenObjectCollection());
-			
+	            if (relatedCountry != null && this.RootObjectDataSet.NotifyChanges)
+	                relatedCountry.NotifyPropertyChanged("VisitedPlaceItems", new SeenObjectCollection());
 			}
+			
+	 
+			// Update the Place FK Index 
+			if ((objectToAdd as VisitedPlaceDataObject).PlaceURI != null)
+			{
+				if (!Place_FKIndex.ContainsKey((System.String)(objectToAdd as VisitedPlaceDataObject).PlaceURI))
+				{
+					var iscompleted = false;
+					var count2 = 0;
+					while (!iscompleted && count2++ < 15)
+					{
+						iscompleted = Place_FKIndex.TryAdd((System.String)(objectToAdd as VisitedPlaceDataObject).PlaceURI, new List<int>());
+					}
+				}
+				
+				if (!Place_FKIndex[(System.String)(objectToAdd as VisitedPlaceDataObject).PlaceURI].Contains(newInternalId))	
+					Place_FKIndex[(System.String)(objectToAdd as VisitedPlaceDataObject).PlaceURI].Add(newInternalId);
+
+	            PlaceDataObject relatedPlace;
+	            if ((objectToAdd as VisitedPlaceDataObject)._place_NewObjectId != null)
+	            {
+	                relatedPlace = _rootObjectDataSet.GetObject(new PlaceDataObject() { IsNew = true, InternalObjectId = (objectToAdd as VisitedPlaceDataObject)._place_NewObjectId });
+	            }
+	            else
+	            {
+	                relatedPlace = _rootObjectDataSet.GetObject(new PlaceDataObject((System.String)(objectToAdd as VisitedPlaceDataObject).PlaceURI) { IsNew = false });
+	            }
+
+	            if (relatedPlace != null && this.RootObjectDataSet.NotifyChanges)
+	                relatedPlace.NotifyPropertyChanged("VisitedPlaceItems", new SeenObjectCollection());
+			}
+			
 	 
 			// Update the UserProfile FK Index 
 			if ((objectToAdd as VisitedPlaceDataObject).UserProfileUri != null)
@@ -387,36 +437,70 @@ namespace Solid.Data.DataObjects
 			// Delete the Country FK Index 
 				if ((objectToRemove as VisitedPlaceDataObject).CountryURI != null)
 				{
-				if (Country_FKIndex.ContainsKey((objectToRemove as VisitedPlaceDataObject).CountryURI) && Country_FKIndex[(objectToRemove as VisitedPlaceDataObject).CountryURI].Contains((int)objectToRemoveInternalId))
-				{
-					Country_FKIndex[(objectToRemove as VisitedPlaceDataObject).CountryURI].Remove((int)objectToRemoveInternalId);
-
-					if (!Country_FKIndex[(objectToRemove as VisitedPlaceDataObject).CountryURI].Any())
+					if (Country_FKIndex.ContainsKey((System.String)(objectToRemove as VisitedPlaceDataObject).CountryURI) && Country_FKIndex[(System.String)(objectToRemove as VisitedPlaceDataObject).CountryURI].Contains((int)objectToRemoveInternalId))
 					{
-						List<int> outvalue;
-						var iscompleted = false;
-						var count2 = 0;
-						while (!iscompleted  && count2++ < 15)
+						Country_FKIndex[(System.String)(objectToRemove as VisitedPlaceDataObject).CountryURI].Remove((int)objectToRemoveInternalId);
+
+						if (!Country_FKIndex[(System.String)(objectToRemove as VisitedPlaceDataObject).CountryURI].Any())
 						{
-							iscompleted = Country_FKIndex.TryRemove((objectToRemove as VisitedPlaceDataObject).CountryURI, out outvalue);
+							List<int> outvalue;
+							var iscompleted = false;
+							var count2 = 0;
+							while (!iscompleted && count2++ < 15)
+							{
+								iscompleted = Country_FKIndex.TryRemove((System.String)(objectToRemove as VisitedPlaceDataObject).CountryURI, out outvalue);
+							}
 						}
 					}
-				}
-				
-				CountryDataObject relatedCountry;
-	            if ((objectToRemove as VisitedPlaceDataObject)._country_NewObjectId != null)
-	            {
-	                relatedCountry = _rootObjectDataSet.GetObject(new CountryDataObject() { IsNew = true, InternalObjectId = (objectToRemove as VisitedPlaceDataObject)._country_NewObjectId });
-	            }
-	            else
-	            {
-	                relatedCountry = _rootObjectDataSet.GetObject(new CountryDataObject((objectToRemove as VisitedPlaceDataObject).CountryURI) { IsNew = false });
-	            }
 
-	            if (relatedCountry != null && this.RootObjectDataSet.NotifyChanges)
-	                relatedCountry.NotifyPropertyChanged("VisitedPlaceItems", new SeenObjectCollection());
-				
-				}
+					CountryDataObject relatedCountry;
+		            if ((objectToRemove as VisitedPlaceDataObject)._country_NewObjectId != null)
+		            {
+		                relatedCountry = _rootObjectDataSet.GetObject(new CountryDataObject() { IsNew = true, InternalObjectId = (objectToRemove as VisitedPlaceDataObject)._country_NewObjectId });
+		            }
+		            else
+		            {
+		                relatedCountry = _rootObjectDataSet.GetObject(new CountryDataObject((System.String)(objectToRemove as VisitedPlaceDataObject).CountryURI) { IsNew = false });
+		            }
+
+		            if (relatedCountry != null && this.RootObjectDataSet.NotifyChanges)
+		                relatedCountry.NotifyPropertyChanged("VisitedPlaceItems", new SeenObjectCollection());
+					
+				}			
+		 
+			// Delete the Place FK Index 
+				if ((objectToRemove as VisitedPlaceDataObject).PlaceURI != null)
+				{
+					if (Place_FKIndex.ContainsKey((System.String)(objectToRemove as VisitedPlaceDataObject).PlaceURI) && Place_FKIndex[(System.String)(objectToRemove as VisitedPlaceDataObject).PlaceURI].Contains((int)objectToRemoveInternalId))
+					{
+						Place_FKIndex[(System.String)(objectToRemove as VisitedPlaceDataObject).PlaceURI].Remove((int)objectToRemoveInternalId);
+
+						if (!Place_FKIndex[(System.String)(objectToRemove as VisitedPlaceDataObject).PlaceURI].Any())
+						{
+							List<int> outvalue;
+							var iscompleted = false;
+							var count2 = 0;
+							while (!iscompleted && count2++ < 15)
+							{
+								iscompleted = Place_FKIndex.TryRemove((System.String)(objectToRemove as VisitedPlaceDataObject).PlaceURI, out outvalue);
+							}
+						}
+					}
+
+					PlaceDataObject relatedPlace;
+		            if ((objectToRemove as VisitedPlaceDataObject)._place_NewObjectId != null)
+		            {
+		                relatedPlace = _rootObjectDataSet.GetObject(new PlaceDataObject() { IsNew = true, InternalObjectId = (objectToRemove as VisitedPlaceDataObject)._place_NewObjectId });
+		            }
+		            else
+		            {
+		                relatedPlace = _rootObjectDataSet.GetObject(new PlaceDataObject((System.String)(objectToRemove as VisitedPlaceDataObject).PlaceURI) { IsNew = false });
+		            }
+
+		            if (relatedPlace != null && this.RootObjectDataSet.NotifyChanges)
+		                relatedPlace.NotifyPropertyChanged("VisitedPlaceItems", new SeenObjectCollection());
+					
+				}			
 		 
 			// Delete the UserProfile FK Index 
 				if ((objectToRemove as VisitedPlaceDataObject).UserProfileUri != null)
@@ -511,6 +595,23 @@ namespace Solid.Data.DataObjects
 		}
 		 
 		
+		public IEnumerable<VisitedPlaceDataObject> GetVisitedPlaceItemsForPlace(PlaceDataObject placeInstance) 
+		{
+			if (placeInstance.IsNew)
+            {
+			
+              return VisitedPlaceObjects.Where(o => o.Value._place_NewObjectId != null && o.Value._place_NewObjectId == placeInstance.InternalObjectId).Select(o => o.Value);
+			}
+				
+			if (Place_FKIndex.ContainsKey(placeInstance.URI))
+			{
+				return Place_FKIndex[placeInstance.URI].Where(e => VisitedPlaceObjects.ContainsKey(e)).Select(e => VisitedPlaceObjects[e]);
+			}
+			
+			return new DataObjectCollection<VisitedPlaceDataObject>();
+		}
+		 
+		
 		public IEnumerable<VisitedPlaceDataObject> GetVisitedPlaceItemsForUserProfile(UserProfileDataObject userProfileInstance) 
 		{
 			if (userProfileInstance.IsNew)
@@ -530,6 +631,7 @@ namespace Solid.Data.DataObjects
 
         public override DataObjectCollection<TDataObject> GetRelatedObjects<TDataObject>(IDataObject rootObject, string relationName)
         {
+ 
  
  
 			return null;
@@ -617,6 +719,37 @@ namespace Solid.Data.DataObjects
 				}
 					
 				Country_FKIndex[fk].Add((int)item.InternalObjectId);
+			}			
+		 
+			// Reconstruct the Place FK Index 
+			Place_FKIndex = new ConcurrentDictionary< System.String, List<int>>();
+				
+			foreach (var item in VisitedPlaceObjects.Values)
+			{
+				if (item.PlaceURI == null) 
+					continue;				
+				
+				if (item.IsMarkedForDeletion)
+					continue;
+
+				var fk = item.PlaceURI;	
+
+				if (!Place_FKIndex.ContainsKey(fk))
+				{
+					var iscompleted = false;
+					var count2 = 0;
+					while (!iscompleted && count2++ < 15)
+					{
+						iscompleted = Place_FKIndex.TryAdd(fk, new List<int>());
+					}
+				}
+				if(item.InternalObjectId == null)
+				{
+					_logEngine.LogError("Unable to reconstruct indexes.", "An error occured while trying to reconstruct indexes", "VisitedPlaceObjectsDataSet", null);
+					throw new PulpException("Unable to reconstruct indexes.");
+				}
+					
+				Place_FKIndex[fk].Add((int)item.InternalObjectId);
 			}			
 		 
 			// Reconstruct the UserProfile FK Index 

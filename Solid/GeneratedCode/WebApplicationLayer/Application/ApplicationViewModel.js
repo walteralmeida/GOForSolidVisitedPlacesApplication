@@ -22,6 +22,10 @@
 
 		this.navigation = {
 			breadCrumbs : ko.observableArray(),			
+			isVisitedPlaceEnabled : ko.observable(true),
+			isVisitedPlaceVisible : ko.observable(true), 
+			isVisitedPlacesEnabled : ko.observable(true),
+			isVisitedPlacesVisible : ko.observable(true), 
 			isCountryDetailsEnabled : ko.observable(true),
 			isCountryDetailsVisible : ko.observable(true), 
 			isLocationsEnabled : ko.observable(true),
@@ -43,6 +47,8 @@
 		this.navigation.updateMenu = function () {
 			self.updateDefaultNavigationNodeVisibility();
 
+			self.navigation.isVisitedPlaceVisible(self.getNodeVisibility('VisitedPlace'));
+			self.navigation.isVisitedPlacesVisible(self.getNodeVisibility('VisitedPlaces'));
 			self.navigation.isCountryDetailsVisible(self.getNodeVisibility('CountryDetails'));
 			self.navigation.isLocationsVisible(self.getNodeVisibility('Locations'));
 			self.navigation.isUsersVisible(self.getNodeVisibility('Users'));
@@ -53,6 +59,18 @@
 			self.navigation.isCountriesVisible(self.getNodeVisibility('Countries'));
 			
 			// Custom updates (to override generated behavior in case of complex rules)
+			if (self.viewModelCustom !== undefined && self.viewModelCustom.updateIsVisitedPlaceEnabled !== undefined) 
+				self.viewModelCustom.updateIsVisitedPlaceEnabled();
+
+			if (self.viewModelCustom !== undefined && self.viewModelCustom.updateIsVisitedPlaceVisible !== undefined) 
+				self.viewModelCustom.updateIsVisitedPlaceVisible();
+
+			if (self.viewModelCustom !== undefined && self.viewModelCustom.updateIsVisitedPlacesEnabled !== undefined) 
+				self.viewModelCustom.updateIsVisitedPlacesEnabled();
+
+			if (self.viewModelCustom !== undefined && self.viewModelCustom.updateIsVisitedPlacesVisible !== undefined) 
+				self.viewModelCustom.updateIsVisitedPlacesVisible();
+
 			if (self.viewModelCustom !== undefined && self.viewModelCustom.updateIsCountryDetailsEnabled !== undefined) 
 				self.viewModelCustom.updateIsCountryDetailsEnabled();
 
