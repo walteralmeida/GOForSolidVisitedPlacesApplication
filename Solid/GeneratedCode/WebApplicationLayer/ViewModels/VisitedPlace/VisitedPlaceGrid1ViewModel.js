@@ -43,7 +43,7 @@
 	    this.filterParameters = null;
 
 
-		this.include = null;
+		this.include = "UserProfile";
 		this.sortColumnName = ko.observable(null); // rather bind to the oSort object
         this.sortOrder = ko.observable(null); // rather bind to the oSort object
 		this.multiSortOrderBy = "";
@@ -285,6 +285,16 @@
 			if(self.$popupContainer)
 				ApplicationController.centerPopup();
         };
+
+		this.getUserProfile_NameValue = function (data) {
+			return data.getUserProfile() === null ? null : data.getUserProfile().Data.Name();
+		};
+
+		this.getUserProfilePKValuesForUserProfile = function (data) {
+			var uriValue = data.getUserProfile() === null ? null : data.getUserProfile().Data.Uri();
+			uriValue = GO.Encoding.UrlEncode(uriValue);
+			return uriValue;
+		}
 
 
 		this.selectedId = ko.observable(null);

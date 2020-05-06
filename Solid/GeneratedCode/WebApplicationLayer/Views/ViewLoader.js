@@ -9,7 +9,7 @@
         var self = this;
 		// CORDOVA:
 		// var serviceUrl = "./ConstructedViews/";
-		var serviceUrl = Solid.Web.Application.BaseURL + "56/ConstructedViews/";
+		var serviceUrl = Solid.Web.Application.BaseURL + "57/ConstructedViews/";
 
         var loadViewRequest = null;
 
