@@ -215,17 +215,7 @@
       </ul>
     </div>
     <div style="margin-top:20px;" id="Commands" data-bind="visible: !StatusData.IsBusy() &amp;&amp;  StatusData.IsEnabled()">
-      <ul class="nav nav-pills">
-        <li class="horizontalList">
-          <button data-placeholder="commandButtonZone" data-bind="'click': Commands.EditCommand, 'visible': Commands.IsEditCommandVisible(), 'enable': Commands.IsEditCommandEnabled(), 'css' : { 'command-button' : Commands.IsEditCommandEnabled(), 'command-button-disabled' : !Commands.IsEditCommandEnabled() }" data-test-id="90f03e8b-243a-4239-936b-0d7165c871fe">Modify</button>
-        </li>
-        <li class="horizontalList">
-          <button data-placeholder="commandButtonZone" data-bind="'click': Commands.SaveCommand, 'visible': Commands.IsSaveCommandVisible(), 'enable': Commands.IsSaveCommandEnabled(), 'css' : { 'command-button' : Commands.IsSaveCommandEnabled(), 'command-button-disabled' : !Commands.IsSaveCommandEnabled() }" data-test-id="7c0c8ec8-c2c8-41d6-8d5c-c239b76f3756">Save</button>
-        </li>
-        <li class="horizontalList">
-          <button data-placeholder="commandButtonZone" data-bind="'click': Commands.CancelEditCommand, 'visible': Commands.IsCancelEditCommandVisible(), 'enable': Commands.IsCancelEditCommandEnabled(), 'css' : { 'command-button' : Commands.IsCancelEditCommandEnabled(), 'command-button-disabled' : !Commands.IsCancelEditCommandEnabled() }" data-test-id="08b2995b-67b0-47f2-a6cb-2a4c9a17e964">Cancel</button>
-        </li>
-      </ul>
+      <ul class="nav nav-pills" />
     </div>
   </div>
 </div>

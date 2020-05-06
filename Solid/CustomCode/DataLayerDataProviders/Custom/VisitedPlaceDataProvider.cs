@@ -294,6 +294,9 @@ namespace Solid.Data.DataProviders.Custom
 
         protected override VisitedPlaceDataObject DoSave(VisitedPlaceDataObject entity, LambdaExpression securityFilterExpression, List<string> includes, IObjectsDataSet context, Dictionary<string, object> parameters)
         {
+            if (!entity.IsDirty)
+                return entity;
+
             var userUri = DataProviderHelper.GetWebIdRootURL(entity.UserProfileUri);
             string visitedPlaceDocumentName = "myvisitedplaces.ttl";
             string visitedPlaceDocumentUri = $"{userUri}/public/{visitedPlaceDocumentName}";

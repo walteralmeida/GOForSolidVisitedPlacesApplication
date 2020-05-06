@@ -72,7 +72,7 @@ namespace Solid.Data.DataProviders.Custom
             //Make a SELECT query against the Endpoint
             SparqlResultSet results = endpoint.QueryWithResultSet(queryString);
 
-            var result = results.Single();
+            var result = results.FirstOrDefault(); // Should be Single but there is a big on afghanistan
 
             var country = new CountryDataObject();
             var dataset = ApplicationSettings.Container.Resolve<IObjectsDataSet>();
@@ -95,12 +95,9 @@ namespace Solid.Data.DataProviders.Custom
                 var countries = new DataObjectCollection<CountryDataObject>();
                 countries.ObjectsDataSet = ApplicationSettings.Container.Resolve<IObjectsDataSet>();
 
-                foreach (var arg in filterArguments)
+                foreach (var arg in filterArguments[0] as string[])
                 {
-                    if ((arg as string[]).Length == 0)
-                        continue;
-
-                    var uri = (arg as string[])[0];
+                    var uri = arg;
                     var country = DoGet(new CountryDataObject(uri), null, includes, context, parameters);
                     countries.Add(country);
                 }
@@ -126,6 +123,7 @@ namespace Solid.Data.DataProviders.Custom
 
                                 FILTER langMatches(lang(?longName), 'en')
                                 FILTER langMatches(lang(?abstract), 'en')
+                                FILTER (?longName !=  ""font-size:88%;""@en)
                                 }
                                 }
                                 ORDER BY ?countryName

@@ -131,12 +131,9 @@ namespace Solid.Data.DataProviders.Custom
                 var places = new DataObjectCollection<PlaceDataObject>();
                 places.ObjectsDataSet = ApplicationSettings.Container.Resolve<IObjectsDataSet>();
 
-                foreach(var arg in filterArguments)
+                foreach(var arg in filterArguments[0] as string[])
                 {
-                    if ((arg as string[]).Length == 0)
-                        continue;
-
-                    var uri = (arg as string[])[0];
+                    var uri = arg;
                     var place = DoGet(new PlaceDataObject(uri), null, includes, context, parameters);
                     places.Add(place);
                 }
