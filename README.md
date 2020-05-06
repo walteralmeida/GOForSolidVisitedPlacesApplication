@@ -8,4 +8,6 @@ In this talk, he will present his plan and progress for evolving GO in order to 
 
 This code source is fully generated from Generative Objects low-code platform.
 
+You can access a demo instance of this application there : https://solid-demo.generativeobjects.com
+
 I will put more detailed information in this readme in the following days
