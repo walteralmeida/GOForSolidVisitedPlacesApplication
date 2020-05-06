@@ -24,6 +24,8 @@ namespace Solid.Data.DataProviders.Dispatchers
     public class PlaceDataProviderDispatcher : IDataProviderDispatcher<PlaceDataObject>
     {
 		[Dependency]   
+		public IDataProvider<VisitedPlaceDataObject> VisitedPlaceDataProvider { get; set; }        
+		[Dependency]   
 		public IDataProvider<PlaceToLocationDataObject> PlaceToLocationDataProvider { get; set; }        
 
         public void DispatchForEntity(PlaceDataObject entity, List<string> includes, IObjectsDataSet context, Dictionary<string, object> parameters, bool skipSecurity = false)
@@ -50,6 +52,27 @@ namespace Solid.Data.DataProviders.Dispatchers
 
 					switch (relation)
 					{
+                  case "visitedplaceitems":
+							{
+								// custom code can implement IPrefetch<ORMPlace> and add prefetch info through PrefetchAssociations helper => if set, we skip the dispatch-fetch
+								if (prefetches.Contains("VisitedPlaceItems"))
+									break;
+
+								try
+								{
+									var objectToFetch = VisitedPlaceDataProvider.GetCollection(null, String.Format("PlaceURI == \"{0}\"", entity.URI), null, null, 0, 0, subincludes, context, parameters, skipSecurity);
+									if (objectToFetch != null) 
+									{
+										entity.ObjectsDataSet.Merge(objectToFetch.ObjectsDataSet);
+									}
+								}
+								catch (GOServerException e)
+								{
+									if (e.Reason != "accessDenied")
+										throw;
+								}
+								break;
+							}
                   case "placetolocationitems":
 							{
 								// custom code can implement IPrefetch<ORMPlace> and add prefetch info through PrefetchAssociations helper => if set, we skip the dispatch-fetch
@@ -100,6 +123,24 @@ namespace Solid.Data.DataProviders.Dispatchers
 
 					switch (relation)
 					{
+						case "visitedplaceitems":
+                        {
+							// custom code can implement IPrefetch<ORMPlace> and add prefetch info through PrefetchAssociations helper => if set, we skip the dispatch-fetch
+							if (prefetches.Contains("VisitedPlaceItems"))
+								break;
+
+							var filterparameters = new object[] { entities.Select(e => e.URI).Distinct().ToArray() } ; 
+							try
+							{
+								entities.First().ObjectsDataSet.Merge(VisitedPlaceDataProvider.GetCollection(null, "(@0.Contains(outerIt.PlaceURI))", filterparameters, null, 0, 0, subincludes, context, parameters, skipSecurity).ObjectsDataSet);
+							}
+							catch (GOServerException e)
+							{
+								if (e.Reason != "accessDenied")
+									throw;
+							}
+							break;
+						}
 						case "placetolocationitems":
                         {
 							// custom code can implement IPrefetch<ORMPlace> and add prefetch info through PrefetchAssociations helper => if set, we skip the dispatch-fetch

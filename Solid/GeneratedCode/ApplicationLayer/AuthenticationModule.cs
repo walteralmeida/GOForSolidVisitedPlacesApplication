@@ -231,6 +231,9 @@ namespace Solid.ApplicationLayer.HttpModules
 
 			switch (viewName) 
 			{
+				case "VisitedPlacePageView":
+					result.Add("VisitedPlace");
+					break;
 				case "CountryPageView":
 					result.Add("CountryDetails");
 					break;

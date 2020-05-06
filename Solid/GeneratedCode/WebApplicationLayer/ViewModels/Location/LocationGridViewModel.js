@@ -163,7 +163,7 @@
 			if (self.customViewModel && self.customViewModel.Title !== undefined) {
 				return self.customViewModel.Title();
 			}
-			return self.alternateTitle || "Location Items";
+			return self.alternateTitle || "Locations";
 		});
 
 		self.subscriptions.push(this.StatusData.IsEnabled.subscribe(function (newValue) {

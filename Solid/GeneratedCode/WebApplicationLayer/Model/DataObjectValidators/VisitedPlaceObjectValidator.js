@@ -21,17 +21,6 @@
     /***********************************/    
 
 
-	Solid.Web.Model.DataObjects.Validation.VisitedPlaceValidator.validateCountry = function (dataobject) {
-      if(dataobject.Data.Country() == undefined || dataobject.Data.Country() == null || dataobject.Data.Country() === "")
-		{
-			dataobject.StatusData.isCountryValid(false);
-			dataobject.StatusData.countryErrorMessage(Solid.Web.Messages.validationRuleRequiredMessage.replace(/%FIELDNAME%/g, "Country"));
-		}
-		else {
-			dataobject.StatusData.isCountryValid(true);
-		}
-	};
-
 	Solid.Web.Model.DataObjects.Validation.VisitedPlaceValidator.validateDate = function (dataobject) {
       if(dataobject.Data.Date() == undefined || dataobject.Data.Date() == null || dataobject.Data.Date() === "")
 		{
@@ -66,6 +55,17 @@
 		}
 	};
 
+	Solid.Web.Model.DataObjects.Validation.VisitedPlaceValidator.validateTypeofplace = function (dataobject) {
+      if(dataobject.Data.Typeofplace() == undefined || dataobject.Data.Typeofplace() == null || dataobject.Data.Typeofplace() === "")
+		{
+			dataobject.StatusData.isTypeofplaceValid(false);
+			dataobject.StatusData.typeofplaceErrorMessage(Solid.Web.Messages.validationRuleRequiredMessage.replace(/%FIELDNAME%/g, "Type of place"));
+		}
+		else {
+			dataobject.StatusData.isTypeofplaceValid(true);
+		}
+	};
+
 	Solid.Web.Model.DataObjects.Validation.VisitedPlaceValidator.validateUserProfile = function (dataobject) {
       if(dataobject.Data.UserProfile() == undefined || dataobject.Data.UserProfile() == null || dataobject.Data.UserProfile() === "")
 		{
@@ -81,19 +81,6 @@
 	/***************************************/
     /****** VALIDATORS FOR RELATIONS ******/
     /**************************************/
-
-	Solid.Web.Model.DataObjects.Validation.VisitedPlaceValidator.validateCountry = function (dataobject) {
-		var isValid = true;
-		if ((dataobject.Data.CountryURI() === undefined || dataobject.Data.CountryURI() === null || dataobject.Data.CountryURI() === "") && dataobject.Data._country_NewObjectId() === null) {
-			dataobject.StatusData.isCountryValid(false);
-			dataobject.StatusData.countryErrorMessage(Solid.Web.Messages.validationRuleRequiredMessage.replace(/%FIELDNAME%/g, "Country"));
-			isValid = false;
-		}
-		else {
-			dataobject.StatusData.isCountryValid(true);
-			dataobject.StatusData.countryErrorMessage(null);
-		}							
-	};
 
 	Solid.Web.Model.DataObjects.Validation.VisitedPlaceValidator.validateUserProfile = function (dataobject) {
 		var isValid = true;
@@ -126,12 +113,11 @@
 		if(!doContinue)
 			return;
 
-		Solid.Web.Model.DataObjects.Validation.VisitedPlaceValidator.validateCountry (dataobject);
 		Solid.Web.Model.DataObjects.Validation.VisitedPlaceValidator.validateDate (dataobject);
 		Solid.Web.Model.DataObjects.Validation.VisitedPlaceValidator.validateDescription (dataobject);
 		Solid.Web.Model.DataObjects.Validation.VisitedPlaceValidator.validateId (dataobject);
+		Solid.Web.Model.DataObjects.Validation.VisitedPlaceValidator.validateTypeofplace (dataobject);
 		Solid.Web.Model.DataObjects.Validation.VisitedPlaceValidator.validateUserProfile (dataobject);
-		Solid.Web.Model.DataObjects.Validation.VisitedPlaceValidator.validateCountry(dataobject);
 		Solid.Web.Model.DataObjects.Validation.VisitedPlaceValidator.validateUserProfile(dataobject);
 		doContinue = true;
 		if(Solid.Web.Model.DataObjects.Validation.VisitedPlaceValidator.CustomValidator && Solid.Web.Model.DataObjects.Validation.VisitedPlaceValidator.CustomValidator.CustomValidation !== undefined){
@@ -140,9 +126,6 @@
 
 
 		dataobject.StatusData.errorSummary.removeAll();
-	    if (dataobject.StatusData.isCountryValid() === false) {
-			dataobject.StatusData.errorSummary.push(dataobject.StatusData.countryErrorMessage());
-		}
 	    if (dataobject.StatusData.isDateValid() === false) {
 			dataobject.StatusData.errorSummary.push(dataobject.StatusData.dateErrorMessage());
 		}
@@ -152,13 +135,12 @@
 	    if (dataobject.StatusData.isIdValid() === false) {
 			dataobject.StatusData.errorSummary.push(dataobject.StatusData.idErrorMessage());
 		}
+	    if (dataobject.StatusData.isTypeofplaceValid() === false) {
+			dataobject.StatusData.errorSummary.push(dataobject.StatusData.typeofplaceErrorMessage());
+		}
 	    if (dataobject.StatusData.isUserProfileValid() === false) {
 			dataobject.StatusData.errorSummary.push(dataobject.StatusData.userProfileErrorMessage());
 		}
-	        
-		if (dataobject.StatusData.isCountryValid() === false) {
-			dataobject.StatusData.errorSummary.push(dataobject.StatusData.countryErrorMessage());
-		}			
 	        
 		if (dataobject.StatusData.isUserProfileValid() === false) {
 			dataobject.StatusData.errorSummary.push(dataobject.StatusData.userProfileErrorMessage());
@@ -181,8 +163,12 @@
 		dataobject.StatusData.descriptionErrorMessage(null);
 		dataobject.StatusData.isIdValid(true);
 		dataobject.StatusData.idErrorMessage(null);
+		dataobject.StatusData.isTypeofplaceValid(true);
+		dataobject.StatusData.typeofplaceErrorMessage(null);
 		dataobject.StatusData.isCountryValid(true);
 		dataobject.StatusData.countryErrorMessage(null);
+		dataobject.StatusData.isPlaceValid(true);
+		dataobject.StatusData.placeErrorMessage(null);
 		dataobject.StatusData.isUserProfileValid(true);
 		dataobject.StatusData.userProfileErrorMessage(null);
 		

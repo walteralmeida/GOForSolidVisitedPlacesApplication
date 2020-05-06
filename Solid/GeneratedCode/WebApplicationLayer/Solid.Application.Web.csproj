@@ -103,6 +103,9 @@
     <Content Include="Controllers\UsersPageController.js">
       <GeneratedBy>Fenomen</GeneratedBy>
     </Content>
+    <Content Include="Controllers\VisitedPlacePageController.js">
+      <GeneratedBy>Fenomen</GeneratedBy>
+    </Content>
     <Compile Include="dummy.cs">
       <GeneratedBy>Fenomen</GeneratedBy>
     </Compile>
@@ -367,6 +370,9 @@
       <GeneratedBy>Fenomen</GeneratedBy>
     </Content>
     <Content Include="Model\DataObjects\PlaceToLocationObject.js">
+      <GeneratedBy>Fenomen</GeneratedBy>
+    </Content>
+    <Content Include="Model\DataObjects\PlaceTypesEnum.js">
       <GeneratedBy>Fenomen</GeneratedBy>
     </Content>
     <Content Include="Model\DataObjects\UserProfileObject.js">
@@ -1107,6 +1113,9 @@
       <GeneratedBy>Fenomen</GeneratedBy>
     </Content>
     <Content Include="Views\ViewLoader.js">
+      <GeneratedBy>Fenomen</GeneratedBy>
+    </Content>
+    <Content Include="Views\VisitedPlacePageView.html">
       <GeneratedBy>Fenomen</GeneratedBy>
     </Content>
     <Content Include="Widgets\datagrid.js">

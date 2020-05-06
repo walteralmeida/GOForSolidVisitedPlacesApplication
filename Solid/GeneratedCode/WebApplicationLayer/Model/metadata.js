@@ -64,7 +64,7 @@
 				{
 					name: "CountryURI", 
 					dataType: "String",
-					isNullable: false 
+					isNullable: true 
 				},
 				{
 					name: "Date", 
@@ -80,6 +80,16 @@
 					name: "Id", 
 					isPartOfKey: true,
 					dataType: "Guid",
+					isNullable: false 
+				},
+				{
+					name: "PlaceURI", 
+					dataType: "String",
+					isNullable: true 
+				},
+				{
+					name: "Typeofplace", 
+					dataType: "Int16",
 					isNullable: false 
 				},
 				{
@@ -103,6 +113,13 @@
 					foreignKeyNames: ["CountryURI"],
 					entityTypeName: "CountryDataObject",
 					associationName: "VisitedPlaceItems_Country"
+				},				
+				{
+					name: "Place",
+					isScalar: true,
+					foreignKeyNames: ["PlaceURI"],
+					entityTypeName: "PlaceDataObject",
+					associationName: "VisitedPlaceItems_Place"
 				},				
 			]
 		},
@@ -171,6 +188,12 @@
 					isScalar: false,
 					entityTypeName: "PlaceToLocationDataObject",
 					associationName: "Place_PlaceToLocationItems"
+				},				
+				{
+					name: "VisitedPlaceItems",
+					isScalar: false,
+					entityTypeName: "VisitedPlaceDataObject",
+					associationName: "VisitedPlaceItems_Place"
 				},				
 			]
 		},

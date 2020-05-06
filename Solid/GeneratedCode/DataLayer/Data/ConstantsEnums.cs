@@ -192,12 +192,16 @@ namespace Solid.Data
 		Id,
 		///<summary>UserProfileUri. </summary>
 		UserProfileUri,
+		///<summary>PlaceURI. </summary>
+		PlaceURI,
 		///<summary>Description. </summary>
 		Description,
 		///<summary>CountryURI. </summary>
 		CountryURI,
 		///<summary>Date. </summary>
 		Date,
+		///<summary>Typeofplace. </summary>
+		Typeofplace,
 		/// <summary></summary>
 		AmountOfFields
 	}

@@ -24,6 +24,7 @@
 
 		this.DataStore = new Solid.Web.Model.DataStores.DataStore(controller.applicationController.ObjectsDataSet, 'visitedplace');
 		// Related Data Stores
+		this.DataStorePlace = new Solid.Web.Model.DataStores.DataStore(new Solid.Web.Model.DataSets.ObjectsDataSet(), 'place');
 		this.DataStoreCountry = new Solid.Web.Model.DataStores.DataStore(new Solid.Web.Model.DataSets.ObjectsDataSet(), 'country');
 
  
@@ -37,6 +38,8 @@
 		
 		this.CallAfterSaveRelatedEntity = null;
 			// Lookup fields display fields
+		this.Place_Name = ko.observable(null);
+		this.Place_lookupItem = ko.observable(null); //Storing current selected item for this lookupfield
 		this.Country_Name = ko.observable(null);
 		this.Country_lookupItem = ko.observable(null); //Storing current selected item for this lookupfield
  
@@ -107,17 +110,47 @@
 			}
 		}));
 
-		this.StatusData.IsCountryVisible = ko.pureComputed( function () {
-			if (self.customViewModel !== undefined && self.customViewModel.IsCountryVisible !== undefined) {
-				return self.customViewModel.IsCountryVisible();
+		this.StatusData.IsTypeofplaceVisible = ko.pureComputed( function () {
+			if (self.customViewModel !== undefined && self.customViewModel.IsTypeofplaceVisible !== undefined) {
+				return self.customViewModel.IsTypeofplaceVisible();
 			}
 			
 			return true;
 		});
 
+		this.StatusData.IsTypeofplaceReadOnly = ko.pureComputed( function () {
+			if (self.customViewModel !== undefined && self.customViewModel.IsTypeofplaceReadOnly !== undefined) {
+				return self.customViewModel.IsTypeofplaceReadOnly();
+			}
+			return false;
+        });
+
+		this.StatusData.IsCountryVisible = ko.pureComputed( function () {
+			if (self.customViewModel !== undefined && self.customViewModel.IsCountryVisible !== undefined) {
+				return self.customViewModel.IsCountryVisible();
+			}
+			
+			return self.VisitedPlaceObject().StatusData.IsCountryVisible();
+		});
+
 		this.StatusData.IsCountryReadOnly = ko.pureComputed( function () {
 			if (self.customViewModel !== undefined && self.customViewModel.IsCountryReadOnly !== undefined) {
 				return self.customViewModel.IsCountryReadOnly();
+			}
+			return false;
+        });
+
+		this.StatusData.IsPlaceVisible = ko.pureComputed( function () {
+			if (self.customViewModel !== undefined && self.customViewModel.IsPlaceVisible !== undefined) {
+				return self.customViewModel.IsPlaceVisible();
+			}
+			
+			return self.VisitedPlaceObject().StatusData.IsPlaceVisible();
+		});
+
+		this.StatusData.IsPlaceReadOnly = ko.pureComputed( function () {
+			if (self.customViewModel !== undefined && self.customViewModel.IsPlaceReadOnly !== undefined) {
+				return self.customViewModel.IsPlaceReadOnly();
 			}
 			return false;
         });
@@ -271,7 +304,7 @@
             // Empty method, can be overwritten in custom field if you want to add specific behavior when picking a newDate
         };
 		
-		// var generatedIncludes = "Country";
+		// var generatedIncludes = "Place,Country";
 		// The server auto-maps the include path if we send the following auto-include-id
 		this.include = "auto-include-id-4f98d10b-88f5-430f-8f3e-ce855171c63b";
 		// Popups management
@@ -336,6 +369,197 @@
 
 		// Related data popups
 		// Related data collections
+		this.Place_lookupMethod = null; //set on loadData
+		this.Place_lookupThreshold = 100; // Threshold for automatic switch
+		this.Place_lookupMinLength = ko.observable(0);
+		this.placeCollection = ko.observableArray();
+		this.PlaceContextId = this.contextId.concat([this.controller.applicationController.getNextContextId()]);
+
+		this.clearPlaceCollection = function() {
+			for (var i = 0; i < self.placeCollection.length; i++) {
+				if (self.placeCollection[i].Data.IsNew() == true) {
+					self.controller.ObjectsDataSet.RemoveObject(self.placeCollection[i]);
+				}				
+			}
+            
+            self.placeCollection.removeAll();		
+		};
+
+		// Give custom code opportunity to post-process / filter place collection before adding to lookup
+		this.includePlaceInLookup = function (place) {
+		    if (self.customViewModel !== undefined && self.customViewModel.includePlaceInLookup !== undefined) {
+		        return self.customViewModel.includePlaceInLookup(place);
+		    }
+
+		    return true;
+		}
+
+		this.setPlaceCollection = function (data) {
+			self.clearPlaceCollection();
+			            
+			var currentSelectedIsInList = false;
+
+			if (data) {
+				for (var i=0; i < data.length; i++) {
+					if (self.includePlaceInLookup(data[i])) {                		
+						self.placeCollection.push(data[i]);
+					
+						if (self.Place_lookupItem() !== null && self.Place_lookupItem().value !== null && self.Place_lookupItem().value.Data.URI() == data[i].Data.URI()) {
+                			currentSelectedIsInList = true;
+                		}
+					}
+				}
+
+				// If the current item is not in 
+				if(self.Place_lookupItem() !== null && self.Place_lookupItem().value !== null && !currentSelectedIsInList) {
+					self.placeCollection.push(self.Place_lookupItem().value);
+					currentSelectedIsInList = true;
+				}
+				
+				// For autocomplete mode, we need to check that the current item is not null before emptying
+				if (self.Place_lookupItem() !== null && self.Place_lookupItem().value !== null && currentSelectedIsInList == false) {
+					self.Place_lookupItem({ label: "", value: null, selectable: true });
+				}
+            }
+		};
+
+		this.getLookupAddItemLabelTextForPlace = function (){
+			return Solid.Web.Messages.addItemLabel;
+		}
+
+		this.constructPlaceArrayFlatForLookup = function () {
+             var result = [], l = self.placeCollection().length;
+			 var emptyItem = { label: Solid.Web.Messages.noAvailableDataLabel, value: '', selectable: false}
+
+			 if (l === 0 && !!self.getLookupAddItemLabelTextForPlace()) {
+		        result.push(emptyItem);
+		        return result;
+		    }
+
+            for (var i=0; i < l; i++) {				
+				result.push( { label : self.placeCollection()[i].Data.Name(), value : self.placeCollection()[i], selectable: true } );				
+            }
+ 
+			result = result.sort(function (left, right) {
+				return left.label == right.label ? 0 : left.label < right.label ? -1 : 1;
+            });
+			return result;
+		};
+		this.getPlaceCollectionData = function (callback) {
+			self.isGetPlaceCollectionBusy(true);	
+					
+			var configuration = {};
+			configuration.contextId = self.PlaceContextId;
+			configuration.successHandler = callback || self.onGetPlaceCollectionDataSuccess;
+
+			configuration.errorHandler = self.onGetPlaceCollectionDataError;
+
+			self.DataStorePlace.LoadObjectCollection(configuration);
+			
+		};
+
+		this.getPlaceCollectionOneLevel = function (request, response) {
+                response($.ui.autocomplete.filter(self.constructPlaceArrayFlatForLookup(), request.term));
+        };	
+		this.getFilteredPlaceCollectionData = function (searchValue, callback) {
+					
+			var configuration = {};
+			configuration.contextId = self.PlaceContextId;
+			configuration.filterPredicate = 'Name.Contains("' + searchValue + '")';
+			configuration.pageSize = 50;
+			configuration.pageNumber = 1;
+			configuration.successHandler = callback;
+
+			configuration.errorHandler = self.onGetPlaceCollectionDataError;
+
+			self.DataStorePlace.LoadObjectCollection(configuration);
+			
+		};
+
+		this.getPlaceAutoComplete = function (request, response) {
+            self.getFilteredPlaceCollectionData(request.term, function (data) {
+                self.setPlaceCollection(data);
+                response(self.constructPlaceArrayFlatForLookup());
+            });
+        };
+
+
+		// This method is called when the user selects an item in the lookup field
+		// It is used to add custom behavior and then calls the next method onSelectedPlaceChanged 
+		// which deals with the change internally
+		this.onLookupPlaceChanged = function (item) {
+		    var doContinue = true;
+		    if (self.customViewModel !== undefined && self.customViewModel.onLookupPlaceChanged !== undefined) {
+		        doContinue = self.customViewModel.onLookupPlaceChanged(item);
+		    }
+		    if (doContinue) {
+ 
+				if (item.value !== null) {		
+					self.controller.ObjectsDataSet.AddOrReplaceObject(item.value.Clone());
+				}
+
+		        self.onSelectedPlaceChanged(item.value);
+		    }
+		};
+
+		// Update when lookup selection changed
+		this.onSelectedPlaceChanged = function (selectedObject)  {
+ 
+			if (selectedObject == null) {
+				self.VisitedPlaceObject().Data.PlaceURI(null);
+				self.VisitedPlaceObject().Data._place_NewObjectId(null); 
+			}
+			else if (selectedObject.Data.IsNew() === false) {
+				self.VisitedPlaceObject().Data.PlaceURI(selectedObject.Data.URI());
+			}
+			else {
+				self.VisitedPlaceObject().Data._place_NewObjectId(selectedObject.Data.InternalObjectId());
+			}
+
+		};
+
+		//Specific functions for Automatic load
+		this.countPlaceElements = function (callback) {
+			var configuration = {};
+			configuration.contextId = self.PlaceContextId;
+			
+			configuration.successHandler = callback;
+			configuration.errorHandler = function() { callback(0); };
+
+			self.DataStorePlace.CountObjects(configuration);
+		};
+
+		this.getPlaceForLookupAutomatic = function(request, response)  {
+			self.Place_lookupMethod && self.Place_lookupMethod(request, response);
+		};
+
+		this.selectiveLoadDataForPlace = function() {
+			self.countPlaceElements(function (data) {
+                if (data > self.Place_lookupThreshold) {
+                    self.Place_lookupMethod = self.getPlaceAutoComplete;
+                    self.Place_lookupMinLength(2);
+                } else {                   
+                    self.getPlaceCollectionData();
+                    self.Place_lookupMethod = self.getPlaceCollectionOneLevel;
+                    self.Place_lookupMinLength(0);
+                }
+            });
+		};
+
+
+	
+		// Related data collections loaders
+		this.onGetPlaceCollectionDataSuccess = function (data) {
+			self.setPlaceCollection(data);					
+			self.isGetPlaceCollectionBusy(false);
+		};
+
+		this.onGetPlaceCollectionDataError = function (error) {
+			self.ShowError(error);
+			self.isGetPlaceCollectionBusy(false);
+		};
+		
+        this.isGetPlaceCollectionBusy = ko.observable(false);
 		this.countryCollection = ko.observableArray();
 		this.CountryContextId = this.contextId.concat([this.controller.applicationController.getNextContextId()]);
 
@@ -474,6 +698,7 @@
 		
         this.isGetCountryCollectionBusy = ko.observable(false);
 		this.loadRelatedData = function () {
+			self.selectiveLoadDataForPlace();
 			self.getCountryCollectionData();
 		};
 
@@ -516,12 +741,24 @@
 			
 			// Reload all lookup fields related data
 			self.rebindLookups();
+			
+			// Rebind enums
+			self.rebindEnumerations();
  			
 			self.StatusData.IsUIDirty(self.controller.ObjectsDataSet.isContextIdDirty(self.contextId));			
 		};
 
  
 		this.rebindLookups = function() {
+			var relatedPlace = self.VisitedPlaceObject().getPlace();
+			var relatedPlace_RelatedElementDisplayField = self.VisitedPlaceObject().getPlace() === null ? null : self.VisitedPlaceObject().getPlace().Data.Name();
+            if (relatedPlace !== null && relatedPlace_RelatedElementDisplayField !== null) {
+            	self.Place_Name(relatedPlace_RelatedElementDisplayField);
+				self.Place_lookupItem({ label: relatedPlace_RelatedElementDisplayField, value: relatedPlace, selectable: true});
+			} else {
+				self.Place_lookupItem({ label: "", value: null});
+            	self.Place_Name(null);
+			}
 			var relatedCountry = self.VisitedPlaceObject().getCountry();
 			var relatedCountry_RelatedElementDisplayField = self.VisitedPlaceObject().getCountry() === null ? null : self.VisitedPlaceObject().getCountry().Data.Name();
             if (relatedCountry !== null && relatedCountry_RelatedElementDisplayField !== null) {
@@ -533,6 +770,11 @@
 			}
 		}
 		
+		this.rebindEnumerations = function() {
+			if (self.customViewModel !== undefined && self.customViewModel.rebindEnumerations !== undefined) {
+				return self.customViewModel.rebindEnumerations();
+			}	
+		}
         this.GetVisitedPlaceObject = function () {
             return self.VisitedPlaceObject();
         };
@@ -597,6 +839,15 @@
  
         };
 
+			
+		this.selectPlaceLookupField = function(relatedObject) { 
+			if(relatedObject._objectType === 'Place') {
+				self.Place_Name(relatedObject.Data.Name());
+				self.Place_lookupItem({label: relatedObject.Data.Name(), value:relatedObject});
+			}
+			self.CallAfterSaveRelatedEntity = null;// reset the value
+			return true; // Prevent rebind in the PopupCaller (this lookup is displayed only in edit mode)
+		};
 			
 		this.selectCountryLookupField = function(relatedObject) { 
 			if(relatedObject._objectType === 'Country') {
@@ -696,6 +947,7 @@
 			self.SetVisitedPlaceObject(objectToAdd);
 
 
+			self.clearPlaceCollection();
 			self.clearCountryCollection();
 			
 			self.StatusData.DisplayMode('edit');
@@ -793,6 +1045,8 @@
 			self.DataStore = null;
 
 			// Related Data Stores 
+			delete self.DataStorePlace.dataSet;
+			self.DataStorePlace = null;
 			delete self.DataStoreCountry.dataSet;
 			self.DataStoreCountry = null;
             // Cleaning references to subscriptions & handlers
@@ -804,6 +1058,8 @@
 			self.subscriptions = [];
  
 			// Lookup fields
+			this.Place_Name = ko.observable(null);
+			this.Place_lookupItem = ko.observable(null);
 			this.Country_Name = ko.observable(null);
 			this.Country_lookupItem = ko.observable(null);
 			// Cleaning the context if data has been saved already

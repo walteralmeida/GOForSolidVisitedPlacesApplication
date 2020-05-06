@@ -307,6 +307,9 @@
     <Compile Include="PlaceToLocationObjectsDataSet.cs">
       <GeneratedBy>Fenomen</GeneratedBy>
     </Compile>
+    <Compile Include="PlaceTypesEnum.cs">
+      <GeneratedBy>Fenomen</GeneratedBy>
+    </Compile>
     <Compile Include="UserProfileDataObject.cs">
       <GeneratedBy>Fenomen</GeneratedBy>
     </Compile>

@@ -21,6 +21,7 @@
 		
 		this.fkIndexes = {};
 
+
 		
 	};
 
@@ -183,6 +184,14 @@
 			var relatedDataSet = this._rootObjectDataSet.getPlaceToLocationObjectsDataSet();
 			if (relatedDataSet !== undefined) 
 				result = relatedDataSet.GetPlaceToLocationItemsForPlace(rootObject);
+
+			return result;
+		}		
+		if (relationName == "VisitedPlaceItems") {
+            var result = [];
+			var relatedDataSet = this._rootObjectDataSet.getVisitedPlaceObjectsDataSet();
+			if (relatedDataSet !== undefined) 
+				result = relatedDataSet.GetVisitedPlaceItemsForPlace(rootObject);
 
 			return result;
 		}		

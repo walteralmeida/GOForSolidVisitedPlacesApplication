@@ -90,6 +90,17 @@
 		}
 	};
 
+	Solid.Web.Model.DataObjects.Validation.PlaceValidator.validateVisitedPlaceItems = function (dataobject) {
+      if(dataobject.Data.VisitedPlaceItems() == undefined || dataobject.Data.VisitedPlaceItems() == null || dataobject.Data.VisitedPlaceItems() === "")
+		{
+			dataobject.StatusData.isVisitedPlaceItemsValid(false);
+			dataobject.StatusData.visitedPlaceItemsErrorMessage(Solid.Web.Messages.validationRuleRequiredMessage.replace(/%FIELDNAME%/g, "VisitedPlace Items"));
+		}
+		else {
+			dataobject.StatusData.isVisitedPlaceItemsValid(true);
+		}
+	};
+
 
 	/***************************************/
     /****** VALIDATORS FOR RELATIONS ******/
@@ -117,6 +128,7 @@
 		Solid.Web.Model.DataObjects.Validation.PlaceValidator.validateName (dataobject);
 		Solid.Web.Model.DataObjects.Validation.PlaceValidator.validatePlaceToLocationItems (dataobject);
 		Solid.Web.Model.DataObjects.Validation.PlaceValidator.validateURI (dataobject);
+		Solid.Web.Model.DataObjects.Validation.PlaceValidator.validateVisitedPlaceItems (dataobject);
 		doContinue = true;
 		if(Solid.Web.Model.DataObjects.Validation.PlaceValidator.CustomValidator && Solid.Web.Model.DataObjects.Validation.PlaceValidator.CustomValidator.CustomValidation !== undefined){
 			Solid.Web.Model.DataObjects.Validation.PlaceValidator.CustomValidator.CustomValidation(dataobject);
@@ -135,6 +147,9 @@
 		}
 	    if (dataobject.StatusData.isURIValid() === false) {
 			dataobject.StatusData.errorSummary.push(dataobject.StatusData.uRIErrorMessage());
+		}
+	    if (dataobject.StatusData.isVisitedPlaceItemsValid() === false) {
+			dataobject.StatusData.errorSummary.push(dataobject.StatusData.visitedPlaceItemsErrorMessage());
 		}
 		
 		if(dataobject.StatusData.isPlaceEntityValid() === false) {

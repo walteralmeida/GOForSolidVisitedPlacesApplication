@@ -35,6 +35,19 @@ namespace Solid.Data.DeleteHandlers
 				instance.LoadPlaceToLocationItems(parameters, skipSecurity: true);
 				AddAnyBlockages("failDeleteProtected", instance, instance.PlaceToLocationItems);
 			}
+			// Place.VisitedPlaceItems (Reference)
+			{
+				instance = Resync(instance);
+				instance.LoadVisitedPlaceItems(parameters, skipSecurity: true);
+				foreach (var item in instance.VisitedPlaceItems)			
+				{					
+					if (item.Place != null)
+					{	
+						item.Place = null; 	
+						Save(item);							
+					}
+				}
+			}
 		}
 	}
 }

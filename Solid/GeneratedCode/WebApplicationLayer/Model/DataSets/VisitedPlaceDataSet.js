@@ -25,6 +25,10 @@
 		this.fkIndexes.country = {};
 
 		
+		// Index to quickly find all VisitedPlace with a given place foreign key
+		this.fkIndexes.place = {};
+
+		
 		// Index to quickly find all VisitedPlace with a given userProfile foreign key
 		this.fkIndexes.userProfile = {};
 
@@ -60,6 +64,9 @@
 		}
 		for (var fk0 in this.fkIndexes.country) {
 			clone.fkIndexes.country[fk0] = this.fkIndexes.country[fk0];	
+		}
+		for (var fk0 in this.fkIndexes.place) {
+			clone.fkIndexes.place[fk0] = this.fkIndexes.place[fk0];	
 		}
 		for (var fk0 in this.fkIndexes.userProfile) {
 			clone.fkIndexes.userProfile[fk0] = this.fkIndexes.userProfile[fk0];	
@@ -114,6 +121,11 @@
 			this.fkIndexes.country[objectToAdd.Data.CountryURI()] = this.fkIndexes.country[objectToAdd.Data.CountryURI()] || {};
 			this.fkIndexes.country[objectToAdd.Data.CountryURI()][newInternalId] = true;
 		}
+		// Update the Place FK Index 
+		if (objectToAdd.Data.PlaceURI()) {			
+			this.fkIndexes.place[objectToAdd.Data.PlaceURI()] = this.fkIndexes.place[objectToAdd.Data.PlaceURI()] || {};
+			this.fkIndexes.place[objectToAdd.Data.PlaceURI()][newInternalId] = true;
+		}
 		// Update the UserProfile FK Index 
 		if (objectToAdd.Data.UserProfileUri()) {			
 			this.fkIndexes.userProfile[objectToAdd.Data.UserProfileUri()] = this.fkIndexes.userProfile[objectToAdd.Data.UserProfileUri()] || {};
@@ -129,6 +141,17 @@
         if (new_CountryURI !== undefined && new_CountryURI !== null && new_CountryURI !== "") {
 			this.fkIndexes.country[new_CountryURI] = this.fkIndexes.country[new_CountryURI] || {};
 			this.fkIndexes.country[new_CountryURI][parentEntity.Data.InternalObjectId()] = true;
+        }                
+    };                        
+	// Update the Place FK Index 
+	Solid.Web.Model.DataSets.visitedPlaceObjectsDataSet.prototype.UpdatePlaceFKIndex = function (old_PlaceURI, new_PlaceURI, parentEntity) {
+		if (old_PlaceURI !== undefined && old_PlaceURI !== null && old_PlaceURI !== "" && this.fkIndexes.place[old_PlaceURI] && this.fkIndexes.place[old_PlaceURI][parentEntity.Data.InternalObjectId()]) {
+			delete this.fkIndexes.place[old_PlaceURI][parentEntity.Data.InternalObjectId()];
+		}
+
+        if (new_PlaceURI !== undefined && new_PlaceURI !== null && new_PlaceURI !== "") {
+			this.fkIndexes.place[new_PlaceURI] = this.fkIndexes.place[new_PlaceURI] || {};
+			this.fkIndexes.place[new_PlaceURI][parentEntity.Data.InternalObjectId()] = true;
         }                
     };                        
 	// Update the UserProfile FK Index 
@@ -172,6 +195,9 @@
 			// Delete the Country FK Index 
 		if (objectToRemove.Data.CountryURI() && this.fkIndexes.country[objectToRemove.Data.CountryURI()] && this.fkIndexes.country[objectToRemove.Data.CountryURI()][objectToRemoveInternalId])
 			delete this.fkIndexes.country[objectToRemove.Data.CountryURI()][objectToRemoveInternalId];
+			// Delete the Place FK Index 
+		if (objectToRemove.Data.PlaceURI() && this.fkIndexes.place[objectToRemove.Data.PlaceURI()] && this.fkIndexes.place[objectToRemove.Data.PlaceURI()][objectToRemoveInternalId])
+			delete this.fkIndexes.place[objectToRemove.Data.PlaceURI()][objectToRemoveInternalId];
 			// Delete the UserProfile FK Index 
 		if (objectToRemove.Data.UserProfileUri() && this.fkIndexes.userProfile[objectToRemove.Data.UserProfileUri()] && this.fkIndexes.userProfile[objectToRemove.Data.UserProfileUri()][objectToRemoveInternalId])
 			delete this.fkIndexes.userProfile[objectToRemove.Data.UserProfileUri()][objectToRemoveInternalId];
@@ -239,6 +265,24 @@
         } else {
 			if (this.fkIndexes.country[country.Data.URI()]){
 				for (var internalId in this.fkIndexes.country[country.Data.URI()])
+					result.push(this.visitedPlaceObjects[internalId]);
+			}
+		}
+
+		return result;
+	};
+
+	Solid.Web.Model.DataSets.visitedPlaceObjectsDataSet.prototype.GetVisitedPlaceItemsForPlace = function (place) {
+		var result = [];
+
+		if (place.Data.IsNew()) {
+            for (var prop in this.visitedPlaceObjects) {
+                if (this.visitedPlaceObjects[prop].Data._place_NewObjectId() === place.Data.InternalObjectId())
+                    result.push(this.visitedPlaceObjects[prop]);
+            }
+        } else {
+			if (this.fkIndexes.place[place.Data.URI()]){
+				for (var internalId in this.fkIndexes.place[place.Data.URI()])
 					result.push(this.visitedPlaceObjects[internalId]);
 			}
 		}

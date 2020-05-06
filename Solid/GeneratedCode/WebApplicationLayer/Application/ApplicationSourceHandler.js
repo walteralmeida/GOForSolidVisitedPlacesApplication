@@ -57,6 +57,10 @@
 					"/Model/DataObjects/CountryObject.js", 
 					"/Model/DataObjectValidators/CountryObjectValidator.js", 
 					"/Model/DataSets/CountryDataSet.js", 
+					"/Model/DataObjects/PlaceObject.js", 
+					"/Model/DataObjectValidators/PlaceObjectValidator.js", 
+					"/Model/DataSets/PlaceDataSet.js", 
+					"/Model/DataObjects/PlaceTypesEnum.js", 
 					"/ViewModels/UserProfile/UserProfileFormViewModel.js", 
 					"/ViewModels/VisitedPlace/VisitedPlaceGridViewModel.js", 
 					"/Controllers/MyProfilePageController.js" 
@@ -96,10 +100,28 @@
 					"/Model/DataObjects/CountryObject.js", 
 					"/Model/DataObjectValidators/CountryObjectValidator.js", 
 					"/Model/DataSets/CountryDataSet.js", 
+					"/Model/DataObjects/PlaceObject.js", 
+					"/Model/DataObjectValidators/PlaceObjectValidator.js", 
+					"/Model/DataSets/PlaceDataSet.js", 
+					"/Model/DataObjects/PlaceTypesEnum.js", 
 					"/ViewModels/GOUser/GOUserFormViewModel.js", 
 					"/ViewModels/VisitedPlace/VisitedPlaceGridViewModel.js", 
 					"/ViewModels/GOUser/UserProfileGridViewModel.js", 
 					"/Controllers/UsersPageController.js" 
+				], 
+				"VisitedPlacePage-Page": [
+					"/Model/DataObjects/VisitedPlaceObject.js", 
+					"/Model/DataObjectValidators/VisitedPlaceObjectValidator.js", 
+					"/Model/DataSets/VisitedPlaceDataSet.js", 
+					"/Model/DataObjects/PlaceObject.js", 
+					"/Model/DataObjectValidators/PlaceObjectValidator.js", 
+					"/Model/DataSets/PlaceDataSet.js", 
+					"/Model/DataObjects/CountryObject.js", 
+					"/Model/DataObjectValidators/CountryObjectValidator.js", 
+					"/Model/DataSets/CountryDataSet.js", 
+					"/Model/DataObjects/PlaceTypesEnum.js", 
+					"/ViewModels/VisitedPlace/VisitedPlaceFormViewModel.js", 
+					"/Controllers/VisitedPlacePageController.js" 
 				], 
 				"CountryForm-Form": [
 					"/Model/DataObjects/CountryObject.js", 
@@ -120,6 +142,10 @@
 					"/Model/DataObjects/CountryObject.js", 
 					"/Model/DataObjectValidators/CountryObjectValidator.js", 
 					"/Model/DataSets/CountryDataSet.js", 
+					"/Model/DataObjects/PlaceObject.js", 
+					"/Model/DataObjectValidators/PlaceObjectValidator.js", 
+					"/Model/DataSets/PlaceDataSet.js", 
+					"/Model/DataObjects/PlaceTypesEnum.js", 
 					"/ViewModels/GOUser/GOUserFormViewModel.js", 
 					"/ViewModels/VisitedPlace/VisitedPlaceGridViewModel.js" 
 				], 
@@ -161,6 +187,10 @@
 					"/Model/DataObjects/CountryObject.js", 
 					"/Model/DataObjectValidators/CountryObjectValidator.js", 
 					"/Model/DataSets/CountryDataSet.js", 
+					"/Model/DataObjects/PlaceObject.js", 
+					"/Model/DataObjectValidators/PlaceObjectValidator.js", 
+					"/Model/DataSets/PlaceDataSet.js", 
+					"/Model/DataObjects/PlaceTypesEnum.js", 
 					"/ViewModels/UserProfile/UserProfileFormViewModel.js", 
 					"/ViewModels/VisitedPlace/VisitedPlaceGridViewModel.js" 
 				], 
@@ -168,9 +198,13 @@
 					"/Model/DataObjects/VisitedPlaceObject.js", 
 					"/Model/DataObjectValidators/VisitedPlaceObjectValidator.js", 
 					"/Model/DataSets/VisitedPlaceDataSet.js", 
+					"/Model/DataObjects/PlaceObject.js", 
+					"/Model/DataObjectValidators/PlaceObjectValidator.js", 
+					"/Model/DataSets/PlaceDataSet.js", 
 					"/Model/DataObjects/CountryObject.js", 
 					"/Model/DataObjectValidators/CountryObjectValidator.js", 
 					"/Model/DataSets/CountryDataSet.js", 
+					"/Model/DataObjects/PlaceTypesEnum.js", 
 					"/ViewModels/VisitedPlace/VisitedPlaceFormViewModel.js" 
 				] 
 		};

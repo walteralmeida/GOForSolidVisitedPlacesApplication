@@ -29,8 +29,10 @@
 			
 			// Relation	fields (navigators + FK temporary keys observable if needed)
 			_country_NewObjectId : ko.observable(null),
+			_place_NewObjectId : ko.observable(null),
 			_userProfile_NewObjectId : ko.observable(null),
 			Country: function () { return self.getCountry(); },
+ 			Place: function () { return self.getPlace(); },
  			UserProfile: function () { return self.getUserProfile(); },
  		
 			// Other fields
@@ -38,6 +40,10 @@
 			CountryURI_OldValue: ko.observable(null), // Keeping track of FK
 			Date: ko.observable(),
 			Description: ko.observable(null),
+			PlaceURI: ko.observable(null),
+			PlaceURI_OldValue: ko.observable(null), // Keeping track of FK
+			Typeofplace: ko.observable(0),
+			TypeofplaceDisplayString: ko.observable(Solid.Web.Model.DataObjects.PlaceTypesEnum[0]),
 			UserProfileUri: ko.observable(null),
 			UserProfileUri_OldValue: ko.observable(null), // Keeping track of FK
 			// State attributes
@@ -48,6 +54,46 @@
 			IsNew: ko.observable(true),
 			IsMarkedForDeletion: ko.observable(false)
 		};
+
+		// Calculated fields
+		this.Data.VisitedPlaceName = ko.observable(null);
+		// Enumerations
+				this.Data.placeTypesValues = ko.observableArray([0, 1]);
+
+		this.Data.TypeofplaceValues = ko.observableArray([{ selectvalue : 0, visible: ko.observable(true) }, { selectvalue : 1, visible: ko.observable(true) }]);		
+			
+			this.TypeofplaceOptionsAfterRender = function (option, item) {
+				// implement in custom TypeofplaceOptionsAfterRenderCustom if you want post render control
+				if (self.TypeofplaceOptionsAfterRenderCustom) {
+					self.TypeofplaceOptionsAfterRenderCustom(option, item);
+				}
+				else {
+		            ko.applyBindingsToNode(option, { visible: item.visible }, item);
+				}
+			};
+            this.Data.placeTypesValues.subscribe(function (changes) {
+                for (var i = 0; i < changes.length; i++) {
+                    if (changes[i].moved != undefined) {
+                        // we don't treat moves ....
+						continue;
+                    }
+                    if (changes[i].status == "deleted") {
+                        for (var j = 0; j < self.Data.TypeofplaceValues().length; j++) {
+                            if (self.Data.TypeofplaceValues()[j].selectvalue == changes[i].value) {
+                                self.Data.TypeofplaceValues()[j].visible(false);
+                            }
+                        };                            
+                    }
+                    else if (changes[i].status == "added") {
+                        for (var j = 0; j < self.Data.TypeofplaceValues().length; j++) {
+                            if (self.Data.TypeofplaceValues()[j].selectvalue == changes[i].value) {
+                                self.Data.TypeofplaceValues()[j].visible(true);
+                            }
+                        };                            
+                    }
+                }
+            }, null, "arrayChange");
+
 
 		// Computed
 		this.ko_computed.push(this.Data.PrimaryKey = ko.pureComputed(ComputedPKForVisitedPlace, this));
@@ -73,10 +119,18 @@
 			descriptionErrorMessage: ko.observable(null), 
 			isIdValid: ko.observable(true),
 			idErrorMessage: ko.observable(null), 
+			isPlaceValid: ko.observable(true),
+			placeErrorMessage: ko.observable(null), 
+			isPlaceURIValid: ko.observable(true),
+			placeURIErrorMessage: ko.observable(null), 
+			isTypeofplaceValid: ko.observable(true),
+			typeofplaceErrorMessage: ko.observable(null), 
 			isUserProfileValid: ko.observable(true),
 			userProfileErrorMessage: ko.observable(null), 
 			isUserProfileUriValid: ko.observable(true),
 			userProfileUriErrorMessage: ko.observable(null), 
+			IsCountryVisible: ko.observable(),
+			IsPlaceVisible: ko.observable(),
 			
 			// Used for Custom Validation Rules
 			isVisitedPlaceEntityValid: ko.observable(true),
@@ -125,6 +179,23 @@
 		this.Data[prop](date.Date);
 	};
 
+	// Triggers for Business Rules IsVisible dependency
+	Solid.Web.Model.DataObjects.VisitedPlaceObject.prototype.updateIsCountryVisibleValue = function() {
+		this.StatusData.IsCountryVisible((this.Data.Typeofplace() == 1));
+	};
+		
+	Solid.Web.Model.DataObjects.VisitedPlaceObject.prototype.updateIsPlaceVisibleValue = function() {
+		this.StatusData.IsPlaceVisible((this.Data.Typeofplace() == 0));
+	};
+		
+	// Triggers for calculated fields 
+	Solid.Web.Model.DataObjects.VisitedPlaceObject.prototype.updateVisitedPlaceNameValue = function() {
+		var newValue = ((this.Data.Typeofplace() == 1) ? (this.getCountry() !== null && !!this.getCountry().Data.Name() ? this.getCountry().Data.Name() : '') : (this.getPlace() !== null && !!this.getPlace().Data.Name() ? this.getPlace().Data.Name() : ''));
+		
+		if (newValue !== this.Data.VisitedPlaceName())
+			this.Data.VisitedPlaceName(newValue);
+	};
+		
 	Solid.Web.Model.DataObjects.VisitedPlaceObject.prototype.addOnPropertyChangedHandler = function( handler ) {
 		this.onPropertyChangedHandlers.push(handler);
 	};
@@ -157,6 +228,28 @@
 			
 		callers.push(this);
 			
+		if (localPropertyName == "Typeofplace")
+		{
+			this.updateIsCountryVisibleValue();
+			this.updateIsPlaceVisibleValue();
+			this.updateVisitedPlaceNameValue();
+		}
+		if (localPropertyName == "Country.Name")
+		{
+			this.updateVisitedPlaceNameValue();
+		}
+		if (localPropertyName == "Place.Name")
+		{
+			this.updateVisitedPlaceNameValue();
+		}
+		if (localPropertyName == "Country")
+		{
+			this.updateVisitedPlaceNameValue();
+		}
+		if (localPropertyName == "Place")
+		{
+			this.updateVisitedPlaceNameValue();
+		}
 		
 		// Push the notification to related objects			
 		for (var i = 0; i < this.onPropertyChangedHandlers.length; i++) {
@@ -172,6 +265,9 @@
 	Solid.Web.Model.DataObjects.VisitedPlaceObject.prototype.getCountry = function () {
 		if (!this.ObjectsDataSet)
             return null;
+
+		if ((!this.Data.CountryURI()) && this.Data._country_NewObjectId() === null)
+			return null;
 
 		if(Solid.Web.Model.DataObjects.CountryObject === undefined) {
 			// case script not already loaded
@@ -209,6 +305,10 @@
 		}
 				
 		if (existing_country === valueToSet) {
+          if (valueToSet === null) {
+				this.Data._country_NewObjectId(null);
+				this.Data.CountryURI(null);
+				}
 			return;
         }
 		// Setting the navigator desync the FK. The FK should be resync
@@ -227,7 +327,77 @@
 				}
 			}
 		} else {
+			this.Data._country_NewObjectId(null);			
 			this.Data.CountryURI(null);
+		}
+	};
+	Solid.Web.Model.DataObjects.VisitedPlaceObject.prototype.getPlace = function () {
+		if (!this.ObjectsDataSet)
+            return null;
+
+		if ((!this.Data.PlaceURI()) && this.Data._place_NewObjectId() === null)
+			return null;
+
+		if(Solid.Web.Model.DataObjects.PlaceObject === undefined) {
+			// case script not already loaded
+			return null;
+		}
+
+		var result;
+        var placeDataset = this.ObjectsDataSet.getPlaceObjectsDataSet();
+
+        if (this.Data._place_NewObjectId() !== null) {                
+            result = placeDataset.GetObjectByInternalId(this.Data._place_NewObjectId(), true);
+        } else {
+            result = placeDataset.GetObjectByPK(this.Data.PlaceURI());
+        }		
+
+		if (result)
+			result.updateDependentValues();
+
+		return result;
+	};
+
+	Solid.Web.Model.DataObjects.VisitedPlaceObject.prototype.setPlace = function (valueToSet, notifyChanges, dirtyHandlerOn) {
+		var existing_place = null;
+
+		if (((this.Data.PlaceURI === null) && this.Data._place_NewObjectId() === null) || this.ObjectsDataSet === null) {
+			existing_place = null;
+		} else {
+			var placeDataset = this.ObjectsDataSet.getPlaceObjectsDataSet();
+
+			if (this.Data._place_NewObjectId() === null) {
+				existing_place =  placeDataset.GetObjectByPK(this.Data.PlaceURI());
+			} else {
+				existing_place = placeDataset.GetObjectByInternalId(this.Data._place_NewObjectId(), true);
+			}				
+		}
+				
+		if (existing_place === valueToSet) {
+          if (valueToSet === null) {
+				this.Data._place_NewObjectId(null);
+				this.Data.PlaceURI(null);
+				}
+			return;
+        }
+		// Setting the navigator desync the FK. The FK should be resync
+		if (valueToSet !== null) {
+            this.ObjectsDataSet.AddObjectIfDoesNotExist(valueToSet);
+				
+			if (valueToSet.Data.IsNew()) {
+				if (this.Data._place_NewObjectId() !== valueToSet.Data.InternalObjectId()) {
+					this.Data._place_NewObjectId(valueToSet.Data.InternalObjectId());
+				}
+			} else {
+				if (this.Data.PlaceURI() !== valueToSet.Data.URI()) {
+					this.Data._place_NewObjectId(null);
+
+					this.Data.PlaceURI(valueToSet.Data.URI());
+				}
+			}
+		} else {
+			this.Data._place_NewObjectId(null);			
+			this.Data.PlaceURI(null);
 		}
 	};
 	Solid.Web.Model.DataObjects.VisitedPlaceObject.prototype.getUserProfile = function () {
@@ -319,11 +489,15 @@
 		clone.Data.Id_OldValue(this.Data.Id_OldValue());
 		clone.Data.Id(this.Data.Id());
 		clone.Data._country_NewObjectId (this.Data._country_NewObjectId());
+		clone.Data._place_NewObjectId (this.Data._place_NewObjectId());
 		clone.Data._userProfile_NewObjectId (this.Data._userProfile_NewObjectId());
 		clone.Data.CountryURI(this.Data.CountryURI());
 		clone.Data.CountryURI_OldValue(this.Data.CountryURI_OldValue()),
 		clone.Data.Date(this.Data.Date());
 		clone.Data.Description(this.Data.Description());
+		clone.Data.PlaceURI(this.Data.PlaceURI());
+		clone.Data.PlaceURI_OldValue(this.Data.PlaceURI_OldValue()),
+		clone.Data.Typeofplace(this.Data.Typeofplace());
 		clone.Data.UserProfileUri(this.Data.UserProfileUri());
 		clone.Data.UserProfileUri_OldValue(this.Data.UserProfileUri_OldValue()),
 		clone.contextIds = this.contextIds;
@@ -353,11 +527,15 @@
 			this.Data.Id_OldValue(sourceObject.Data.Id_OldValue());
 			this.Data.Id(sourceObject.Data.Id());
 			this.Data._country_NewObjectId (sourceObject.Data._country_NewObjectId());
+			this.Data._place_NewObjectId (sourceObject.Data._place_NewObjectId());
 			this.Data._userProfile_NewObjectId (sourceObject.Data._userProfile_NewObjectId());
 			this.Data.CountryURI(sourceObject.Data.CountryURI());
 			this.Data.CountryURI_OldValue(sourceObject.Data.CountryURI_OldValue()),
 			this.Data.Date(sourceObject.Data.Date());
 			this.Data.Description(sourceObject.Data.Description());
+			this.Data.PlaceURI(sourceObject.Data.PlaceURI());
+			this.Data.PlaceURI_OldValue(sourceObject.Data.PlaceURI_OldValue()),
+			this.Data.Typeofplace(sourceObject.Data.Typeofplace());
 			this.Data.UserProfileUri(sourceObject.Data.UserProfileUri());
 			this.Data.UserProfileUri_OldValue(sourceObject.Data.UserProfileUri_OldValue()),
 			this.contextIds = sourceObject.contextIds;
@@ -384,6 +562,14 @@
 	Solid.Web.Model.DataObjects.VisitedPlaceObject.prototype.updateDependentValues = function() {
 		if (!this.notifyChangesOn)
 			return;
+		
+		// Initialize Business Rules Visibility
+		this.updateIsCountryVisibleValue();		
+		this.updateIsPlaceVisibleValue();		
+		
+		// Computed data object properties
+		this.updateVisitedPlaceNameValue();		
+		this.updateDependentCustomValues();
 	};
 
 	/*****************************/
@@ -399,8 +585,13 @@
 		this.subscriptions.push(this.Data.Date.subscribe(DatePropertySubscriptionHandler, this));
 		this.subscriptions.push(this.Data.Description.subscribe(DescriptionPropertySubscriptionHandler, this));
 		this.subscriptions.push(this.Data.Id.subscribe(IdPropertySubscriptionHandler, this));
+		this.subscriptions.push(this.Data.PlaceURI.subscribe(PlaceURIPropertySubscriptionHandler, this));
+		this.subscriptions.push(this.Data.Typeofplace.subscribe(TypeofplacePropertySubscriptionHandler, this));
 		this.subscriptions.push(this.Data.UserProfileUri.subscribe(UserProfileUriPropertySubscriptionHandler, this));
+		this.subscriptions.push(this.Data.VisitedPlaceName.subscribe(VisitedPlaceNamePropertySubscriptionHandler, this));
+		this.subscriptions.push(this.Data.Typeofplace.subscribe(TypeofplaceEnumSubscriptionHandler, this));
 		this.subscriptions.push(this.Data._country_NewObjectId.subscribe(countryNewObjectSubscriptionHandler, this));
+		this.subscriptions.push(this.Data._place_NewObjectId.subscribe(placeNewObjectSubscriptionHandler, this));
 		this.subscriptions.push(this.Data._userProfile_NewObjectId.subscribe(userProfileNewObjectSubscriptionHandler, this));
 
  
@@ -440,8 +631,8 @@
 	
 	function statusDataValidationComputed() {
 		var isValid = true;
-		isValid = isValid && this.StatusData.isDateValid() && this.StatusData.isDescriptionValid() && this.StatusData.isIdValid() && this.StatusData.isVisitedPlaceEntityValid();
-		isValid = isValid && this.StatusData.isCountryValid() && this.StatusData.isUserProfileValid();
+		isValid = isValid && this.StatusData.isDateValid() && this.StatusData.isDescriptionValid() && this.StatusData.isIdValid() && this.StatusData.isTypeofplaceValid() && this.StatusData.isVisitedPlaceEntityValid();
+		isValid = isValid && this.StatusData.isCountryValid() && this.StatusData.isPlaceValid() && this.StatusData.isUserProfileValid();
 		return isValid;
 	}
 
@@ -459,6 +650,10 @@
 		this.Data.IsDirty(true);
 	}
 			
+	function TypeofplaceEnumSubscriptionHandler(newValue) {
+		this.Data.TypeofplaceDisplayString(Solid.Web.Model.DataObjects.PlaceTypesEnum[this.Data.Typeofplace()]);
+	};	
+	
 
 	function CountryURIPropertySubscriptionHandler(newValue) {
 		if (this.Data.CountryURI_OldValue() !== newValue && this.ObjectsDataSet) {
@@ -522,6 +717,35 @@
 		}
     }
 
+	function PlaceURIPropertySubscriptionHandler(newValue) {
+		if (this.Data.PlaceURI_OldValue() !== newValue && this.ObjectsDataSet) {
+			this.ObjectsDataSet.getVisitedPlaceObjectsDataSet().UpdatePlaceFKIndex(this.Data.PlaceURI_OldValue(), newValue, this);            
+		}
+		this.Data.PlaceURI_OldValue(newValue);
+		
+		if (this.DirtyHandlerOn) {			
+            this.Data.IsDirty(true);
+		}
+ 
+		if (this.notifyChangesOn) {		
+			this.updateDependentCustomValues();
+			this.onPropertyChanged("PlaceURI");
+			this.onPropertyChanged("Place");
+		}
+    }
+
+	function TypeofplacePropertySubscriptionHandler(newValue) {
+		
+		if (this.DirtyHandlerOn) {			
+            this.Data.IsDirty(true);
+		}
+ 
+		if (this.notifyChangesOn) {		
+			this.updateDependentCustomValues();
+			this.onPropertyChanged("Typeofplace");
+		}
+    }
+
 	function UserProfileUriPropertySubscriptionHandler(newValue) {
 		if (this.Data.UserProfileUri_OldValue() !== newValue && this.ObjectsDataSet) {
 			this.ObjectsDataSet.getVisitedPlaceObjectsDataSet().UpdateUserProfileFKIndex(this.Data.UserProfileUri_OldValue(), newValue, this);            
@@ -539,12 +763,32 @@
 		}
     }
 
+	function VisitedPlaceNamePropertySubscriptionHandler(newValue) {
+		
+ 
+		if (this.notifyChangesOn) {		
+			this.updateDependentCustomValues();
+			this.onPropertyChanged("VisitedPlaceName");
+		}
+    }
+
 	function countryNewObjectSubscriptionHandler(newValue) {
 		if (this.DirtyHandlerOn === true) 			
             this.Data.IsDirty(true);
 
 		if (this.notifyChangesOn === true) {	
 			this.onPropertyChanged("Country");
+		}
+    }
+ 
+
+
+	function placeNewObjectSubscriptionHandler(newValue) {
+		if (this.DirtyHandlerOn === true) 			
+            this.Data.IsDirty(true);
+
+		if (this.notifyChangesOn === true) {	
+			this.onPropertyChanged("Place");
 		}
     }
  

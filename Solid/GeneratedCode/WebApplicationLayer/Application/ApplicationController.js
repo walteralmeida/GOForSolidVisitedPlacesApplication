@@ -36,6 +36,9 @@
 			var pageName = null;
 			
 			switch(nodeName) {
+				case 'VisitedPlace':
+					pageName = 'VisitedPlacePage';
+					break;
 				case 'CountryDetails':
 					pageName = 'CountryPage';
 					break;
@@ -79,6 +82,8 @@
 			var root = self.getRootHashTag(nodeName);
 
 			switch (nodeName) {
+			case 'VisitedPlace':
+				return root + 'VisitedPlaces/VisitedPlace';
 			case 'CountryDetails':
 				return root + 'Countries/CountryDetails';
 			case 'Locations':
@@ -124,6 +129,7 @@
 			switch(pageName)
 			{
 				case "CountryPage":
+				case "VisitedPlacePage":
 				case "MyProfilePage":
 				case "CountryItemsPage":
 				case "PlacePage":
@@ -611,6 +617,23 @@
 
 
 			switch(nodeName) {
+				case 'VisitedPlace':
+					if (self.customRouting && self.customRouting.overridenBreadCrumbs && self.customRouting.overridenBreadCrumbs.VisitedPlace) {
+						breadCrumbs = self.customRouting.overridenBreadCrumbs.VisitedPlace();
+					}
+					else {
+						breadCrumbs.push({ text: 'VisitedPlaces', url: Solid.Web.Application.BaseURL + '#' + root + 'VisitedPlaces', hash: root + 'VisitedPlaces', currentpage: false, isactive: false });
+						breadCrumbs.push({ text: 'Visited Place', url: Solid.Web.Application.BaseURL + '#' + root + 'VisitedPlaces/VisitedPlace', hash: root + 'VisitedPlaces/VisitedPlace', currentpage: true, isactive: false });
+					}
+					break;
+				case 'VisitedPlaces':
+					if (self.customRouting && self.customRouting.overridenBreadCrumbs && self.customRouting.overridenBreadCrumbs.VisitedPlaces) {
+						breadCrumbs = self.customRouting.overridenBreadCrumbs.VisitedPlaces();
+					}
+					else {
+						breadCrumbs.push({ text: 'VisitedPlaces', url: Solid.Web.Application.BaseURL + '#' + root + 'VisitedPlaces', hash: root + 'VisitedPlaces', currentpage: true, isactive: false });
+					}
+					break;
 				case 'CountryDetails':
 					if (self.customRouting && self.customRouting.overridenBreadCrumbs && self.customRouting.overridenBreadCrumbs.CountryDetails) {
 						breadCrumbs = self.customRouting.overridenBreadCrumbs.CountryDetails();
@@ -709,7 +732,10 @@
 						var isNavigatingCustom = self.customRouting.parseAdditionnalRoutesForLevel(this, 1);						
                         if (isNavigatingCustom) return; // If custom routing has returned true, we stop navigating
 					}
-					if (this.params.part1.split(new RegExp("#", "g"))[0] == 'Locations') {
+					if (this.params.part1.split(new RegExp("#", "g"))[0] == 'VisitedPlaces') {
+						self.internalNavigateTo('VisitedPlaces');
+					}
+					else if (this.params.part1.split(new RegExp("#", "g"))[0] == 'Locations') {
 						self.internalNavigateTo('Locations');
 					}
 					else if (this.params.part1.split(new RegExp("#", "g"))[0] == 'Users') {
@@ -739,7 +765,10 @@
 						var isNavigatingCustom = self.customRouting.parseAdditionnalRoutesForLevel(this, 2);						
                         if (isNavigatingCustom) return; // If custom routing has returned true, we stop navigating
 					}
-					if (this.params.part1 == 'Countries' && this.params.part2.split(new RegExp("#", "g"))[0] == 'CountryDetails') {
+					if (this.params.part1 == 'VisitedPlaces' && this.params.part2.split(new RegExp("#", "g"))[0] == 'VisitedPlace') {
+						self.internalNavigateTo('VisitedPlace');
+					}
+					else if (this.params.part1 == 'Countries' && this.params.part2.split(new RegExp("#", "g"))[0] == 'CountryDetails') {
 						self.internalNavigateTo('CountryDetails');
 					}
 					else if (this.params.part1 == 'Places' && this.params.part2.split(new RegExp("#", "g"))[0] == 'PlaceDetails') {
@@ -766,7 +795,10 @@
 						var isNavigatingCustom = self.customRouting.parseAdditionnalRoutesForLevel(this, 3);						
                         if (isNavigatingCustom) return; // If custom routing has returned true, we stop navigating
 					}
-					if (this.params.part1 == 'Countries' && this.params.part2.split(new RegExp("#", "g"))[0] == 'CountryDetails') {
+					if (this.params.part1 == 'VisitedPlaces' && this.params.part2.split(new RegExp("#", "g"))[0] == 'VisitedPlace') {
+						self.internalNavigateTo('VisitedPlace');
+					}
+					else if (this.params.part1 == 'Countries' && this.params.part2.split(new RegExp("#", "g"))[0] == 'CountryDetails') {
 						self.internalNavigateTo('CountryDetails');
 					}
 					else if (this.params.part1 == 'Places' && this.params.part2.split(new RegExp("#", "g"))[0] == 'PlaceDetails') {
