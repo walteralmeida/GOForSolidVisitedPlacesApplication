@@ -98,9 +98,9 @@ namespace Solid.Data.DataProviders.Custom
             DataObjectCollection<UserProfileDataObject> result = new DataObjectCollection<UserProfileDataObject>();
             result.ObjectsDataSet = ApplicationSettings.Container.Resolve<IObjectsDataSet>();
 
-            foreach (var argument in filterArguments)
+            foreach (var arg in filterArguments[0] as string[])
             {
-                var uri = (argument as string[])[0];
+                var uri = arg;
                 var userprofile = DoGet(new UserProfileDataObject(uri), null, null, context, parameters);
 
                 result.Add(userprofile);
