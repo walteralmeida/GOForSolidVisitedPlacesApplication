@@ -33,9 +33,6 @@
 		this.PlaceObject().ObjectsDataSet = this.controller.ObjectsDataSet;
 		this.CurrentObject = ko.pureComputed(function () { return this.PlaceObject() }, this);
 
-		// Sub-grids ViewModels
-		this.PlaceToLocationItemsGridViewModel = new Solid.Web.ViewModels.PlaceToLocationGridViewModel(self.controller, null, sDataBindRoot +  "PlaceToLocationItemsGridViewModel", $popupContainer, self.contextId);
-		this.PlaceToLocationItemsGridViewModel.getSourceCollection = function () { return self.PlaceObject().getPlaceToLocationItems(); };		
  
 		// Form status data
         this.StatusData = {
@@ -130,25 +127,6 @@
 			return false;
         });
 
-		this.StatusData.IsPlaceToLocationItemsVisible = ko.pureComputed( function () {
-			if (self.customViewModel !== undefined && self.customViewModel.IsPlaceToLocationItemsVisible !== undefined) {
-				return self.customViewModel.IsPlaceToLocationItemsVisible();
-			}
-			
-			return true;
-		});
-
-		this.StatusData.IsPlaceToLocationItemsReadOnly = ko.pureComputed( function () {
-			if (self.customViewModel !== undefined && self.customViewModel.IsPlaceToLocationItemsReadOnly !== undefined) {
-				return self.customViewModel.IsPlaceToLocationItemsReadOnly();
-			}
-			return false;
-        });
-
-		// Propagate Display Mode change to subgrids
-        this.subscriptions.push(this.StatusData.DisplayMode.subscribe (function(newValue) {
-			self.PlaceToLocationItemsGridViewModel.StatusData.DisplayMode(newValue);	
-		}));
 		// Form events data
 		this.Events = {
             PlaceLoaded: ko.observable(false),
@@ -266,29 +244,6 @@
 		};
 
 		this.onPlaceObjectChanged = function() {
-			
-			// Reload all sub-grids data
-			if (self.PlaceObject().Data.IsNew()) {
-				 
-				var theCollection = self.PlaceObject().Data.PlaceToLocationItems();
-                self.PlaceToLocationItemsGridViewModel.SetPlaceToLocationObjectCollection( theCollection );
-				self.PlaceToLocationItemsGridViewModel.isMemoryOnlyCollection = true;
-	            self.PlaceToLocationItemsGridViewModel.totalCollection(theCollection !== null ? theCollection.length : 0);
-				self.PlaceToLocationItemsGridViewModel.pageNumber(0);	            
-				self.PlaceToLocationItemsGridViewModel.totalPageNumber(0);
-	        } else {
-
-				
-				self.PlaceToLocationItemsGridViewModel.isMemoryOnlyCollection = false;
-				
-				// Resetting filters
-                self.PlaceToLocationItemsGridViewModel.baseFilterPredicate = 'PlaceURI == "' + self.PlaceObject().Data.URI() + '"';
-			        self.PlaceToLocationItemsGridViewModel.filterPredicate = self.PlaceToLocationItemsGridViewModel.baseFilterPredicate;
-			    				
-				// Rebinding subgrid
-                self.PlaceToLocationItemsGridViewModel.LoadPlaceToLocationObjectCollection();
-            }
-
  			
 			self.StatusData.IsUIDirty(self.controller.ObjectsDataSet.isContextIdDirty(self.contextId));			
 		};
@@ -376,9 +331,6 @@
 
         this.Modify = function () {
 			GO.log("PlaceForm", "Entering modification of PlaceObject");
-			
-			// propagate to Sub-Grids
-			self.PlaceToLocationItemsGridViewModel.isMemoryOnlyCollection = true;	
 	        self.SavedData = new Solid.Web.Model.DataObjects.PlaceObject();
 			self.SavedData.CopyValuesFrom(self.PlaceObject());
 
@@ -546,10 +498,6 @@
 				self.subscriptions[i].dispose();
 			}
 			self.subscriptions = [];
- 		
-			// Sub-grids ViewModels
-			self.PlaceToLocationItemsGridViewModel.release();
-			self.PlaceToLocationItemsGridViewModel = null;
 			// Cleaning the context if data has been saved already
 			if (!self.isMemoryOnly) {
 				self.controller.ObjectsDataSet.cleanContext(self.contextId);

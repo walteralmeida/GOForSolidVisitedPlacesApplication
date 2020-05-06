@@ -154,6 +154,8 @@
   <PropertyGroup>
   </PropertyGroup>
   <ItemGroup>
+  </ItemGroup>
+  <ItemGroup>
     <Content Include="App.config">
       <GeneratedBy>Fenomen</GeneratedBy>
     </Content>
