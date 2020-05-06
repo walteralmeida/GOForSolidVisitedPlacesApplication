@@ -368,6 +368,58 @@
         };
 
 		// Related data popups
+		this.isShowEditPlacePopupVisible = function () {
+			return true;
+		};
+
+		this.isShowEditPlacePopupEnabled = function () {
+			return self.VisitedPlaceObject().getPlace() != null;
+		};
+
+		this.showEditPlacePopup = function () {
+			var objectToShow = self.VisitedPlaceObject().getPlace();
+			// Preventing errors due to visualization of informations of an empty element.
+			if (!objectToShow)
+				return;
+			if (objectToShow != null) {
+				objectToShow.ObjectsDataSet = self.controller.ObjectsDataSet;
+			}
+
+			var isMemoryOnly = objectToShow != null && objectToShow.Data.IsNew();
+
+			// Callback called when popup is closed
+			self.CallAfterSaveRelatedEntity = self.selectPlaceLookupField; 
+
+			self.controller.applicationController.showEditPopup("PlaceForm", self, objectToShow, isMemoryOnly, null, "70%");
+			GO.log("VisitedPlaceForm", "Opening lookup popup on PlaceForm");
+		};
+
+		this.isShowEditCountryPopupVisible = function () {
+			return true;
+		};
+
+		this.isShowEditCountryPopupEnabled = function () {
+			return self.VisitedPlaceObject().getCountry() != null;
+		};
+
+		this.showEditCountryPopup = function () {
+			var objectToShow = self.VisitedPlaceObject().getCountry();
+			// Preventing errors due to visualization of informations of an empty element.
+			if (!objectToShow)
+				return;
+			if (objectToShow != null) {
+				objectToShow.ObjectsDataSet = self.controller.ObjectsDataSet;
+			}
+
+			var isMemoryOnly = objectToShow != null && objectToShow.Data.IsNew();
+
+			// Callback called when popup is closed
+			self.CallAfterSaveRelatedEntity = self.selectCountryLookupField; 
+
+			self.controller.applicationController.showEditPopup("CountryForm", self, objectToShow, isMemoryOnly, null, "70%");
+			GO.log("VisitedPlaceForm", "Opening lookup popup on CountryForm");
+		};
+
 		// Related data collections
 		this.Place_lookupMethod = null; //set on loadData
 		this.Place_lookupThreshold = 100; // Threshold for automatic switch
