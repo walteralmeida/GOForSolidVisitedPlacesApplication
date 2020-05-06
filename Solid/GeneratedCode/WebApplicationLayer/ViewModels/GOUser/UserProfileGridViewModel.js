@@ -286,8 +286,8 @@
 				ApplicationController.centerPopup();
         };
 
-		this.getUserProfile_NameValue = function (data) {
-			return data.getUserProfile() === null ? null : data.getUserProfile().Data.Name();
+		this.getUserProfile_UriValue = function (data) {
+			return data.getUserProfile() === null ? null : data.getUserProfile().Data.Uri();
 		};
 
 
