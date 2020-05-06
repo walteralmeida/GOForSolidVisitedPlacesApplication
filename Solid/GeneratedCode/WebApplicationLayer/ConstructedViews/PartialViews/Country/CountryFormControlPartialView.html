@@ -22,24 +22,23 @@
     <div class="blocking-element ui-widget-overlay"></div>
     <div>
       <div class="basicForm" data-placeholder="formFieldsZone">
-        <div class="form-field view requiredField" data-bind="'visible':StatusData.DisplayMode() == 'view' &amp;&amp; StatusData.IsURIVisible()" data-test-id="3c901375-f8fb-4f4b-a6e9-830a0bb7c6e5" data-entityfield="uri-view">
-          <span class="form-field-label-zone" data-bind="'visible':StatusData.DisplayMode() == 'view' &amp;&amp; StatusData.IsURIVisible(), 'css' : { errorText : !CountryObject().StatusData.isURIValid() }" data-test-id="label_3c901375-f8fb-4f4b-a6e9-830a0bb7c6e5">
+        <div class="form-field view" data-bind="'visible':StatusData.DisplayMode() == 'view' &amp;&amp; StatusData.IsURILinkVisible()" data-test-id="3c901375-f8fb-4f4b-a6e9-830a0bb7c6e5" data-entityfield="urilink-view">
+          <span class="form-field-label-zone" data-bind="'visible':StatusData.DisplayMode() == 'view' &amp;&amp; StatusData.IsURILinkVisible()" data-test-id="label_3c901375-f8fb-4f4b-a6e9-830a0bb7c6e5">
             <label class="form-field-label">URI</label>
           </span>
-          <span class="form-field-control-container" data-bind="'css' : { errorControl : !CountryObject().StatusData.isURIValid() }">
+          <span class="form-field-control-container">
             <div class="text-field">
-              <span class="form-field-text" data-bind="text: CountryObject().Data.URI, 'css' : { 'errorControl' : !CountryObject().StatusData.isURIValid() }" data-test-id="view_3c901375-f8fb-4f4b-a6e9-830a0bb7c6e5" />
+              <span class="form-field-text" data-bind="html: CountryObject().Data.URILink" data-test-id="view_3c901375-f8fb-4f4b-a6e9-830a0bb7c6e5" />
             </div>
           </span>
         </div>
-        <div class="form-field edit requiredField" data-bind="'visible':StatusData.DisplayMode() == 'edit' &amp;&amp; StatusData.IsURIVisible()" data-test-id="3c901375-f8fb-4f4b-a6e9-830a0bb7c6e5" data-entityfield="uri-edit">
-          <span class="form-field-label-zone" data-bind="'visible':StatusData.DisplayMode() == 'edit' &amp;&amp; StatusData.IsURIVisible(), 'css' : { errorText : !CountryObject().StatusData.isURIValid() }" data-test-id="label_3c901375-f8fb-4f4b-a6e9-830a0bb7c6e5">
+        <div class="form-field edit" data-bind="'visible':StatusData.DisplayMode() == 'edit' &amp;&amp; StatusData.IsURILinkVisible()" data-test-id="3c901375-f8fb-4f4b-a6e9-830a0bb7c6e5" data-entityfield="urilink-edit">
+          <span class="form-field-label-zone" data-bind="'visible':StatusData.DisplayMode() == 'edit' &amp;&amp; StatusData.IsURILinkVisible()" data-test-id="label_3c901375-f8fb-4f4b-a6e9-830a0bb7c6e5">
             <label class="form-field-label">URI</label>
           </span>
-          <span class="form-field-control-container" data-bind="'enable' : !StatusData.IsURIReadOnly(), 'css' : { errorControl : !CountryObject().StatusData.isURIValid() }">
+          <span class="form-field-control-container" data-bind="'enable' : false">
             <div class="text-field">
-              <input class="form-field-text" data-bind="value: CountryObject().Data.URI, 'enable' : !StatusData.IsURIReadOnly(), 'css' : { 'errorControl' : !CountryObject().StatusData.isURIValid() }" type="text" data-test-id="edit_3c901375-f8fb-4f4b-a6e9-830a0bb7c6e5" />
-              <span class="errorDescription" data-bind="'visible' : !CountryObject().StatusData.isURIValid(), text : CountryObject().StatusData.uRIErrorMessage"></span>
+              <span class="form-field-text" data-bind="html: CountryObject().Data.URILink, 'enable' : false" data-test-id="edit_3c901375-f8fb-4f4b-a6e9-830a0bb7c6e5" />
             </div>
           </span>
         </div>
