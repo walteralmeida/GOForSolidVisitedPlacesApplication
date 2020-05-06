@@ -38,7 +38,7 @@ namespace Solid.Data.DataProviders.Custom
 
         private string GetPropertyFromFilter(string filterpredicate, string property)
         {
-            var regexp = new Regex($"{property} == \"(.*)\"");
+            var regexp = new Regex($"{property} == \"(.*?)\"");
 
             var match = regexp.Match(filterpredicate);
 
