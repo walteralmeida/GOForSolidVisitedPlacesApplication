@@ -112,10 +112,21 @@ namespace Solid.Data.DataProviders.Custom
 
                 sb = new StringBuilder();
                 sb.AppendLine($":{entity.Id} ");
+                
                 sb.AppendLine($"   a <http://generativeobjects.com/apps#VisitedPlace> ;");
                 sb.AppendLine($"   <http://schema.org/startDate> \"{existingEntity.Date.ToString("yyyy-MM-dd")}\" ;");
                 sb.AppendLine($"   <http://schema.org/description> \"\"\"{existingEntity.Description}\"\"\" ; ");
-                sb.AppendLine($"   <http://dbpedia.org/class/yago/WikicatMemberStatesOfTheUnitedNations> <{existingEntity.CountryURI}> . ");
+                sb.AppendLine($"   <http://generativeobjects.com/apps#VisitedPlaceType> \"{existingEntity.Typeofplace.ToString()}\" ; ");
+
+                if (existingEntity.Typeofplace == PlaceTypesEnum.Country && entity.CountryURI != null)
+                {
+                    sb.AppendLine($"   <http://dbpedia.org/class/yago/WikicatMemberStatesOfTheUnitedNations> <{existingEntity.CountryURI}> . ");
+                }
+                else
+                {
+                    sb.AppendLine($"   <http://dbpedia.org/ontology/Place> <{existingEntity.PlaceURI}> . ");
+                }
+
 
                 payload += $"DELETE DATA {{{sb.ToString()}}} ";
             }
@@ -152,13 +163,23 @@ namespace Solid.Data.DataProviders.Custom
 
                 var query = new SparqlParameterizedString();
 
-                query.CommandText = @"SELECT ?Date ?Description ?CountryURI
+                query.CommandText = @"SELECT *
                                       WHERE 
                                         {     
                                             @VisitedPlace   <http://schema.org/startDate> ?Date ;                                          
-                                                            <http://schema.org/description> ?Description;
-                                                            <http://dbpedia.org/class/yago/WikicatMemberStatesOfTheUnitedNations> ?CountryURI .
+                                                            <http://schema.org/description> ?Description.
+
+                                            OPTIONAL {
+                                                @VisitedPlace <http://generativeobjects.com/apps#VisitedPlaceType> ?PlaceOrCountry .
+                                            }
+                                            OPTIONAL {
+                                                @VisitedPlace <http://dbpedia.org/ontology/Place> ?PlaceURI .
+                                            }
+                                            OPTIONAL {
+                                                @VisitedPlace <http://dbpedia.org/class/yago/WikicatMemberStatesOfTheUnitedNations> ?CountryURI .
+                                            }   
                                         }";
+                //                                                <http://dbpedia.org/class/yago/WikicatMemberStatesOfTheUnitedNations> ?CountryURI ;
 
                 string visitedPlaceLocalFileUri = $"file://////{tempfile}#{entity.Id}";
                 query.SetUri("VisitedPlace", new Uri(visitedPlaceLocalFileUri));
@@ -207,15 +228,23 @@ namespace Solid.Data.DataProviders.Custom
 
                 var query = new SparqlParameterizedString();
 
-                query.CommandText = @"SELECT ?VisitedPlace ?Date ?Description ?CountryURI
+                query.CommandText = @"SELECT *
                                       WHERE 
                                         { 
                                             ?VisitedPlace a <http://generativeobjects.com/apps#VisitedPlace> ; 
                                             <http://schema.org/startDate> ?Date;
-                                            <http://schema.org/description> ?Description;
-                                            <http://dbpedia.org/class/yago/WikicatMemberStatesOfTheUnitedNations> ?CountryURI .
+                                            <http://schema.org/description> ?Description .
+                                            OPTIONAL {
+                                                ?VisitedPlace <http://generativeobjects.com/apps#VisitedPlaceType> ?PlaceOrCountry .
+                                            }
+                                            OPTIONAL {
+                                                ?VisitedPlace <http://dbpedia.org/ontology/Place> ?PlaceURI .
+                                            }
+                                            OPTIONAL {
+                                                ?VisitedPlace <http://dbpedia.org/class/yago/WikicatMemberStatesOfTheUnitedNations> ?CountryURI .
+                                           }
                                         } ";
-
+                ////<http://dbpedia.org/class/yago/WikicatMemberStatesOfTheUnitedNations> ?CountryURI ;
                 if (pageNumber != 0 || pageSize != 0)
                 {
                     query.CommandText += $"LIMIT {pageSize} OFFSET {(pageNumber - 1) * pageSize}";
@@ -253,7 +282,22 @@ namespace Solid.Data.DataProviders.Custom
 
             visitedPlace.Date = DateTime.ParseExact((result.Where(r => r.Key == "Date").Single().Value as BaseLiteralNode).Value, "yyyy-MM-dd", CultureInfo.InvariantCulture);
             visitedPlace.Description = (result.Where(r => r.Key == "Description").Single().Value as BaseLiteralNode)?.Value;
-            visitedPlace.CountryURI = (result.Where(r => r.Key == "CountryURI").Single().Value as UriNode).Uri.ToString();
+
+            if (result.Where(r => r.Key == "PlaceOrCountry").Count() == 1)
+            {
+                visitedPlace.Typeofplace = (PlaceTypesEnum)Enum.Parse(typeof(PlaceTypesEnum), (result.Where(r => r.Key == "PlaceOrCountry").Single().Value as BaseLiteralNode)?.Value);
+            }
+
+            if (result.Where(r => r.Key == "CountryURI").Count() == 1)
+            {
+                visitedPlace.CountryURI = (result.Where(r => r.Key == "CountryURI").Single().Value as UriNode).Uri.ToString();
+            }
+
+            if (result.Where(r => r.Key == "PlaceURI").Count() == 1)
+            {
+                visitedPlace.PlaceURI = (result.Where(r => r.Key == "PlaceURI").Single().Value as UriNode).Uri.ToString();
+            }
+
             visitedPlace.IsNew = false;
             visitedPlace.IsDirty = false;
 
@@ -280,11 +324,21 @@ namespace Solid.Data.DataProviders.Custom
 
                 sb = new StringBuilder();
                 sb.AppendLine($":{entity.Id} ");
+                
                 sb.AppendLine($"   a <http://generativeobjects.com/apps#VisitedPlace> ;");
                 sb.AppendLine($"   <http://schema.org/startDate> \"{existingEntity.Date.ToString("yyyy-MM-dd")}\" ;");
                 sb.AppendLine($"   <http://schema.org/description> \"\"\"{existingEntity.Description}\"\"\" ; ");
-                sb.AppendLine($"   <http://dbpedia.org/class/yago/WikicatMemberStatesOfTheUnitedNations> <{existingEntity.CountryURI}> . ");
+                sb.AppendLine($"   <http://generativeobjects.com/apps#VisitedPlaceType> \"{existingEntity.Typeofplace.ToString()}\" ; ");
 
+                if (existingEntity.Typeofplace == PlaceTypesEnum.Country && entity.CountryURI != null)
+                {
+                    sb.AppendLine($"   <http://dbpedia.org/class/yago/WikicatMemberStatesOfTheUnitedNations> <{existingEntity.CountryURI}> . ");
+                }
+                else
+                {
+                    sb.AppendLine($"   <http://dbpedia.org/ontology/Place> <{existingEntity.PlaceURI}> . ");
+                }
+               
                 payload += $"DELETE DATA {{{sb.ToString()}}} ";
             }
 
@@ -294,8 +348,17 @@ namespace Solid.Data.DataProviders.Custom
             sb.AppendLine($"   a <http://generativeobjects.com/apps#VisitedPlace> ;");
             sb.AppendLine($"   <http://schema.org/startDate> \"{entity.Date.ToString("yyyy-MM-dd")}\" ;");
             sb.AppendLine($"   <http://schema.org/description> \"\"\"{entity.Description}\"\"\" ; ");
-            sb.AppendLine($"   <http://dbpedia.org/class/yago/WikicatMemberStatesOfTheUnitedNations> <{entity.CountryURI}> . ");
-            
+            sb.AppendLine($"   <http://generativeobjects.com/apps#VisitedPlaceType> \"{entity.Typeofplace.ToString()}\" ; ");
+
+            if (entity.Typeofplace == PlaceTypesEnum.Country && entity.CountryURI != null)
+            {
+                sb.AppendLine($"   <http://dbpedia.org/class/yago/WikicatMemberStatesOfTheUnitedNations> <{entity.CountryURI}> . ");
+            }
+            else
+            {
+                sb.AppendLine($"   <http://dbpedia.org/ontology/Place> <{entity.PlaceURI}> . ");
+            }
+
             payload += $"INSERT DATA {{{sb.ToString()}}}";
 
             var token = DataProviderHelper.GetSolidToken();

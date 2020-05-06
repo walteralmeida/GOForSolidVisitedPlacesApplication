@@ -90,8 +90,25 @@ namespace Solid.Data.DataProviders.Custom
 
         protected override DataObjectCollection<CountryDataObject> DoGetCollection(LambdaExpression securityFilterExpression, string filterPredicate, object[] filterArguments, string orderByPredicate, int pageNumber, int pageSize, List<string> includes, IObjectsDataSet context, Dictionary<string, object> parameters)
         {
-            SparqlRemoteEndpoint endpoint = new SparqlRemoteEndpoint(new Uri("http://dbpedia.org/sparql"), "http://dbpedia.org");
+            if (filterPredicate.Contains("(@0.Contains(outerIt.URI))"))
+            {
+                var countries = new DataObjectCollection<CountryDataObject>();
+                countries.ObjectsDataSet = ApplicationSettings.Container.Resolve<IObjectsDataSet>();
 
+                foreach (var arg in filterArguments)
+                {
+                    if ((arg as string[]).Length == 0)
+                        continue;
+
+                    var uri = (arg as string[])[0];
+                    var country = DoGet(new CountryDataObject(uri), null, includes, context, parameters);
+                    countries.Add(country);
+                }
+
+                return countries;
+            }
+
+            SparqlRemoteEndpoint endpoint = new SparqlRemoteEndpoint(new Uri("http://dbpedia.org/sparql"), "http://dbpedia.org");
 
             string query = @"SELECT ?country, ?countryName, ?longName, ?flag, ?populationTotal, MAX(?populationDensity) as ?density ,  ?abstract
                              WHERE {

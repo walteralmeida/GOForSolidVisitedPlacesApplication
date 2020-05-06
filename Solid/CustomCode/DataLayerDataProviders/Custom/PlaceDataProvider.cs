@@ -15,7 +15,7 @@ using VDS.RDF;
 using System.Linq;
 using GenerativeObjects.Practices.LayerSupportClasses;
 using Unity;
-
+using System.Text.RegularExpressions;
 
 namespace Solid.Data.DataProviders.Custom
 {
@@ -25,10 +25,49 @@ namespace Solid.Data.DataProviders.Custom
         {
             int count;
 
+            var regex = new Regex("Name\\.Contains\\(\"(.*)\"\\)");
+
+            string nameFilter = null;
+            var match = regex.Match(filterPredicate);
+            if (match.Success)
+            {
+                nameFilter = match.Groups[1].Value;
+            }
+
             SparqlRemoteEndpoint endpoint = new SparqlRemoteEndpoint(new Uri("http://dbpedia.org/sparql"), "http://dbpedia.org");
 
             //Make a SELECT query against the Endpoint
-            SparqlResultSet results = endpoint.QueryWithResultSet("SELECT count(?place) WHERE { ?place a <http://dbpedia.org/ontology/Place> }");
+            string query =
+                @"SELECT count(?place) WHERE 
+                    { 
+                    {?place a <http://dbpedia.org/ontology/HistoricPlace>}
+                    UNION
+                    {?place a <http://dbpedia.org/ontology/Monument>}
+                    UNION
+                    {?place a <http://dbpedia.org/ontology/Garden>}
+                    UNION
+                    {?place a <http://dbpedia.org/ontology/Cemetery>}
+                    UNION
+                    {?place a <http://dbpedia.org/ontology/ArchitecturalStructure>}
+                    UNION
+                    {?place a <http://dbpedia.org/ontology/Park>}
+                    UNION
+                    {?place a <http://dbpedia.org/ontology/NaturalPlace>}
+                    
+                    ?place rdfs:label ?name .
+                    FILTER langMatches(lang(?name), 'en')
+
+                    ";
+
+            if (!String.IsNullOrEmpty(nameFilter))
+            {
+                query += $"FILTER regex(?name,\"{nameFilter}\",\"i\")";
+            }
+
+            query += "}";
+
+            //Make a SELECT query against the Endpoint
+            SparqlResultSet results = endpoint.QueryWithResultSet(query);
 
             var res = results.Single();
             count = Convert.ToInt32((res.Single().Value as BaseLiteralNode).Value);
@@ -79,18 +118,59 @@ namespace Solid.Data.DataProviders.Custom
         {
             SparqlRemoteEndpoint endpoint = new SparqlRemoteEndpoint(new Uri("http://dbpedia.org/sparql"), "http://dbpedia.org");
 
+            var regex = new Regex("Name\\.Contains\\(\"(.*)\"\\)");
+
+            string nameFilter = null;
+            var match = regex.Match(filterPredicate);
+            if (match.Success)
+            {
+                nameFilter = match.Groups[1].Value;
+            }
+            else if (filterPredicate.Contains("(@0.Contains(outerIt.URI))"))
+            {
+                var places = new DataObjectCollection<PlaceDataObject>();
+                places.ObjectsDataSet = ApplicationSettings.Container.Resolve<IObjectsDataSet>();
+
+                foreach(var arg in filterArguments)
+                {
+                    if ((arg as string[]).Length == 0)
+                        continue;
+
+                    var uri = (arg as string[])[0];
+                    var place = DoGet(new PlaceDataObject(uri), null, includes, context, parameters);
+                    places.Add(place);
+                }
+
+                return places;
+            }
 
             string query = @"SELECT distinct(?place), ?name, ?abstract
                                 WHERE {
-                                ?place a <http://dbpedia.org/ontology/Place> .
+                                {?place a <http://dbpedia.org/ontology/HistoricPlace>}
+                                UNION
+                                {?place a <http://dbpedia.org/ontology/Monument>}
+                                UNION
+                                {?place a <http://dbpedia.org/ontology/Garden>}
+                                UNION
+                                {?place a <http://dbpedia.org/ontology/Cemetery>}
+                                UNION
+                                {?place a <http://dbpedia.org/ontology/ArchitecturalStructure>}
+                                UNION
+                                {?place a <http://dbpedia.org/ontology/Park>}
+                                UNION
+                                {?place a <http://dbpedia.org/ontology/NaturalPlace>}
                                 ?place rdfs:label ?name .
                                 ?place dbo:abstract ?abstract .
 
                                 FILTER langMatches(lang(?name), 'en')
-                                FILTER langMatches(lang(?abstract), 'en')
+                                FILTER langMatches(lang(?abstract), 'en')";
 
-                                } 
-                                ";
+            if (!String.IsNullOrEmpty(nameFilter))
+            {
+                query += $"FILTER regex(?name,\"{nameFilter}\",\"i\")";
+            }
+
+            query += "}";
 
             if (pageNumber != 0 || pageSize != 0)
             {
