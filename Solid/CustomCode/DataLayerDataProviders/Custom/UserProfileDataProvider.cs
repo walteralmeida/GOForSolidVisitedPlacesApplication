@@ -55,14 +55,20 @@ namespace Solid.Data.DataProviders.Custom
                 g.LoadFromFile(tempfile);
                 //UriLoader.Load(g, new Uri(userProfileUri));  // NOT WORKING ... ??? SOMEHOW SHOULD WORK
 
-                var query = @"SELECT ?Name ?Role ?OrganizationName WHERE 
+                var query = @"SELECT * WHERE 
                                 { ?me a <http://xmlns.com/foaf/0.1/Person> .
                                   OPTIONAL 
-                                        {
+                                  {
                                           ?me <http://www.w3.org/2006/vcard/ns#fn> ?Name .
+                                  }
+                                  OPTIONAL 
+                                  {
                                           ?me <http://www.w3.org/2006/vcard/ns#organization-name> ?OrganizationName .
+                                  }
+                                  OPTIONAL 
+                                  {
                                           ?me <http://www.w3.org/2006/vcard/ns#role> ?Role .
-                                        }
+                                  }
                                 }";
 
 

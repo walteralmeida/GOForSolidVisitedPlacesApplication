@@ -58,9 +58,6 @@ namespace Solid.Data.DataProviders.Custom
         {
             var userUri = GetUserBaseUriFromFilter(filterPredicate);
             string visitedPlaceDocumentName = "myvisitedplaces.ttl";
-
-            DataProviderHelper.EnsurePublicTypeRegistration(userUri, "goapp-visitedplaces", "http://schema.org/TextDigitalDocument", visitedPlaceDocumentName);
-
             string visitedPlaceDocumentUri = $"{userUri}/public/{visitedPlaceDocumentName}";
             string tempfile = null;
 
@@ -97,9 +94,6 @@ namespace Solid.Data.DataProviders.Custom
         {
             var userUri = DataProviderHelper.GetWebIdRootURL(entity.UserProfileUri);
             string visitedPlaceDocumentName = "myvisitedplaces.ttl";
-
-            DataProviderHelper.EnsurePublicTypeRegistration(userUri, "goapp-visitedplaces", "http://schema.org/TextDigitalDocument", visitedPlaceDocumentName);
-
             string visitedPlaceDocumentUri = $"{userUri}/public/{visitedPlaceDocumentName}";
 
             StringBuilder sb;
@@ -145,9 +139,6 @@ namespace Solid.Data.DataProviders.Custom
         {
             var userUri = DataProviderHelper.GetWebIdRootURL(entity.UserProfileUri);
             string visitedPlaceDocumentName = "myvisitedplaces.ttl";
-
-            DataProviderHelper.EnsurePublicTypeRegistration(userUri, "goapp-visitedplaces", "http://schema.org/TextDigitalDocument", visitedPlaceDocumentName);
-
             string visitedPlacesDocumentUri = $"{userUri}/public/{visitedPlaceDocumentName}";
             
             //string visitedPlaceUri = $"{visitedPlacesDocumentUri}#{entity.Id}"; // to be used with UriLoader.Load
@@ -211,9 +202,6 @@ namespace Solid.Data.DataProviders.Custom
         {
             var userUri = GetUserBaseUriFromFilter(filterPredicate);
             string visitedPlaceDocumentName = "myvisitedplaces.ttl";
-
-            DataProviderHelper.EnsurePublicTypeRegistration(userUri, "goapp-visitedplaces", "http://schema.org/TextDigitalDocument", visitedPlaceDocumentName);
-
             string visitedPlaceDocumentUri = $"{userUri}/public/{visitedPlaceDocumentName}";
             string tempfile = null;
 
@@ -308,9 +296,6 @@ namespace Solid.Data.DataProviders.Custom
         {
             var userUri = DataProviderHelper.GetWebIdRootURL(entity.UserProfileUri);
             string visitedPlaceDocumentName = "myvisitedplaces.ttl";
-
-            DataProviderHelper.EnsurePublicTypeRegistration(userUri, "goapp-visitedplaces", "http://schema.org/TextDigitalDocument", visitedPlaceDocumentName);
-
             string visitedPlaceDocumentUri = $"{userUri}/public/{visitedPlaceDocumentName}";
 
             StringBuilder sb;

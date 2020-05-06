@@ -112,7 +112,6 @@
             <table data-placeholder="gridTable" class="data-grid">
               <thead class="gridControl">
                 <tr>
-                  <th scope="col" data-bind="html: 'Visited Place Name', click: function(data, event){ VisitedPlaceItemsGridViewModel.onHeaderClicked('VisitedPlaceName') }, css: { 'ui-grid-sort-s':((VisitedPlaceItemsGridViewModel.sortOrder() == 'desc') &amp;&amp; (VisitedPlaceItemsGridViewModel.sortColumnName() == 'VisitedPlaceName')), 'ui-grid-sort-n':((VisitedPlaceItemsGridViewModel.sortOrder() == 'asc') &amp;&amp; (VisitedPlaceItemsGridViewModel.sortColumnName() == 'VisitedPlaceName')), 'ui-grid-sort-n-s':(VisitedPlaceItemsGridViewModel.sortColumnName() != 'VisitedPlaceName') }" class="ui-grid-header-container pointer sortableCol"></th>
                   <th scope="col" data-bind="html: 'Country'" class="ui-grid-header-container pointer"></th>
                   <th scope="col" data-bind="html: 'Place', click: function(data, event){ VisitedPlaceItemsGridViewModel.onHeaderClicked('Place.Name') }, css: { 'ui-grid-sort-s':((VisitedPlaceItemsGridViewModel.sortOrder() == 'desc') &amp;&amp; (VisitedPlaceItemsGridViewModel.sortColumnName() == 'Place.Name')), 'ui-grid-sort-n':((VisitedPlaceItemsGridViewModel.sortOrder() == 'asc') &amp;&amp; (VisitedPlaceItemsGridViewModel.sortColumnName() == 'Place.Name')), 'ui-grid-sort-n-s':(VisitedPlaceItemsGridViewModel.sortColumnName() != 'Place.Name') }" class="ui-grid-header-container pointer sortableCol"></th>
                   <th scope="col" data-bind="html: 'Date', click: function(data, event){ VisitedPlaceItemsGridViewModel.onHeaderClicked('Date') }, css: { 'ui-grid-sort-s':((VisitedPlaceItemsGridViewModel.sortOrder() == 'desc') &amp;&amp; (VisitedPlaceItemsGridViewModel.sortColumnName() == 'Date')), 'ui-grid-sort-n':((VisitedPlaceItemsGridViewModel.sortOrder() == 'asc') &amp;&amp; (VisitedPlaceItemsGridViewModel.sortColumnName() == 'Date')), 'ui-grid-sort-n-s':(VisitedPlaceItemsGridViewModel.sortColumnName() != 'Date') }" class="ui-grid-header-container pointer sortableCol"></th>
@@ -121,9 +120,6 @@
               </thead>
               <tbody data-bind="foreach: VisitedPlaceItemsGridViewModel.VisitedPlaceObjectCollection()">
                 <tr class="pointer" data-bind="attr: {'data-id': Data.InternalObjectId}, click: $parent.VisitedPlaceItemsGridViewModel.onLineClicked, event: {dblclick: $parent.VisitedPlaceItemsGridViewModel.onLineDblClicked}, css: {'currenttr': $parent.VisitedPlaceItemsGridViewModel.selectedId() == Data.InternalObjectId()}">
-                  <td data-bind="jqStopBubble: 'a'">
-                    <a data-bind="attr: { href: '#!' + ApplicationController.getRootHashTag('VisitedPlace') + 'VisitedPlaces/VisitedPlace/' + GO.Encoding.UrlEncode(Data.Id()), title: Data.VisitedPlaceName }, html: Data.VisitedPlaceName"></a>
-                  </td>
                   <td data-bind="jqStopBubble: 'a'">
                     <a data-bind="attr: { href: '#!' + ApplicationController.getRootHashTag('CountryDetails') + 'Countries/CountryDetails/' + $parent.VisitedPlaceItemsGridViewModel.getCountryPKValuesForCountry($data), title: $parent.VisitedPlaceItemsGridViewModel.getCountry_NameValue($data) }, html: $parent.VisitedPlaceItemsGridViewModel.getCountry_NameValue($data)"></a>
                   </td>

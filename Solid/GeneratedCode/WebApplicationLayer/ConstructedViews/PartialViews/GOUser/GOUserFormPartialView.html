@@ -104,7 +104,6 @@
             <table data-placeholder="gridTable" class="data-grid">
               <thead class="gridControl">
                 <tr>
-                  <th scope="col" data-bind="html: 'Visited Place Name', click: function(data, event){ onHeaderClicked('VisitedPlaceName') }, css: { 'ui-grid-sort-s':((sortOrder() == 'desc') &amp;&amp; (sortColumnName() == 'VisitedPlaceName')), 'ui-grid-sort-n':((sortOrder() == 'asc') &amp;&amp; (sortColumnName() == 'VisitedPlaceName')), 'ui-grid-sort-n-s':(sortColumnName() != 'VisitedPlaceName') }" class="ui-grid-header-container pointer sortableCol"></th>
                   <th scope="col" data-bind="html: 'Country'" class="ui-grid-header-container pointer"></th>
                   <th scope="col" data-bind="html: 'Place', click: function(data, event){ onHeaderClicked('Place.Name') }, css: { 'ui-grid-sort-s':((sortOrder() == 'desc') &amp;&amp; (sortColumnName() == 'Place.Name')), 'ui-grid-sort-n':((sortOrder() == 'asc') &amp;&amp; (sortColumnName() == 'Place.Name')), 'ui-grid-sort-n-s':(sortColumnName() != 'Place.Name') }" class="ui-grid-header-container pointer sortableCol"></th>
                   <th scope="col" data-bind="html: 'Date', click: function(data, event){ onHeaderClicked('Date') }, css: { 'ui-grid-sort-s':((sortOrder() == 'desc') &amp;&amp; (sortColumnName() == 'Date')), 'ui-grid-sort-n':((sortOrder() == 'asc') &amp;&amp; (sortColumnName() == 'Date')), 'ui-grid-sort-n-s':(sortColumnName() != 'Date') }" class="ui-grid-header-container pointer sortableCol"></th>
@@ -113,9 +112,6 @@
               </thead>
               <tbody data-bind="foreach: VisitedPlaceObjectCollection()">
                 <tr class="pointer" data-bind="attr: {'data-id': Data.InternalObjectId}, click: $parent.onLineClicked, event: {dblclick: $parent.onLineDblClicked}, css: {'currenttr': $parent.selectedId() == Data.InternalObjectId()}">
-                  <td data-bind="jqStopBubble: 'a'">
-                    <a data-bind="attr: { href: '#!' + ApplicationController.getRootHashTag('VisitedPlace') + 'VisitedPlaces/VisitedPlace/' + GO.Encoding.UrlEncode(Data.Id()), title: Data.VisitedPlaceName }, html: Data.VisitedPlaceName"></a>
-                  </td>
                   <td data-bind="jqStopBubble: 'a'">
                     <a data-bind="attr: { href: '#!' + ApplicationController.getRootHashTag('CountryDetails') + 'Countries/CountryDetails/' + $parent.getCountryPKValuesForCountry($data), title: $parent.getCountry_NameValue($data) }, html: $parent.getCountry_NameValue($data)"></a>
                   </td>

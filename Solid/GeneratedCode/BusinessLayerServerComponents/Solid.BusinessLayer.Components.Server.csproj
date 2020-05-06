@@ -118,6 +118,10 @@
     <Reference Include="NLog">
       <HintPath>C:\Program Files (x86)\GenerativeObjects\External References\NLog.dll</HintPath>
     </Reference>
+    <ProjectReference Include="..\..\CustomCode\DataLayerDataProviders\Custom\Solid.Data.DataProviders.Custom.csproj">
+      <Project>{4E7991D2-2B84-426C-947B-17DDBD0E4701}</Project>
+      <Name>Solid.Data.DataProviders.Custom</Name>
+    </ProjectReference>
     <ProjectReference Include="..\Resources\Solid.Data.Resources.csproj">
       <Project>{66631078-E6FC-41CB-9441-6AAACFCD89E0}</Project>
       <Name>Solid.Data.Resources</Name>
