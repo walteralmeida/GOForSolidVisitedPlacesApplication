@@ -37,6 +37,10 @@
 		// Form status data
         this.StatusData = {
 			IsUIDirty : ko.observable (false),
+			CurrentTabIndex: ko.observable(1),
+			// Visibility rules for Tabs.
+			IsWhovisitedthiscountryTabVisible : ko.observable(true),
+			IsInformationsTabVisible : ko.observable(true),
             // Control properties         
 			IsBusy: ko.observable(false),
             IsEnabled: ko.observable(true),
@@ -67,6 +71,28 @@
 							
 			var myName = self.CountryObject().Data.Name();
 			return self.alternateTitle || 'Country : ' + (myName ? myName : '') + ''; 
+		});
+
+		this.StatusData.WhovisitedthiscountryTabTitle = ko.pureComputed(function() { 
+			if (self.customViewModel !== undefined && self.customViewModel.WhovisitedthiscountryTabTitle !== undefined) {
+				return self.customViewModel.WhovisitedthiscountryTabTitle();
+			}	
+			
+			if(!self.CountryObject())
+				return;
+							
+			return 'Who visited this country ?'; 
+		});
+
+		this.StatusData.InformationsTabTitle = ko.pureComputed(function() { 
+			if (self.customViewModel !== undefined && self.customViewModel.InformationsTabTitle !== undefined) {
+				return self.customViewModel.InformationsTabTitle();
+			}	
+			
+			if(!self.CountryObject())
+				return;
+							
+			return 'Information'; 
 		});
 
 		this.runValidation = function() {
@@ -553,6 +579,20 @@
 		};
 
 
+		this.getCurrentTabIndex = function () {
+		    return self.StatusData.CurrentTabIndex();
+		};		
+
+		this.selectTabIndex = function(tabid) {
+			  self.StatusData.CurrentTabIndex(tabid);
+		};
+
+		this.TabChangedMethod = function (tabid) {
+			if(tabid != self.StatusData.CurrentTabIndex()) 
+				self.StatusData.CurrentTabIndex(tabid);
+		    if (self.StatusData.isPopup())
+		        self.controller.applicationController.centerPopup();
+		}
  
         this.ShowError = function (errorMessage, title) {
 			self.isOpenInEditMode = false;

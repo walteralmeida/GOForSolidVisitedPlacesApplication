@@ -47,6 +47,7 @@
 
 		// Calculated fields
 		this.Data.URILink = ko.observable(null);
+		this.Data.WebIdLink = ko.observable(null);
 		// Computed
 		this.ko_computed.push(this.Data.PrimaryKey = ko.pureComputed(ComputedPKForUserProfile, this));
 
@@ -121,6 +122,13 @@
 			this.Data.URILink(newValue);
 	};
 		
+	Solid.Web.Model.DataObjects.UserProfileObject.prototype.updateWebIdLinkValue = function() {
+		var newValue = ('<a href="' + (!!this.Data.Uri() ? this.Data.Uri() : '') + '" target = "_blank">' + (!!this.Data.Uri() ? this.Data.Uri() : '') + '</a>');
+		
+		if (newValue !== this.Data.WebIdLink())
+			this.Data.WebIdLink(newValue);
+	};
+		
 	Solid.Web.Model.DataObjects.UserProfileObject.prototype.addOnPropertyChangedHandler = function( handler ) {
 		this.onPropertyChangedHandlers.push(handler);
 	};
@@ -156,6 +164,7 @@
 		if (localPropertyName == "Uri")
 		{
 			this.updateURILinkValue();
+			this.updateWebIdLinkValue();
 		}
 		
 		// Push the notification to related objects			
@@ -331,6 +340,7 @@
 		
 		// Computed data object properties
 		this.updateURILinkValue();		
+		this.updateWebIdLinkValue();		
 		this.updateDependentCustomValues();
 	};
 
@@ -348,6 +358,7 @@
 		this.subscriptions.push(this.Data.Role.subscribe(RolePropertySubscriptionHandler, this));
 		this.subscriptions.push(this.Data.Uri.subscribe(UriPropertySubscriptionHandler, this));
 		this.subscriptions.push(this.Data.URILink.subscribe(URILinkPropertySubscriptionHandler, this));
+		this.subscriptions.push(this.Data.WebIdLink.subscribe(WebIdLinkPropertySubscriptionHandler, this));
 		this.subscriptions.push(this.Data._gOUser_NewObjectId.subscribe(gOUserNewObjectSubscriptionHandler, this));
 
  
@@ -467,6 +478,15 @@
 		if (this.notifyChangesOn) {		
 			this.updateDependentCustomValues();
 			this.onPropertyChanged("URILink");
+		}
+    }
+
+	function WebIdLinkPropertySubscriptionHandler(newValue) {
+		
+ 
+		if (this.notifyChangesOn) {		
+			this.updateDependentCustomValues();
+			this.onPropertyChanged("WebIdLink");
 		}
     }
 

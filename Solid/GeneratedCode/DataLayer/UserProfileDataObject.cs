@@ -557,6 +557,20 @@ namespace Solid.Data.DataObjects
 			}
 			
 		}		
+			
+		
+		/// <summary> The WebId Link property of the UserProfile DataObject</summary>
+        public virtual System.String WebIdLink 
+		{
+			get	
+			{ 
+				if (!AreCalculationsEnabled)
+					return default(System.String);
+
+				return ("<a href=\"" + Uri + "\" target = \"_blank\">" + Uri + "</a>");				
+			}
+			
+		}		
 		#endregion
 		
 		#region Business rules implementation
@@ -576,6 +590,7 @@ namespace Solid.Data.DataObjects
 			if (propertyName == "Uri")
 			{
 				OnPropertyChanged("URILink", true, dirtyHandlerOn);
+				OnPropertyChanged("WebIdLink", true, dirtyHandlerOn);
 			}
 
 			

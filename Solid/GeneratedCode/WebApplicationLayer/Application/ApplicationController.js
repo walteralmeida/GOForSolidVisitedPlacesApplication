@@ -54,6 +54,9 @@
 				case 'Places':
 					pageName = 'PlaceItemsPage';
 					break;
+				case 'UserProfile':
+					pageName = 'UserProfilePage';
+					break;
 				case 'PlaceDetails':
 					pageName = 'PlacePage';
 					break;
@@ -94,6 +97,8 @@
 				return root + 'MyProfile';
 			case 'Places':
 				return root + 'Places';
+			case 'UserProfile':
+				return root + 'Users/UserProfile';
 			case 'PlaceDetails':
 				return root + 'Places/PlaceDetails';
 			case 'LocationDetails':
@@ -133,6 +138,7 @@
 				case "MyProfilePage":
 				case "CountryItemsPage":
 				case "PlacePage":
+				case "UserProfilePage":
 				case "LocationPage":
 				case "PlaceItemsPage":
 				case "LocationItemsPage":
@@ -675,6 +681,15 @@
 						breadCrumbs.push({ text: 'Places', url: Solid.Web.Application.BaseURL + '#' + root + 'Places', hash: root + 'Places', currentpage: true, isactive: false });
 					}
 					break;
+				case 'UserProfile':
+					if (self.customRouting && self.customRouting.overridenBreadCrumbs && self.customRouting.overridenBreadCrumbs.UserProfile) {
+						breadCrumbs = self.customRouting.overridenBreadCrumbs.UserProfile();
+					}
+					else {
+						breadCrumbs.push({ text: 'Users', url: Solid.Web.Application.BaseURL + '#' + root + 'Users', hash: root + 'Users', currentpage: false, isactive: true });
+						breadCrumbs.push({ text: 'User Profile', url: Solid.Web.Application.BaseURL + '#' + root + 'Users/UserProfile', hash: root + 'Users/UserProfile', currentpage: true, isactive: false });
+					}
+					break;
 				case 'PlaceDetails':
 					if (self.customRouting && self.customRouting.overridenBreadCrumbs && self.customRouting.overridenBreadCrumbs.PlaceDetails) {
 						breadCrumbs = self.customRouting.overridenBreadCrumbs.PlaceDetails();
@@ -771,6 +786,9 @@
 					else if (this.params.part1 == 'Countries' && this.params.part2.split(new RegExp("#", "g"))[0] == 'CountryDetails') {
 						self.internalNavigateTo('CountryDetails');
 					}
+					else if (this.params.part1 == 'Users' && this.params.part2.split(new RegExp("#", "g"))[0] == 'UserProfile') {
+						self.internalNavigateTo('UserProfile');
+					}
 					else if (this.params.part1 == 'Places' && this.params.part2.split(new RegExp("#", "g"))[0] == 'PlaceDetails') {
 						self.internalNavigateTo('PlaceDetails');
 					}
@@ -800,6 +818,9 @@
 					}
 					else if (this.params.part1 == 'Countries' && this.params.part2.split(new RegExp("#", "g"))[0] == 'CountryDetails') {
 						self.internalNavigateTo('CountryDetails');
+					}
+					else if (this.params.part1 == 'Users' && this.params.part2.split(new RegExp("#", "g"))[0] == 'UserProfile') {
+						self.internalNavigateTo('UserProfile');
 					}
 					else if (this.params.part1 == 'Places' && this.params.part2.split(new RegExp("#", "g"))[0] == 'PlaceDetails') {
 						self.internalNavigateTo('PlaceDetails');

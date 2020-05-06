@@ -36,6 +36,8 @@
 			isMyProfileVisible : ko.observable(true), 
 			isPlacesEnabled : ko.observable(true),
 			isPlacesVisible : ko.observable(true), 
+			isUserProfileEnabled : ko.observable(true),
+			isUserProfileVisible : ko.observable(true), 
 			isPlaceDetailsEnabled : ko.observable(true),
 			isPlaceDetailsVisible : ko.observable(true), 
 			isLocationDetailsEnabled : ko.observable(true),
@@ -54,6 +56,7 @@
 			self.navigation.isUsersVisible(self.getNodeVisibility('Users'));
 			self.navigation.isMyProfileVisible(self.getNodeVisibility('MyProfile'));
 			self.navigation.isPlacesVisible(self.getNodeVisibility('Places'));
+			self.navigation.isUserProfileVisible(self.getNodeVisibility('UserProfile'));
 			self.navigation.isPlaceDetailsVisible(self.getNodeVisibility('PlaceDetails'));
 			self.navigation.isLocationDetailsVisible(self.getNodeVisibility('LocationDetails'));
 			self.navigation.isCountriesVisible(self.getNodeVisibility('Countries'));
@@ -100,6 +103,12 @@
 
 			if (self.viewModelCustom !== undefined && self.viewModelCustom.updateIsPlacesVisible !== undefined) 
 				self.viewModelCustom.updateIsPlacesVisible();
+
+			if (self.viewModelCustom !== undefined && self.viewModelCustom.updateIsUserProfileEnabled !== undefined) 
+				self.viewModelCustom.updateIsUserProfileEnabled();
+
+			if (self.viewModelCustom !== undefined && self.viewModelCustom.updateIsUserProfileVisible !== undefined) 
+				self.viewModelCustom.updateIsUserProfileVisible();
 
 			if (self.viewModelCustom !== undefined && self.viewModelCustom.updateIsPlaceDetailsEnabled !== undefined) 
 				self.viewModelCustom.updateIsPlaceDetailsEnabled();

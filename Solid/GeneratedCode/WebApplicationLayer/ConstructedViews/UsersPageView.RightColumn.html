@@ -192,23 +192,7 @@
       </ul>
     </div>
     <div style="margin-top:20px;" id="GOUserFormControlCommands" data-bind="visible: !StatusData.IsBusy() &amp;&amp;  StatusData.IsEnabled()">
-      <ul class="nav nav-pills">
-        <li class="horizontalList">
-          <button data-placeholder="commandButtonZone" data-bind="'click': Commands.CreateNewCommand, 'visible': Commands.IsCreateNewCommandVisible(), 'enable': Commands.IsCreateNewCommandEnabled(), 'css' : { 'command-button' : Commands.IsCreateNewCommandEnabled(), 'command-button-disabled' : !Commands.IsCreateNewCommandEnabled() }" data-test-id="911e2576-a5d5-4f23-9554-cfb9f3080eb5">New</button>
-        </li>
-        <li class="horizontalList">
-          <button data-placeholder="commandButtonZone" data-bind="'click': Commands.EditCommand, 'visible': Commands.IsEditCommandVisible(), 'enable': Commands.IsEditCommandEnabled(), 'css' : { 'command-button' : Commands.IsEditCommandEnabled(), 'command-button-disabled' : !Commands.IsEditCommandEnabled() }" data-test-id="c8be70f4-fcd5-4d26-b4fc-0bf4509230bc">Modify</button>
-        </li>
-        <li class="horizontalList">
-          <button data-placeholder="commandButtonZone" data-bind="'click': Commands.DeleteCommand, 'visible': Commands.IsDeleteCommandVisible(), 'enable': Commands.IsDeleteCommandEnabled(), 'css' : { 'command-button' : Commands.IsDeleteCommandEnabled(), 'command-button-disabled' : !Commands.IsDeleteCommandEnabled() }" data-test-id="a9699648-12fc-43f0-aa9c-0df3eaebe4bf">Delete</button>
-        </li>
-        <li class="horizontalList">
-          <button data-placeholder="commandButtonZone" data-bind="'click': Commands.SaveCommand, 'visible': Commands.IsSaveCommandVisible(), 'enable': Commands.IsSaveCommandEnabled(), 'css' : { 'command-button' : Commands.IsSaveCommandEnabled(), 'command-button-disabled' : !Commands.IsSaveCommandEnabled() }" data-test-id="32b48c43-d5e7-4a09-8d11-01008603324a">Save</button>
-        </li>
-        <li class="horizontalList">
-          <button data-placeholder="commandButtonZone" data-bind="'click': Commands.CancelEditCommand, 'visible': Commands.IsCancelEditCommandVisible(), 'enable': Commands.IsCancelEditCommandEnabled(), 'css' : { 'command-button' : Commands.IsCancelEditCommandEnabled(), 'command-button-disabled' : !Commands.IsCancelEditCommandEnabled() }" data-test-id="50febae7-59fc-48e9-b64b-61ae00cc90a5">Cancel</button>
-        </li>
-      </ul>
+      <ul class="nav nav-pills" />
     </div>
   </div>
 </div>

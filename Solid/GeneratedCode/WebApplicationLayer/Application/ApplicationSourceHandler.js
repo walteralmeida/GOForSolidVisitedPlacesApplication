@@ -80,6 +80,24 @@
 					"/ViewModels/Place/PlaceFormViewModel.js", 
 					"/Controllers/PlacePageController.js" 
 				], 
+				"UserProfilePage-Page": [
+					"/Model/DataObjects/UserProfileObject.js", 
+					"/Model/DataObjectValidators/UserProfileObjectValidator.js", 
+					"/Model/DataSets/UserProfileDataSet.js", 
+					"/Model/DataObjects/VisitedPlaceObject.js", 
+					"/Model/DataObjectValidators/VisitedPlaceObjectValidator.js", 
+					"/Model/DataSets/VisitedPlaceDataSet.js", 
+					"/Model/DataObjects/PlaceObject.js", 
+					"/Model/DataObjectValidators/PlaceObjectValidator.js", 
+					"/Model/DataSets/PlaceDataSet.js", 
+					"/Model/DataObjects/CountryObject.js", 
+					"/Model/DataObjectValidators/CountryObjectValidator.js", 
+					"/Model/DataSets/CountryDataSet.js", 
+					"/Model/DataObjects/PlaceTypesEnum.js", 
+					"/ViewModels/UserProfile/UserProfileForm1ViewModel.js", 
+					"/ViewModels/VisitedPlace/VisitedPlaceGridViewModel.js", 
+					"/Controllers/UserProfilePageController.js" 
+				], 
 				"UsersPage-Page": [
 					"/Model/DataObjects/GOUserObject.js", 
 					"/Model/DataObjectValidators/GOUserObjectValidator.js", 
@@ -178,6 +196,23 @@
 					"/Model/DataSets/CountryDataSet.js", 
 					"/Model/DataObjects/PlaceTypesEnum.js", 
 					"/ViewModels/UserProfile/UserProfileFormViewModel.js", 
+					"/ViewModels/VisitedPlace/VisitedPlaceGridViewModel.js" 
+				], 
+				"UserProfileForm1-Form": [
+					"/Model/DataObjects/UserProfileObject.js", 
+					"/Model/DataObjectValidators/UserProfileObjectValidator.js", 
+					"/Model/DataSets/UserProfileDataSet.js", 
+					"/Model/DataObjects/VisitedPlaceObject.js", 
+					"/Model/DataObjectValidators/VisitedPlaceObjectValidator.js", 
+					"/Model/DataSets/VisitedPlaceDataSet.js", 
+					"/Model/DataObjects/PlaceObject.js", 
+					"/Model/DataObjectValidators/PlaceObjectValidator.js", 
+					"/Model/DataSets/PlaceDataSet.js", 
+					"/Model/DataObjects/CountryObject.js", 
+					"/Model/DataObjectValidators/CountryObjectValidator.js", 
+					"/Model/DataSets/CountryDataSet.js", 
+					"/Model/DataObjects/PlaceTypesEnum.js", 
+					"/ViewModels/UserProfile/UserProfileForm1ViewModel.js", 
 					"/ViewModels/VisitedPlace/VisitedPlaceGridViewModel.js" 
 				], 
 				"VisitedPlaceForm-Form": [

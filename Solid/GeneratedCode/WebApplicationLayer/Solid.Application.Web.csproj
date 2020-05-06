@@ -100,6 +100,9 @@
     <Content Include="Controllers\PlacePageController.js">
       <GeneratedBy>Fenomen</GeneratedBy>
     </Content>
+    <Content Include="Controllers\UserProfilePageController.js">
+      <GeneratedBy>Fenomen</GeneratedBy>
+    </Content>
     <Content Include="Controllers\UsersPageController.js">
       <GeneratedBy>Fenomen</GeneratedBy>
     </Content>
@@ -978,10 +981,19 @@
     <Content Include="ViewModels\PlaceToLocation\PlaceToLocationGridViewModel.js">
       <GeneratedBy>Fenomen</GeneratedBy>
     </Content>
+    <Content Include="ViewModels\UserProfile\UserProfileForm1ViewModel.js">
+      <GeneratedBy>Fenomen</GeneratedBy>
+    </Content>
     <Content Include="ViewModels\UserProfile\UserProfileFormViewModel.js">
       <GeneratedBy>Fenomen</GeneratedBy>
     </Content>
     <Content Include="ViewModels\VisitedPlace\VisitedPlaceFormViewModel.js">
+      <GeneratedBy>Fenomen</GeneratedBy>
+    </Content>
+    <Content Include="ViewModels\VisitedPlace\VisitedPlaceGrid1ViewModel.js">
+      <GeneratedBy>Fenomen</GeneratedBy>
+    </Content>
+    <Content Include="ViewModels\VisitedPlace\VisitedPlaceGrid2ViewModel.js">
       <GeneratedBy>Fenomen</GeneratedBy>
     </Content>
     <Content Include="ViewModels\VisitedPlace\VisitedPlaceGridViewModel.js">
@@ -1088,6 +1100,12 @@
     <Content Include="Views\PartialViews\PlaceToLocation\PlaceToLocationGridPartialView.html">
       <GeneratedBy>Fenomen</GeneratedBy>
     </Content>
+    <Content Include="Views\PartialViews\UserProfile\UserProfileForm1ControlPartialView.html">
+      <GeneratedBy>Fenomen</GeneratedBy>
+    </Content>
+    <Content Include="Views\PartialViews\UserProfile\UserProfileForm1PartialView.html">
+      <GeneratedBy>Fenomen</GeneratedBy>
+    </Content>
     <Content Include="Views\PartialViews\UserProfile\UserProfileFormControlPartialView.html">
       <GeneratedBy>Fenomen</GeneratedBy>
     </Content>
@@ -1100,6 +1118,12 @@
     <Content Include="Views\PartialViews\VisitedPlace\VisitedPlaceFormPartialView.html">
       <GeneratedBy>Fenomen</GeneratedBy>
     </Content>
+    <Content Include="Views\PartialViews\VisitedPlace\VisitedPlaceGrid1PartialView.html">
+      <GeneratedBy>Fenomen</GeneratedBy>
+    </Content>
+    <Content Include="Views\PartialViews\VisitedPlace\VisitedPlaceGrid2PartialView.html">
+      <GeneratedBy>Fenomen</GeneratedBy>
+    </Content>
     <Content Include="Views\PartialViews\VisitedPlace\VisitedPlaceGridPartialView.html">
       <GeneratedBy>Fenomen</GeneratedBy>
     </Content>
@@ -1107,6 +1131,9 @@
       <GeneratedBy>Fenomen</GeneratedBy>
     </Content>
     <Content Include="Views\PlacePageView.html">
+      <GeneratedBy>Fenomen</GeneratedBy>
+    </Content>
+    <Content Include="Views\UserProfilePageView.html">
       <GeneratedBy>Fenomen</GeneratedBy>
     </Content>
     <Content Include="Views\UsersPageView.html">

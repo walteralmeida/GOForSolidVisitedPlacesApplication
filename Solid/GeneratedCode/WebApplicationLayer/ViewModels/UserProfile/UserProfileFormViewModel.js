@@ -103,17 +103,17 @@
 		this.controller.ObjectsDataSet.AddContextIdsStatusChangeHandler(self.onContextIdsStatusChanged);
 
 
-		this.StatusData.IsUriVisible = ko.pureComputed( function () {
-			if (self.customViewModel !== undefined && self.customViewModel.IsUriVisible !== undefined) {
-				return self.customViewModel.IsUriVisible();
+		this.StatusData.IsWebIdLinkVisible = ko.pureComputed( function () {
+			if (self.customViewModel !== undefined && self.customViewModel.IsWebIdLinkVisible !== undefined) {
+				return self.customViewModel.IsWebIdLinkVisible();
 			}
 			
 			return true;
 		});
 
-		this.StatusData.IsUriReadOnly = ko.pureComputed( function () {
-			if (self.customViewModel !== undefined && self.customViewModel.IsUriReadOnly !== undefined) {
-				return self.customViewModel.IsUriReadOnly();
+		this.StatusData.IsWebIdLinkReadOnly = ko.pureComputed( function () {
+			if (self.customViewModel !== undefined && self.customViewModel.IsWebIdLinkReadOnly !== undefined) {
+				return self.customViewModel.IsWebIdLinkReadOnly();
 			}
 			return false;
         });

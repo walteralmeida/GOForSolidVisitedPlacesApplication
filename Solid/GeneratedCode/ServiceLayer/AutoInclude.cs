@@ -59,6 +59,8 @@ namespace Solid.ServiceLayer.IncludeMapping
 			{  "auto-include-id-b81310f0-d7cd-4db9-95f9-38146eecec84", new string[] {  } },
 			// PlaceForm 
 			{  "auto-include-id-b48eb8ed-7966-448f-8b22-5af2622ffef5", new string[] {  } },
+			// UserProfileForm1 
+			{  "auto-include-id-85969c33-eb46-4e7f-a83a-6ce36001722c", new string[] {  } },
 			// PlaceToLocationForm 
 			{  "auto-include-id-a6613eb3-dd9e-4182-9122-9e96193680b8", new string[] { "Location" } },
 			// GOUserForm 
