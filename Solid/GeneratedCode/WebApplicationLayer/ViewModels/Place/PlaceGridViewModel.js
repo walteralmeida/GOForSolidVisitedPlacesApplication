@@ -130,7 +130,7 @@
 		this.ignorePageChange = false;
 
         this.pageNumber = ko.observable(0); // 0 based
-        this.pageSize = 15;
+        this.pageSize = 30;
 
         this.bAutoHide = false;
 	  	self.subscriptions.push(this.totalPageNumber.subscribe(function (newValue) {
@@ -163,7 +163,7 @@
 			if (self.customViewModel && self.customViewModel.Title !== undefined) {
 				return self.customViewModel.Title();
 			}
-			return self.alternateTitle || "Place Items";
+			return self.alternateTitle || "Places";
 		});
 
 		self.subscriptions.push(this.StatusData.IsEnabled.subscribe(function (newValue) {
