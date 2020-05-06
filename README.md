@@ -1,4 +1,4 @@
-# GOForSolidVisitedPlacesApplication
+# Solid Visited Places Application
 
 This is the code source for the presentation I am doing on SOLID World May, with following abstract : 
 
