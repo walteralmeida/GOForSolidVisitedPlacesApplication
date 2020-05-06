@@ -58,7 +58,6 @@ namespace Solid.Data.DataProviders.Database
 					_pathNodes["gogrouprole"].Add( "role", new PathNode { EntityName = "GORole", PathName = "Role" });
 					_pathNodes.Add ( "place", new Dictionary<string,PathNode>());
 
-					_pathNodes["place"].Add( "country", new PathNode { EntityName = "Country", PathName = "Country" });
 					_pathNodes["place"].Add( "placetolocationitems", new PathNode { EntityName = "PlaceToLocation", PathName = "PlaceToLocationItems" });
 					_pathNodes.Add ( "userprofile", new Dictionary<string,PathNode>());
 
@@ -66,7 +65,6 @@ namespace Solid.Data.DataProviders.Database
 					_pathNodes["userprofile"].Add( "visitedplaceitems", new PathNode { EntityName = "VisitedPlace", PathName = "VisitedPlaceItems" });
 					_pathNodes.Add ( "location", new Dictionary<string,PathNode>());
 
-					_pathNodes["location"].Add( "country", new PathNode { EntityName = "Country", PathName = "Country" });
 					_pathNodes["location"].Add( "placetolocationitems", new PathNode { EntityName = "PlaceToLocation", PathName = "PlaceToLocationItems" });
 					_pathNodes.Add ( "placetolocation", new Dictionary<string,PathNode>());
 
@@ -88,8 +86,6 @@ namespace Solid.Data.DataProviders.Database
 					_pathNodes.Add ( "country", new Dictionary<string,PathNode>());
 
 					_pathNodes["country"].Add( "visitedplaceitems", new PathNode { EntityName = "VisitedPlace", PathName = "VisitedPlaceItems" });
-					_pathNodes["country"].Add( "placeitems", new PathNode { EntityName = "Place", PathName = "PlaceItems" });
-					_pathNodes["country"].Add( "locationitems", new PathNode { EntityName = "Location", PathName = "LocationItems" });
 					_pathNodes.Add ( "gousergroup", new Dictionary<string,PathNode>());
 
 					_pathNodes["gousergroup"].Add( "group", new PathNode { EntityName = "GOGroup", PathName = "Group" });
@@ -106,14 +102,14 @@ namespace Solid.Data.DataProviders.Database
           { "gorole", "GroupRoleItems, UserRoleItems" },
           { "visitedplace", "UserProfile, Country" },
           { "gogrouprole", "Group, Role" },
-          { "place", "Country, PlaceToLocationItems" },
+          { "place", "PlaceToLocationItems" },
           { "userprofile", "GOUser, VisitedPlaceItems" },
-          { "location", "Country, PlaceToLocationItems" },
+          { "location", "PlaceToLocationItems" },
           { "placetolocation", "Location, Place" },
           { "gouser", "UserRoleItems, UserProfile, UserGroupItems" },
           { "gogroup", "UserGroupItems, GroupRoleItems" },
           { "gouserrole", "Role, User" },
-          { "country", "VisitedPlaceItems, PlaceItems, LocationItems" },
+          { "country", "VisitedPlaceItems" },
           { "gousergroup", "Group, User" },
       };
 

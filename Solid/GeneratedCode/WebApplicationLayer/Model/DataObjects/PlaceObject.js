@@ -28,14 +28,10 @@
 			URI_OldValue: ko.observable(null),	
 			
 			// Relation	fields (navigators + FK temporary keys observable if needed)
-			_country_NewObjectId : ko.observable(null),
-			Country: function () { return self.getCountry(); },
- 			PlaceToLocationItems: function () { return self.getPlaceToLocationItems(); },
+			PlaceToLocationItems: function () { return self.getPlaceToLocationItems(); },
  		
 			// Other fields
 			Abstract: ko.observable(null),
-			CountryURI: ko.observable(null),
-			CountryURI_OldValue: ko.observable(null), // Keeping track of FK
 			Name: ko.observable(null),
 			// State attributes
 			InternalObjectId: ko.observable(null),
@@ -60,10 +56,6 @@
 		this.StatusData = {
 			isAbstractValid: ko.observable(true),
 			abstractErrorMessage: ko.observable(null), 
-			isCountryValid: ko.observable(true),
-			countryErrorMessage: ko.observable(null), 
-			isCountryURIValid: ko.observable(true),
-			countryURIErrorMessage: ko.observable(null), 
 			isNameValid: ko.observable(true),
 			nameErrorMessage: ko.observable(null), 
 			isPlaceToLocationItemsValid: ko.observable(true),
@@ -173,67 +165,6 @@
     /****** RELATIONS ********/
     /*************************/
 
-	Solid.Web.Model.DataObjects.PlaceObject.prototype.getCountry = function () {
-		if (!this.ObjectsDataSet)
-            return null;
-
-		if(Solid.Web.Model.DataObjects.CountryObject === undefined) {
-			// case script not already loaded
-			return null;
-		}
-
-		var result;
-        var countryDataset = this.ObjectsDataSet.getCountryObjectsDataSet();
-
-        if (this.Data._country_NewObjectId() !== null) {                
-            result = countryDataset.GetObjectByInternalId(this.Data._country_NewObjectId(), true);
-        } else {
-            result = countryDataset.GetObjectByPK(this.Data.CountryURI());
-        }		
-
-		if (result)
-			result.updateDependentValues();
-
-		return result;
-	};
-
-	Solid.Web.Model.DataObjects.PlaceObject.prototype.setCountry = function (valueToSet, notifyChanges, dirtyHandlerOn) {
-		var existing_country = null;
-
-		if (((this.Data.CountryURI === null) && this.Data._country_NewObjectId() === null) || this.ObjectsDataSet === null) {
-			existing_country = null;
-		} else {
-			var countryDataset = this.ObjectsDataSet.getCountryObjectsDataSet();
-
-			if (this.Data._country_NewObjectId() === null) {
-				existing_country =  countryDataset.GetObjectByPK(this.Data.CountryURI());
-			} else {
-				existing_country = countryDataset.GetObjectByInternalId(this.Data._country_NewObjectId(), true);
-			}				
-		}
-				
-		if (existing_country === valueToSet) {
-			return;
-        }
-		// Setting the navigator desync the FK. The FK should be resync
-		if (valueToSet !== null) {
-            this.ObjectsDataSet.AddObjectIfDoesNotExist(valueToSet);
-				
-			if (valueToSet.Data.IsNew()) {
-				if (this.Data._country_NewObjectId() !== valueToSet.Data.InternalObjectId()) {
-					this.Data._country_NewObjectId(valueToSet.Data.InternalObjectId());
-				}
-			} else {
-				if (this.Data.CountryURI() !== valueToSet.Data.URI()) {
-					this.Data._country_NewObjectId(null);
-
-					this.Data.CountryURI(valueToSet.Data.URI());
-				}
-			}
-		} else {
-			this.Data.CountryURI(null);
-		}
-	};
 	Solid.Web.Model.DataObjects.PlaceObject.prototype.getPlaceToLocationItems = function () {
 		if (!this.ObjectsDataSet)
             return null;
@@ -293,10 +224,7 @@
 		// Copy all fields
 		clone.Data.URI_OldValue(this.Data.URI_OldValue());
 		clone.Data.URI(this.Data.URI());
-		clone.Data._country_NewObjectId (this.Data._country_NewObjectId());
 		clone.Data.Abstract(this.Data.Abstract());
-		clone.Data.CountryURI(this.Data.CountryURI());
-		clone.Data.CountryURI_OldValue(this.Data.CountryURI_OldValue()),
 		clone.Data.Name(this.Data.Name());
 		clone.contextIds = this.contextIds;
 
@@ -324,10 +252,7 @@
 			// Copy all fields
 			this.Data.URI_OldValue(sourceObject.Data.URI_OldValue());
 			this.Data.URI(sourceObject.Data.URI());
-			this.Data._country_NewObjectId (sourceObject.Data._country_NewObjectId());
 				this.Data.Abstract(sourceObject.Data.Abstract());
-			this.Data.CountryURI(sourceObject.Data.CountryURI());
-			this.Data.CountryURI_OldValue(sourceObject.Data.CountryURI_OldValue()),
 			this.Data.Name(sourceObject.Data.Name());
 			this.contextIds = sourceObject.contextIds;
 
@@ -365,10 +290,8 @@
 		this.subscriptions.push(this.Data.IsDirty.subscribe(isDirtySubscriptionHandler, this));
 		this.subscriptions.push(this.Data.IsMarkedForDeletion.subscribe(isMarkedForDeletionSubscriptionHandler, this));
 		this.subscriptions.push(this.Data.Abstract.subscribe(AbstractPropertySubscriptionHandler, this));
-		this.subscriptions.push(this.Data.CountryURI.subscribe(CountryURIPropertySubscriptionHandler, this));
 		this.subscriptions.push(this.Data.Name.subscribe(NamePropertySubscriptionHandler, this));
 		this.subscriptions.push(this.Data.URI.subscribe(URIPropertySubscriptionHandler, this));
-		this.subscriptions.push(this.Data._country_NewObjectId.subscribe(countryNewObjectSubscriptionHandler, this));
 
  
 		this.updateDependentValues();
@@ -408,7 +331,6 @@
 	function statusDataValidationComputed() {
 		var isValid = true;
 		isValid = isValid && this.StatusData.isAbstractValid() && this.StatusData.isNameValid() && this.StatusData.isURIValid() && this.StatusData.isPlaceEntityValid();
-		isValid = isValid && this.StatusData.isCountryValid();
 		return isValid;
 	}
 
@@ -434,23 +356,6 @@
 		if (this.notifyChangesOn) {		
 			this.updateDependentCustomValues();
 			this.onPropertyChanged("Abstract");
-		}
-    }
-
-	function CountryURIPropertySubscriptionHandler(newValue) {
-		if (this.Data.CountryURI_OldValue() !== newValue && this.ObjectsDataSet) {
-			this.ObjectsDataSet.getPlaceObjectsDataSet().UpdateCountryFKIndex(this.Data.CountryURI_OldValue(), newValue, this);            
-		}
-		this.Data.CountryURI_OldValue(newValue);
-		
-		if (this.DirtyHandlerOn) {			
-            this.Data.IsDirty(true);
-		}
- 
-		if (this.notifyChangesOn) {		
-			this.updateDependentCustomValues();
-			this.onPropertyChanged("CountryURI");
-			this.onPropertyChanged("Country");
 		}
     }
 
@@ -486,17 +391,6 @@
 			this.onPropertyChanged("URI");
 		}
     }
-
-	function countryNewObjectSubscriptionHandler(newValue) {
-		if (this.DirtyHandlerOn === true) 			
-            this.Data.IsDirty(true);
-
-		if (this.notifyChangesOn === true) {	
-			this.onPropertyChanged("Country");
-		}
-    }
- 
-
 
  
 

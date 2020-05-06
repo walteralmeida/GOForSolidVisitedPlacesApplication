@@ -21,8 +21,6 @@
 		
 		this.fkIndexes = {};
 
-
-
 		
 	};
 
@@ -180,22 +178,6 @@
     };
 
 	Solid.Web.Model.DataSets.countryObjectsDataSet.prototype.GetRelatedObjects = function (rootObject, relationName) {
-		if (relationName == "LocationItems") {
-            var result = [];
-			var relatedDataSet = this._rootObjectDataSet.getLocationObjectsDataSet();
-			if (relatedDataSet !== undefined) 
-				result = relatedDataSet.GetLocationItemsForCountry(rootObject);
-
-			return result;
-		}		
-		if (relationName == "PlaceItems") {
-            var result = [];
-			var relatedDataSet = this._rootObjectDataSet.getPlaceObjectsDataSet();
-			if (relatedDataSet !== undefined) 
-				result = relatedDataSet.GetPlaceItemsForCountry(rootObject);
-
-			return result;
-		}		
 		if (relationName == "VisitedPlaceItems") {
             var result = [];
 			var relatedDataSet = this._rootObjectDataSet.getVisitedPlaceObjectsDataSet();

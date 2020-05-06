@@ -29,18 +29,6 @@ namespace Solid.Data.DeleteHandlers
 			// Set resync flag initially so that if any processing is done, it's on the latest copy of the data
 			NeedResync = true;
 
-			// Country.LocationItems (Protected) (i.e. Unable to delete Country instances because LocationItems.Country is not optional and needs to be cleared first)
-			{
-				instance = Resync(instance);
-				instance.LoadLocationItems(parameters, skipSecurity: true);
-				AddAnyBlockages("failDeleteProtected", instance, instance.LocationItems);
-			}
-			// Country.PlaceItems (Protected) (i.e. Unable to delete Country instances because PlaceItems.Country is not optional and needs to be cleared first)
-			{
-				instance = Resync(instance);
-				instance.LoadPlaceItems(parameters, skipSecurity: true);
-				AddAnyBlockages("failDeleteProtected", instance, instance.PlaceItems);
-			}
 			// Country.VisitedPlaceItems (Protected) (i.e. Unable to delete Country instances because VisitedPlaceItems.Country is not optional and needs to be cleared first)
 			{
 				instance = Resync(instance);

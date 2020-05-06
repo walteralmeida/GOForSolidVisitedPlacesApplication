@@ -24,8 +24,6 @@ namespace Solid.Data.DataProviders.Dispatchers
     public class PlaceDataProviderDispatcher : IDataProviderDispatcher<PlaceDataObject>
     {
 		[Dependency]   
-		public IDataProvider<CountryDataObject> CountryDataProvider { get; set; }        
-		[Dependency]   
 		public IDataProvider<PlaceToLocationDataObject> PlaceToLocationDataProvider { get; set; }        
 
         public void DispatchForEntity(PlaceDataObject entity, List<string> includes, IObjectsDataSet context, Dictionary<string, object> parameters, bool skipSecurity = false)
@@ -52,27 +50,6 @@ namespace Solid.Data.DataProviders.Dispatchers
 
 					switch (relation)
 					{
-                  case "country":
-							{
-								// custom code can implement IPrefetch<ORMPlace> and add prefetch info through PrefetchAssociations helper => if set, we skip the dispatch-fetch
-								if (prefetches.Contains("Country"))
-									break;
-
-								try
-								{
-									var objectToFetch = CountryDataProvider.Get(new CountryDataObject(entity.CountryURI), null, subincludes, context, parameters, skipSecurity);
-									if(objectToFetch != null) 
-									{
-										entity.ObjectsDataSet.Merge(objectToFetch.ObjectsDataSet);
-									}
-								}
-								catch (GOServerException e)
-								{
-									if (e.Reason != "accessDenied")
-										throw;
-								}
-								break;
-							}
                   case "placetolocationitems":
 							{
 								// custom code can implement IPrefetch<ORMPlace> and add prefetch info through PrefetchAssociations helper => if set, we skip the dispatch-fetch
@@ -123,24 +100,6 @@ namespace Solid.Data.DataProviders.Dispatchers
 
 					switch (relation)
 					{
-						case "country":
-                        {
-							// custom code can implement IPrefetch<ORMPlace> and add prefetch info through PrefetchAssociations helper => if set, we skip the dispatch-fetch
-							if (prefetches.Contains("Country"))
-								break;
-
-							var filterparameters = new object[] { entities.Select(e => e.CountryURI).Distinct().ToArray() } ;
-							try
-							{
-								entities.First().ObjectsDataSet.Merge(CountryDataProvider.GetCollection(null, "(@0.Contains(outerIt.URI))", filterparameters, null, 0, 0, subincludes, context, parameters, skipSecurity).ObjectsDataSet);
-							}
-							catch (GOServerException e)
-							{
-								if (e.Reason != "accessDenied")
-									throw;
-							}
-							break;
-						}
 						case "placetolocationitems":
                         {
 							// custom code can implement IPrefetch<ORMPlace> and add prefetch info through PrefetchAssociations helper => if set, we skip the dispatch-fetch

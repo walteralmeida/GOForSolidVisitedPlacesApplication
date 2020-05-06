@@ -25,10 +25,6 @@ namespace Solid.Data.DataProviders.Dispatchers
     {
 		[Dependency]   
 		public IDataProvider<VisitedPlaceDataObject> VisitedPlaceDataProvider { get; set; }        
-		[Dependency]   
-		public IDataProvider<PlaceDataObject> PlaceDataProvider { get; set; }        
-		[Dependency]   
-		public IDataProvider<LocationDataObject> LocationDataProvider { get; set; }        
 
         public void DispatchForEntity(CountryDataObject entity, List<string> includes, IObjectsDataSet context, Dictionary<string, object> parameters, bool skipSecurity = false)
         {
@@ -63,48 +59,6 @@ namespace Solid.Data.DataProviders.Dispatchers
 								try
 								{
 									var objectToFetch = VisitedPlaceDataProvider.GetCollection(null, String.Format("CountryURI == \"{0}\"", entity.URI), null, null, 0, 0, subincludes, context, parameters, skipSecurity);
-									if (objectToFetch != null) 
-									{
-										entity.ObjectsDataSet.Merge(objectToFetch.ObjectsDataSet);
-									}
-								}
-								catch (GOServerException e)
-								{
-									if (e.Reason != "accessDenied")
-										throw;
-								}
-								break;
-							}
-                  case "placeitems":
-							{
-								// custom code can implement IPrefetch<ORMCountry> and add prefetch info through PrefetchAssociations helper => if set, we skip the dispatch-fetch
-								if (prefetches.Contains("PlaceItems"))
-									break;
-
-								try
-								{
-									var objectToFetch = PlaceDataProvider.GetCollection(null, String.Format("CountryURI == \"{0}\"", entity.URI), null, null, 0, 0, subincludes, context, parameters, skipSecurity);
-									if (objectToFetch != null) 
-									{
-										entity.ObjectsDataSet.Merge(objectToFetch.ObjectsDataSet);
-									}
-								}
-								catch (GOServerException e)
-								{
-									if (e.Reason != "accessDenied")
-										throw;
-								}
-								break;
-							}
-                  case "locationitems":
-							{
-								// custom code can implement IPrefetch<ORMCountry> and add prefetch info through PrefetchAssociations helper => if set, we skip the dispatch-fetch
-								if (prefetches.Contains("LocationItems"))
-									break;
-
-								try
-								{
-									var objectToFetch = LocationDataProvider.GetCollection(null, String.Format("CountryURI == \"{0}\"", entity.URI), null, null, 0, 0, subincludes, context, parameters, skipSecurity);
 									if (objectToFetch != null) 
 									{
 										entity.ObjectsDataSet.Merge(objectToFetch.ObjectsDataSet);
@@ -156,42 +110,6 @@ namespace Solid.Data.DataProviders.Dispatchers
 							try
 							{
 								entities.First().ObjectsDataSet.Merge(VisitedPlaceDataProvider.GetCollection(null, "(@0.Contains(outerIt.CountryURI))", filterparameters, null, 0, 0, subincludes, context, parameters, skipSecurity).ObjectsDataSet);
-							}
-							catch (GOServerException e)
-							{
-								if (e.Reason != "accessDenied")
-									throw;
-							}
-							break;
-						}
-						case "placeitems":
-                        {
-							// custom code can implement IPrefetch<ORMCountry> and add prefetch info through PrefetchAssociations helper => if set, we skip the dispatch-fetch
-							if (prefetches.Contains("PlaceItems"))
-								break;
-
-							var filterparameters = new object[] { entities.Select(e => e.URI).Distinct().ToArray() } ; 
-							try
-							{
-								entities.First().ObjectsDataSet.Merge(PlaceDataProvider.GetCollection(null, "(@0.Contains(outerIt.CountryURI))", filterparameters, null, 0, 0, subincludes, context, parameters, skipSecurity).ObjectsDataSet);
-							}
-							catch (GOServerException e)
-							{
-								if (e.Reason != "accessDenied")
-									throw;
-							}
-							break;
-						}
-						case "locationitems":
-                        {
-							// custom code can implement IPrefetch<ORMCountry> and add prefetch info through PrefetchAssociations helper => if set, we skip the dispatch-fetch
-							if (prefetches.Contains("LocationItems"))
-								break;
-
-							var filterparameters = new object[] { entities.Select(e => e.URI).Distinct().ToArray() } ; 
-							try
-							{
-								entities.First().ObjectsDataSet.Merge(LocationDataProvider.GetCollection(null, "(@0.Contains(outerIt.CountryURI))", filterparameters, null, 0, 0, subincludes, context, parameters, skipSecurity).ObjectsDataSet);
 							}
 							catch (GOServerException e)
 							{

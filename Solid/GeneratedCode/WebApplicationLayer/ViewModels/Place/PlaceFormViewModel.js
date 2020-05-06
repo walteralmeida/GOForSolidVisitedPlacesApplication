@@ -24,7 +24,6 @@
 
 		this.DataStore = new Solid.Web.Model.DataStores.DataStore(controller.applicationController.ObjectsDataSet, 'place');
 		// Related Data Stores
-		this.DataStoreCountry = new Solid.Web.Model.DataStores.DataStore(new Solid.Web.Model.DataSets.ObjectsDataSet(), 'country');
 
  
 		this.isMemoryOnly = false;
@@ -41,11 +40,6 @@
 			function (newobject) {
 				newobject.setPlace(self.CurrentObject());; 
 		});				
-		
-		this.CallAfterSaveRelatedEntity = null;
-			// Lookup fields display fields
-		this.Country_Name = ko.observable(null);
-		this.Country_lookupItem = ko.observable(null); //Storing current selected item for this lookupfield
  
 		// Form status data
         this.StatusData = {
@@ -134,11 +128,6 @@
 
 		this.controller.ObjectsDataSet.AddContextIdsStatusChangeHandler(self.onContextIdsStatusChanged);
 
-		this.subscriptions.push(this.StatusData.DisplayMode.subscribe ( function (newValue) {
-			if (newValue === "edit")	{
-				self.loadRelatedData();
-			}
-		}));
 
 		this.StatusData.IsPlaceToLocationItemsVisible = ko.pureComputed( function () {
 			if (self.customViewModel !== undefined && self.customViewModel.IsPlaceToLocationItemsVisible !== undefined) {
@@ -151,21 +140,6 @@
 		this.StatusData.IsPlaceToLocationItemsReadOnly = ko.pureComputed( function () {
 			if (self.customViewModel !== undefined && self.customViewModel.IsPlaceToLocationItemsReadOnly !== undefined) {
 				return self.customViewModel.IsPlaceToLocationItemsReadOnly();
-			}
-			return false;
-        });
-
-		this.StatusData.IsCountryVisible = ko.pureComputed( function () {
-			if (self.customViewModel !== undefined && self.customViewModel.IsCountryVisible !== undefined) {
-				return self.customViewModel.IsCountryVisible();
-			}
-			
-			return true;
-		});
-
-		this.StatusData.IsCountryReadOnly = ko.pureComputed( function () {
-			if (self.customViewModel !== undefined && self.customViewModel.IsCountryReadOnly !== undefined) {
-				return self.customViewModel.IsCountryReadOnly();
 			}
 			return false;
         });
@@ -334,7 +308,7 @@
         });
 
 
-		// var generatedIncludes = "Country";
+		// var generatedIncludes = "";
 		// The server auto-maps the include path if we send the following auto-include-id
 		this.include = "auto-include-id-b48eb8ed-7966-448f-8b22-5af2622ffef5";
 		// Popups management
@@ -397,263 +371,6 @@
 			self.controller.applicationController.centerPopup();
         };
 
-		// Related data popups
-		this.isShowEditCountryPopupVisible = function () {
-			return true;
-		};
-
-		this.isShowEditCountryPopupEnabled = function () {
-			return self.PlaceObject().getCountry() != null;
-		};
-
-		this.showEditCountryPopup = function () {
-			var objectToShow = self.PlaceObject().getCountry();
-			// Preventing errors due to visualization of informations of an empty element.
-			if (!objectToShow)
-				return;
-			if (objectToShow != null) {
-				objectToShow.ObjectsDataSet = self.controller.ObjectsDataSet;
-			}
-
-			var isMemoryOnly = objectToShow != null && objectToShow.Data.IsNew();
-
-			// Callback called when popup is closed
-			self.CallAfterSaveRelatedEntity = self.selectCountryLookupField; 
-
-			self.controller.applicationController.showEditPopup("CountryForm", self, objectToShow, isMemoryOnly, null, "70%");
-			GO.log("PlaceForm", "Opening lookup popup on CountryForm");
-		};
-
-		this.Commands.isShowCreateNewCountryPopupVisible = function () {
-			if (self.customViewModel !== undefined && self.customViewModel.isShowCreateNewCountryPopupVisible !== undefined) {
-				return self.customViewModel.isShowCreateNewCountryPopupVisible();
-			}
-
-			return true;
-		};
-
-		this.Commands.isShowCreateNewCountryPopupEnabled = function () {
-			if (self.customViewModel !== undefined && self.customViewModel.isShowCreateNewCountryPopupEnabled !== undefined) {
-				return self.customViewModel.isShowCreateNewCountryPopupEnabled();
-			}
-			return true;
-		};
-
-		this.Commands.showCreateNewCountryPopup = function () {
-
- 
-            var newObject = Solid.Web.Model.DataObjects.CountryObjectFactory.createNew(self.controller.ObjectsDataSet, self.contextId);
-
-			newObject.DirtyHandlerOn = false;
-            newObject.DirtyHandlerOn = true;
-				
-			// Callback called when popup is closed
-			self.CallAfterSaveRelatedEntity = self.selectCountryLookupField; 
-
-			var isPKSideToFKSidePopup = false;
-			var isMemoryOnly = isPKSideToFKSidePopup ? true : self.isMemoryOnlyCollection;
-            self.controller.applicationController.showCreateNewPopup("CountryForm", self, newObject, isMemoryOnly, self.contextId, "70%");
-        };
-		// Related data collections
-		this.Country_lookupMethod = null; //set on loadData
-		this.Country_lookupThreshold = 100; // Threshold for automatic switch
-		this.Country_lookupMinLength = ko.observable(0);
-		this.countryCollection = ko.observableArray();
-		this.CountryContextId = this.contextId.concat([this.controller.applicationController.getNextContextId()]);
-
-		this.clearCountryCollection = function() {
-			for (var i = 0; i < self.countryCollection.length; i++) {
-				if (self.countryCollection[i].Data.IsNew() == true) {
-					self.controller.ObjectsDataSet.RemoveObject(self.countryCollection[i]);
-				}				
-			}
-            
-            self.countryCollection.removeAll();		
-		};
-
-		// Give custom code opportunity to post-process / filter country collection before adding to lookup
-		this.includeCountryInLookup = function (country) {
-		    if (self.customViewModel !== undefined && self.customViewModel.includeCountryInLookup !== undefined) {
-		        return self.customViewModel.includeCountryInLookup(country);
-		    }
-
-		    return true;
-		}
-
-		this.setCountryCollection = function (data) {
-			self.clearCountryCollection();
-			            
-			var currentSelectedIsInList = false;
-
-			if (data) {
-				for (var i=0; i < data.length; i++) {
-					if (self.includeCountryInLookup(data[i])) {                		
-						self.countryCollection.push(data[i]);
-					
-						if (self.Country_lookupItem() !== null && self.Country_lookupItem().value !== null && self.Country_lookupItem().value.Data.URI() == data[i].Data.URI()) {
-                			currentSelectedIsInList = true;
-                		}
-					}
-				}
-
-				// If the current item is not in 
-				if(self.Country_lookupItem() !== null && self.Country_lookupItem().value !== null && !currentSelectedIsInList) {
-					self.countryCollection.push(self.Country_lookupItem().value);
-					currentSelectedIsInList = true;
-				}
-				
-				// For autocomplete mode, we need to check that the current item is not null before emptying
-				if (self.Country_lookupItem() !== null && self.Country_lookupItem().value !== null && currentSelectedIsInList == false) {
-					self.Country_lookupItem({ label: "", value: null, selectable: true });
-				}
-            }
-		};
-
-		this.getLookupAddItemLabelTextForCountry = function (){
-			return Solid.Web.Messages.addItemLabel;
-		}
-
-		this.constructCountryArrayFlatForLookup = function () {
-             var result = [], l = self.countryCollection().length;
-			 var emptyItem = { label: Solid.Web.Messages.noAvailableDataLabel + '. ' + self.getLookupAddItemLabelTextForCountry(), value: '', selectable: true, command: 'create'}
-
-			 if (l === 0 && !!self.getLookupAddItemLabelTextForCountry()) {
-		        result.push(emptyItem);
-		        return result;
-		    }
-
-            for (var i=0; i < l; i++) {				
-				result.push( { label : self.countryCollection()[i].Data.Name(), value : self.countryCollection()[i], selectable: true } );				
-            }
-			if (!!self.getLookupAddItemLabelTextForCountry()) {
-				emptyItem.label = self.getLookupAddItemLabelTextForCountry();
-				result.push(emptyItem);
-			}
-			return result;
-		};
-		this.getCountryCollectionData = function (callback) {
-			self.isGetCountryCollectionBusy(true);	
-					
-			var configuration = {};
-			configuration.contextId = self.CountryContextId;
-			configuration.successHandler = callback || self.onGetCountryCollectionDataSuccess;
-
-			configuration.errorHandler = self.onGetCountryCollectionDataError;
-
-			self.DataStoreCountry.LoadObjectCollection(configuration);
-			
-		};
-
-		this.getCountryCollectionOneLevel = function (request, response) {
-                response($.ui.autocomplete.filter(self.constructCountryArrayFlatForLookup(), request.term));
-        };	
-		this.getFilteredCountryCollectionData = function (searchValue, callback) {
-					
-			var configuration = {};
-			configuration.contextId = self.CountryContextId;
-			configuration.filterPredicate = 'Name.StartsWith("' + searchValue + '")';
-			configuration.pageSize = 50;
-			configuration.pageNumber = 1;
-			configuration.successHandler = callback;
-
-			configuration.errorHandler = self.onGetCountryCollectionDataError;
-
-			self.DataStoreCountry.LoadObjectCollection(configuration);
-			
-		};
-
-		this.getCountryAutoComplete = function (request, response) {
-            self.getFilteredCountryCollectionData(request.term, function (data) {
-                self.setCountryCollection(data);
-                response(self.constructCountryArrayFlatForLookup());
-            });
-        };
-
-
-		// This method is called when the user selects an item in the lookup field
-		// It is used to add custom behavior and then calls the next method onSelectedCountryChanged 
-		// which deals with the change internally
-		this.onLookupCountryChanged = function (item) {
-		    var doContinue = true;
-		    if (self.customViewModel !== undefined && self.customViewModel.onLookupCountryChanged !== undefined) {
-		        doContinue = self.customViewModel.onLookupCountryChanged(item);
-		    }
-		    if (doContinue) {
-				if (item.command === 'create') {
-		            item.label = '';
-		            self.Commands.showCreateNewCountryPopup();
-		            return;
-		        } 
- 
-				if (item.value !== null) {		
-					self.controller.ObjectsDataSet.AddOrReplaceObject(item.value.Clone());
-				}
-
-		        self.onSelectedCountryChanged(item.value);
-		    }
-		};
-
-		// Update when lookup selection changed
-		this.onSelectedCountryChanged = function (selectedObject)  {
- 
-			if (selectedObject == null) {
-				self.PlaceObject().Data.CountryURI(null);
-				self.PlaceObject().Data._country_NewObjectId(null); 
-			}
-			else if (selectedObject.Data.IsNew() === false) {
-				self.PlaceObject().Data.CountryURI(selectedObject.Data.URI());
-			}
-			else {
-				self.PlaceObject().Data._country_NewObjectId(selectedObject.Data.InternalObjectId());
-			}
-
-		};
-
-		//Specific functions for Automatic load
-		this.countCountryElements = function (callback) {
-			var configuration = {};
-			configuration.contextId = self.CountryContextId;
-			
-			configuration.successHandler = callback;
-			configuration.errorHandler = function() { callback(0); };
-
-			self.DataStoreCountry.CountObjects(configuration);
-		};
-
-		this.getCountryForLookupAutomatic = function(request, response)  {
-			self.Country_lookupMethod && self.Country_lookupMethod(request, response);
-		};
-
-		this.selectiveLoadDataForCountry = function() {
-			self.countCountryElements(function (data) {
-                if (data > self.Country_lookupThreshold) {
-                    self.Country_lookupMethod = self.getCountryAutoComplete;
-                    self.Country_lookupMinLength(2);
-                } else {                   
-                    self.getCountryCollectionData();
-                    self.Country_lookupMethod = self.getCountryCollectionOneLevel;
-                    self.Country_lookupMinLength(0);
-                }
-            });
-		};
-
-
-	
-		// Related data collections loaders
-		this.onGetCountryCollectionDataSuccess = function (data) {
-			self.setCountryCollection(data);					
-			self.isGetCountryCollectionBusy(false);
-		};
-
-		this.onGetCountryCollectionDataError = function (error) {
-			self.ShowError(error);
-			self.isGetCountryCollectionBusy(false);
-		};
-		
-        this.isGetCountryCollectionBusy = ko.observable(false);
-		this.loadRelatedData = function () {
-			self.selectiveLoadDataForCountry();
-		};
 
         this.SetPlaceObject = function (objectToSet) {
             			
@@ -723,25 +440,11 @@
                 self.PlaceToLocationItemsGridViewModel.LoadPlaceToLocationObjectCollection();
             }
 
-			
-			// Reload all lookup fields related data
-			self.rebindLookups();
  			
 			self.StatusData.IsUIDirty(self.controller.ObjectsDataSet.isContextIdDirty(self.contextId));			
 		};
 
  
-		this.rebindLookups = function() {
-			var relatedCountry = self.PlaceObject().getCountry();
-			var relatedCountry_RelatedElementDisplayField = self.PlaceObject().getCountry() === null ? null : self.PlaceObject().getCountry().Data.Name();
-            if (relatedCountry !== null && relatedCountry_RelatedElementDisplayField !== null) {
-            	self.Country_Name(relatedCountry_RelatedElementDisplayField);
-				self.Country_lookupItem({ label: relatedCountry_RelatedElementDisplayField, value: relatedCountry, selectable: true});
-			} else {
-				self.Country_lookupItem({ label: "", value: null});
-            	self.Country_Name(null);
-			}
-		}
 		
         this.GetPlaceObject = function () {
             return self.PlaceObject();
@@ -769,7 +472,6 @@
 				if(!self.PlaceObject().Data.IsNew()) {
 					self.LoadPlace(self.PlaceObject());
 				}
-				self.loadRelatedData();
 			}
         };
 
@@ -806,15 +508,6 @@
  
         };
 
-			
-		this.selectCountryLookupField = function(relatedObject) { 
-			if(relatedObject._objectType === 'Country') {
-				self.Country_Name(relatedObject.Data.Name());
-				self.Country_lookupItem({label: relatedObject.Data.Name(), value:relatedObject});
-			}
-			self.CallAfterSaveRelatedEntity = null;// reset the value
-			return true; // Prevent rebind in the PopupCaller (this lookup is displayed only in edit mode)
-		};
 			
 
 
@@ -908,7 +601,6 @@
 			self.SetPlaceObject(objectToAdd);
 
 
-			self.clearCountryCollection();
 			
 			self.StatusData.DisplayMode('edit');
             self.StatusData.IsEmpty(false);
@@ -1003,9 +695,7 @@
 
 			self.DataStore = null;
 
-			// Related Data Stores 
-			delete self.DataStoreCountry.dataSet;
-			self.DataStoreCountry = null;
+			 
             // Cleaning references to subscriptions & handlers
 			self.controller.ObjectsDataSet.RemoveContextIdsStatusChangeHandler(self.onContextIdsStatusChanged);			
 			for(var i=0; i < self.subscriptions.length; i++)
@@ -1013,10 +703,6 @@
 				self.subscriptions[i].dispose();
 			}
 			self.subscriptions = [];
- 
-			// Lookup fields
-			this.Country_Name = ko.observable(null);
-			this.Country_lookupItem = ko.observable(null);
  		
 			// Sub-grids ViewModels
 			self.PlaceToLocationItemsGridViewModel.release();

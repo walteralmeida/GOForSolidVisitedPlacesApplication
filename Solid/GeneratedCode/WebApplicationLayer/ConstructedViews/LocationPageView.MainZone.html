@@ -35,39 +35,6 @@
         <div class="LocationFormControl-LocationForm-tabs-contenu LocationFormControl-LocationForm-tabs-1" data-test-id="c003303f-a5d2-4405-af9f-18804b2518f2">
           <div>
             <div class="basicForm" data-placeholder="formFieldsZone">
-              <div class="form-field view requiredField" data-bind="'visible':StatusData.DisplayMode() == 'view' &amp;&amp; StatusData.IsCountryVisible()" data-test-id="faf53f00-4412-46c5-8d03-38b09cbdfe7b" data-entityfield="country-view">
-                <span class="form-field-label-zone" data-bind="'visible':StatusData.DisplayMode() == 'view' &amp;&amp; StatusData.IsCountryVisible(), 'css' : { errorText : !LocationObject().StatusData.isCountryValid() }" data-test-id="label_faf53f00-4412-46c5-8d03-38b09cbdfe7b">
-                  <label class="form-field-label">Country</label>
-                </span>
-                <span class="form-field-control-container" data-bind="'css' : { errorControl : !LocationObject().StatusData.isCountryValid() }">
-                  <div class="lookup-field">
-                    <span>
-                      <a href="#" data-bind="'text': Country_Name, 'css':{ 'errorControl':  !LocationObject().StatusData.isCountryValid()}, 'click' : showEditCountryPopup" data-test-id="view_faf53f00-4412-46c5-8d03-38b09cbdfe7b" />
-                    </span>
-                  </div>
-                </span>
-              </div>
-              <div class="form-field edit requiredField" data-bind="'visible':StatusData.DisplayMode() == 'edit' &amp;&amp; StatusData.IsCountryVisible()" data-test-id="faf53f00-4412-46c5-8d03-38b09cbdfe7b" data-entityfield="country-edit">
-                <span class="form-field-label-zone" data-bind="'visible':StatusData.DisplayMode() == 'edit' &amp;&amp; StatusData.IsCountryVisible(), 'css' : { errorText : !LocationObject().StatusData.isCountryValid() }" data-test-id="label_faf53f00-4412-46c5-8d03-38b09cbdfe7b">
-                  <label class="form-field-label">Country</label>
-                </span>
-                <span class="form-field-control-container" data-bind="'enable' : !StatusData.IsCountryReadOnly(), 'css' : { errorControl : !LocationObject().StatusData.isCountryValid() }">
-                  <div class="lookup-field">
-                    <div class="formEditLookupFieldControl formEditLookupFieldControl-withbutton">
-                      <input class="formEditLookupFieldControl" data-bind="'value': Country_Name, 'css':{ 'busy': isGetCountryCollectionBusy, 'errorControl':  !LocationObject().StatusData.isCountryValid()}, 'jqComboBox' : {'datasource': getCountryForLookupAutomatic, 'onselectionchanged': onLookupCountryChanged, 'currentItem': Country_lookupItem, 'minLength': Country_lookupMinLength(), 'lazyLoadCallback': null, 'fitToInput': true}, 'enable' : !StatusData.IsCountryReadOnly()" data-test-id="edit_faf53f00-4412-46c5-8d03-38b09cbdfe7b" />
-                      <div class="formEditLookupFieldControl-button formEditLookupFieldControl-button-first">
-                        <button data-bind="'click': Commands.showCreateNewCountryPopup, 'visible' : Commands.isShowCreateNewCountryPopupVisible(), enable : Commands.isShowCreateNewCountryPopupEnabled(), 'css' : { 'command-button' :  Commands.isShowCreateNewCountryPopupEnabled(), 'command-button-disabled' : !Commands.isShowCreateNewCountryPopupEnabled() }" class="command-button-disabled" data-test-id="lookup_add_new_button">+</button>
-                      </div>
-                      <div class="formEditLookupFieldControl-button">
-                        <button data-bind="'click': showEditCountryPopup, 'css' : { 'command-button' :  isShowEditCountryPopupEnabled(), 'visible' : isShowEditCountryPopupVisible(), enable : isShowEditCountryPopupEnabled(), 'command-button-disabled' : !isShowEditCountryPopupEnabled() }" class="command-button-disabled" data-test-id="lookup_edit_button">
-                          <img src="styles/images/magnifying14x14.png" />
-                        </button>
-                      </div>
-                    </div>
-                    <span class="errorDescription" data-bind="'visible' : !LocationObject().StatusData.isCountryValid(), text : LocationObject().StatusData.countryErrorMessage"></span>
-                  </div>
-                </span>
-              </div>
               <div class="form-field view requiredField" data-bind="'visible':StatusData.DisplayMode() == 'view' &amp;&amp; StatusData.IsNameVisible()" data-test-id="ebfe6ff4-d791-4b10-8e1a-66604f092a6a" data-entityfield="name-view">
                 <span class="form-field-label-zone" data-bind="'visible':StatusData.DisplayMode() == 'view' &amp;&amp; StatusData.IsNameVisible(), 'css' : { errorText : !LocationObject().StatusData.isNameValid() }" data-test-id="label_ebfe6ff4-d791-4b10-8e1a-66604f092a6a">
                   <label class="form-field-label">Name</label>
