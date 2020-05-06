@@ -24,10 +24,11 @@
             <table data-placeholder="gridTable" class="data-grid">
               <thead class="gridControl">
                 <tr>
-                  <th scope="col" data-bind="html: 'Name', click: function(data, event){ {DATABINDROOT}onHeaderClicked('Name') }, css: { 'ui-grid-sort-s':(({DATABINDROOT}sortOrder() == 'desc') &amp;&amp; ({DATABINDROOT}sortColumnName() == 'Name')), 'ui-grid-sort-n':(({DATABINDROOT}sortOrder() == 'asc') &amp;&amp; ({DATABINDROOT}sortColumnName() == 'Name')), 'ui-grid-sort-n-s':({DATABINDROOT}sortColumnName() != 'Name') }" class="ui-grid-header-container pointer sortableCol"></th>
-                  <th scope="col" data-bind="html: 'Long Name', click: function(data, event){ {DATABINDROOT}onHeaderClicked('LongName') }, css: { 'ui-grid-sort-s':(({DATABINDROOT}sortOrder() == 'desc') &amp;&amp; ({DATABINDROOT}sortColumnName() == 'LongName')), 'ui-grid-sort-n':(({DATABINDROOT}sortOrder() == 'asc') &amp;&amp; ({DATABINDROOT}sortColumnName() == 'LongName')), 'ui-grid-sort-n-s':({DATABINDROOT}sortColumnName() != 'LongName') }" class="ui-grid-header-container pointer sortableCol"></th>
-                  <th scope="col" data-bind="html: 'Population Total', click: function(data, event){ {DATABINDROOT}onHeaderClicked('PopulationTotal') }, css: { 'ui-grid-sort-s':(({DATABINDROOT}sortOrder() == 'desc') &amp;&amp; ({DATABINDROOT}sortColumnName() == 'PopulationTotal')), 'ui-grid-sort-n':(({DATABINDROOT}sortOrder() == 'asc') &amp;&amp; ({DATABINDROOT}sortColumnName() == 'PopulationTotal')), 'ui-grid-sort-n-s':({DATABINDROOT}sortColumnName() != 'PopulationTotal') }" class="ui-grid-header-container pointer sortableCol"></th>
-                  <th scope="col" data-bind="html: 'Population Density', click: function(data, event){ {DATABINDROOT}onHeaderClicked('PopulationDensity') }, css: { 'ui-grid-sort-s':(({DATABINDROOT}sortOrder() == 'desc') &amp;&amp; ({DATABINDROOT}sortColumnName() == 'PopulationDensity')), 'ui-grid-sort-n':(({DATABINDROOT}sortOrder() == 'asc') &amp;&amp; ({DATABINDROOT}sortColumnName() == 'PopulationDensity')), 'ui-grid-sort-n-s':({DATABINDROOT}sortColumnName() != 'PopulationDensity') }" class="ui-grid-header-container pointer sortableCol"></th>
+                  <th scope="col" data-bind="html: 'Name'" class="ui-grid-header-container pointer"></th>
+                  <th scope="col" data-bind="html: 'Long Name'" class="ui-grid-header-container pointer"></th>
+                  <th scope="col" data-bind="html: 'Population Total'" class="ui-grid-header-container pointer"></th>
+                  <th scope="col" data-bind="html: 'Population Density'" class="ui-grid-header-container pointer"></th>
+                  <th scope="col" data-bind="html: 'URI'" class="ui-grid-header-container pointer"></th>
                 </tr>
               </thead>
               <tbody data-bind="foreach: {DATABINDROOT}CountryObjectCollection()">
@@ -38,6 +39,7 @@
                   <td data-bind="html: Data.LongName" class=" multiline"></td>
                   <td data-bind="html: Data.PopulationTotal"></td>
                   <td data-bind="html: Data.PopulationDensity"></td>
+                  <td data-bind="html: Data.URILink, jqStopBubble: 'a'"></td>
                 </tr>
               </tbody>
             </table>

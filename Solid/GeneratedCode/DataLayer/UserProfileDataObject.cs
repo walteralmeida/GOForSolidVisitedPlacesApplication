@@ -543,6 +543,20 @@ namespace Solid.Data.DataObjects
 				SetUriValue(value);
 			}
 		}		
+			
+		
+		/// <summary> The URI Link property of the UserProfile DataObject</summary>
+        public virtual System.String URILink 
+		{
+			get	
+			{ 
+				if (!AreCalculationsEnabled)
+					return default(System.String);
+
+				return ("<a href=\"" + Uri + "\" target=\"_blank\">" + Uri + "</a>");				
+			}
+			
+		}		
 		#endregion
 		
 		#region Business rules implementation
@@ -558,6 +572,11 @@ namespace Solid.Data.DataObjects
 			
             if (!notifyChanges)
                 return;
+
+			if (propertyName == "Uri")
+			{
+				OnPropertyChanged("URILink", true, dirtyHandlerOn);
+			}
 
 			
 			// Push the notification to related objects

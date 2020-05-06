@@ -46,6 +46,8 @@
 			IsMarkedForDeletion: ko.observable(false)
 		};
 
+		// Calculated fields
+		this.Data.URILink = ko.observable(null);
 		// Computed
 		this.ko_computed.push(this.Data.PrimaryKey = ko.pureComputed(ComputedPKForCountry, this));
 
@@ -125,6 +127,14 @@
 		this.Data[prop](date.Date);
 	};
 
+	// Triggers for calculated fields 
+	Solid.Web.Model.DataObjects.CountryObject.prototype.updateURILinkValue = function() {
+		var newValue = ('<a href="' + (!!this.Data.URI() ? this.Data.URI() : '') + '" target="_blank">' + (!!this.Data.URI() ? this.Data.URI() : '') + '</a>');
+		
+		if (newValue !== this.Data.URILink())
+			this.Data.URILink(newValue);
+	};
+		
 	Solid.Web.Model.DataObjects.CountryObject.prototype.addOnPropertyChangedHandler = function( handler ) {
 		this.onPropertyChangedHandlers.push(handler);
 	};
@@ -157,6 +167,10 @@
 			
 		callers.push(this);
 			
+		if (localPropertyName == "URI")
+		{
+			this.updateURILinkValue();
+		}
 		
 		// Push the notification to related objects			
 		var visitedPlaceItemsItems = this.Data.VisitedPlaceItems();
@@ -298,6 +312,10 @@
 	Solid.Web.Model.DataObjects.CountryObject.prototype.updateDependentValues = function() {
 		if (!this.notifyChangesOn)
 			return;
+		
+		// Computed data object properties
+		this.updateURILinkValue();		
+		this.updateDependentCustomValues();
 	};
 
 	/*****************************/
@@ -316,6 +334,7 @@
 		this.subscriptions.push(this.Data.PopulationDensity.subscribe(PopulationDensityPropertySubscriptionHandler, this));
 		this.subscriptions.push(this.Data.PopulationTotal.subscribe(PopulationTotalPropertySubscriptionHandler, this));
 		this.subscriptions.push(this.Data.URI.subscribe(URIPropertySubscriptionHandler, this));
+		this.subscriptions.push(this.Data.URILink.subscribe(URILinkPropertySubscriptionHandler, this));
 
  
 		this.updateDependentValues();
@@ -461,6 +480,15 @@
 		if (this.notifyChangesOn) {		
 			this.updateDependentCustomValues();
 			this.onPropertyChanged("URI");
+		}
+    }
+
+	function URILinkPropertySubscriptionHandler(newValue) {
+		
+ 
+		if (this.notifyChangesOn) {		
+			this.updateDependentCustomValues();
+			this.onPropertyChanged("URILink");
 		}
     }
 

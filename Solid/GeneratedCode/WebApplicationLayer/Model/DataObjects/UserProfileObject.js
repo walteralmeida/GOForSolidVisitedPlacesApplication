@@ -45,6 +45,8 @@
 			IsMarkedForDeletion: ko.observable(false)
 		};
 
+		// Calculated fields
+		this.Data.URILink = ko.observable(null);
 		// Computed
 		this.ko_computed.push(this.Data.PrimaryKey = ko.pureComputed(ComputedPKForUserProfile, this));
 
@@ -111,6 +113,14 @@
 		this.Data[prop](date.Date);
 	};
 
+	// Triggers for calculated fields 
+	Solid.Web.Model.DataObjects.UserProfileObject.prototype.updateURILinkValue = function() {
+		var newValue = ('<a href="' + (!!this.Data.Uri() ? this.Data.Uri() : '') + '" target="_blank">' + (!!this.Data.Uri() ? this.Data.Uri() : '') + '</a>');
+		
+		if (newValue !== this.Data.URILink())
+			this.Data.URILink(newValue);
+	};
+		
 	Solid.Web.Model.DataObjects.UserProfileObject.prototype.addOnPropertyChangedHandler = function( handler ) {
 		this.onPropertyChangedHandlers.push(handler);
 	};
@@ -143,6 +153,10 @@
 			
 		callers.push(this);
 			
+		if (localPropertyName == "Uri")
+		{
+			this.updateURILinkValue();
+		}
 		
 		// Push the notification to related objects			
 		var gOUserItem = this.Data.GOUser();
@@ -314,6 +328,10 @@
 	Solid.Web.Model.DataObjects.UserProfileObject.prototype.updateDependentValues = function() {
 		if (!this.notifyChangesOn)
 			return;
+		
+		// Computed data object properties
+		this.updateURILinkValue();		
+		this.updateDependentCustomValues();
 	};
 
 	/*****************************/
@@ -329,6 +347,7 @@
 		this.subscriptions.push(this.Data.OrganizationName.subscribe(OrganizationNamePropertySubscriptionHandler, this));
 		this.subscriptions.push(this.Data.Role.subscribe(RolePropertySubscriptionHandler, this));
 		this.subscriptions.push(this.Data.Uri.subscribe(UriPropertySubscriptionHandler, this));
+		this.subscriptions.push(this.Data.URILink.subscribe(URILinkPropertySubscriptionHandler, this));
 		this.subscriptions.push(this.Data._gOUser_NewObjectId.subscribe(gOUserNewObjectSubscriptionHandler, this));
 
  
@@ -439,6 +458,15 @@
 		if (this.notifyChangesOn) {		
 			this.updateDependentCustomValues();
 			this.onPropertyChanged("Uri");
+		}
+    }
+
+	function URILinkPropertySubscriptionHandler(newValue) {
+		
+ 
+		if (this.notifyChangesOn) {		
+			this.updateDependentCustomValues();
+			this.onPropertyChanged("URILink");
 		}
     }
 

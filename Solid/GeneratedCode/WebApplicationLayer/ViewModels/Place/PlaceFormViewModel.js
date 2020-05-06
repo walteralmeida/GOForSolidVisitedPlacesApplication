@@ -44,10 +44,6 @@
 		// Form status data
         this.StatusData = {
 			IsUIDirty : ko.observable (false),
-			CurrentTabIndex: ko.observable(1),
-			// Visibility rules for Tabs.
-			IsPlaceToLocationTabVisible : ko.observable(true),
-			IsMainTabVisible : ko.observable(true),
             // Control properties         
 			IsBusy: ko.observable(false),
             IsEnabled: ko.observable(true),
@@ -79,28 +75,6 @@
 			return self.alternateTitle || 'Place Details'; 
 		});
 
-		this.StatusData.PlaceToLocationTabTitle = ko.pureComputed(function() { 
-			if (self.customViewModel !== undefined && self.customViewModel.PlaceToLocationTabTitle !== undefined) {
-				return self.customViewModel.PlaceToLocationTabTitle();
-			}	
-			
-			if(!self.PlaceObject())
-				return;
-							
-			return 'Place To Location Items Items'; 
-		});
-
-		this.StatusData.MainTabTitle = ko.pureComputed(function() { 
-			if (self.customViewModel !== undefined && self.customViewModel.MainTabTitle !== undefined) {
-				return self.customViewModel.MainTabTitle();
-			}	
-			
-			if(!self.PlaceObject())
-				return;
-							
-			return 'Main'; 
-		});
-
 		this.runValidation = function() {
 			self.PlaceObject().runValidation();
 
@@ -129,32 +103,17 @@
 		this.controller.ObjectsDataSet.AddContextIdsStatusChangeHandler(self.onContextIdsStatusChanged);
 
 
-		this.StatusData.IsPlaceToLocationItemsVisible = ko.pureComputed( function () {
-			if (self.customViewModel !== undefined && self.customViewModel.IsPlaceToLocationItemsVisible !== undefined) {
-				return self.customViewModel.IsPlaceToLocationItemsVisible();
+		this.StatusData.IsURILinkVisible = ko.pureComputed( function () {
+			if (self.customViewModel !== undefined && self.customViewModel.IsURILinkVisible !== undefined) {
+				return self.customViewModel.IsURILinkVisible();
 			}
 			
 			return true;
 		});
 
-		this.StatusData.IsPlaceToLocationItemsReadOnly = ko.pureComputed( function () {
-			if (self.customViewModel !== undefined && self.customViewModel.IsPlaceToLocationItemsReadOnly !== undefined) {
-				return self.customViewModel.IsPlaceToLocationItemsReadOnly();
-			}
-			return false;
-        });
-
-		this.StatusData.IsURIVisible = ko.pureComputed( function () {
-			if (self.customViewModel !== undefined && self.customViewModel.IsURIVisible !== undefined) {
-				return self.customViewModel.IsURIVisible();
-			}
-			
-			return true;
-		});
-
-		this.StatusData.IsURIReadOnly = ko.pureComputed( function () {
-			if (self.customViewModel !== undefined && self.customViewModel.IsURIReadOnly !== undefined) {
-				return self.customViewModel.IsURIReadOnly();
+		this.StatusData.IsURILinkReadOnly = ko.pureComputed( function () {
+			if (self.customViewModel !== undefined && self.customViewModel.IsURILinkReadOnly !== undefined) {
+				return self.customViewModel.IsURILinkReadOnly();
 			}
 			return false;
         });
@@ -185,6 +144,21 @@
 		this.StatusData.IsAbstractReadOnly = ko.pureComputed( function () {
 			if (self.customViewModel !== undefined && self.customViewModel.IsAbstractReadOnly !== undefined) {
 				return self.customViewModel.IsAbstractReadOnly();
+			}
+			return false;
+        });
+
+		this.StatusData.IsPlaceToLocationItemsVisible = ko.pureComputed( function () {
+			if (self.customViewModel !== undefined && self.customViewModel.IsPlaceToLocationItemsVisible !== undefined) {
+				return self.customViewModel.IsPlaceToLocationItemsVisible();
+			}
+			
+			return true;
+		});
+
+		this.StatusData.IsPlaceToLocationItemsReadOnly = ko.pureComputed( function () {
+			if (self.customViewModel !== undefined && self.customViewModel.IsPlaceToLocationItemsReadOnly !== undefined) {
+				return self.customViewModel.IsPlaceToLocationItemsReadOnly();
 			}
 			return false;
         });
@@ -717,20 +691,6 @@
 		};
 
 
-		this.getCurrentTabIndex = function () {
-		    return self.StatusData.CurrentTabIndex();
-		};		
-
-		this.selectTabIndex = function(tabid) {
-			  self.StatusData.CurrentTabIndex(tabid);
-		};
-
-		this.TabChangedMethod = function (tabid) {
-			if(tabid != self.StatusData.CurrentTabIndex()) 
-				self.StatusData.CurrentTabIndex(tabid);
-		    if (self.StatusData.isPopup())
-		        self.controller.applicationController.centerPopup();
-		}
  
         this.ShowError = function (errorMessage, title) {
 			self.isOpenInEditMode = false;

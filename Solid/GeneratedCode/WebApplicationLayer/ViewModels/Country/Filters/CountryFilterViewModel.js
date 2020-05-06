@@ -23,8 +23,7 @@
 
 		this.filterData = {
 			fields: {
-				Name: ko.observable(''), 
-				URI: ko.observable('') 
+				Name: ko.observable('') 
 			},
 			groups: {
 			}			
@@ -35,12 +34,6 @@
         this.statusData = {
             filterCollectionLoaded: ko.observable(true),
             countFilterCollectionsLoaded: ko.observable(0),
-	        isURIVisible: ko.pureComputed(function() {
-				if (self.customViewModel && self.customViewModel.isURIVisible) {
-					return self.customViewModel.isURIVisible();
-				}
-				return true;
-			}),
 	        isNameVisible: ko.pureComputed(function() {
 				if (self.customViewModel && self.customViewModel.isNameVisible) {
 					return self.customViewModel.isNameVisible();
@@ -73,7 +66,6 @@
         
         this.clearFilterDataOnly = function() {
 			self.filterData.fields.Name('');
-			self.filterData.fields.URI('');
         };
 
         this.issearchCommandEnabled = ko.pureComputed(function () {
@@ -109,13 +101,6 @@
                 if (filterPredicate !== "") 
 					filterPredicate += " && ";
               filterPredicate += 'Name.Contains("' + self.filterData.fields.Name() + '")';
-            }
-				
-			// URI filter field
-			if (self.filterData.fields.URI() !== '' && self.filterData.fields.URI() !== undefined && self.filterData.fields.URI() !== null) {
-                if (filterPredicate !== "") 
-					filterPredicate += " && ";
-              filterPredicate += 'URI.Contains("' + self.filterData.fields.URI() + '")';
             }
 				
 			// Give custom implementations opportunity to extend the filter predicate

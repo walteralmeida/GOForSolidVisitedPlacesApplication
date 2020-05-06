@@ -13,85 +13,40 @@
   <div class="no-data-message" data-bind="'visible' : {DATABINDROOT}StatusData.IsEmpty()">No Place To Location data available</div>
   <div class="uiContainer" data-bind="'visible' : !{DATABINDROOT}StatusData.IsEmpty()" id="{VIEWNAME}Data">
     <div class="blocking-element ui-widget-overlay"></div>
-    <div class="tabwrapper" id="{VIEWNAME}-tabs" data-bind="jqTab : {onChangeMethod: {DATABINDROOT}TabChangedMethod, TabIndex: {DATABINDROOT}StatusData.CurrentTabIndex }">
-      <ul class="tabs {VIEWNAME}-tabs">
-        <li data-bind="'visible' : {DATABINDROOT}StatusData.IsMainTabVisible()" data-test-id="tab_link_50159da6-6273-40f4-a0db-026494821132">
-          <a data-id="{VIEWNAME}-tabs-1" data-bind="html: {DATABINDROOT}StatusData.MainTabTitle()">Main</a>
-        </li>
-      </ul>
-      <div class="clear"></div>
-      <div class="tabs-container">
-        <div class="{VIEWNAME}-tabs-contenu {VIEWNAME}-tabs-1" data-test-id="50159da6-6273-40f4-a0db-026494821132">
-          <div>
-            <div class="basicForm" data-placeholder="formFieldsZone">
-              <div class="form-field view requiredField" data-bind="'visible':{DATABINDROOT}StatusData.DisplayMode() == 'view' &amp;&amp; {DATABINDROOT}StatusData.IsPlaceVisible()" data-test-id="1fc2cd4a-4001-48b3-94d8-7ee08d527cb1" data-entityfield="place-view">
-                <span class="form-field-label-zone" data-bind="'visible':{DATABINDROOT}StatusData.DisplayMode() == 'view' &amp;&amp; {DATABINDROOT}StatusData.IsPlaceVisible(), 'css' : { errorText : !{DATABINDROOT}PlaceToLocationObject().StatusData.isPlaceValid() }" data-test-id="label_1fc2cd4a-4001-48b3-94d8-7ee08d527cb1">
-                  <label class="form-field-label">Place</label>
-                </span>
-                <span class="form-field-control-container" data-bind="'css' : { errorControl : !{DATABINDROOT}PlaceToLocationObject().StatusData.isPlaceValid() }">
-                  <div class="lookup-field">
-                    <span>
-                      <a href="#" data-bind="'text': {DATABINDROOT}Place_Name, 'css':{ 'errorControl':  !{DATABINDROOT}PlaceToLocationObject().StatusData.isPlaceValid()}, 'click' : {DATABINDROOT}showEditPlacePopup" data-test-id="view_1fc2cd4a-4001-48b3-94d8-7ee08d527cb1" />
-                    </span>
-                  </div>
-                </span>
-              </div>
-              <div class="form-field edit requiredField" data-bind="'visible':{DATABINDROOT}StatusData.DisplayMode() == 'edit' &amp;&amp; {DATABINDROOT}StatusData.IsPlaceVisible()" data-test-id="1fc2cd4a-4001-48b3-94d8-7ee08d527cb1" data-entityfield="place-edit">
-                <span class="form-field-label-zone" data-bind="'visible':{DATABINDROOT}StatusData.DisplayMode() == 'edit' &amp;&amp; {DATABINDROOT}StatusData.IsPlaceVisible(), 'css' : { errorText : !{DATABINDROOT}PlaceToLocationObject().StatusData.isPlaceValid() }" data-test-id="label_1fc2cd4a-4001-48b3-94d8-7ee08d527cb1">
-                  <label class="form-field-label">Place</label>
-                </span>
-                <span class="form-field-control-container" data-bind="'enable' : !{DATABINDROOT}StatusData.IsPlaceReadOnly(), 'css' : { errorControl : !{DATABINDROOT}PlaceToLocationObject().StatusData.isPlaceValid() }">
-                  <div class="lookup-field">
-                    <div class="formEditLookupFieldControl formEditLookupFieldControl-withbutton">
-                      <input class="formEditLookupFieldControl" data-bind="'value': {DATABINDROOT}Place_Name, 'css':{ 'busy': {DATABINDROOT}isGetPlaceCollectionBusy, 'errorControl':  !{DATABINDROOT}PlaceToLocationObject().StatusData.isPlaceValid()}, 'jqComboBox' : {'datasource': {DATABINDROOT}getPlaceForLookupAutomatic, 'onselectionchanged': {DATABINDROOT}onLookupPlaceChanged, 'currentItem': {DATABINDROOT}Place_lookupItem, 'minLength': {DATABINDROOT}Place_lookupMinLength(), 'lazyLoadCallback': null, 'fitToInput': true}, 'enable' : !{DATABINDROOT}StatusData.IsPlaceReadOnly()" data-test-id="edit_1fc2cd4a-4001-48b3-94d8-7ee08d527cb1" />
-                      <div class="formEditLookupFieldControl-button formEditLookupFieldControl-button-first">
-                        <button data-bind="'click': {DATABINDROOT}Commands.showCreateNewPlacePopup, 'visible' : {DATABINDROOT}Commands.isShowCreateNewPlacePopupVisible(), enable : {DATABINDROOT}Commands.isShowCreateNewPlacePopupEnabled(), 'css' : { 'command-button' :  {DATABINDROOT}Commands.isShowCreateNewPlacePopupEnabled(), 'command-button-disabled' : !{DATABINDROOT}Commands.isShowCreateNewPlacePopupEnabled() }" class="command-button-disabled" data-test-id="lookup_add_new_button">+</button>
-                      </div>
-                      <div class="formEditLookupFieldControl-button">
-                        <button data-bind="'click': {DATABINDROOT}showEditPlacePopup, 'css' : { 'command-button' :  {DATABINDROOT}isShowEditPlacePopupEnabled(), 'visible' : {DATABINDROOT}isShowEditPlacePopupVisible(), enable : {DATABINDROOT}isShowEditPlacePopupEnabled(), 'command-button-disabled' : !{DATABINDROOT}isShowEditPlacePopupEnabled() }" class="command-button-disabled" data-test-id="lookup_edit_button">
-                          <img src="styles/images/magnifying14x14.png" />
-                        </button>
-                      </div>
-                    </div>
-                    <span class="errorDescription" data-bind="'visible' : !{DATABINDROOT}PlaceToLocationObject().StatusData.isPlaceValid(), text : {DATABINDROOT}PlaceToLocationObject().StatusData.placeErrorMessage"></span>
-                  </div>
-                </span>
-              </div>
-              <div class="form-field view requiredField" data-bind="'visible':{DATABINDROOT}StatusData.DisplayMode() == 'view' &amp;&amp; {DATABINDROOT}StatusData.IsLocationVisible()" data-test-id="cda6eea5-4a6b-4a4b-b0ba-b8cfc448899f" data-entityfield="location-view">
-                <span class="form-field-label-zone" data-bind="'visible':{DATABINDROOT}StatusData.DisplayMode() == 'view' &amp;&amp; {DATABINDROOT}StatusData.IsLocationVisible(), 'css' : { errorText : !{DATABINDROOT}PlaceToLocationObject().StatusData.isLocationValid() }" data-test-id="label_cda6eea5-4a6b-4a4b-b0ba-b8cfc448899f">
-                  <label class="form-field-label">Location</label>
-                </span>
-                <span class="form-field-control-container" data-bind="'css' : { errorControl : !{DATABINDROOT}PlaceToLocationObject().StatusData.isLocationValid() }">
-                  <div class="lookup-field">
-                    <span>
-                      <a href="#" data-bind="'text': {DATABINDROOT}Location_Name, 'css':{ 'errorControl':  !{DATABINDROOT}PlaceToLocationObject().StatusData.isLocationValid()}, 'click' : {DATABINDROOT}showEditLocationPopup" data-test-id="view_cda6eea5-4a6b-4a4b-b0ba-b8cfc448899f" />
-                    </span>
-                  </div>
-                </span>
-              </div>
-              <div class="form-field edit requiredField" data-bind="'visible':{DATABINDROOT}StatusData.DisplayMode() == 'edit' &amp;&amp; {DATABINDROOT}StatusData.IsLocationVisible()" data-test-id="cda6eea5-4a6b-4a4b-b0ba-b8cfc448899f" data-entityfield="location-edit">
-                <span class="form-field-label-zone" data-bind="'visible':{DATABINDROOT}StatusData.DisplayMode() == 'edit' &amp;&amp; {DATABINDROOT}StatusData.IsLocationVisible(), 'css' : { errorText : !{DATABINDROOT}PlaceToLocationObject().StatusData.isLocationValid() }" data-test-id="label_cda6eea5-4a6b-4a4b-b0ba-b8cfc448899f">
-                  <label class="form-field-label">Location</label>
-                </span>
-                <span class="form-field-control-container" data-bind="'enable' : !{DATABINDROOT}StatusData.IsLocationReadOnly(), 'css' : { errorControl : !{DATABINDROOT}PlaceToLocationObject().StatusData.isLocationValid() }">
-                  <div class="lookup-field">
-                    <div class="formEditLookupFieldControl formEditLookupFieldControl-withbutton">
-                      <input class="formEditLookupFieldControl" data-bind="'value': {DATABINDROOT}Location_Name, 'css':{ 'busy': {DATABINDROOT}isGetLocationCollectionBusy, 'errorControl':  !{DATABINDROOT}PlaceToLocationObject().StatusData.isLocationValid()}, 'jqComboBox' : {'datasource': {DATABINDROOT}getLocationForLookupAutomatic, 'onselectionchanged': {DATABINDROOT}onLookupLocationChanged, 'currentItem': {DATABINDROOT}Location_lookupItem, 'minLength': {DATABINDROOT}Location_lookupMinLength(), 'lazyLoadCallback': null, 'fitToInput': true}, 'enable' : !{DATABINDROOT}StatusData.IsLocationReadOnly()" data-test-id="edit_cda6eea5-4a6b-4a4b-b0ba-b8cfc448899f" />
-                      <div class="formEditLookupFieldControl-button formEditLookupFieldControl-button-first">
-                        <button data-bind="'click': {DATABINDROOT}Commands.showCreateNewLocationPopup, 'visible' : {DATABINDROOT}Commands.isShowCreateNewLocationPopupVisible(), enable : {DATABINDROOT}Commands.isShowCreateNewLocationPopupEnabled(), 'css' : { 'command-button' :  {DATABINDROOT}Commands.isShowCreateNewLocationPopupEnabled(), 'command-button-disabled' : !{DATABINDROOT}Commands.isShowCreateNewLocationPopupEnabled() }" class="command-button-disabled" data-test-id="lookup_add_new_button">+</button>
-                      </div>
-                      <div class="formEditLookupFieldControl-button">
-                        <button data-bind="'click': {DATABINDROOT}showEditLocationPopup, 'css' : { 'command-button' :  {DATABINDROOT}isShowEditLocationPopupEnabled(), 'visible' : {DATABINDROOT}isShowEditLocationPopupVisible(), enable : {DATABINDROOT}isShowEditLocationPopupEnabled(), 'command-button-disabled' : !{DATABINDROOT}isShowEditLocationPopupEnabled() }" class="command-button-disabled" data-test-id="lookup_edit_button">
-                          <img src="styles/images/magnifying14x14.png" />
-                        </button>
-                      </div>
-                    </div>
-                    <span class="errorDescription" data-bind="'visible' : !{DATABINDROOT}PlaceToLocationObject().StatusData.isLocationValid(), text : {DATABINDROOT}PlaceToLocationObject().StatusData.locationErrorMessage"></span>
-                  </div>
-                </span>
-              </div>
+    <div>
+      <div class="basicForm" data-placeholder="formFieldsZone">
+        <div class="form-field view requiredField" data-bind="'visible':{DATABINDROOT}StatusData.DisplayMode() == 'view' &amp;&amp; {DATABINDROOT}StatusData.IsLocationVisible()" data-test-id="cda6eea5-4a6b-4a4b-b0ba-b8cfc448899f" data-entityfield="location-view">
+          <span class="form-field-label-zone" data-bind="'visible':{DATABINDROOT}StatusData.DisplayMode() == 'view' &amp;&amp; {DATABINDROOT}StatusData.IsLocationVisible(), 'css' : { errorText : !{DATABINDROOT}PlaceToLocationObject().StatusData.isLocationValid() }" data-test-id="label_cda6eea5-4a6b-4a4b-b0ba-b8cfc448899f">
+            <label class="form-field-label">Location</label>
+          </span>
+          <span class="form-field-control-container" data-bind="'css' : { errorControl : !{DATABINDROOT}PlaceToLocationObject().StatusData.isLocationValid() }">
+            <div class="lookup-field">
+              <span>
+                <a href="#" data-bind="'text': {DATABINDROOT}Location_Name, 'css':{ 'errorControl':  !{DATABINDROOT}PlaceToLocationObject().StatusData.isLocationValid()}, 'click' : {DATABINDROOT}showEditLocationPopup" data-test-id="view_cda6eea5-4a6b-4a4b-b0ba-b8cfc448899f" />
+              </span>
             </div>
-          </div>
+          </span>
+        </div>
+        <div class="form-field edit requiredField" data-bind="'visible':{DATABINDROOT}StatusData.DisplayMode() == 'edit' &amp;&amp; {DATABINDROOT}StatusData.IsLocationVisible()" data-test-id="cda6eea5-4a6b-4a4b-b0ba-b8cfc448899f" data-entityfield="location-edit">
+          <span class="form-field-label-zone" data-bind="'visible':{DATABINDROOT}StatusData.DisplayMode() == 'edit' &amp;&amp; {DATABINDROOT}StatusData.IsLocationVisible(), 'css' : { errorText : !{DATABINDROOT}PlaceToLocationObject().StatusData.isLocationValid() }" data-test-id="label_cda6eea5-4a6b-4a4b-b0ba-b8cfc448899f">
+            <label class="form-field-label">Location</label>
+          </span>
+          <span class="form-field-control-container" data-bind="'enable' : !{DATABINDROOT}StatusData.IsLocationReadOnly(), 'css' : { errorControl : !{DATABINDROOT}PlaceToLocationObject().StatusData.isLocationValid() }">
+            <div class="lookup-field">
+              <div class="formEditLookupFieldControl formEditLookupFieldControl-withbutton">
+                <input class="formEditLookupFieldControl" data-bind="'value': {DATABINDROOT}Location_Name, 'css':{ 'busy': {DATABINDROOT}isGetLocationCollectionBusy, 'errorControl':  !{DATABINDROOT}PlaceToLocationObject().StatusData.isLocationValid()}, 'jqComboBox' : {'datasource': {DATABINDROOT}getLocationForLookupAutomatic, 'onselectionchanged': {DATABINDROOT}onLookupLocationChanged, 'currentItem': {DATABINDROOT}Location_lookupItem, 'minLength': {DATABINDROOT}Location_lookupMinLength(), 'lazyLoadCallback': null, 'fitToInput': true}, 'enable' : !{DATABINDROOT}StatusData.IsLocationReadOnly()" data-test-id="edit_cda6eea5-4a6b-4a4b-b0ba-b8cfc448899f" />
+                <div class="formEditLookupFieldControl-button formEditLookupFieldControl-button-first">
+                  <button data-bind="'click': {DATABINDROOT}Commands.showCreateNewLocationPopup, 'visible' : {DATABINDROOT}Commands.isShowCreateNewLocationPopupVisible(), enable : {DATABINDROOT}Commands.isShowCreateNewLocationPopupEnabled(), 'css' : { 'command-button' :  {DATABINDROOT}Commands.isShowCreateNewLocationPopupEnabled(), 'command-button-disabled' : !{DATABINDROOT}Commands.isShowCreateNewLocationPopupEnabled() }" class="command-button-disabled" data-test-id="lookup_add_new_button">+</button>
+                </div>
+                <div class="formEditLookupFieldControl-button">
+                  <button data-bind="'click': {DATABINDROOT}showEditLocationPopup, 'css' : { 'command-button' :  {DATABINDROOT}isShowEditLocationPopupEnabled(), 'visible' : {DATABINDROOT}isShowEditLocationPopupVisible(), enable : {DATABINDROOT}isShowEditLocationPopupEnabled(), 'command-button-disabled' : !{DATABINDROOT}isShowEditLocationPopupEnabled() }" class="command-button-disabled" data-test-id="lookup_edit_button">
+                    <img src="styles/images/magnifying14x14.png" />
+                  </button>
+                </div>
+              </div>
+              <span class="errorDescription" data-bind="'visible' : !{DATABINDROOT}PlaceToLocationObject().StatusData.isLocationValid(), text : {DATABINDROOT}PlaceToLocationObject().StatusData.locationErrorMessage"></span>
+            </div>
+          </span>
         </div>
       </div>
     </div>

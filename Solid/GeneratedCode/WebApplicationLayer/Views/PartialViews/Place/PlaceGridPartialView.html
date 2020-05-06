@@ -24,9 +24,9 @@
             <table data-placeholder="gridTable" class="data-grid">
               <thead class="gridControl">
                 <tr>
-                  <th scope="col" data-bind="html: 'Name', click: function(data, event){ {DATABINDROOT}onHeaderClicked('Name') }, css: { 'ui-grid-sort-s':(({DATABINDROOT}sortOrder() == 'desc') &amp;&amp; ({DATABINDROOT}sortColumnName() == 'Name')), 'ui-grid-sort-n':(({DATABINDROOT}sortOrder() == 'asc') &amp;&amp; ({DATABINDROOT}sortColumnName() == 'Name')), 'ui-grid-sort-n-s':({DATABINDROOT}sortColumnName() != 'Name') }" class="ui-grid-header-container pointer sortableCol"></th>
-                  <th scope="col" data-bind="html: 'Abstract', click: function(data, event){ {DATABINDROOT}onHeaderClicked('Abstract') }, css: { 'ui-grid-sort-s':(({DATABINDROOT}sortOrder() == 'desc') &amp;&amp; ({DATABINDROOT}sortColumnName() == 'Abstract')), 'ui-grid-sort-n':(({DATABINDROOT}sortOrder() == 'asc') &amp;&amp; ({DATABINDROOT}sortColumnName() == 'Abstract')), 'ui-grid-sort-n-s':({DATABINDROOT}sortColumnName() != 'Abstract') }" class="ui-grid-header-container pointer sortableCol"></th>
-                  <th scope="col" data-bind="html: 'URI', click: function(data, event){ {DATABINDROOT}onHeaderClicked('URI') }, css: { 'ui-grid-sort-s':(({DATABINDROOT}sortOrder() == 'desc') &amp;&amp; ({DATABINDROOT}sortColumnName() == 'URI')), 'ui-grid-sort-n':(({DATABINDROOT}sortOrder() == 'asc') &amp;&amp; ({DATABINDROOT}sortColumnName() == 'URI')), 'ui-grid-sort-n-s':({DATABINDROOT}sortColumnName() != 'URI') }" class="ui-grid-header-container pointer sortableCol"></th>
+                  <th scope="col" data-bind="html: 'Name'" class="ui-grid-header-container pointer"></th>
+                  <th scope="col" data-bind="html: 'Abstract'" class="ui-grid-header-container pointer"></th>
+                  <th scope="col" data-bind="html: 'URI'" class="ui-grid-header-container pointer"></th>
                 </tr>
               </thead>
               <tbody data-bind="foreach: {DATABINDROOT}PlaceObjectCollection()">
@@ -35,7 +35,7 @@
                     <a data-bind="attr: { href: '#!' + ApplicationController.getRootHashTag('PlaceDetails') + 'Places/PlaceDetails/' + GO.Encoding.UrlEncode(Data.URI()), title: Data.Name }, html: Data.Name"></a>
                   </td>
                   <td data-bind="html: Data.Abstract, attr: {title: Data.Abstract}, toggleCssClass: 'ellipsis'" class=" ellipsis"></td>
-                  <td data-bind="html: Data.URI, jqStopBubble: 'a'"></td>
+                  <td data-bind="html: Data.URILink, jqStopBubble: 'a'"></td>
                 </tr>
               </tbody>
             </table>
