@@ -675,8 +675,17 @@
 			self.ignorePageChange = false;
 		};
 
+		// map calculated field sort columns. For calculated field with sorting enabled, the physical column to use for actual sorting is specified.0		
+		this.mapColumnToSort = function (colName) {
+			if (colName == "VisitedPlaceName") {
+				return ""
+			}
+			
+			return colName;
+		};
  
 		this.onHeaderClicked = function (colName) {
+			colName = self.mapColumnToSort(colName);
 			
 			if (self.gridSettings.oSort() === null) {
 				self.gridSettings.oSort(

@@ -1025,16 +1025,6 @@ namespace Solid.Data.DataObjects
 		
 		#region Business rules implementation
 
-		protected virtual void UpdateCountryURIValue()
-		{
-			CountryURI = ((Typeofplace == Solid.Data.DataObjects.PlaceTypesEnum.Country) ? (CountryURI != null ? CountryURI : "") : "null");
-		}
-		
-		protected virtual void UpdatePlaceURIValue()
-		{
-			PlaceURI = ((Typeofplace == Solid.Data.DataObjects.PlaceTypesEnum.Place) ? (PlaceURI != null ? PlaceURI : "") : "null");
-		}
-		
 		
 		protected override void OnPropertyChanged(string propertyName, bool notifyChanges, bool dirtyHandlerOn, SeenObjectCollection callers)
         {
@@ -1049,19 +1039,7 @@ namespace Solid.Data.DataObjects
 
 			if (propertyName == "Typeofplace")
 			{
-				UpdateCountryURIValue();
-				UpdatePlaceURIValue();
 				OnPropertyChanged("VisitedPlaceName", true, dirtyHandlerOn);
-			}
-
-			if (propertyName == "CountryURI")
-			{
-				UpdateCountryURIValue();
-			}
-
-			if (propertyName == "PlaceURI")
-			{
-				UpdatePlaceURIValue();
 			}
 
 			if (propertyName == "Country.Name")

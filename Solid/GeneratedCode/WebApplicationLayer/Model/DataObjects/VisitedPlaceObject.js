@@ -179,15 +179,6 @@
 		this.Data[prop](date.Date);
 	};
 
-	// Triggers for Business rules data dependency
-	Solid.Web.Model.DataObjects.VisitedPlaceObject.prototype.updateCountryURIValue = function() {
-		this.Data.CountryURI(((this.Data.Typeofplace() == 1) ? (!!this.Data.CountryURI() ? this.Data.CountryURI() : '') : 'null'));
-	};
-		
-	Solid.Web.Model.DataObjects.VisitedPlaceObject.prototype.updatePlaceURIValue = function() {
-		this.Data.PlaceURI(((this.Data.Typeofplace() == 0) ? (!!this.Data.PlaceURI() ? this.Data.PlaceURI() : '') : 'null'));
-	};
-		
 	// Triggers for Business Rules IsVisible dependency
 	Solid.Web.Model.DataObjects.VisitedPlaceObject.prototype.updateIsCountryVisibleValue = function() {
 		this.StatusData.IsCountryVisible((this.Data.Typeofplace() == 1));
@@ -239,19 +230,9 @@
 			
 		if (localPropertyName == "Typeofplace")
 		{
-			this.updateCountryURIValue();
-			this.updatePlaceURIValue();
 			this.updateIsCountryVisibleValue();
 			this.updateIsPlaceVisibleValue();
 			this.updateVisitedPlaceNameValue();
-		}
-		if (localPropertyName == "CountryURI")
-		{
-			this.updateCountryURIValue();
-		}
-		if (localPropertyName == "PlaceURI")
-		{
-			this.updatePlaceURIValue();
 		}
 		if (localPropertyName == "Country.Name")
 		{
@@ -585,10 +566,6 @@
 		// Initialize Business Rules Visibility
 		this.updateIsCountryVisibleValue();		
 		this.updateIsPlaceVisibleValue();		
-		
-		// Initialize Business Setter Rules	
-		this.updateCountryURIValue();		
-		this.updatePlaceURIValue();		
 		
 		// Computed data object properties
 		this.updateVisitedPlaceNameValue();		
