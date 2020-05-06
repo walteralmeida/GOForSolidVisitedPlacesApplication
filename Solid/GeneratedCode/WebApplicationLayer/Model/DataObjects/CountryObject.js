@@ -28,9 +28,7 @@
 			URI_OldValue: ko.observable(null),	
 			
 			// Relation	fields (navigators + FK temporary keys observable if needed)
-			LocationItems: function () { return self.getLocationItems(); },
- 			PlaceItems: function () { return self.getPlaceItems(); },
- 			VisitedPlaceItems: function () { return self.getVisitedPlaceItems(); },
+			VisitedPlaceItems: function () { return self.getVisitedPlaceItems(); },
  		
 			// Other fields
 			Abstract: ko.observable(null),
@@ -64,14 +62,10 @@
 			abstractErrorMessage: ko.observable(null), 
 			isFlagValid: ko.observable(true),
 			flagErrorMessage: ko.observable(null), 
-			isLocationItemsValid: ko.observable(true),
-			locationItemsErrorMessage: ko.observable(null), 
 			isLongNameValid: ko.observable(true),
 			longNameErrorMessage: ko.observable(null), 
 			isNameValid: ko.observable(true),
 			nameErrorMessage: ko.observable(null), 
-			isPlaceItemsValid: ko.observable(true),
-			placeItemsErrorMessage: ko.observable(null), 
 			isPopulationDensityValid: ko.observable(true),
 			populationDensityErrorMessage: ko.observable(null), 
 			isPopulationTotalValid: ko.observable(true),
@@ -165,22 +159,6 @@
 			
 		
 		// Push the notification to related objects			
-		var locationItemsItems = this.Data.LocationItems();
-
-		if (locationItemsItems !== null && locationItemsItems) {
-			for (var i=0; i < locationItemsItems.length; i++) {
-				locationItemsItems[i].onPropertyChanged("Country." + localPropertyName, callers);
-			}
-		}
-
-		var placeItemsItems = this.Data.PlaceItems();
-
-		if (placeItemsItems !== null && placeItemsItems) {
-			for (var i=0; i < placeItemsItems.length; i++) {
-				placeItemsItems[i].onPropertyChanged("Country." + localPropertyName, callers);
-			}
-		}
-
 		var visitedPlaceItemsItems = this.Data.VisitedPlaceItems();
 
 		if (visitedPlaceItemsItems !== null && visitedPlaceItemsItems) {
@@ -199,70 +177,6 @@
     /****** RELATIONS ********/
     /*************************/
 
-	Solid.Web.Model.DataObjects.CountryObject.prototype.getLocationItems = function () {
-		if (!this.ObjectsDataSet)
-            return null;
-
-		return this.ObjectsDataSet.GetRelatedObjects(this, "LocationItems");							
-	};
-
-		
-	Solid.Web.Model.DataObjects.CountryObject.prototype.onLocationItemsChanged = function (change, newitems, olditems, dirtyhandlerOn) {
-        if (change === "add") {
-            for (var i = 0 ; i < newitems.length ;  i++) {
-                if (this.Data.IsNew() === true) {
-                    newitems[i].Data._country_NewObjectId(this.Data.InternalObjectId());
-                } else {
-					newitems[i].Data.CountryURI(this.Data.URI());
-              }
-            }
-
-			if (newitems.length > 0 && dirtyhandlerOn === true)
-				this.Data.IsDirty(true);
-        }
-        else if (change === "remove") {
-            for (var i = 0 ; i < olditems.length ;  i++) {
-                if ( olditems[i].Data.IsNew() === true) {
-					this.ObjectsDataSet.RemoveObject(olditems[i]);
-                }
-            }
-
-			if (olditems.length > 0 && dirtyhandlerOn === true)
-				this.Data.IsDirty(true);
-        }            
-    };		
-	Solid.Web.Model.DataObjects.CountryObject.prototype.getPlaceItems = function () {
-		if (!this.ObjectsDataSet)
-            return null;
-
-		return this.ObjectsDataSet.GetRelatedObjects(this, "PlaceItems");							
-	};
-
-		
-	Solid.Web.Model.DataObjects.CountryObject.prototype.onPlaceItemsChanged = function (change, newitems, olditems, dirtyhandlerOn) {
-        if (change === "add") {
-            for (var i = 0 ; i < newitems.length ;  i++) {
-                if (this.Data.IsNew() === true) {
-                    newitems[i].Data._country_NewObjectId(this.Data.InternalObjectId());
-                } else {
-					newitems[i].Data.CountryURI(this.Data.URI());
-              }
-            }
-
-			if (newitems.length > 0 && dirtyhandlerOn === true)
-				this.Data.IsDirty(true);
-        }
-        else if (change === "remove") {
-            for (var i = 0 ; i < olditems.length ;  i++) {
-                if ( olditems[i].Data.IsNew() === true) {
-					this.ObjectsDataSet.RemoveObject(olditems[i]);
-                }
-            }
-
-			if (olditems.length > 0 && dirtyhandlerOn === true)
-				this.Data.IsDirty(true);
-        }            
-    };		
 	Solid.Web.Model.DataObjects.CountryObject.prototype.getVisitedPlaceItems = function () {
 		if (!this.ObjectsDataSet)
             return null;
@@ -354,7 +268,7 @@
 			// Copy all fields
 			this.Data.URI_OldValue(sourceObject.Data.URI_OldValue());
 			this.Data.URI(sourceObject.Data.URI());
-						this.Data.Abstract(sourceObject.Data.Abstract());
+				this.Data.Abstract(sourceObject.Data.Abstract());
 			this.Data.Flag(sourceObject.Data.Flag());
 			this.Data.LongName(sourceObject.Data.LongName());
 			this.Data.Name(sourceObject.Data.Name());
@@ -549,12 +463,6 @@
 			this.onPropertyChanged("URI");
 		}
     }
-
- 
-
-
- 
-
 
  
 

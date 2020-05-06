@@ -45,17 +45,6 @@
 		}
 	};
 
-	Solid.Web.Model.DataObjects.Validation.CountryValidator.validateLocationItems = function (dataobject) {
-      if(dataobject.Data.LocationItems() == undefined || dataobject.Data.LocationItems() == null || dataobject.Data.LocationItems() === "")
-		{
-			dataobject.StatusData.isLocationItemsValid(false);
-			dataobject.StatusData.locationItemsErrorMessage(Solid.Web.Messages.validationRuleRequiredMessage.replace(/%FIELDNAME%/g, "Location Items"));
-		}
-		else {
-			dataobject.StatusData.isLocationItemsValid(true);
-		}
-	};
-
 	Solid.Web.Model.DataObjects.Validation.CountryValidator.validateLongName = function (dataobject) {
 		// Max Length
 		if(dataobject.Data.LongName() != null && dataobject.Data.LongName().length > 200)
@@ -88,17 +77,6 @@
 		}
 		else {
 			dataobject.StatusData.isNameValid(isValid && true);
-		}
-	};
-
-	Solid.Web.Model.DataObjects.Validation.CountryValidator.validatePlaceItems = function (dataobject) {
-      if(dataobject.Data.PlaceItems() == undefined || dataobject.Data.PlaceItems() == null || dataobject.Data.PlaceItems() === "")
-		{
-			dataobject.StatusData.isPlaceItemsValid(false);
-			dataobject.StatusData.placeItemsErrorMessage(Solid.Web.Messages.validationRuleRequiredMessage.replace(/%FIELDNAME%/g, "Place Items"));
-		}
-		else {
-			dataobject.StatusData.isPlaceItemsValid(true);
 		}
 	};
 
@@ -167,10 +145,8 @@
 
 		Solid.Web.Model.DataObjects.Validation.CountryValidator.validateAbstract (dataobject);
 		Solid.Web.Model.DataObjects.Validation.CountryValidator.validateFlag (dataobject);
-		Solid.Web.Model.DataObjects.Validation.CountryValidator.validateLocationItems (dataobject);
 		Solid.Web.Model.DataObjects.Validation.CountryValidator.validateLongName (dataobject);
 		Solid.Web.Model.DataObjects.Validation.CountryValidator.validateName (dataobject);
-		Solid.Web.Model.DataObjects.Validation.CountryValidator.validatePlaceItems (dataobject);
 		Solid.Web.Model.DataObjects.Validation.CountryValidator.validatePopulationDensity (dataobject);
 		Solid.Web.Model.DataObjects.Validation.CountryValidator.validatePopulationTotal (dataobject);
 		Solid.Web.Model.DataObjects.Validation.CountryValidator.validateURI (dataobject);
@@ -206,17 +182,11 @@
 	    if (dataobject.StatusData.isFlagValid() === false) {
 			dataobject.StatusData.errorSummary.push(dataobject.StatusData.flagErrorMessage());
 		}
-	    if (dataobject.StatusData.isLocationItemsValid() === false) {
-			dataobject.StatusData.errorSummary.push(dataobject.StatusData.locationItemsErrorMessage());
-		}
 	    if (dataobject.StatusData.isLongNameValid() === false) {
 			dataobject.StatusData.errorSummary.push(dataobject.StatusData.longNameErrorMessage());
 		}
 	    if (dataobject.StatusData.isNameValid() === false) {
 			dataobject.StatusData.errorSummary.push(dataobject.StatusData.nameErrorMessage());
-		}
-	    if (dataobject.StatusData.isPlaceItemsValid() === false) {
-			dataobject.StatusData.errorSummary.push(dataobject.StatusData.placeItemsErrorMessage());
 		}
 	    if (dataobject.StatusData.isPopulationDensityValid() === false) {
 			dataobject.StatusData.errorSummary.push(dataobject.StatusData.populationDensityErrorMessage());

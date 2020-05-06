@@ -362,7 +362,6 @@ namespace Solid.Data.DataObjects
 					_pathNodes["GOGroupRoleDataObject"].Add( "role", new PathNode { EntityName = "GORoleDataObject", PathName = "Role" });
 					_pathNodes.Add ( "PlaceDataObject", new Dictionary<string,PathNode>());
 
-					_pathNodes["PlaceDataObject"].Add( "country", new PathNode { EntityName = "CountryDataObject", PathName = "Country" });
 					_pathNodes["PlaceDataObject"].Add( "placetolocationitems", new PathNode { EntityName = "PlaceToLocationDataObject", PathName = "PlaceToLocationItems" });
 					_pathNodes.Add ( "UserProfileDataObject", new Dictionary<string,PathNode>());
 
@@ -370,7 +369,6 @@ namespace Solid.Data.DataObjects
 					_pathNodes["UserProfileDataObject"].Add( "visitedplaceitems", new PathNode { EntityName = "VisitedPlaceDataObject", PathName = "VisitedPlaceItems" });
 					_pathNodes.Add ( "LocationDataObject", new Dictionary<string,PathNode>());
 
-					_pathNodes["LocationDataObject"].Add( "country", new PathNode { EntityName = "CountryDataObject", PathName = "Country" });
 					_pathNodes["LocationDataObject"].Add( "placetolocationitems", new PathNode { EntityName = "PlaceToLocationDataObject", PathName = "PlaceToLocationItems" });
 					_pathNodes.Add ( "PlaceToLocationDataObject", new Dictionary<string,PathNode>());
 
@@ -392,8 +390,6 @@ namespace Solid.Data.DataObjects
 					_pathNodes.Add ( "CountryDataObject", new Dictionary<string,PathNode>());
 
 					_pathNodes["CountryDataObject"].Add( "visitedplaceitems", new PathNode { EntityName = "VisitedPlaceDataObject", PathName = "VisitedPlaceItems" });
-					_pathNodes["CountryDataObject"].Add( "placeitems", new PathNode { EntityName = "PlaceDataObject", PathName = "PlaceItems" });
-					_pathNodes["CountryDataObject"].Add( "locationitems", new PathNode { EntityName = "LocationDataObject", PathName = "LocationItems" });
 					_pathNodes.Add ( "GOUserGroupDataObject", new Dictionary<string,PathNode>());
 
 					_pathNodes["GOUserGroupDataObject"].Add( "group", new PathNode { EntityName = "GOGroupDataObject", PathName = "Group" });
@@ -409,14 +405,14 @@ namespace Solid.Data.DataObjects
           { "GORole", "GroupRoleItems, UserRoleItems" },
           { "VisitedPlace", "UserProfile, Country" },
           { "GOGroupRole", "Group, Role" },
-          { "Place", "Country, PlaceToLocationItems" },
+          { "Place", "PlaceToLocationItems" },
           { "UserProfile", "GOUser, VisitedPlaceItems" },
-          { "Location", "Country, PlaceToLocationItems" },
+          { "Location", "PlaceToLocationItems" },
           { "PlaceToLocation", "Location, Place" },
           { "GOUser", "UserRoleItems, UserProfile, UserGroupItems" },
           { "GOGroup", "UserGroupItems, GroupRoleItems" },
           { "GOUserRole", "Role, User" },
-          { "Country", "VisitedPlaceItems, PlaceItems, LocationItems" },
+          { "Country", "VisitedPlaceItems" },
           { "GOUserGroup", "Group, User" },
       };
 

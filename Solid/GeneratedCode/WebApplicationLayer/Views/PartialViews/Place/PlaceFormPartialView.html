@@ -27,39 +27,6 @@
         <div class="{VIEWNAME}-tabs-contenu {VIEWNAME}-tabs-1" data-test-id="db8d1266-2de3-4b82-bd17-f566ea61e73d">
           <div>
             <div class="basicForm" data-placeholder="formFieldsZone">
-              <div class="form-field view requiredField" data-bind="'visible':{DATABINDROOT}StatusData.DisplayMode() == 'view' &amp;&amp; {DATABINDROOT}StatusData.IsCountryVisible()" data-test-id="1ceb2139-fded-409c-a1d3-f8bbb95a1dca" data-entityfield="country-view">
-                <span class="form-field-label-zone" data-bind="'visible':{DATABINDROOT}StatusData.DisplayMode() == 'view' &amp;&amp; {DATABINDROOT}StatusData.IsCountryVisible(), 'css' : { errorText : !{DATABINDROOT}PlaceObject().StatusData.isCountryValid() }" data-test-id="label_1ceb2139-fded-409c-a1d3-f8bbb95a1dca">
-                  <label class="form-field-label">Country</label>
-                </span>
-                <span class="form-field-control-container" data-bind="'css' : { errorControl : !{DATABINDROOT}PlaceObject().StatusData.isCountryValid() }">
-                  <div class="lookup-field">
-                    <span>
-                      <a href="#" data-bind="'text': {DATABINDROOT}Country_Name, 'css':{ 'errorControl':  !{DATABINDROOT}PlaceObject().StatusData.isCountryValid()}, 'click' : {DATABINDROOT}showEditCountryPopup" data-test-id="view_1ceb2139-fded-409c-a1d3-f8bbb95a1dca" />
-                    </span>
-                  </div>
-                </span>
-              </div>
-              <div class="form-field edit requiredField" data-bind="'visible':{DATABINDROOT}StatusData.DisplayMode() == 'edit' &amp;&amp; {DATABINDROOT}StatusData.IsCountryVisible()" data-test-id="1ceb2139-fded-409c-a1d3-f8bbb95a1dca" data-entityfield="country-edit">
-                <span class="form-field-label-zone" data-bind="'visible':{DATABINDROOT}StatusData.DisplayMode() == 'edit' &amp;&amp; {DATABINDROOT}StatusData.IsCountryVisible(), 'css' : { errorText : !{DATABINDROOT}PlaceObject().StatusData.isCountryValid() }" data-test-id="label_1ceb2139-fded-409c-a1d3-f8bbb95a1dca">
-                  <label class="form-field-label">Country</label>
-                </span>
-                <span class="form-field-control-container" data-bind="'enable' : !{DATABINDROOT}StatusData.IsCountryReadOnly(), 'css' : { errorControl : !{DATABINDROOT}PlaceObject().StatusData.isCountryValid() }">
-                  <div class="lookup-field">
-                    <div class="formEditLookupFieldControl formEditLookupFieldControl-withbutton">
-                      <input class="formEditLookupFieldControl" data-bind="'value': {DATABINDROOT}Country_Name, 'css':{ 'busy': {DATABINDROOT}isGetCountryCollectionBusy, 'errorControl':  !{DATABINDROOT}PlaceObject().StatusData.isCountryValid()}, 'jqComboBox' : {'datasource': {DATABINDROOT}getCountryForLookupAutomatic, 'onselectionchanged': {DATABINDROOT}onLookupCountryChanged, 'currentItem': {DATABINDROOT}Country_lookupItem, 'minLength': {DATABINDROOT}Country_lookupMinLength(), 'lazyLoadCallback': null, 'fitToInput': true}, 'enable' : !{DATABINDROOT}StatusData.IsCountryReadOnly()" data-test-id="edit_1ceb2139-fded-409c-a1d3-f8bbb95a1dca" />
-                      <div class="formEditLookupFieldControl-button formEditLookupFieldControl-button-first">
-                        <button data-bind="'click': {DATABINDROOT}Commands.showCreateNewCountryPopup, 'visible' : {DATABINDROOT}Commands.isShowCreateNewCountryPopupVisible(), enable : {DATABINDROOT}Commands.isShowCreateNewCountryPopupEnabled(), 'css' : { 'command-button' :  {DATABINDROOT}Commands.isShowCreateNewCountryPopupEnabled(), 'command-button-disabled' : !{DATABINDROOT}Commands.isShowCreateNewCountryPopupEnabled() }" class="command-button-disabled" data-test-id="lookup_add_new_button">+</button>
-                      </div>
-                      <div class="formEditLookupFieldControl-button">
-                        <button data-bind="'click': {DATABINDROOT}showEditCountryPopup, 'css' : { 'command-button' :  {DATABINDROOT}isShowEditCountryPopupEnabled(), 'visible' : {DATABINDROOT}isShowEditCountryPopupVisible(), enable : {DATABINDROOT}isShowEditCountryPopupEnabled(), 'command-button-disabled' : !{DATABINDROOT}isShowEditCountryPopupEnabled() }" class="command-button-disabled" data-test-id="lookup_edit_button">
-                          <img src="styles/images/magnifying14x14.png" />
-                        </button>
-                      </div>
-                    </div>
-                    <span class="errorDescription" data-bind="'visible' : !{DATABINDROOT}PlaceObject().StatusData.isCountryValid(), text : {DATABINDROOT}PlaceObject().StatusData.countryErrorMessage"></span>
-                  </div>
-                </span>
-              </div>
               <div class="form-field view requiredField" data-bind="'visible':{DATABINDROOT}StatusData.DisplayMode() == 'view' &amp;&amp; {DATABINDROOT}StatusData.IsURIVisible()" data-test-id="8f8822de-f6f5-4844-92a2-fab501092fde" data-entityfield="uri-view">
                 <span class="form-field-label-zone" data-bind="'visible':{DATABINDROOT}StatusData.DisplayMode() == 'view' &amp;&amp; {DATABINDROOT}StatusData.IsURIVisible(), 'css' : { errorText : !{DATABINDROOT}PlaceObject().StatusData.isURIValid() }" data-test-id="label_8f8822de-f6f5-4844-92a2-fab501092fde">
                   <label class="form-field-label">URI</label>

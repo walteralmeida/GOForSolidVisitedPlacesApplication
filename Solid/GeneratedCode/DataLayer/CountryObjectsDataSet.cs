@@ -83,10 +83,6 @@ namespace Solid.Data.DataObjects
 		
  
 		
- 
-		
- 
-		
 		#endregion
 		
 		#region initialization
@@ -132,8 +128,6 @@ namespace Solid.Data.DataObjects
 					completed = clone.CountryObjectInternalIds.TryAdd(keyValue.Key, keyValue.Value);
 				}
 			}
-
-
 
 
 			
@@ -248,8 +242,6 @@ namespace Solid.Data.DataObjects
 			}
 
 	 
-	 
-	 
 		
 		}
 
@@ -297,8 +289,6 @@ namespace Solid.Data.DataObjects
 				}
 				
 		 
-		 
-		 
 			}		
 		}
 
@@ -341,55 +331,9 @@ namespace Solid.Data.DataObjects
         }
 
 		 
-		 
-		 
 
         public override DataObjectCollection<TDataObject> GetRelatedObjects<TDataObject>(IDataObject rootObject, string relationName)
         {
-			if (relationName == "LocationItems")
-            {
-				IEnumerable< LocationDataObject> relatedObjects;					
-				relatedObjects = _rootObjectDataSet.LocationObjectsDataSet.GetLocationItemsForCountry(rootObject as CountryDataObject);
-				
-				var result = new DataObjectCollection<TDataObject>();
-				
-				if (relatedObjects != null)
-				{
-                    result.NotifyChanges = false;
-
-					foreach(var relatedObject in relatedObjects)
-						result.Add(relatedObject as TDataObject);
-
-                    result.NotifyChanges = true;
-				}	
-				
-                result.ObjectsDataSet = this._rootObjectDataSet;
-
-				return result;
-			}
- 
-			if (relationName == "PlaceItems")
-            {
-				IEnumerable< PlaceDataObject> relatedObjects;					
-				relatedObjects = _rootObjectDataSet.PlaceObjectsDataSet.GetPlaceItemsForCountry(rootObject as CountryDataObject);
-				
-				var result = new DataObjectCollection<TDataObject>();
-				
-				if (relatedObjects != null)
-				{
-                    result.NotifyChanges = false;
-
-					foreach(var relatedObject in relatedObjects)
-						result.Add(relatedObject as TDataObject);
-
-                    result.NotifyChanges = true;
-				}	
-				
-                result.ObjectsDataSet = this._rootObjectDataSet;
-
-				return result;
-			}
- 
 			if (relationName == "VisitedPlaceItems")
             {
 				IEnumerable< VisitedPlaceDataObject> relatedObjects;					
@@ -468,8 +412,6 @@ namespace Solid.Data.DataObjects
 
 		public override void ReconstructIndexes()
 		{
-		 
-		 
 		 
 		}
 

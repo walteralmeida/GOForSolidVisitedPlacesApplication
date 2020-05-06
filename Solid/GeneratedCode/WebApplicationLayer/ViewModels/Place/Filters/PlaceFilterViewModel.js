@@ -24,7 +24,6 @@
 		this.filterData = {
 			fields: {
 				Abstract: ko.observable(''), 
-				CountryURI: ko.observable(''), 
 				Name: ko.observable(''), 
 				URI: ko.observable('') 
 			},
@@ -40,12 +39,6 @@
 	        isURIVisible: ko.pureComputed(function() {
 				if (self.customViewModel && self.customViewModel.isURIVisible) {
 					return self.customViewModel.isURIVisible();
-				}
-				return true;
-			}),
-	        isCountryURIVisible: ko.pureComputed(function() {
-				if (self.customViewModel && self.customViewModel.isCountryURIVisible) {
-					return self.customViewModel.isCountryURIVisible();
 				}
 				return true;
 			}),
@@ -87,7 +80,6 @@
         
         this.clearFilterDataOnly = function() {
 			self.filterData.fields.Abstract('');
-			self.filterData.fields.CountryURI('');
 			self.filterData.fields.Name('');
 			self.filterData.fields.URI('');
         };
@@ -125,13 +117,6 @@
                 if (filterPredicate !== "") 
 					filterPredicate += " && ";
               filterPredicate += 'Abstract.Contains("' + self.filterData.fields.Abstract() + '")';
-            }
-				
-			// CountryURI filter field
-			if (self.filterData.fields.CountryURI() !== '' && self.filterData.fields.CountryURI() !== undefined && self.filterData.fields.CountryURI() !== null) {
-                if (filterPredicate !== "") 
-					filterPredicate += " && ";
-              filterPredicate += 'CountryURI.Contains("' + self.filterData.fields.CountryURI() + '")';
             }
 				
 			// Name filter field

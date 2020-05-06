@@ -40,8 +40,6 @@ namespace Solid.Data.DataObjects
  
 		[JsonProperty ("Abstract")]
 		protected System.String _abstract;
-		[JsonProperty ("CountryURI")]
-		protected System.String _countryURI;
 		[JsonProperty ("Name")]
 		protected System.String _name;
 		[JsonProperty ("URI")]
@@ -49,15 +47,6 @@ namespace Solid.Data.DataObjects
 	
 	
 		// fields to store relation Ids when relating to new objects (with no PK set yet)
-		[JsonProperty(DefaultValueHandling = DefaultValueHandling.Ignore)]
-		protected internal virtual int? _country_NewObjectId { get; set; }
-        
-		public virtual bool ShouldSerialize_country_NewObjectId()
-        {
-            return ObjectsDataSet != null && ObjectsDataSet.SerializeTechnicalProperties;
-        }
-
-
 
 		#endregion
 		
@@ -85,11 +74,8 @@ namespace Solid.Data.DataObjects
 		public PlaceDataObject(PlaceDataObject template, bool deepCopy)
 		{
 			this.SetAbstractValue(template.Abstract, false, false);
-			this.SetCountryURIValue(template.CountryURI, false, false);
 			this.SetNameValue(template.Name, false, false);
 			this.SetURIValue(template.URI, false, false);
- 
-			this._country_NewObjectId = template._country_NewObjectId;
  
  
 			this.SetIsNewValue(template.IsNew, false, false);
@@ -127,11 +113,8 @@ namespace Solid.Data.DataObjects
 
 			this.SetIsNewValue(sourceObject.IsNew, false, false);						
 			this.SetAbstractValue(placeSource.Abstract, false, false);
-			this.SetCountryURIValue(placeSource.CountryURI, false, false);
 			this.SetNameValue(placeSource.Name, false, false);
 			this.SetURIValue(placeSource.URI, false, false);
-			this._country_NewObjectId = (sourceObject as PlaceDataObject)._country_NewObjectId;
-
 
 			if (deepCopy)
 			{
@@ -171,18 +154,6 @@ namespace Solid.Data.DataObjects
 
 		public override void UpdateRelatedInternalIds(ConcurrentDictionary<int, int> datasetMergingInternalIdMapping)
         {
-			if (this._country_NewObjectId != null)
-			{
-				if (!datasetMergingInternalIdMapping.ContainsKey((int) this._country_NewObjectId))
-				{
-                    this._country_NewObjectId = null;
-				}
-                else
-				{
-					this._country_NewObjectId = datasetMergingInternalIdMapping[(int) this._country_NewObjectId];
-				}
-			}
-
 
 		}
 
@@ -190,153 +161,6 @@ namespace Solid.Data.DataObjects
         
 		#region Relation properties		
 		
-      public virtual void SetCountryValue(CountryDataObject valueToSet)
-		{
-			SetCountryValue(valueToSet, true, true);
-		}
-
-        public virtual void SetCountryValue(CountryDataObject valueToSet, bool notifyChanges, bool dirtyHandlerOn)
-		{	
-		
-			CountryDataObject existing_country = null ;
-
-			if ( !(this.CountryURI == null || ObjectsDataSet == null))
-			{
-				var key = this._country_NewObjectId == null ? new CountryDataObject(this.CountryURI) { IsNew = false } : new CountryDataObject() { IsNew = true, InternalObjectId = this._country_NewObjectId };			
-				existing_country = (CountryDataObject)ObjectsDataSet.GetObject(key);
-			}
-				
-			if (ReferenceEquals(existing_country ,valueToSet))
-            {
-				return;
-            }
-			// Give opportunity to change value before set
-			OnBeforeSetRelationField("Country", valueToSet);
-					
-			// Setting the navigator desync the FK. The FK should be resync
-			if (!ReferenceEquals(null, valueToSet))
-			{
-				if(ObjectsDataSet == null)
-				{
-					_logEngine.LogError("Unable to set Relation Field", "Unable to set Relation Field, your entity doesn't have a DataSet.", "PlaceDataObject", null);
-					throw new PulpException("Unable to set Relation fields, your entity doesn't have a DataSet");
-				}
-
-                ObjectsDataSet.AddObjectIfDoesNotExist(valueToSet);
-				
-				if (valueToSet.IsNew)
-				{
-					if (_country_NewObjectId != valueToSet.InternalObjectId)
-					{
-						_country_NewObjectId = valueToSet.InternalObjectId;
-						_countryURI = valueToSet.URI;
-						OnPropertyChanged("CountryURI",notifyChanges, dirtyHandlerOn);
-					}
-				}
-				else
-				{
-					if (_countryURI != valueToSet.URI)
-					{
-						_country_NewObjectId = null;
-
-						_countryURI = valueToSet.URI;
-						OnPropertyChanged("CountryURI",notifyChanges, dirtyHandlerOn);
-					}
-				}
-			}
-			else
-			{
-				_countryURI = null;
-				OnPropertyChanged("CountryURI",notifyChanges, dirtyHandlerOn);
-			}
-			if (!ReferenceEquals(existing_country ,valueToSet))
-				OnPropertyChanged("Country", notifyChanges, dirtyHandlerOn);
-		}
-
-		private bool __countryCurrentLoading = false;
-		public virtual CountryDataObject LoadCountry(bool skipSecurity = false)
-		{
-			return LoadCountry(CurrentTransactionParameters ?? new Parameters(), skipSecurity);
-		}
-
-		public virtual CountryDataObject LoadCountry(Parameters parameters, bool skipSecurity = false)
-		{
-			var country = GetCountry(allowLazyLoading: false); 
-			if (country != null)
-				return country;
-
-			
-			country = (CountryDataObject)ObjectsDataSet.GetObject(new CountryDataObject(this.CountryURI) { IsNew = false });
-
-            if (country == null && !__countryCurrentLoading)
-            {
-				__countryCurrentLoading = true;
-                country = ApplicationSettings.Container.Resolve<IDataProvider<CountryDataObject>>().Get(new CountryDataObject(this.CountryURI), parameters : parameters, skipSecurity: skipSecurity);
-                SetCountryValue(country, false, false);
-				__countryCurrentLoading = false;
-            }
-
-			// Return the object was added to our dataset, not the 'temporary' instance that was loaded via the Get()
-            return country == null ? null : ObjectsDataSet.GetObject(country);
-		}
-		
-		[JsonProperty]
-		public virtual CountryDataObject Country 
-		{
-			get
-			{			
-				return GetCountry(true);
-			}
-			set
-			{
-				SetCountryValue(value);
-			}
-		}
-		
-		public virtual bool ShouldSerializeCountry()
-		{
-			return ObjectsDataSet != null && ObjectsDataSet.RelationsToInclude != null && ObjectsDataSet.RelationsToInclude.ContainsKey("PlaceDataObject") && ObjectsDataSet.RelationsToInclude["PlaceDataObject"].Contains("Country");
-		}
-
-		public virtual CountryDataObject GetCountry(bool allowLazyLoading)
-		{
-			if (ObjectsDataSet == null)
-				return null;
-
-			CountryDataObject country;
-
-				
-			if (_country_NewObjectId != null)
-			{
-				country = (CountryDataObject)ObjectsDataSet.GetObject(new CountryDataObject() { IsNew = true, InternalObjectId = _country_NewObjectId });
-			}
-			else
-			{
-				if (CountryURI == null)
-					country = null;
-				else
-				country = (CountryDataObject)ObjectsDataSet.GetObject(new CountryDataObject(this.CountryURI) { IsNew = false });
-				
-				if (allowLazyLoading && country == null && LazyLoadingEnabled)
-				{
-					country = LoadCountry();
-				}
-			}
-				
-			return country;
-		}
-
-		public virtual System.String CountryForeignKey
-		{
-			get { return CountryURI; }
-			set 
-			{	
-				CountryURI = value;
-			}
-			
-		}
-		
-
 
 		public virtual DataObjectCollection<PlaceToLocationDataObject> LoadPlaceToLocationItems(bool skipSecurity = false)
 		{
@@ -437,8 +261,6 @@ namespace Solid.Data.DataObjects
 		public override IEnumerable<IDataObject> GetAllRelatedReferencedObjects()
 		{
 			var result = new List<IDataObject>();
-			if (LoadCountry() != null)
-				result.Add(Country);
 			return result;
 		}
 		
@@ -455,9 +277,7 @@ namespace Solid.Data.DataObjects
 			if (other == null)
 				return false;
 
-			return
-				Country == other ||
-				(other is CountryDataObject && (CountryURI != default(System.String)) && (CountryURI == (other as CountryDataObject).URI)); 
+			return false;
 		}
 
 		#endregion
@@ -505,34 +325,6 @@ namespace Solid.Data.DataObjects
 			set
 			{
 				SetAbstractValue(value);
-			}
-		}		
-			
-			
-		public virtual void SetCountryURIValue(System.String valueToSet)
-		{
-			SetCountryURIValue(valueToSet, true, true);
-		}
-
-		public virtual void SetCountryURIValue(System.String valueToSet, bool notifyChanges, bool dirtyHandlerOn)
-		{
-			if (_countryURI != valueToSet)
-			{
-				_countryURI = valueToSet;
-
-				OnPropertyChanged("CountryURI", notifyChanges, dirtyHandlerOn);
-			}
-		}
-		
-		/// <summary> The CountryURI property of the Place DataObject</summary>
-        public virtual System.String CountryURI 
-		{
-			get	{ return _countryURI; }
-			
-			
-			set
-			{
-				SetCountryURIValue(value);
 			}
 		}		
 			
@@ -614,7 +406,6 @@ namespace Solid.Data.DataObjects
 
 			
 			// Push the notification to related objects
-
 			if (GetPlaceToLocationItems(false) != null)
             {
                 foreach (var item in GetPlaceToLocationItems(false))
@@ -650,7 +441,6 @@ namespace Solid.Data.DataObjects
 			fieldsComparison &= this.Abstract == p.Abstract;
 			fieldsComparison &= this.Name == p.Name;
 			fieldsComparison &= this.URI == p.URI;
-			fieldsComparison &= this.CountryURI == p.CountryURI;
 			return fieldsComparison;
 		}
 

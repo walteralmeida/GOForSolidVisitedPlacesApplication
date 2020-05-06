@@ -142,8 +142,6 @@ namespace Solid.Data
 	{
 		///<summary>URI. </summary>
 		URI,
-		///<summary>CountryURI. </summary>
-		CountryURI,
 		///<summary>Abstract. </summary>
 		Abstract,
 		///<summary>Name. </summary>
@@ -160,8 +158,6 @@ namespace Solid.Data
 		Name,
 		///<summary>URI. </summary>
 		URI,
-		///<summary>CountryURI. </summary>
-		CountryURI,
 		/// <summary></summary>
 		AmountOfFields
 	}

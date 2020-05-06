@@ -70,7 +70,6 @@ namespace Solid.Tests.Api.Tests
 				include = testData["Include"].ToString().Trim();
 			}
 			currentEntity.Abstract = testData["Abstract"]?.ToString().Trim() != null ? testData["Abstract"]?.ToString().Trim().ToString() : null;
-			currentEntity.CountryURI = testData["CountryURI"]?.ToString().Trim() != null ? testData["CountryURI"]?.ToString().Trim().ToString() : null;
 			currentEntity.Name = testData["Name"]?.ToString().Trim() != null ? testData["Name"]?.ToString().Trim().ToString() : null;
 			var expected_result = ConvertToStatusCode(testData["Result"]);
 			

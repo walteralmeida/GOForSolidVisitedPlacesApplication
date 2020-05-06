@@ -20,10 +20,6 @@
 		this.locationObjectInternalIds = {};
 		
 		this.fkIndexes = {};
-		
-		// Index to quickly find all Location with a given country foreign key
-		this.fkIndexes.country = {};
-
 
 		
 	};
@@ -54,9 +50,6 @@
 
 		for (var key0 in this.locationObjectInternalIds) {
 			clone.locationObjectInternalIds[key0] = this.locationObjectInternalIds[key0];
-		}
-		for (var fk0 in this.fkIndexes.country) {
-			clone.fkIndexes.country[fk0] = this.fkIndexes.country[fk0];	
 		}
 			
 		return clone;
@@ -103,23 +96,7 @@
 		if (objectToAdd.Data.IsNew() === false && !existingObject) {
 			this.locationObjectInternalIds[objectToAdd.Data.URI()] = newInternalId;
 		}
-		// Update the Country FK Index 
-		if (objectToAdd.Data.CountryURI()) {			
-			this.fkIndexes.country[objectToAdd.Data.CountryURI()] = this.fkIndexes.country[objectToAdd.Data.CountryURI()] || {};
-			this.fkIndexes.country[objectToAdd.Data.CountryURI()][newInternalId] = true;
-		}
 	};
-	// Update the Country FK Index 
-	Solid.Web.Model.DataSets.locationObjectsDataSet.prototype.UpdateCountryFKIndex = function (old_CountryURI, new_CountryURI, parentEntity) {
-		if (old_CountryURI !== undefined && old_CountryURI !== null && old_CountryURI !== "" && this.fkIndexes.country[old_CountryURI] && this.fkIndexes.country[old_CountryURI][parentEntity.Data.InternalObjectId()]) {
-			delete this.fkIndexes.country[old_CountryURI][parentEntity.Data.InternalObjectId()];
-		}
-
-        if (new_CountryURI !== undefined && new_CountryURI !== null && new_CountryURI !== "") {
-			this.fkIndexes.country[new_CountryURI] = this.fkIndexes.country[new_CountryURI] || {};
-			this.fkIndexes.country[new_CountryURI][parentEntity.Data.InternalObjectId()] = true;
-        }                
-    };                        
 		
     Solid.Web.Model.DataSets.locationObjectsDataSet.prototype.RemoveObject = function (objectToRemove) {
         if (!this.locationObjects)
@@ -147,9 +124,6 @@
 			delete this.locationObjectInternalIds[objectToRemove.Data.URI()];
 		}
 
-			// Delete the Country FK Index 
-		if (objectToRemove.Data.CountryURI() && this.fkIndexes.country[objectToRemove.Data.CountryURI()] && this.fkIndexes.country[objectToRemove.Data.CountryURI()][objectToRemoveInternalId])
-			delete this.fkIndexes.country[objectToRemove.Data.CountryURI()][objectToRemoveInternalId];
 	};
 
 	Solid.Web.Model.DataSets.locationObjectsDataSet.prototype.GetObjectByInternalId = function (internalObjectId, includeHierarchy) {
@@ -202,24 +176,6 @@
 
 		return toReturn;
     };
-
-	Solid.Web.Model.DataSets.locationObjectsDataSet.prototype.GetLocationItemsForCountry = function (country) {
-		var result = [];
-
-		if (country.Data.IsNew()) {
-            for (var prop in this.locationObjects) {
-                if (this.locationObjects[prop].Data._country_NewObjectId() === country.Data.InternalObjectId())
-                    result.push(this.locationObjects[prop]);
-            }
-        } else {
-			if (this.fkIndexes.country[country.Data.URI()]){
-				for (var internalId in this.fkIndexes.country[country.Data.URI()])
-					result.push(this.locationObjects[internalId]);
-			}
-		}
-
-		return result;
-	};
 
 	Solid.Web.Model.DataSets.locationObjectsDataSet.prototype.GetRelatedObjects = function (rootObject, relationName) {
 		if (relationName == "PlaceToLocationItems") {

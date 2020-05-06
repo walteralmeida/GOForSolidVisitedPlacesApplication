@@ -80,10 +80,6 @@ namespace Solid.Data.DataObjects
 			set { _placeObjects = value; }
 		}
 		
-		// Index to quickly find all Place with a given country foreign key
-		public ConcurrentDictionary<System.String, List<int>> Country_FKIndex = new ConcurrentDictionary<System.String, List<int>>();
-		
- 
 		
  
 		
@@ -130,21 +126,6 @@ namespace Solid.Data.DataObjects
 				while (!completed && count++ < 15)
 				{
 					completed = clone.PlaceObjectInternalIds.TryAdd(keyValue.Key, keyValue.Value);
-				}
-			}
-
-			foreach(var fkKeyValue in this.Country_FKIndex)
-			{
-				var iscompleted = false;
-				var count2 = 0;
-				while (!iscompleted && count2++ < 15)
-				{
-					iscompleted = clone.Country_FKIndex.TryAdd(fkKeyValue.Key, new List<int>());
-				}
-
-				foreach (var pk in fkKeyValue.Value)
-				{
-					clone.Country_FKIndex[fkKeyValue.Key].Add(pk);
 				}
 			}
 
@@ -260,37 +241,6 @@ namespace Solid.Data.DataObjects
 				throw new PulpException("Unexpected Error: Unable to Add an object which is Null.");
 			}
 
-			// Update the Country FK Index 
-			if ((objectToAdd as PlaceDataObject).CountryURI != null)
-			{
-			if (!Country_FKIndex.ContainsKey((objectToAdd as PlaceDataObject).CountryURI))
-			{
-				var iscompleted = false;
-				var count2 = 0;
-				while (!iscompleted && count2++ < 15)
-				{
-					iscompleted = Country_FKIndex.TryAdd((objectToAdd as PlaceDataObject).CountryURI, new List<int>());
-				}
-			}
-				
-			if (!Country_FKIndex[(objectToAdd as PlaceDataObject).CountryURI].Contains(newInternalId))
-				Country_FKIndex[(objectToAdd as PlaceDataObject).CountryURI].Add(newInternalId);
-
-            CountryDataObject relatedCountry;
-            if ((objectToAdd as PlaceDataObject)._country_NewObjectId != null)
-            {
-                relatedCountry = _rootObjectDataSet.GetObject(new CountryDataObject() { IsNew = true, InternalObjectId = (objectToAdd as PlaceDataObject)._country_NewObjectId });
-            }
-            else
-            {
-                relatedCountry = _rootObjectDataSet.GetObject(new CountryDataObject((objectToAdd as PlaceDataObject).CountryURI) { IsNew = false });
-            }
-
-			if (relatedCountry != null && this.RootObjectDataSet.NotifyChanges)
-                relatedCountry.NotifyPropertyChanged("PlaceItems", new SeenObjectCollection());
-			
-			}
-	 
 	 
 		
 		}
@@ -338,40 +288,6 @@ namespace Solid.Data.DataObjects
 					}
 				}
 				
-			// Delete the Country FK Index 
-				if ((objectToRemove as PlaceDataObject).CountryURI != null)
-				{
-				if (Country_FKIndex.ContainsKey((objectToRemove as PlaceDataObject).CountryURI) && Country_FKIndex[(objectToRemove as PlaceDataObject).CountryURI].Contains((int)objectToRemoveInternalId))
-				{
-					Country_FKIndex[(objectToRemove as PlaceDataObject).CountryURI].Remove((int)objectToRemoveInternalId);
-
-					if (!Country_FKIndex[(objectToRemove as PlaceDataObject).CountryURI].Any())
-					{
-						List<int> outvalue;
-						var iscompleted = false;
-						var count2 = 0;
-						while (!iscompleted  && count2++ < 15)
-						{
-							iscompleted = Country_FKIndex.TryRemove((objectToRemove as PlaceDataObject).CountryURI, out outvalue);
-						}
-					}
-				}
-				
-				CountryDataObject relatedCountry;
-	            if ((objectToRemove as PlaceDataObject)._country_NewObjectId != null)
-	            {
-	                relatedCountry = _rootObjectDataSet.GetObject(new CountryDataObject() { IsNew = true, InternalObjectId = (objectToRemove as PlaceDataObject)._country_NewObjectId });
-	            }
-	            else
-	            {
-	                relatedCountry = _rootObjectDataSet.GetObject(new CountryDataObject((objectToRemove as PlaceDataObject).CountryURI) { IsNew = false });
-	            }
-
-	            if (relatedCountry != null && this.RootObjectDataSet.NotifyChanges)
-	                relatedCountry.NotifyPropertyChanged("PlaceItems", new SeenObjectCollection());
-				
-				}
-		 
 		 
 			}		
 		}
@@ -414,28 +330,10 @@ namespace Solid.Data.DataObjects
 			return PlaceObjects.Values.Where(c => !c.IncludedInGraph && !c.IsMarkedForDeletion).Cast<IDataObject>();
         }
 
-		
-		public IEnumerable<PlaceDataObject> GetPlaceItemsForCountry(CountryDataObject countryInstance) 
-		{
-			if (countryInstance.IsNew)
-            {
-			
-              return PlaceObjects.Where(o => o.Value._country_NewObjectId != null && o.Value._country_NewObjectId == countryInstance.InternalObjectId).Select(o => o.Value);
-			}
-				
-			if (Country_FKIndex.ContainsKey(countryInstance.URI))
-			{
-				return Country_FKIndex[countryInstance.URI].Where(e => PlaceObjects.ContainsKey(e)).Select(e => PlaceObjects[e]);
-			}
-			
-			return new DataObjectCollection<PlaceDataObject>();
-		}
-		 
 		 
 
         public override DataObjectCollection<TDataObject> GetRelatedObjects<TDataObject>(IDataObject rootObject, string relationName)
         {
- 
 			if (relationName == "PlaceToLocationItems")
             {
 				IEnumerable< PlaceToLocationDataObject> relatedObjects;					
@@ -514,37 +412,6 @@ namespace Solid.Data.DataObjects
 
 		public override void ReconstructIndexes()
 		{
-			// Reconstruct the Country FK Index 
-			Country_FKIndex = new ConcurrentDictionary< System.String, List<int>>();
-				
-			foreach (var item in PlaceObjects.Values)
-			{
-				if (item.CountryURI == null) 
-					continue;				
-				
-				if (item.IsMarkedForDeletion)
-					continue;
-
-				var fk = item.CountryURI;	
-
-				if (!Country_FKIndex.ContainsKey(fk))
-				{
-					var iscompleted = false;
-					var count2 = 0;
-					while (!iscompleted && count2++ < 15)
-					{
-						iscompleted = Country_FKIndex.TryAdd(fk, new List<int>());
-					}
-				}
-				if(item.InternalObjectId == null)
-				{
-					_logEngine.LogError("Unable to reconstruct indexes.", "An error occured while trying to reconstruct indexes", "PlaceObjectsDataSet", null);
-					throw new PulpException("Unable to reconstruct indexes.");
-				}
-					
-				Country_FKIndex[fk].Add((int)item.InternalObjectId);
-			}			
-		 
 		 
 		}
 
