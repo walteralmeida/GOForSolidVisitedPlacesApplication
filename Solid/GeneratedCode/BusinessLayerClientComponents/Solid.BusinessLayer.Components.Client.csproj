@@ -68,48 +68,6 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="CountryCustomFieldsProvider.cs">
-      <GeneratedBy>Fenomen</GeneratedBy>
-    </Compile>
-    <Compile Include="GOGroupCustomFieldsProvider.cs">
-      <GeneratedBy>Fenomen</GeneratedBy>
-    </Compile>
-    <Compile Include="GOGroupRoleCustomFieldsProvider.cs">
-      <GeneratedBy>Fenomen</GeneratedBy>
-    </Compile>
-    <Compile Include="GOLoginHistoryCustomFieldsProvider.cs">
-      <GeneratedBy>Fenomen</GeneratedBy>
-    </Compile>
-    <Compile Include="GORoleCustomFieldsProvider.cs">
-      <GeneratedBy>Fenomen</GeneratedBy>
-    </Compile>
-    <Compile Include="GOUserCustomFieldsProvider.cs">
-      <GeneratedBy>Fenomen</GeneratedBy>
-    </Compile>
-    <Compile Include="GOUserGroupCustomFieldsProvider.cs">
-      <GeneratedBy>Fenomen</GeneratedBy>
-    </Compile>
-    <Compile Include="GOUserRoleCustomFieldsProvider.cs">
-      <GeneratedBy>Fenomen</GeneratedBy>
-    </Compile>
-    <Compile Include="LocationCustomFieldsProvider.cs">
-      <GeneratedBy>Fenomen</GeneratedBy>
-    </Compile>
-    <Compile Include="NamespaceDefinition.cs">
-      <GeneratedBy>Fenomen</GeneratedBy>
-    </Compile>
-    <Compile Include="PlaceCustomFieldsProvider.cs">
-      <GeneratedBy>Fenomen</GeneratedBy>
-    </Compile>
-    <Compile Include="PlaceToLocationCustomFieldsProvider.cs">
-      <GeneratedBy>Fenomen</GeneratedBy>
-    </Compile>
-    <Compile Include="UserProfileCustomFieldsProvider.cs">
-      <GeneratedBy>Fenomen</GeneratedBy>
-    </Compile>
-    <Compile Include="VisitedPlaceCustomFieldsProvider.cs">
-      <GeneratedBy>Fenomen</GeneratedBy>
-    </Compile>
   </ItemGroup>
   <ItemGroup>
     <Reference Include="GenerativeObjects.Practices, Version=1.0.0.0">
@@ -154,4 +112,48 @@
   <Target Name="AfterBuild">
   </Target>
   -->
+  <ItemGroup>
+    <Compile Include="CountryCustomFieldsProvider.cs">
+      <GeneratedBy>Fenomen</GeneratedBy>
+    </Compile>
+    <Compile Include="GOGroupCustomFieldsProvider.cs">
+      <GeneratedBy>Fenomen</GeneratedBy>
+    </Compile>
+    <Compile Include="GOGroupRoleCustomFieldsProvider.cs">
+      <GeneratedBy>Fenomen</GeneratedBy>
+    </Compile>
+    <Compile Include="GOLoginHistoryCustomFieldsProvider.cs">
+      <GeneratedBy>Fenomen</GeneratedBy>
+    </Compile>
+    <Compile Include="GORoleCustomFieldsProvider.cs">
+      <GeneratedBy>Fenomen</GeneratedBy>
+    </Compile>
+    <Compile Include="GOUserCustomFieldsProvider.cs">
+      <GeneratedBy>Fenomen</GeneratedBy>
+    </Compile>
+    <Compile Include="GOUserGroupCustomFieldsProvider.cs">
+      <GeneratedBy>Fenomen</GeneratedBy>
+    </Compile>
+    <Compile Include="GOUserRoleCustomFieldsProvider.cs">
+      <GeneratedBy>Fenomen</GeneratedBy>
+    </Compile>
+    <Compile Include="LocationCustomFieldsProvider.cs">
+      <GeneratedBy>Fenomen</GeneratedBy>
+    </Compile>
+    <Compile Include="NamespaceDefinition.cs">
+      <GeneratedBy>Fenomen</GeneratedBy>
+    </Compile>
+    <Compile Include="PlaceCustomFieldsProvider.cs">
+      <GeneratedBy>Fenomen</GeneratedBy>
+    </Compile>
+    <Compile Include="PlaceToLocationCustomFieldsProvider.cs">
+      <GeneratedBy>Fenomen</GeneratedBy>
+    </Compile>
+    <Compile Include="UserProfileCustomFieldsProvider.cs">
+      <GeneratedBy>Fenomen</GeneratedBy>
+    </Compile>
+    <Compile Include="VisitedPlaceCustomFieldsProvider.cs">
+      <GeneratedBy>Fenomen</GeneratedBy>
+    </Compile>
+  </ItemGroup>
 </Project>

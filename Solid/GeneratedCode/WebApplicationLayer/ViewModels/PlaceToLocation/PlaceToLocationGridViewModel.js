@@ -42,49 +42,6 @@
 		this.filterPredicate = null;
 	    this.filterParameters = null;
 
-		// This grid includes a Presentation Filter
-		this.PlaceToLocationFilterViewModel = new Solid.Web.ViewModels.Filters.PlaceToLocationFilterViewModel(self.controller, null, null, self.contextId);
-
-		
-        this.FILTER_NAME = "PlaceToLocationFilter";  //Persitent filter
-        
-        this.addFilterPredicate = function( predicate ) {
-			self.filterPredicate = self.baseFilterPredicate;
-			if (self.filterPredicate !== '' && self.filterPredicate !== null) {
-				self.filterPredicate += ' && ';
-			} else {
-				self.filterPredicate = '';
-			}
-			self.filterPredicate += '(' + predicate + ')';
-			self.setGridPageNumber(0);
-			self.Rebind();
-
-		};
-
-		this.clearFilterPredicate = function() {
-			self.filterPredicate = self.baseFilterPredicate;
-			self.setGridPageNumber(0);
-			self.Rebind();
-
-            GO.removeQueryStringFromUrl(self.FILTER_NAME);
-		};
-
-		this.onPlaceToLocationFilterViewModelSearch = function () {
-		    var predicate = self.PlaceToLocationFilterViewModel.getFilterPredicate();
-		    if (predicate !== null && predicate !== "") {
-		        self.addFilterPredicate(predicate);
-		    } else {
-				self.clearFilterPredicate();
-			}
-		};
-
-		this.onPlaceToLocationFilterViewModelClear = function () {
-		    self.clearFilterPredicate();
-		};
-
-		// Subscriptions to filter changes
-		self.subscriptions.push(this.PlaceToLocationFilterViewModel.events.onSearch.subscribe(function (newValue) { self.onPlaceToLocationFilterViewModelSearch(); }));
-		self.subscriptions.push(this.PlaceToLocationFilterViewModel.events.onClear.subscribe(function (newValue) { self.onPlaceToLocationFilterViewModelClear(); }));
 
 		this.include = "Location";
 		this.sortColumnName = ko.observable(null); // rather bind to the oSort object
@@ -150,7 +107,6 @@
                 return !self.PlaceToLocationObjectCollection() || self.PlaceToLocationObjectCollection().length === 0;
             }),
             ShowTitle: ko.observable(true),
-			IsFilterVisible: ko.observable(true),
 			DisplayMode: ko.observable('view')
 		};
 
@@ -178,126 +134,6 @@
 			Rebound : ko.observable(false)
         };
 
-		// Commands
-        this.commands = {
-
-			showCreateNewPopupCommand: function () {
-                self.showCreateNewPopup();
-            },
-            isShowCreateNewPopupCommandVisible: ko.pureComputed(function () {
-				if(self.customViewModel && self.customViewModel.IsShowCreateNewPopupCommandVisible !== undefined) {
-					return self.customViewModel.IsShowCreateNewPopupCommandVisible();
-				}
-				return self.DataStore && self.DataStore.CheckAuthorizationForEntityAndMethod('save');
-			}),
-            isShowCreateNewPopupCommandEnabled: ko.pureComputed(function () {
-				if(self.customViewModel && self.customViewModel.IsShowCreateNewPopupCommandEnabled !== undefined) {
-					return self.customViewModel.IsShowCreateNewPopupCommandEnabled();
-				}
-                return self.StatusData.IsEnabled();
-			}),
-			deleteCommand : function() {
-				self.deleteCurrent();
-			},
-			isDeleteCommandVisible : ko.pureComputed(function() {
-				if(self.customViewModel && self.customViewModel.IsDeleteCommandVisible !== undefined) {
-					return self.customViewModel.IsDeleteCommandVisible();
-				}
-
-                return self.selectedObjectId() && self.selectedObjectId() !== -1 && self.DataStore && self.DataStore.CheckAuthorizationForEntityAndMethod('delete');
-			}),
-            isDeleteCommandEnabled: ko.pureComputed(function () {
-				if(self.customViewModel && self.customViewModel.IsDeleteCommandEnabled !== undefined) {
-					return self.customViewModel.IsDeleteCommandEnabled();
-				}
-
-                return self.StatusData.IsEnabled() && self.selectedObjectId() && self.selectedObjectId() !== -1;
-            })		};
-		this.CreateNewCommandInitActions = [];
- 
-		this.showCreateNewPopup = function () {
-            if (self.commands.isShowCreateNewPopupCommandEnabled() === false)
-                return;
-
-            var newObject = Solid.Web.Model.DataObjects.PlaceToLocationObjectFactory.createNew(self.controller.ObjectsDataSet, null);
-
-            newObject.DirtyHandlerOn = false;
-            for (var i=0; i < self.CreateNewCommandInitActions.length; i++) {
-                self.CreateNewCommandInitActions[i](newObject);
-            }
-            newObject.DirtyHandlerOn = true;
-
-		    GO.log("PlaceToLocationGrid", "Creating entity opening AccountForm");
-
-		    var memoryOnly = self.isMemoryOnlyCollection || self.StatusData.DisplayMode() === 'edit';
-            ApplicationController.showCreateNewPopup("PlaceToLocationForm", self, newObject, memoryOnly, self.contextId, '70%');
-		};
-		this.onCurrentDeleted = function () {
-		    GO.log("PlaceToLocationGrid", "PlaceToLocation deleted");
-			self.Rebind(true);
-            self.StatusData.IsBusy(false);
-			ko.postbox.publish('PlaceToLocation.ChangedOnGrid', { contextId: self.contextId, action: 'delete', gridName: 'PlaceToLocationGrid'  });
-		};
-
-		this.onConfirmDeleteCurrent = function (confirm) {
-            if (confirm) {
-                if (!self.isMemoryOnlyCollection) {
-					var objectToDelete = self.selectedObject();
-					var configuration = {};
-					configuration.contextId = self.contextId;
-					configuration.pks = { LocationURI: objectToDelete.Data.LocationURI(), PlaceURI: objectToDelete.Data.PlaceURI() };
-
-					configuration.successHandler =  self.onCurrentDeleted;
-					configuration.errorHandler = self.ShowError;
-
-					GO.log("PlaceToLocationGrid", "Deletion confirmed, sending query to server", { LocationURI: objectToDelete.Data.LocationURI(), PlaceURI: objectToDelete.Data.PlaceURI() });
-					self.DataStore.DeleteObject(configuration);
-				}
-                else {
-                    if (self.selectedObject().Data.IsNew() == true)
-                        self.controller.ObjectsDataSet.RemoveObject(self.selectedObject());
-                    else
-                        self.selectedObject().Data.IsMarkedForDeletion(true);
-
-                    // remove from grid display collection
-					var index = self.PlaceToLocationObjectCollection.indexOf(self.selectedObject());
-					if (index > -1) {
-						self.PlaceToLocationObjectCollection.splice(index, 1);
-					}
-					// else try to match based on PKs
-					else {
-						for (var i = 0; i < self.PlaceToLocationObjectCollection().length; ++i) {
-							if (
-								self.PlaceToLocationObjectCollection()[i].Data.LocationURI() == self.selectedObject().Data.LocationURI()  && 
-								self.PlaceToLocationObjectCollection()[i].Data.PlaceURI() == self.selectedObject().Data.PlaceURI()  
-							) {
-								self.PlaceToLocationObjectCollection.splice(i, 1);
-								break;
-							}
-						}
-					}
-
-					// unselect
-					self.selectedObjectId(null);
-
-					// done
-					self.StatusData.IsBusy(false);
-                }
-            }
-            else {
-                self.StatusData.IsBusy(false);
-            }
-		};
-
-		this.deleteCurrent = function() {
-		    GO.log("PlaceToLocationGrid", "Asking to delete PlaceToLocation");
-			if (self.commands.isDeleteCommandEnabled() === false)
-				return;
-
-            self.StatusData.IsBusy(true);
-
-			ApplicationController.showConfirmPopup(self, Solid.Web.Messages.confirmDeleteMessage.replace(/%ENTITY%/g, "PlaceToLocation"), Solid.Web.Messages.confirmDeletePopupTitle, self.onConfirmDeleteCurrent, self.contextId);
-		};
 		this.CallAfterSaveRelatedEntity = function () {
 			ko.postbox.publish('PlaceToLocation.ChangedOnGrid', { contextId: self.contextId, action: 'add', gridName: 'PlaceToLocationGrid' });
 		}

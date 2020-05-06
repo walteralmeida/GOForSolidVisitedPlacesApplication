@@ -75,24 +75,6 @@
     <Reference Include="System.Web" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="BaseServerComponent.cs">
-      <GeneratedBy>Fenomen</GeneratedBy>
-    </Compile>
-    <Compile Include="Common\BaseDataObjectService.cs">
-      <GeneratedBy>Fenomen</GeneratedBy>
-    </Compile>
-    <Compile Include="DataFacade.cs">
-      <GeneratedBy>Fenomen</GeneratedBy>
-    </Compile>
-    <Compile Include="DataProvideProxy.cs">
-      <GeneratedBy>Fenomen</GeneratedBy>
-    </Compile>
-    <Compile Include="IDataFacade.cs">
-      <GeneratedBy>Fenomen</GeneratedBy>
-    </Compile>
-    <Compile Include="LogEngine.custom.cs">
-      <GeneratedBy>Fenomen</GeneratedBy>
-    </Compile>
   </ItemGroup>
   <ItemGroup>
     <Reference Include="GenerativeObjects.Practices, Version=1.0.0.0">
@@ -148,4 +130,24 @@
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <PropertyGroup>
   </PropertyGroup>
+  <ItemGroup>
+    <Compile Include="BaseServerComponent.cs">
+      <GeneratedBy>Fenomen</GeneratedBy>
+    </Compile>
+    <Compile Include="Common\BaseDataObjectService.cs">
+      <GeneratedBy>Fenomen</GeneratedBy>
+    </Compile>
+    <Compile Include="DataFacade.cs">
+      <GeneratedBy>Fenomen</GeneratedBy>
+    </Compile>
+    <Compile Include="DataProvideProxy.cs">
+      <GeneratedBy>Fenomen</GeneratedBy>
+    </Compile>
+    <Compile Include="IDataFacade.cs">
+      <GeneratedBy>Fenomen</GeneratedBy>
+    </Compile>
+    <Compile Include="LogEngine.custom.cs">
+      <GeneratedBy>Fenomen</GeneratedBy>
+    </Compile>
+  </ItemGroup>
 </Project>

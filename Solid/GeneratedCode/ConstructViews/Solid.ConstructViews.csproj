@@ -68,12 +68,6 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="ConstructViews.cs">
-      <GeneratedBy>Fenomen</GeneratedBy>
-    </Compile>
-    <Compile Include="Properties\AssemblyInfo.cs">
-      <GeneratedBy>Fenomen</GeneratedBy>
-    </Compile>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
@@ -83,4 +77,12 @@
   <Target Name="AfterBuild">
   </Target>
   -->
+  <ItemGroup>
+    <Compile Include="ConstructViews.cs">
+      <GeneratedBy>Fenomen</GeneratedBy>
+    </Compile>
+    <Compile Include="Properties\AssemblyInfo.cs">
+      <GeneratedBy>Fenomen</GeneratedBy>
+    </Compile>
+  </ItemGroup>
 </Project>

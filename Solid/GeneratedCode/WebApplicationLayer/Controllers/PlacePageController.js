@@ -61,10 +61,6 @@
 					self.PlaceViewModel.LoadPlace(objectToLoad);	
 				}
 			}
-			else {
-					self.PlaceViewModel.CreateNew();
-			}
-				
 	
 			// Call custom initialize if defined
 			if (self.customController !== undefined && self.customController.initialize !== undefined) {

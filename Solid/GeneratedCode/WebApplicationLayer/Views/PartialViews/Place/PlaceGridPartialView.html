@@ -70,13 +70,7 @@
             <span data-bind="text: GO.FormatNumberWithSpaces({DATABINDROOT}totalCollection())"></span>
           </div>
           <div class="horizontalList">
-            <button data-bind="'click': {DATABINDROOT}commands.showCreateNewPopupCommand, 'visible': {DATABINDROOT}commands.isShowCreateNewPopupCommandVisible(), 'enable': {DATABINDROOT}commands.isShowCreateNewPopupCommandEnabled(),'css' : { 'command-button' : {DATABINDROOT}commands.isShowCreateNewPopupCommandEnabled(), 'command-button-disabled' : !{DATABINDROOT}commands.isShowCreateNewPopupCommandEnabled() }" data-test-id="f7e2fc2d-8021-4c39-8dca-a044ce8043eb" class="command-button">Add</button>
-          </div>
-          <div class="horizontalList">
             <button data-action="click" class="command-button" data-bind="'click': {DATABINDROOT}commands.NavigateToDetailsCommand, 'visible': {DATABINDROOT}commands.IsNavigateToDetailsCommandVisible(), 'enable': {DATABINDROOT}commands.IsNavigateToDetailsCommandEnabled()">View</button>
-          </div>
-          <div class="horizontalList">
-            <button data-bind="'click': {DATABINDROOT}commands.deleteCommand, 'visible': {DATABINDROOT}commands.isDeleteCommandVisible(), 'enable': {DATABINDROOT}commands.isDeleteCommandEnabled(),'css' : { 'command-button' : {DATABINDROOT}commands.isDeleteCommandEnabled(), 'command-button-disabled' : !{DATABINDROOT}commands.isDeleteCommandEnabled() }" data-test-id="1138c2e5-e299-46c4-b297-517fa98197b7" class="command-button">Delete</button>
           </div>
         </div>
       </div>

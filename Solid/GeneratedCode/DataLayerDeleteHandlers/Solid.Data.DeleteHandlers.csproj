@@ -75,6 +75,21 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\DataLayer\Solid.Data.csproj">
+      <Project>{F6727353-2D14-4915-A97E-C1AF2787AE5C}</Project>
+      <Name>Solid.Data</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\DataLayer\Solid.Data.DataObjects.csproj">
+      <Project>{627B81F1-9A5E-4CAB-B153-EDC596BA83F0}</Project>
+      <Name>Solid.Data.DataObjects</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <PropertyGroup>
+  </PropertyGroup>
+  <ItemGroup>
     <Compile Include="CountryDeleteHandler.cs">
       <GeneratedBy>Fenomen</GeneratedBy>
     </Compile>
@@ -118,17 +133,4 @@
       <GeneratedBy>Fenomen</GeneratedBy>
     </Compile>
   </ItemGroup>
-  <ItemGroup>
-    <ProjectReference Include="..\DataLayer\Solid.Data.csproj">
-      <Project>{F6727353-2D14-4915-A97E-C1AF2787AE5C}</Project>
-      <Name>Solid.Data</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\DataLayer\Solid.Data.DataObjects.csproj">
-      <Project>{627B81F1-9A5E-4CAB-B153-EDC596BA83F0}</Project>
-      <Name>Solid.Data.DataObjects</Name>
-    </ProjectReference>
-  </ItemGroup>
-  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
-  <PropertyGroup>
-  </PropertyGroup>
 </Project>

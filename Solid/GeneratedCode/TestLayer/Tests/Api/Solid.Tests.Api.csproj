@@ -127,6 +127,33 @@
     <Reference Include="Microsoft.VisualStudio.QualityTools.UnitTestFramework" />
   </ItemGroup>
   <ItemGroup>
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\..\..\DataLayer\Solid.Data.csproj">
+      <Project>{F6727353-2D14-4915-A97E-C1AF2787AE5C}</Project>
+      <Name>Solid.Data</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\..\DataLayer\Solid.Data.DataObjects.csproj">
+      <Project>{627B81F1-9A5E-4CAB-B153-EDC596BA83F0}</Project>
+      <Name>Solid.Data.DataObjects</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Common\Solid.Tests.Common.csproj">
+      <Project>{DE4DE307-666F-4B70-995F-611218663865}</Project>
+      <Name>Solid.Tests.Common</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\..\ServiceLayer\Solid.ServiceLayer.csproj">
+      <Project>{782CFF06-3FB4-422B-913C-E9428C123598}</Project>
+      <Name>Solid.ServiceLayer</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Resources\" />
+  </ItemGroup>
+  <Import Project="$(VSToolsPath)\TeamTest\Microsoft.TestTools.targets" Condition="Exists('$(VSToolsPath)\TeamTest\Microsoft.TestTools.targets')" />
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <PropertyGroup>
+  </PropertyGroup>
+  <ItemGroup>
     <Content Include="App.config">
       <GeneratedBy>Fenomen</GeneratedBy>
     </Content>
@@ -173,29 +200,4 @@
       <GeneratedBy>Fenomen</GeneratedBy>
     </Compile>
   </ItemGroup>
-  <ItemGroup>
-    <ProjectReference Include="..\..\..\DataLayer\Solid.Data.csproj">
-      <Project>{F6727353-2D14-4915-A97E-C1AF2787AE5C}</Project>
-      <Name>Solid.Data</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\..\..\DataLayer\Solid.Data.DataObjects.csproj">
-      <Project>{627B81F1-9A5E-4CAB-B153-EDC596BA83F0}</Project>
-      <Name>Solid.Data.DataObjects</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\Common\Solid.Tests.Common.csproj">
-      <Project>{DE4DE307-666F-4B70-995F-611218663865}</Project>
-      <Name>Solid.Tests.Common</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\..\..\ServiceLayer\Solid.ServiceLayer.csproj">
-      <Project>{782CFF06-3FB4-422B-913C-E9428C123598}</Project>
-      <Name>Solid.ServiceLayer</Name>
-    </ProjectReference>
-  </ItemGroup>
-  <ItemGroup>
-    <Folder Include="Resources\" />
-  </ItemGroup>
-  <Import Project="$(VSToolsPath)\TeamTest\Microsoft.TestTools.targets" Condition="Exists('$(VSToolsPath)\TeamTest\Microsoft.TestTools.targets')" />
-  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
-  <PropertyGroup>
-  </PropertyGroup>
 </Project>

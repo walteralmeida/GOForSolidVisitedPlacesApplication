@@ -14,23 +14,7 @@
       </ul>
     </div>
     <div style="margin-top:20px;" id="{VIEWNAME}Commands" data-bind="visible: !StatusData.IsBusy() &amp;&amp;  StatusData.IsEnabled()">
-      <ul class="nav nav-pills">
-        <li class="horizontalList">
-          <button data-placeholder="commandButtonZone" data-bind="'click': {DATABINDROOT}Commands.CreateNewCommand, 'visible': {DATABINDROOT}Commands.IsCreateNewCommandVisible(), 'enable': {DATABINDROOT}Commands.IsCreateNewCommandEnabled(), 'css' : { 'command-button' : {DATABINDROOT}Commands.IsCreateNewCommandEnabled(), 'command-button-disabled' : !{DATABINDROOT}Commands.IsCreateNewCommandEnabled() }" data-test-id="c834da9f-89ce-477e-903d-cf0684225471">New</button>
-        </li>
-        <li class="horizontalList">
-          <button data-placeholder="commandButtonZone" data-bind="'click': {DATABINDROOT}Commands.EditCommand, 'visible': {DATABINDROOT}Commands.IsEditCommandVisible(), 'enable': {DATABINDROOT}Commands.IsEditCommandEnabled(), 'css' : { 'command-button' : {DATABINDROOT}Commands.IsEditCommandEnabled(), 'command-button-disabled' : !{DATABINDROOT}Commands.IsEditCommandEnabled() }" data-test-id="047f86f7-8374-42a3-9c5d-1ab6f7a557ab">Modify</button>
-        </li>
-        <li class="horizontalList">
-          <button data-placeholder="commandButtonZone" data-bind="'click': {DATABINDROOT}Commands.DeleteCommand, 'visible': {DATABINDROOT}Commands.IsDeleteCommandVisible(), 'enable': {DATABINDROOT}Commands.IsDeleteCommandEnabled(), 'css' : { 'command-button' : {DATABINDROOT}Commands.IsDeleteCommandEnabled(), 'command-button-disabled' : !{DATABINDROOT}Commands.IsDeleteCommandEnabled() }" data-test-id="30b80334-769b-4b42-9dc8-cd18988c6541">Delete</button>
-        </li>
-        <li class="horizontalList">
-          <button data-placeholder="commandButtonZone" data-bind="'click': {DATABINDROOT}Commands.SaveCommand, 'visible': {DATABINDROOT}Commands.IsSaveCommandVisible(), 'enable': {DATABINDROOT}Commands.IsSaveCommandEnabled(), 'css' : { 'command-button' : {DATABINDROOT}Commands.IsSaveCommandEnabled(), 'command-button-disabled' : !{DATABINDROOT}Commands.IsSaveCommandEnabled() }" data-test-id="6cc7b4c2-3a11-4e96-b60a-7d36a739fea0">Save</button>
-        </li>
-        <li class="horizontalList">
-          <button data-placeholder="commandButtonZone" data-bind="'click': {DATABINDROOT}Commands.CancelEditCommand, 'visible': {DATABINDROOT}Commands.IsCancelEditCommandVisible(), 'enable': {DATABINDROOT}Commands.IsCancelEditCommandEnabled(), 'css' : { 'command-button' : {DATABINDROOT}Commands.IsCancelEditCommandEnabled(), 'command-button-disabled' : !{DATABINDROOT}Commands.IsCancelEditCommandEnabled() }" data-test-id="fcac982f-633a-4689-aa88-062260ebafc9">Cancel</button>
-        </li>
-      </ul>
+      <ul class="nav nav-pills" />
     </div>
   </div>
 </div>

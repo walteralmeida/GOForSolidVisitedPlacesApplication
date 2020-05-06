@@ -61,10 +61,6 @@
 					self.UserProfileFormViewModel.LoadUserProfile(objectToLoad);	
 				}
 			}
-			else {
-					self.UserProfileFormViewModel.CreateNew();
-			}
-				
 	
 			// Call custom initialize if defined
 			if (self.customController !== undefined && self.customController.initialize !== undefined) {

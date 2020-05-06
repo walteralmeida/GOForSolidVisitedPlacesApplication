@@ -43,27 +43,6 @@
             </div>
           </span>
         </div>
-        <div class="form-field view requiredField" data-bind="'visible':StatusData.DisplayMode() == 'view' &amp;&amp; StatusData.IsNameVisible()" data-test-id="f41d8289-b391-46c3-a523-dc1d8f751e44" data-entityfield="name-view">
-          <span class="form-field-label-zone" data-bind="'visible':StatusData.DisplayMode() == 'view' &amp;&amp; StatusData.IsNameVisible(), 'css' : { errorText : !CountryObject().StatusData.isNameValid() }" data-test-id="label_f41d8289-b391-46c3-a523-dc1d8f751e44">
-            <label class="form-field-label">Name</label>
-          </span>
-          <span class="form-field-control-container" data-bind="'css' : { errorControl : !CountryObject().StatusData.isNameValid() }">
-            <div class="text-field">
-              <span class="form-field-text" data-bind="text: CountryObject().Data.Name, 'css' : { 'errorControl' : !CountryObject().StatusData.isNameValid() }" data-test-id="view_f41d8289-b391-46c3-a523-dc1d8f751e44" />
-            </div>
-          </span>
-        </div>
-        <div class="form-field edit requiredField" data-bind="'visible':StatusData.DisplayMode() == 'edit' &amp;&amp; StatusData.IsNameVisible()" data-test-id="f41d8289-b391-46c3-a523-dc1d8f751e44" data-entityfield="name-edit">
-          <span class="form-field-label-zone" data-bind="'visible':StatusData.DisplayMode() == 'edit' &amp;&amp; StatusData.IsNameVisible(), 'css' : { errorText : !CountryObject().StatusData.isNameValid() }" data-test-id="label_f41d8289-b391-46c3-a523-dc1d8f751e44">
-            <label class="form-field-label">Name</label>
-          </span>
-          <span class="form-field-control-container" data-bind="'enable' : !StatusData.IsNameReadOnly(), 'css' : { errorControl : !CountryObject().StatusData.isNameValid() }">
-            <div class="text-field">
-              <input class="form-field-text" data-bind="value: CountryObject().Data.Name, 'enable' : !StatusData.IsNameReadOnly(), 'css' : { 'errorControl' : !CountryObject().StatusData.isNameValid() }" type="text" data-test-id="edit_f41d8289-b391-46c3-a523-dc1d8f751e44" />
-              <span class="errorDescription" data-bind="'visible' : !CountryObject().StatusData.isNameValid(), text : CountryObject().StatusData.nameErrorMessage"></span>
-            </div>
-          </span>
-        </div>
         <div class="form-field view optionalField" data-bind="'visible':StatusData.DisplayMode() == 'view' &amp;&amp; StatusData.IsLongNameVisible()" data-test-id="cd92a6ad-1a90-4206-b1a5-11c6ed536211" data-entityfield="longname-view">
           <span class="form-field-label-zone" data-bind="'visible':StatusData.DisplayMode() == 'view' &amp;&amp; StatusData.IsLongNameVisible(), 'css' : { errorText : !CountryObject().StatusData.isLongNameValid() }" data-test-id="label_cd92a6ad-1a90-4206-b1a5-11c6ed536211">
             <label class="form-field-label">Long Name</label>
@@ -160,23 +139,7 @@
       </ul>
     </div>
     <div style="margin-top:20px;" id="CountryFormControlCommands" data-bind="visible: !StatusData.IsBusy() &amp;&amp;  StatusData.IsEnabled()">
-      <ul class="nav nav-pills">
-        <li class="horizontalList">
-          <button data-placeholder="commandButtonZone" data-bind="'click': Commands.CreateNewCommand, 'visible': Commands.IsCreateNewCommandVisible(), 'enable': Commands.IsCreateNewCommandEnabled(), 'css' : { 'command-button' : Commands.IsCreateNewCommandEnabled(), 'command-button-disabled' : !Commands.IsCreateNewCommandEnabled() }" data-test-id="c5ef4be6-c028-4d5c-8c99-f03ab861eb06">New</button>
-        </li>
-        <li class="horizontalList">
-          <button data-placeholder="commandButtonZone" data-bind="'click': Commands.EditCommand, 'visible': Commands.IsEditCommandVisible(), 'enable': Commands.IsEditCommandEnabled(), 'css' : { 'command-button' : Commands.IsEditCommandEnabled(), 'command-button-disabled' : !Commands.IsEditCommandEnabled() }" data-test-id="9ab9c273-1de2-4aa4-b0e8-48bc2f818913">Modify</button>
-        </li>
-        <li class="horizontalList">
-          <button data-placeholder="commandButtonZone" data-bind="'click': Commands.DeleteCommand, 'visible': Commands.IsDeleteCommandVisible(), 'enable': Commands.IsDeleteCommandEnabled(), 'css' : { 'command-button' : Commands.IsDeleteCommandEnabled(), 'command-button-disabled' : !Commands.IsDeleteCommandEnabled() }" data-test-id="d74b8f4a-c02e-4f42-bdce-5e142fb57107">Delete</button>
-        </li>
-        <li class="horizontalList">
-          <button data-placeholder="commandButtonZone" data-bind="'click': Commands.SaveCommand, 'visible': Commands.IsSaveCommandVisible(), 'enable': Commands.IsSaveCommandEnabled(), 'css' : { 'command-button' : Commands.IsSaveCommandEnabled(), 'command-button-disabled' : !Commands.IsSaveCommandEnabled() }" data-test-id="e9f69b40-3c9e-4dd1-a342-2460784dc1ae">Save</button>
-        </li>
-        <li class="horizontalList">
-          <button data-placeholder="commandButtonZone" data-bind="'click': Commands.CancelEditCommand, 'visible': Commands.IsCancelEditCommandVisible(), 'enable': Commands.IsCancelEditCommandEnabled(), 'css' : { 'command-button' : Commands.IsCancelEditCommandEnabled(), 'command-button-disabled' : !Commands.IsCancelEditCommandEnabled() }" data-test-id="ba435063-476a-49a7-a187-c1843dd4fa4c">Cancel</button>
-        </li>
-      </ul>
+      <ul class="nav nav-pills" />
     </div>
   </div>
 </div>

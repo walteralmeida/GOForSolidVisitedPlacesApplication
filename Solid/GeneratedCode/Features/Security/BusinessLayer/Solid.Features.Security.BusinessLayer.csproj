@@ -64,15 +64,6 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="GOFileUploaderSecurityExtension.cs">
-      <GeneratedBy>Fenomen</GeneratedBy>
-    </Compile>
-    <Compile Include="GOReportsHelperSecurityExtension.cs">
-      <GeneratedBy>Fenomen</GeneratedBy>
-    </Compile>
-    <Compile Include="GOSecurityProviderSecurityExtension.cs">
-      <GeneratedBy>Fenomen</GeneratedBy>
-    </Compile>
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\..\..\BusinessLayer\Solid.BusinessLayer.ORMSupportClasses.csproj">
@@ -113,4 +104,15 @@
     <PostBuildEvent>
     </PostBuildEvent>
   </PropertyGroup>
+  <ItemGroup>
+    <Compile Include="GOFileUploaderSecurityExtension.cs">
+      <GeneratedBy>Fenomen</GeneratedBy>
+    </Compile>
+    <Compile Include="GOReportsHelperSecurityExtension.cs">
+      <GeneratedBy>Fenomen</GeneratedBy>
+    </Compile>
+    <Compile Include="GOSecurityProviderSecurityExtension.cs">
+      <GeneratedBy>Fenomen</GeneratedBy>
+    </Compile>
+  </ItemGroup>
 </Project>

@@ -35,27 +35,6 @@
             </div>
           </span>
         </div>
-        <div class="form-field view requiredField" data-bind="'visible':{DATABINDROOT}StatusData.DisplayMode() == 'view' &amp;&amp; {DATABINDROOT}StatusData.IsNameVisible()" data-test-id="f41d8289-b391-46c3-a523-dc1d8f751e44" data-entityfield="name-view">
-          <span class="form-field-label-zone" data-bind="'visible':{DATABINDROOT}StatusData.DisplayMode() == 'view' &amp;&amp; {DATABINDROOT}StatusData.IsNameVisible(), 'css' : { errorText : !{DATABINDROOT}CountryObject().StatusData.isNameValid() }" data-test-id="label_f41d8289-b391-46c3-a523-dc1d8f751e44">
-            <label class="form-field-label">Name</label>
-          </span>
-          <span class="form-field-control-container" data-bind="'css' : { errorControl : !{DATABINDROOT}CountryObject().StatusData.isNameValid() }">
-            <div class="text-field">
-              <span class="form-field-text" data-bind="text: {DATABINDROOT}CountryObject().Data.Name, 'css' : { 'errorControl' : !{DATABINDROOT}CountryObject().StatusData.isNameValid() }" data-test-id="view_f41d8289-b391-46c3-a523-dc1d8f751e44" />
-            </div>
-          </span>
-        </div>
-        <div class="form-field edit requiredField" data-bind="'visible':{DATABINDROOT}StatusData.DisplayMode() == 'edit' &amp;&amp; {DATABINDROOT}StatusData.IsNameVisible()" data-test-id="f41d8289-b391-46c3-a523-dc1d8f751e44" data-entityfield="name-edit">
-          <span class="form-field-label-zone" data-bind="'visible':{DATABINDROOT}StatusData.DisplayMode() == 'edit' &amp;&amp; {DATABINDROOT}StatusData.IsNameVisible(), 'css' : { errorText : !{DATABINDROOT}CountryObject().StatusData.isNameValid() }" data-test-id="label_f41d8289-b391-46c3-a523-dc1d8f751e44">
-            <label class="form-field-label">Name</label>
-          </span>
-          <span class="form-field-control-container" data-bind="'enable' : !{DATABINDROOT}StatusData.IsNameReadOnly(), 'css' : { errorControl : !{DATABINDROOT}CountryObject().StatusData.isNameValid() }">
-            <div class="text-field">
-              <input class="form-field-text" data-bind="value: {DATABINDROOT}CountryObject().Data.Name, 'enable' : !{DATABINDROOT}StatusData.IsNameReadOnly(), 'css' : { 'errorControl' : !{DATABINDROOT}CountryObject().StatusData.isNameValid() }" type="text" data-test-id="edit_f41d8289-b391-46c3-a523-dc1d8f751e44" />
-              <span class="errorDescription" data-bind="'visible' : !{DATABINDROOT}CountryObject().StatusData.isNameValid(), text : {DATABINDROOT}CountryObject().StatusData.nameErrorMessage"></span>
-            </div>
-          </span>
-        </div>
         <div class="form-field view optionalField" data-bind="'visible':{DATABINDROOT}StatusData.DisplayMode() == 'view' &amp;&amp; {DATABINDROOT}StatusData.IsLongNameVisible()" data-test-id="cd92a6ad-1a90-4206-b1a5-11c6ed536211" data-entityfield="longname-view">
           <span class="form-field-label-zone" data-bind="'visible':{DATABINDROOT}StatusData.DisplayMode() == 'view' &amp;&amp; {DATABINDROOT}StatusData.IsLongNameVisible(), 'css' : { errorText : !{DATABINDROOT}CountryObject().StatusData.isLongNameValid() }" data-test-id="label_cd92a6ad-1a90-4206-b1a5-11c6ed536211">
             <label class="form-field-label">Long Name</label>

@@ -63,6 +63,51 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\..\..\BusinessLayer\Solid.BusinessLayer.ORMSupportClasses.csproj">
+      <Project>{70E37A60-34C4-4282-ABCC-76C6EE28B92A}</Project>
+      <Name>Solid.BusinessLayer.ORMSupportClasses</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\..\DataLayer\Solid.Data.DataObjects.csproj">
+      <Project>{627B81F1-9A5E-4CAB-B153-EDC596BA83F0}</Project>
+      <Name>Solid.Data.DataObjects</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\..\DataLayer\Solid.Data.csproj">
+      <Project>{F6727353-2D14-4915-A97E-C1AF2787AE5C}</Project>
+      <Name>Solid.Data</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Common\Solid.Features.Security.Common.csproj">
+      <Project>{87F91005-7D93-40D4-8759-A41BBCDCAED1}</Project>
+      <Name>Solid.Features.Security.Common</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\..\DataLayerDataProviders\Solid.Data.DataProviders.csproj">
+      <Project>{37911B71-59AF-42D6-8DC5-816487D0DC4E}</Project>
+      <Name>Solid.Data.DataProviders</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+  <ProjectExtensions>
+    <VisualStudio>
+      <FlavorProperties GUID="{3D9AD99F-2412-4246-B90B-4EAA41C64699}">
+        <WcfProjectProperties>
+          <AutoStart>True</AutoStart>
+        </WcfProjectProperties>
+      </FlavorProperties>
+    </VisualStudio>
+  </ProjectExtensions>
+  <PropertyGroup>
+    <PostBuildEvent>
+    </PostBuildEvent>
+  </PropertyGroup>
+  <ItemGroup>
     <Compile Include="Authorizations.cs">
       <GeneratedBy>Fenomen</GeneratedBy>
     </Compile>
@@ -190,47 +235,4 @@
       <GeneratedBy>Fenomen</GeneratedBy>
     </Compile>
   </ItemGroup>
-  <ItemGroup>
-    <ProjectReference Include="..\..\..\BusinessLayer\Solid.BusinessLayer.ORMSupportClasses.csproj">
-      <Project>{70E37A60-34C4-4282-ABCC-76C6EE28B92A}</Project>
-      <Name>Solid.BusinessLayer.ORMSupportClasses</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\..\..\DataLayer\Solid.Data.DataObjects.csproj">
-      <Project>{627B81F1-9A5E-4CAB-B153-EDC596BA83F0}</Project>
-      <Name>Solid.Data.DataObjects</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\..\..\DataLayer\Solid.Data.csproj">
-      <Project>{F6727353-2D14-4915-A97E-C1AF2787AE5C}</Project>
-      <Name>Solid.Data</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\Common\Solid.Features.Security.Common.csproj">
-      <Project>{87F91005-7D93-40D4-8759-A41BBCDCAED1}</Project>
-      <Name>Solid.Features.Security.Common</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\..\..\DataLayerDataProviders\Solid.Data.DataProviders.csproj">
-      <Project>{37911B71-59AF-42D6-8DC5-816487D0DC4E}</Project>
-      <Name>Solid.Data.DataProviders</Name>
-    </ProjectReference>
-  </ItemGroup>
-  <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
-  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
-       Other similar extension points exist, see Microsoft.Common.targets.
-  <Target Name="BeforeBuild">
-  </Target>
-  <Target Name="AfterBuild">
-  </Target>
-  -->
-  <ProjectExtensions>
-    <VisualStudio>
-      <FlavorProperties GUID="{3D9AD99F-2412-4246-B90B-4EAA41C64699}">
-        <WcfProjectProperties>
-          <AutoStart>True</AutoStart>
-        </WcfProjectProperties>
-      </FlavorProperties>
-    </VisualStudio>
-  </ProjectExtensions>
-  <PropertyGroup>
-    <PostBuildEvent>
-    </PostBuildEvent>
-  </PropertyGroup>
 </Project>

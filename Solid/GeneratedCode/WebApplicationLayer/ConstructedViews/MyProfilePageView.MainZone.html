@@ -214,13 +214,7 @@
     <div style="margin-top:20px;" id="UserProfileFormControlCommands" data-bind="visible: !StatusData.IsBusy() &amp;&amp;  StatusData.IsEnabled()">
       <ul class="nav nav-pills">
         <li class="horizontalList">
-          <button data-placeholder="commandButtonZone" data-bind="'click': Commands.CreateNewCommand, 'visible': Commands.IsCreateNewCommandVisible(), 'enable': Commands.IsCreateNewCommandEnabled(), 'css' : { 'command-button' : Commands.IsCreateNewCommandEnabled(), 'command-button-disabled' : !Commands.IsCreateNewCommandEnabled() }" data-test-id="77920458-04e3-4528-b43b-03f1bf341596">New</button>
-        </li>
-        <li class="horizontalList">
           <button data-placeholder="commandButtonZone" data-bind="'click': Commands.EditCommand, 'visible': Commands.IsEditCommandVisible(), 'enable': Commands.IsEditCommandEnabled(), 'css' : { 'command-button' : Commands.IsEditCommandEnabled(), 'command-button-disabled' : !Commands.IsEditCommandEnabled() }" data-test-id="90f03e8b-243a-4239-936b-0d7165c871fe">Modify</button>
-        </li>
-        <li class="horizontalList">
-          <button data-placeholder="commandButtonZone" data-bind="'click': Commands.DeleteCommand, 'visible': Commands.IsDeleteCommandVisible(), 'enable': Commands.IsDeleteCommandEnabled(), 'css' : { 'command-button' : Commands.IsDeleteCommandEnabled(), 'command-button-disabled' : !Commands.IsDeleteCommandEnabled() }" data-test-id="96922fa6-0d6f-42d6-a627-34490866bdb7">Delete</button>
         </li>
         <li class="horizontalList">
           <button data-placeholder="commandButtonZone" data-bind="'click': Commands.SaveCommand, 'visible': Commands.IsSaveCommandVisible(), 'enable': Commands.IsSaveCommandEnabled(), 'css' : { 'command-button' : Commands.IsSaveCommandEnabled(), 'command-button-disabled' : !Commands.IsSaveCommandEnabled() }" data-test-id="7c0c8ec8-c2c8-41d6-8d5c-c239b76f3756">Save</button>

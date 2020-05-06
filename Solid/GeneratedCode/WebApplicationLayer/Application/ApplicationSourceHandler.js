@@ -81,7 +81,6 @@
 					"/Model/DataSets/LocationDataSet.js", 
 					"/ViewModels/Place/PlaceFormViewModel.js", 
 					"/ViewModels/PlaceToLocation/PlaceToLocationGridViewModel.js", 
-					"/ViewModels/PlaceToLocation/Filters/PlaceToLocationFilterViewModel.js", 
 					"/Controllers/PlacePageController.js" 
 				], 
 				"UsersPage-Page": [
@@ -141,8 +140,7 @@
 					"/Model/DataObjectValidators/LocationObjectValidator.js", 
 					"/Model/DataSets/LocationDataSet.js", 
 					"/ViewModels/Place/PlaceFormViewModel.js", 
-					"/ViewModels/PlaceToLocation/PlaceToLocationGridViewModel.js", 
-					"/ViewModels/PlaceToLocation/Filters/PlaceToLocationFilterViewModel.js" 
+					"/ViewModels/PlaceToLocation/PlaceToLocationGridViewModel.js" 
 				], 
 				"PlaceToLocationForm-Form": [
 					"/Model/DataObjects/PlaceToLocationObject.js", 

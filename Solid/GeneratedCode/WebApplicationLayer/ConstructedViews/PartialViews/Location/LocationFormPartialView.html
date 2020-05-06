@@ -15,27 +15,6 @@
     <div class="blocking-element ui-widget-overlay"></div>
     <div>
       <div class="basicForm" data-placeholder="formFieldsZone">
-        <div class="form-field view requiredField" data-bind="'visible':StatusData.DisplayMode() == 'view' &amp;&amp; StatusData.IsNameVisible()" data-test-id="ebfe6ff4-d791-4b10-8e1a-66604f092a6a" data-entityfield="name-view">
-          <span class="form-field-label-zone" data-bind="'visible':StatusData.DisplayMode() == 'view' &amp;&amp; StatusData.IsNameVisible(), 'css' : { errorText : !LocationObject().StatusData.isNameValid() }" data-test-id="label_ebfe6ff4-d791-4b10-8e1a-66604f092a6a">
-            <label class="form-field-label">Name</label>
-          </span>
-          <span class="form-field-control-container" data-bind="'css' : { errorControl : !LocationObject().StatusData.isNameValid() }">
-            <div class="text-field">
-              <span class="form-field-text" data-bind="text: LocationObject().Data.Name, 'css' : { 'errorControl' : !LocationObject().StatusData.isNameValid() }" data-test-id="view_ebfe6ff4-d791-4b10-8e1a-66604f092a6a" />
-            </div>
-          </span>
-        </div>
-        <div class="form-field edit requiredField" data-bind="'visible':StatusData.DisplayMode() == 'edit' &amp;&amp; StatusData.IsNameVisible()" data-test-id="ebfe6ff4-d791-4b10-8e1a-66604f092a6a" data-entityfield="name-edit">
-          <span class="form-field-label-zone" data-bind="'visible':StatusData.DisplayMode() == 'edit' &amp;&amp; StatusData.IsNameVisible(), 'css' : { errorText : !LocationObject().StatusData.isNameValid() }" data-test-id="label_ebfe6ff4-d791-4b10-8e1a-66604f092a6a">
-            <label class="form-field-label">Name</label>
-          </span>
-          <span class="form-field-control-container" data-bind="'enable' : !StatusData.IsNameReadOnly(), 'css' : { errorControl : !LocationObject().StatusData.isNameValid() }">
-            <div class="text-field">
-              <input class="form-field-text" data-bind="value: LocationObject().Data.Name, 'enable' : !StatusData.IsNameReadOnly(), 'css' : { 'errorControl' : !LocationObject().StatusData.isNameValid() }" type="text" data-test-id="edit_ebfe6ff4-d791-4b10-8e1a-66604f092a6a" />
-              <span class="errorDescription" data-bind="'visible' : !LocationObject().StatusData.isNameValid(), text : LocationObject().StatusData.nameErrorMessage"></span>
-            </div>
-          </span>
-        </div>
         <div class="form-field view" data-bind="'visible':StatusData.DisplayMode() == 'view' &amp;&amp; StatusData.IsURILinkVisible()" data-test-id="2b0b3ec7-5f22-4089-9618-97389dd20a19" data-entityfield="urilink-view">
           <span class="form-field-label-zone" data-bind="'visible':StatusData.DisplayMode() == 'view' &amp;&amp; StatusData.IsURILinkVisible()" data-test-id="label_2b0b3ec7-5f22-4089-9618-97389dd20a19">
             <label class="form-field-label">URI</label>

@@ -57,12 +57,6 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="AuthenticationApiExtension.cs">
-      <GeneratedBy>Fenomen</GeneratedBy>
-    </Compile>
-    <Compile Include="IAuthenticationApiExtension.cs">
-      <GeneratedBy>Fenomen</GeneratedBy>
-    </Compile>
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\..\..\BusinessLayer\Solid.BusinessLayer.ORMSupportClasses.csproj">
@@ -91,4 +85,12 @@
     <PostBuildEvent>
     </PostBuildEvent>
   </PropertyGroup>
+  <ItemGroup>
+    <Compile Include="AuthenticationApiExtension.cs">
+      <GeneratedBy>Fenomen</GeneratedBy>
+    </Compile>
+    <Compile Include="IAuthenticationApiExtension.cs">
+      <GeneratedBy>Fenomen</GeneratedBy>
+    </Compile>
+  </ItemGroup>
 </Project>

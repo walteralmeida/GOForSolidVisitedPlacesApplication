@@ -61,10 +61,6 @@
 					self.LocationViewModel.LoadLocation(objectToLoad);	
 				}
 			}
-			else {
-					self.LocationViewModel.CreateNew();
-			}
-				
 	
 			// Call custom initialize if defined
 			if (self.customController !== undefined && self.customController.initialize !== undefined) {
