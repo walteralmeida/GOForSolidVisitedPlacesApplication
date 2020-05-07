@@ -286,6 +286,10 @@
 				ApplicationController.centerPopup();
         };
 
+		this.getUserProfile_UriValue = function (data) {
+			return data.getUserProfile() === null ? null : data.getUserProfile().Data.Uri();
+		};
+
 		this.getUserProfile_NameValue = function (data) {
 			return data.getUserProfile() === null ? null : data.getUserProfile().Data.Name();
 		};

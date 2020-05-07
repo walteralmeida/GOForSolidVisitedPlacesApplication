@@ -23,11 +23,13 @@
             <table data-placeholder="gridTable" class="data-grid">
               <thead class="gridControl">
                 <tr>
+                  <th scope="col" data-bind="html: 'User Uri'" class="ui-grid-header-container pointer"></th>
                   <th scope="col" data-bind="html: 'User'" class="ui-grid-header-container pointer"></th>
                 </tr>
               </thead>
               <tbody data-bind="foreach: {DATABINDROOT}GOUserObjectCollection()">
                 <tr class="pointer" data-bind="attr: {'data-id': Data.InternalObjectId}, click: {PARENTDATABINDROOT}onLineClicked, event: {dblclick: {PARENTDATABINDROOT}onLineDblClicked}, css: {'currenttr': {PARENTDATABINDROOT}selectedId() == Data.InternalObjectId()}">
+                  <td data-bind="html: $parent.{DATABINDROOT}getUserProfile_UriValue($data)" class=" multiline"></td>
                   <td data-bind="html: $parent.{DATABINDROOT}getUserProfile_NameValue($data)" class=" multiline"></td>
                 </tr>
               </tbody>

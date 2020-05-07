@@ -185,6 +185,14 @@
 			return false;
         });
 
+		this.StatusData.IsHTMLField_fa9cdc897c5640c2bd85592d78dcf5ad_Visible = ko.pureComputed( function () {
+			if (self.customViewModel !== undefined && self.customViewModel.IsHTMLField_fa9cdc897c5640c2bd85592d78dcf5ad_Visible !== undefined) {
+				return self.customViewModel.IsHTMLField_fa9cdc897c5640c2bd85592d78dcf5ad_Visible();
+			}
+			
+			return true;
+		});
+
 		// Form events data
 		this.Events = {
             VisitedPlaceLoaded: ko.observable(false),

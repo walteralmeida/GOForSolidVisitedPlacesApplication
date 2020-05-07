@@ -31,8 +31,9 @@ using GenerativeObjects.Practices.LayerSupportClasses.ServiceLayer;
 using GenerativeObjects.Practices.LayerSupportClasses.Features.Threading;
 using GenerativeObjects.Practices.LayerSupportClasses.ServiceLayer.Http;
 using Solid.Data.DataProviders.Custom;
+ 
 using System.IO;
-using NLog;
+using NLog; 
 
 namespace Solid.BusinessLayer.Components.Server
 {

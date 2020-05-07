@@ -290,6 +290,10 @@
 			return data.getUserProfile() === null ? null : data.getUserProfile().Data.Name();
 		};
 
+		this.getUserProfile_UriValue = function (data) {
+			return data.getUserProfile() === null ? null : data.getUserProfile().Data.Uri();
+		};
+
 
 		this.selectedId = ko.observable(null);
 		this.sortingOptions = ko.observable(self.oSort);
