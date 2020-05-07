@@ -23,6 +23,7 @@
             <table data-placeholder="gridTable" class="data-grid">
               <thead class="gridControl">
                 <tr>
+                  <th scope="col" data-bind="html: 'Visitor Uri'" class="ui-grid-header-container pointer"></th>
                   <th scope="col" data-bind="html: 'Visitor'" class="ui-grid-header-container pointer"></th>
                   <th scope="col" data-bind="html: 'Date'" class="ui-grid-header-container pointer"></th>
                   <th scope="col" data-bind="html: 'Description'" class="ui-grid-header-container pointer"></th>
@@ -30,6 +31,9 @@
               </thead>
               <tbody data-bind="foreach: {DATABINDROOT}VisitedPlaceObjectCollection()">
                 <tr class="pointer" data-bind="attr: {'data-id': Data.InternalObjectId}, click: {PARENTDATABINDROOT}onLineClicked, event: {dblclick: {PARENTDATABINDROOT}onLineDblClicked}, css: {'currenttr': {PARENTDATABINDROOT}selectedId() == Data.InternalObjectId()}">
+                  <td data-bind="jqStopBubble: 'a'">
+                    <a data-bind="attr: { href: '#!' + ApplicationController.getRootHashTag('UserProfile') + 'Users/UserProfile/' + $parent.{DATABINDROOT}getUserProfilePKValuesForUserProfile($data), title: $parent.{DATABINDROOT}getUserProfile_UriValue($data) }, html: $parent.{DATABINDROOT}getUserProfile_UriValue($data)"></a>
+                  </td>
                   <td data-bind="jqStopBubble: 'a'">
                     <a data-bind="attr: { href: '#!' + ApplicationController.getRootHashTag('UserProfile') + 'Users/UserProfile/' + $parent.{DATABINDROOT}getUserProfilePKValuesForUserProfile($data), title: $parent.{DATABINDROOT}getUserProfile_NameValue($data) }, html: $parent.{DATABINDROOT}getUserProfile_NameValue($data)"></a>
                   </td>

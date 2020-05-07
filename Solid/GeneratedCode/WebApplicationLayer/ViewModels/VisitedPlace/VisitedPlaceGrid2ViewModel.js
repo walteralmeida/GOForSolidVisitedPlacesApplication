@@ -290,6 +290,10 @@
 			return data.getUserProfile() === null ? null : data.getUserProfile().Data.Name();
 		};
 
+		this.getUserProfile_UriValue = function (data) {
+			return data.getUserProfile() === null ? null : data.getUserProfile().Data.Uri();
+		};
+
 		this.getUserProfilePKValuesForUserProfile = function (data) {
 			var uriValue = data.getUserProfile() === null ? null : data.getUserProfile().Data.Uri();
 			uriValue = GO.Encoding.UrlEncode(uriValue);

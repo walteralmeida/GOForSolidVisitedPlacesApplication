@@ -36,6 +36,28 @@
             </div>
           </span>
         </div>
+        <div data-bind="'visible':StatusData.DisplayMode() == 'view' &amp;&amp; StatusData.IsHTMLField_fa9cdc897c5640c2bd85592d78dcf5ad_Visible()" data-test-id="fa9cdc89-7c56-40c2-bd85-592d78dcf5ad" data-entityfield="field7-view">
+          <span>
+            <div>
+              <span class="formViewFieldControl multilineTextBox" data-test-id="view_fa9cdc89-7c56-40c2-bd85-592d78dcf5ad">
+                <p>
+                  <em>Type the first letters of a Place or Country and wait until it auto-completes (can take some seconds for places, as it is querying dbPedia)</em>
+                </p>
+              </span>
+            </div>
+          </span>
+        </div>
+        <div data-bind="'visible':StatusData.DisplayMode() == 'edit' &amp;&amp; StatusData.IsHTMLField_fa9cdc897c5640c2bd85592d78dcf5ad_Visible()" data-test-id="fa9cdc89-7c56-40c2-bd85-592d78dcf5ad" data-entityfield="field7-edit">
+          <span>
+            <div>
+              <span class="formViewFieldControl multilineTextBox" data-test-id="edit_fa9cdc89-7c56-40c2-bd85-592d78dcf5ad">
+                <p>
+                  <em>Type the first letters of a Place or Country and wait until it auto-completes (can take some seconds for places, as it is querying dbPedia)</em>
+                </p>
+              </span>
+            </div>
+          </span>
+        </div>
         <div class="form-field view optionalField" data-bind="'visible':StatusData.DisplayMode() == 'view' &amp;&amp; StatusData.IsCountryVisible()" data-test-id="8aebf247-3ce8-43f2-a4ff-c19562ef14c8" data-entityfield="country-view">
           <span class="form-field-label-zone" data-bind="'visible':StatusData.DisplayMode() == 'view' &amp;&amp; StatusData.IsCountryVisible(), 'css' : { errorText : !VisitedPlaceObject().StatusData.isCountryValid() }" data-test-id="label_8aebf247-3ce8-43f2-a4ff-c19562ef14c8">
             <label class="form-field-label">Country</label>
