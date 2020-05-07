@@ -71,8 +71,13 @@ namespace Solid.Data.DataProviders.Custom
 
                 foreach (var userName in userNames)
                 {
-                    var userfilter = $"UserProfileUri == \"{userName}\" && {filterPredicate}";
-                    count += DoCount(securityFilterExpression, userfilter, filterArguments, context, parameters);    
+                    try
+                    {
+                        var userfilter = $"UserProfileUri == \"{userName}\" && {filterPredicate}";
+                        count += DoCount(securityFilterExpression, userfilter, filterArguments, context, parameters);
+                    }
+                    catch(Exception e)
+                    { }
                 }
 
                 return count;
@@ -260,13 +265,18 @@ namespace Solid.Data.DataProviders.Custom
 
                 foreach (var userName in userNames)
                 {
-                    var userfilter = $"UserProfileUri == \"{userName}\" && {filterPredicate}";
-                    var subvisitedplaces = DoGetCollection(securityFilterExpression, userfilter, filterArguments, orderByPredicate, 0, 0, includes, context, parameters);
-
-                    foreach(var subvisitedplace in subvisitedplaces)
+                    try
                     {
-                        toReturn.Add(subvisitedplace);
+                        var userfilter = $"UserProfileUri == \"{userName}\" && {filterPredicate}";
+                        var subvisitedplaces = DoGetCollection(securityFilterExpression, userfilter, filterArguments, orderByPredicate, 0, 0, includes, context, parameters);
+
+                        foreach (var subvisitedplace in subvisitedplaces)
+                        {
+                            toReturn.Add(subvisitedplace);
+                        }
                     }
+                    catch (Exception e)
+                    { }
                 }
 
                 return toReturn;

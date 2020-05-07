@@ -97,9 +97,14 @@ namespace Solid.Data.DataProviders.Custom
 
                 foreach (var arg in filterArguments[0] as string[])
                 {
-                    var uri = arg;
-                    var country = DoGet(new CountryDataObject(uri), null, includes, context, parameters);
-                    countries.Add(country);
+                    try
+                    {
+                        var uri = arg;
+                        var country = DoGet(new CountryDataObject(uri), null, includes, context, parameters);
+                        countries.Add(country);
+                    }
+                    catch (Exception)
+                    { }
                 }
 
                 return countries;

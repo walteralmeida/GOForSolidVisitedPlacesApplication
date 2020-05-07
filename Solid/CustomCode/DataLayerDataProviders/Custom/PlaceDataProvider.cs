@@ -133,9 +133,14 @@ namespace Solid.Data.DataProviders.Custom
 
                 foreach(var arg in filterArguments[0] as string[])
                 {
-                    var uri = arg;
-                    var place = DoGet(new PlaceDataObject(uri), null, includes, context, parameters);
-                    places.Add(place);
+                    try
+                    {
+                        var uri = arg;
+                        var place = DoGet(new PlaceDataObject(uri), null, includes, context, parameters);
+                        places.Add(place);
+                    }
+                    catch (Exception)
+                    { }
                 }
 
                 return places;
