@@ -101,9 +101,17 @@ namespace Solid.Data.DataProviders.Custom
             foreach (var arg in filterArguments[0] as string[])
             {
                 var uri = arg;
-                var userprofile = DoGet(new UserProfileDataObject(uri), null, null, context, parameters);
 
-                result.Add(userprofile);
+                try
+                {
+                    var userprofile = DoGet(new UserProfileDataObject(uri), null, null, context, parameters);
+
+                    result.Add(userprofile);
+                }
+                catch (Exception)
+                {
+                }
+
             }
 
 
